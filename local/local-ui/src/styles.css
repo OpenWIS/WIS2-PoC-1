@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+html,
+body,
+material-app {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    -moz-margin-before: 0em;
+    -moz-margin-after: 0em;
+    -moz-margin-start: 0px;
+    -moz-margin-end: 0em;
+    -moz-padding-start: 0px;
+    margin: 0;
+}
+
