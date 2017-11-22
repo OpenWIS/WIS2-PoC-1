@@ -1,276 +1,258 @@
-<form novalidate [formGroup]="metadataForm" class="field-full-width">
-  <!-- class="ui-form" -->
+<div class="box">
+<div style="padding:2em;"> 
 
+  <form novalidate [formGroup]="metadataForm" class="field-full-width">
 
-  <!-- # Location Information -->
-  <mat-toolbar #componentToolbar class="header-small">
-    <p>Insert Location Information</p>
-    <span class="ui-spacer"></span>
-  </mat-toolbar>
+    <mat-toolbar #componentToolbar class="header-small">
+      <p>Insert Weather Metadata</p>
+      <span class="ui-spacer"></span>
+      <mat-icon class="ui-icon">backup</mat-icon>
+      <mat-icon class="ui-icon">donut_large</mat-icon>
+    </mat-toolbar>
 
-  <!-- Country:// drop down -->
+    <mat-tab-group>
+      <mat-tab label="Dataset Information">
+        <!--Dataset Information -->
 
-  <mat-form-field>
-    <mat-select #countrySelect placeholder="Country">
-      <mat-option *ngFor="let country of countries" [value]="country.value">
-        {{country.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-
-  <!-- State: // free text -->
-
-  <mat-form-field class="mat-form">
-    <input matInput placeholder="State" formControlName="state">
-  </mat-form-field>
-  <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('required')">
-    State is required
-  </div>
-  <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('minlength')">
-    Minimum of 2 characters
-  </div>
-  <p>
-
-    <!--  Divisions: // free text  -->
-
-    <mat-form-field class="mat-form">
-      <input matInput placeholder="Divisions" formControlName="divisions">
-    </mat-form-field>
-    <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('required')">
-      Divisions is a required field
-    </div>
-    <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('minlength')">
-      Minimum of 2 characters
-    </div>
-
-    <!-- Area Codes:// free text -->
-
-    <mat-form-field class="mat-form">
-      <input matInput placeholder="Area Codes" formControlName="areaCodes">
-    </mat-form-field>
-    <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('required')">
-      Area Codes is required field
-    </div>
-    <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('minlength')">
-      Minimum of 2 characters
-    </div>
-    <p>
-
-
-      <!-- Climate: //drop down -->
-      <mat-form-field>
-        <mat-select #climateSelect placeholder="Climate">
-          <mat-option *ngFor="let climate of climates" [value]="climate.value">
-            {{climate.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <p>
-
-
-        <!-- References: // free text    -->
+        <!-- Name: // free text  -->
         <mat-form-field class="mat-form">
-          <input matInput placeholder="References" formControlName="references">
+          <input matInput placeholder="Dataset Name" formControlName="datasetName">
         </mat-form-field>
-        <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
-          References are required
+        <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('required')">
+          Dataset Name is required
         </div>
-        <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
+        <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('minlength')">
+          Minimum of 2 characters
+        </div>
+        <p>
+          <!-- Description:// free text -->
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Description" formControlName="description">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
+            Description is required
+          </div>
+          <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('minlength')">
+            Minimum of 2 characters
+          </div>
+          <p>
+
+            <!-- From: //datepicker  -->
+            <mat-form-field>
+              <!-- <input matInput [matDatepickerFrom]="picker" placeholder="From  date:"> -->
+              <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :">
+              <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+              <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+
+
+            <!-- To:: //datepicker -->
+            <mat-form-field>
+              <input matInput [matDatepicker]="pickerTo" placeholder="Period To:">
+              <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+              <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+            <p>
+
+              <!-- TODO ADD time validation 
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" 
+                -->
+
+              <!-- License: // free text -->
+              <mat-form-field class="mat-form">
+                <input matInput placeholder="License" formControlName="license">
+              </mat-form-field>
+              <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('required')">
+                License is required
+              </div>
+              <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('minlength')">
+                Minimum of 2 characters
+              </div>
+              <p>
+
+                <!-- Measurement Types:// ADD SECTION -->
+
+                Measurement Types:
+                <!-- selection list of Available Reading Types-->
+                <div style="width:100%;float:left; display:block;">
+                  <mat-selection-list #readingTypesAvl class="field-div3-width">
+                    <h3 matSubheader>Available Measurement Types</h3>
+                    <mat-list-option *ngFor="let readingType of readingTypes">
+                      {{readingType.label}}
+                    </mat-list-option>
+                  </mat-selection-list>
+
+
+                  <!-- button -->
+                  <div class="field-div3-width">
+                    <button mat-raised-button (click)="addSelected()">
+                      << </button>
+                        <button mat-raised-button (click)="setTest()"> >> </button>
+                  </div>
+                  <!-- selection list of selected Reading Types-->
+
+                  <mat-selection-list #readingTpSel class="field-div3-width">
+                    <h3 matSubheader>Selected Reading Types</h3>
+                    <div *ngIf="readingTypesSel?.length > 0"></div>
+
+                    <!-- <div *ngIf="readingTypes?.length > 0" ></div> -->
+
+                    <mat-list-option *ngFor="let readingType of readingTypesSel">
+                      {{readingType.label}}
+                    </mat-list-option>
+                  </mat-selection-list>
+                </div>
+                <br/>
+                <!-- Stations: // free text -- removed
+              <mat-form-field class="mat-form">
+                <input matInput placeholder="Stations" formControlName="stations">
+              </mat-form-field>
+              <p>-->
+
+                <!-- Dataset Image: <FIle upload> -->
+
+                <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
+                <p>
+                  <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
+                  <p>
+
+
+
+      </mat-tab>
+
+      <mat-tab label="Location Information">
+
+        <!-- Country:// drop down -->
+
+        <mat-form-field>
+          <mat-select #countrySelect placeholder="Country">
+            <mat-option *ngFor="let country of countries" [value]="country.value">
+              {{country.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <!-- State: // free text -->
+
+        <mat-form-field class="mat-form">
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+        <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('required')">
+          State is required
+        </div>
+        <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('minlength')">
           Minimum of 2 characters
         </div>
         <p>
 
-          <!--Dataset Information -->
-          <mat-toolbar #componentToolbar1 class="header-small">
-            <p>Dataset Information</p>
-            <span class="ui-spacer"></span>
-          </mat-toolbar>
+          <!--  Divisions: // free text  -->
 
-          <!-- Name: // free text  -->
           <mat-form-field class="mat-form">
-            <input matInput placeholder="Dataset Name" formControlName="datasetName">
+            <input matInput placeholder="Divisions" formControlName="divisions">
           </mat-form-field>
-          <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('required')">
-            Dataset Name is required
+          <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('required')">
+            Divisions is a required field
           </div>
-          <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('minlength')">
+          <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('minlength')">
+            Minimum of 2 characters
+          </div>
+
+          <!-- Area Codes:// free text -->
+
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Area Codes" formControlName="areaCodes">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('required')">
+            Area Codes is required field
+          </div>
+          <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('minlength')">
             Minimum of 2 characters
           </div>
           <p>
-            <!-- Description:// free text -->
-            <mat-form-field class="mat-form">
-              <input matInput placeholder="Description" formControlName="description">
+
+
+            <!-- Climate: //drop down -->
+            <mat-form-field>
+              <mat-select #climateSelect placeholder="Climate">
+                <mat-option *ngFor="let climate of climates" [value]="climate.value">
+                  {{climate.viewValue}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
-            <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
-              Description is required
-            </div>
-            <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('minlength')">
-              Minimum of 2 characters
-            </div>
             <p>
 
 
-              <!-- From: //datepicker  -->
-              <mat-form-field>
-                <!-- <input matInput [matDatepickerFrom]="picker" placeholder="From  date:"> -->
-                <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :">
-                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-                <mat-datepicker #pickerFrom></mat-datepicker>
+              <!-- References: // free text    -->
+              <mat-form-field class="mat-form">
+                <input matInput placeholder="References" formControlName="references">
               </mat-form-field>
-
-
-              <!-- To:: //datepicker -->
-              <mat-form-field>
-                <input matInput [matDatepicker]="pickerTo" placeholder="Period To:">
-                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-                <mat-datepicker #pickerTo></mat-datepicker>
-              </mat-form-field>
+              <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
+                References are required
+              </div>
+              <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
+                Minimum of 2 characters
+              </div>
               <p>
 
-                <!-- TODO ADD time validation 
-                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" 
-              -->
+      </mat-tab>
 
-                <!-- License: // free text -->
-                <mat-form-field class="mat-form">
-                  <input matInput placeholder="License" formControlName="license">
+
+      <mat-tab label="Distribution Information">
+
+
+        <!--# Distribution Information -->
+        <!-- <mat-toolbar #componentToolbar1 class="header-small">
+              <p> Distribution Information</p>
+              <span class="ui-spacer"></span>
+            </mat-toolbar> -->
+
+        <!--  Data Format: //drop down -->
+        <mat-form-field>
+          <mat-select #climateSelect placeholder="Data format">
+            <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value">
+              {{dataformat.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p>
+
+
+          <!-- Relative URL: /datasets/aisa-adala -->
+          <mat-form-field class="mat-form">
+            <input matInput placeholder=" Relative URL" formControlName="relativeUrl">
+          </mat-form-field>
+          <p>
+
+            <!-- Download Link -->
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Download Link" formControlName="downloadLink">
+            </mat-form-field>
+            <p>
+              <!-- AWS Queue -->
+              <mat-form-field class="mat-form">
+                <input matInput placeholder=" AWS Queue" formControlName="awsQueue">
+              </mat-form-field>
+              <p>
+                <!-- Json -ld input -->
+                <mat-form-field class="field-full-width">
+                  <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="20"
+                    class="field-full-width"></textarea>
                 </mat-form-field>
-                <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('required')">
-                  License is required
-                </div>
-                <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('minlength')">
-                  Minimum of 2 characters
-                </div>
                 <p>
+      </mat-tab>
+    </mat-tab-group>
 
-                  <!-- Reading Types:// ADD SECTION -->
+    <!-- submit -->
+    <span class="ui-spacer"></span>
+    <hr>
 
-                  Reading Types:
+    <button mat-button (click)="onSubmit(user)"> Submit form </button>
+    <button mat-button>Clear</button>
 
-                  <!-- selection list of Available Reading Types-->
-                  <div style="width:100%;float:left; display:block;">
-                    <mat-selection-list #readingTypesAvl class="field-div3-width">
-                      <h3 matSubheader>Available Reading Types</h3>
-                      <mat-list-option *ngFor="let readingType of readingTypes">
-                        {{readingType.label}}
-                      </mat-list-option>
-                    </mat-selection-list>
-
-
-                    <!-- button -->
-                    <div class="field-div3-width">
-                      <button mat-raised-button (click)="addSelected()" >
-                        << </button>
-                          <button mat-raised-button (click)="setTest()"> >> </button>
-                    </div>
-                    <!-- selection list of selected Reading Types-->
-
-
-                    <mat-selection-list #readingTpSel class="field-div3-width">
-                      <h3 matSubheader>Selected Reading Types</h3>
-                      <div *ngIf="readingTypesSel?.length > 0"></div>
-
-                      <!-- <div *ngIf="readingTypes?.length > 0" ></div> -->
-
-                      <mat-list-option *ngFor="let readingType of readingTypesSel">
-                        {{readingType.label}}
-                      </mat-list-option>
-                    </mat-selection-list>
-                  </div>
-
-
-
-                  <br/>
-                  <!-- Options selected: {{readingTypes.selectedOptions.selected.length}} -->
-
-                  <!-- Temperature, Humidity, Wind, Pressure, Sky Condition -->
-                  <!-- Wind speed(m/s);Temperature(Cel);SurfacePressure(hPa) -->
-
-
-                  <!-- <mat-form-field>
-                    <mat-select #climateSelect placeholder="Test BOX SECTION" >
-                      <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value">
-                        {{dataformat.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field> -->
-
-                  <!-- 
-                  Reading Types:// ADD SECTION
-                Temperature, Humidity, Wind, Pressure
-                  -->
-
-                  <!-- Stations: // free text -->
-
-                  <mat-form-field class="mat-form">
-                    <input matInput placeholder="Stations" formControlName="stations">
-                  </mat-form-field>
-                  <div class="error" *ngIf="metadataForm.get('stations').touched && metadataForm.get('stations').hasError('required')">
-                    Stations fied is required
-                  </div>
-                  <div class="error" *ngIf="metadataForm.get('stations').touched && metadataForm.get('stations').hasError('minlength')">
-                    Minimum of 2 characters
-                  </div>
-                  <p>
-                    
-                    
-                    <!-- Dataset Image: <FIle upload> -->
-                        
-                        <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
-                    </p>
-                        <input  mat-button  id="input-file-id" multiple type="file"  class="md-button md-raised md-primary"  />
-                      <p>
-
-                    <!--# Distribution Information -->
-                    <mat-toolbar #componentToolbar1 class="header-small">
-                      <p> Distribution Information</p>
-                      <span class="ui-spacer"></span>
-                    </mat-toolbar>
-
-                    <!--  Data Format: //drop down -->
-                    <mat-form-field>
-                      <mat-select #climateSelect placeholder="Data format">
-                        <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value">
-                          {{dataformat.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <p>
-
-
-                        <!-- Relative URL: /datasets/aisa-adala -->
-                        <mat-form-field class="mat-form">
-                            <input matInput placeholder=" Relative URL" formControlName="relativeUrl">
-                          </mat-form-field>
-                          <p>
-
-                      <!-- Download Link -->
-                      <mat-form-field class="mat-form">
-                        <input matInput placeholder="Download Link" formControlName="downloadLink">
-                      </mat-form-field>
-                      <p>
-                        <!-- AWS Queue -->
-                        <mat-form-field class="mat-form">
-                          <input matInput placeholder=" AWS Queue" formControlName="awsQueue">
-                        </mat-form-field>
-                        <p>
-                          <!-- Json -ld input -->
-                          <mat-form-field class="field-full-width">
-                            <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="20"
-                              class="field-full-width"></textarea>
-                          </mat-form-field>
-
-                          <p>
-
-
-
-                            <!-- submit -->
-                            <button mat-button (click)="onSubmit(user)"> Submit form </button>
-                            <button mat-button>Clear</button>
-</form>
-
-
+  </form>
+</div>
+</div>
 <!-- 
     TODO
     responsive adjustments: 
@@ -285,4 +267,3 @@ add fleX:
       <div fxFlex>test3<div>
    </div>
 -->
-

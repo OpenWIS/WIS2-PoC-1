@@ -15,15 +15,11 @@
   <mat-sidenav #sidenav mode="side" opened="true" class="nav">
     <ul>
 
-      <li>
-        <a href="#">Item 1</a>
-      </li>
-      <!-- <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li> -->
+      <!-- <li><a href="#">Item 1</a></li> -->
+      <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li>
 
-      <li>
-        <a href="#">Item 2</a>
-      </li>
-      <!-- <li class="nav-item"><a class="nav-link" routerLink="submit">Submit</a></li> -->
+      <!-- <li><a href="#">Item 2</a></li> -->
+      <li class="nav-item"><a class="nav-link" routerLink="submit">Submit</a></li>
 
       <li>
         <a href="#">Item 3</a>
@@ -36,29 +32,27 @@
         <a href="#">Item 5</a>
       </li>
     </ul>
+
   </mat-sidenav>
 
 
   <div class="main-content">
 
-    <div class="box">
-      <mat-toolbar #componentToolbar class="header-small">
-        <p>Insert Weather Metadata</p>
-        <span class="ui-spacer"></span>
-        <mat-icon class="ui-icon">backup</mat-icon>
-        <mat-icon class="ui-icon">donut_large</mat-icon>
-      </mat-toolbar>
-      <div style="padding:4em;">
+    <!-- na paei mesa sto component -->
+    
 
 
-        <!-- <router-outlet></router-outlet> -->
 
-        <app-submit-form></app-submit-form>
+  <router-outlet></router-outlet>
+        
 
-      </div>
-    </div>
+      <!-- Submit form -->
+      <!-- <app-submit-form></app-submit-form> -->
+      <!-- view form  -->
+      <!-- <app-datasets-main></app-datasets-main> -->
 
   </div>
+
 </mat-sidenav-container>
 
 

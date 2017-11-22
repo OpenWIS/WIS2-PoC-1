@@ -14,7 +14,6 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   
   @ViewChild('readingTpSel') private readingTpSel: ElementRef;
-  
 
   countries = [
   {value: 'mord', viewValue: 'Mordor'},
@@ -86,7 +85,7 @@ addSelected(){
       datasetName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       description: new FormControl('', [Validators.required, Validators.minLength(2)]),
       license: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      stations: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      // stations: new FormControl('', [Validators.required, Validators.minLength(2)]),
       relativeUrl: new FormControl('',  ),
       jsonLd: new FormControl('',  ) ,
       downloadLink: new FormControl('', []),
