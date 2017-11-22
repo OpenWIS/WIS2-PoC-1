@@ -27,3 +27,17 @@ ul, menu, dir {
     margin: 0;
 }
 
+
+field-full-width{
+    width: 100%;
+}
+
+
+.field-div3-width{
+    width: 30%;
+    float:left;
+}
+
+.filed-div-center{
+    align-content: center;
+}

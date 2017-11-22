@@ -14,14 +14,20 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened="true" class="nav">
     <ul>
+
       <li>
         <a href="#">Item 1</a>
       </li>
+      <!-- <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li> -->
+
       <li>
         <a href="#">Item 2</a>
       </li>
+      <!-- <li class="nav-item"><a class="nav-link" routerLink="submit">Submit</a></li> -->
+
       <li>
         <a href="#">Item 3</a>
+        <!-- <li class="nav-item"><a class="nav-link" routerLink="courses">Courses</a></li> -->
       </li>
       <li>
         <a href="#">Item 4</a>
@@ -37,13 +43,18 @@
 
     <div class="box">
       <mat-toolbar #componentToolbar class="header-small">
-        <p>Workspace</p>
+        <p>Insert Weather Metadata</p>
         <span class="ui-spacer"></span>
         <mat-icon class="ui-icon">backup</mat-icon>
         <mat-icon class="ui-icon">donut_large</mat-icon>
       </mat-toolbar>
-      <div style="padding:4em;font-size:3em;">
-        <p>Welcome to your workspace</p>
+      <div style="padding:4em;">
+
+
+        <!-- <router-outlet></router-outlet> -->
+
+        <app-submit-form></app-submit-form>
+
       </div>
     </div>
 
