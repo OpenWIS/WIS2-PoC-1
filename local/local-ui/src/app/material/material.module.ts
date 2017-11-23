@@ -2,21 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
-  MatSidenavModule,  MatListModule, MatIconModule, MatToolbarModule
+  MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule
   , MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule
-  ,MatTabsModule
+  , MatTabsModule, MatTableModule
 } from '@angular/material';
 
 // , MatCardModule, MatIconModule,
 // MatMenuModule, MatTooltipModule,
 //  MatSlideToggleModule, MatCheckboxModule,
 //  , MatSnackBarModule, 
-//  MatAutocompleteModule, MatRadioModule, MatSliderModule, MatTableModule, MatButtonToggleModule
+//  MatAutocompleteModule, MatRadioModule, MatSliderModule, , MatButtonToggleModule
 
 
 
 const MATERIAL_MODULES: any[] = [
-  MatSidenavModule,  MatListModule,MatIconModule, MatToolbarModule, MatInputModule, MatSelectModule,  MatDatepickerModule, MatNativeDateModule,MatButtonModule,MatTabsModule
+  MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatInputModule,
+  MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule,
+  MatTabsModule, MatTableModule
 ];
 
 // , MatCardModule, MatIconModule,
@@ -24,7 +26,6 @@ const MATERIAL_MODULES: any[] = [
 // MatSlideToggleModule, , MatCheckboxModule,
 // MatToolbarModule, MatSnackBarModule, MatSidenavModule,
 // MatButtonToggleModule, MatAutocompleteModule, MatRadioModule, MatSliderModule,
-// MatTableModule
 
 
 
@@ -34,6 +35,6 @@ const MATERIAL_MODULES: any[] = [
     MATERIAL_MODULES
   ],
   declarations: [],
-  exports:[MATERIAL_MODULES]
+  exports: [MATERIAL_MODULES]
 })
 export class MaterialModule { }

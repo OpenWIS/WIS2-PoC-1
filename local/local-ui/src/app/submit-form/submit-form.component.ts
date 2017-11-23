@@ -15,7 +15,7 @@ export class SubmitFormComponent implements OnInit {
   
   @ViewChild('readingTpSel') private readingTpSel: ElementRef;
 
-  countries = [
+countries = [
   {value: 'mord', viewValue: 'Mordor'},
   {value: 'gorg', viewValue: 'Gorgoroth'},
   {value: 'nurn', viewValue: 'Nurn'}

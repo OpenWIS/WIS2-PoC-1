@@ -1,3 +1,41 @@
-<p>
-  datasets-main works!
-</p>
+<div class="box">
+  <div style="padding:2em;">
+    <p>
+      Welcome to LDSH!
+    </p>
+    <span class="ui-spacer"></span>
+    Available Datasets:
+    <mat-table #table [dataSource]="dataSource">
+        
+ 
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+        
+            <!-- Weight Column -->
+            <ng-container matColumnDef="url">
+              <mat-header-cell *matHeaderCellDef> Url </mat-header-cell>
+              <!-- <mat-cell *matCellDef="let element"> {{element.url}} </mat-cell> -->
+              
+              <mat-cell *matCellDef="let element">
+                <!-- <a class="nav-link" routerLink="../submit">Submit</a> -->
+                <a class="nav-link" routerLink={{element.url}}>Open</a>
+              </mat-cell>
+
+            </ng-container>
+        
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+ </div>
+</div>
