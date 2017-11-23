@@ -23,17 +23,16 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="url">
         <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-        <!-- <mat-cell *matCellDef="let element"> {{element.url}} </mat-cell> -->
 
         <mat-cell *matCellDef="let element">
 
             
 
           <button mat-icon-button class="transparent">
-              <mat-icon class="ui-icon dark" aria-label="Edit">edit</mat-icon>  
+              <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditDataset()">edit</mat-icon>  
           </button>
           <button mat-icon-button class="transparent">
-              <mat-icon class="ui-icon dark" aria-label="View">pageview</mat-icon>  
+              <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewDataset()">pageview</mat-icon>  
           </button>
           <button mat-icon-button class="transparent">
               <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>  
