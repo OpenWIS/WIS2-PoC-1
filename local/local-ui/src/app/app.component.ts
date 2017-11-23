@@ -13,5 +13,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 export class AppComponent {
   title = 'app';
+
+  selectedMenuItem: any;
+  
+  clicked(object) {
+      this.selectedMenuItem = object;
+  }
 }
 

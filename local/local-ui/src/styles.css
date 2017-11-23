@@ -11,6 +11,16 @@ material-app {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 
+button{
+    color: #dedede !important;
+    background: #62757f !important;
+}
+
+button.transparent{
+    background: transparent!important;
+}
+
+
 ul, menu, dir {
     display: block;
     list-style-type: disc;
@@ -64,9 +74,17 @@ main-content {
     height: calc(100vh - 105px);
 }
 
+mat-icon{
+    vertical-align:text-bottom;
+}
+
 .ui-icon {
     padding: 0 14px;
 }
+
+.ui-icon.dark{
+    color: #62757f;
+} 
 
 .ui-spacer {
     flex: 1 1 auto;
@@ -77,7 +95,7 @@ mat-sidenav {
 }
 
 .mat-drawer {
-    background-color: #757575;
+    background-color: #62757f;
 }
 
 .box{
@@ -102,20 +120,37 @@ mat-sidenav li {
     list-style-type: none;
     margin: 0;
     color: #ffffff;
-    border-bottom: 1px dashed #bdbdbd;
     cursor: pointer;
+    
 }
 
 mat-sidenav li a {
-    color: #bdbdbd;
+    color: #dedede;
     text-decoration: none;
-    padding: 1em 0 1em 2em;
-    width: 11em;
+    padding: 1em 0 1em 0em;
+    width: 14em;
     display: inline-block;
+    border-bottom: 1px dashed #dedede;
 }
 
-mat-sidenav li:hover {
-    background: #ffffff;
+a.active {
+    background: #dedede;
+    color: #62757f;
+}
+
+mat-sidenav li a:hover {
+    color: #ffffff;
+    /* background: #dedede ; */
+}
+
+li a.active:hover{
+    background: #dedede;
+    color: #62757f;
+}
+
+mat-header-cell{
+    color: #2196F3 !important;
+    font-size: 1em !important;
 }
 
 .header {
@@ -131,6 +166,11 @@ mat-sidenav li:hover {
     margin-left: 1em;
     font-size: 1em;
     font-family: inherit;
+}
+
+.header-small{
+    color: #ffffff;
+    background: #90a4ae;
 }
 
 .mat-toolbar {}
@@ -151,7 +191,6 @@ mat-sidenav li:hover {
 }
 
 mat-sidenav-container {
-    //   margin-top:100px;
 }
 
 .mat-sidenav-content {

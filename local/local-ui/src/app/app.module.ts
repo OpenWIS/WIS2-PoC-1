@@ -10,8 +10,10 @@ import { routing } from './app.routes';
 
 import { AppComponent } from './app.component';
 import { DatasetsMainComponent } from './datasets-main/datasets-main.component';
+import { DatasetsAdminComponent } from './datasets-admin/datasets-admin.component';
 import { RDSHComponent } from './rdsh/rdsh.component';
 import {SettingsComponent} from './settings/settings.component';
+
 
 
 
@@ -19,6 +21,7 @@ import {SettingsComponent} from './settings/settings.component';
   declarations: [
     AppComponent,
     DatasetsMainComponent,
+    DatasetsAdminComponent,
     RDSHComponent,
     SettingsComponent
   ],
