@@ -1,26 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app.component';
 import { SubmitFormModule } from './submit-form/submit-form.module';
 import { MaterialModule } from './material/material.module';
-import { DatasetsMainComponent } from './datasets-main/datasets-main.component';
+
+
 import { routing } from './app.routes';
+
+import { AppComponent } from './app.component';
+import { DatasetsMainComponent } from './datasets-main/datasets-main.component';
+import { RDSHComponent } from './rdsh/rdsh.component';
+import {SettingsComponent} from './settings/settings.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DatasetsMainComponent
+    DatasetsMainComponent,
+    RDSHComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     SubmitFormModule,
+    ReactiveFormsModule,
     routing   
   ],
   
