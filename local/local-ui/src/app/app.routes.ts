@@ -12,7 +12,7 @@ import { SettingsComponent } from "./settings/settings.component";
 
 export const routerConfig: Routes = [
   {
-    path: "home",
+    path: "datasets",
     component: DatasetsAdminComponent
   },
   {

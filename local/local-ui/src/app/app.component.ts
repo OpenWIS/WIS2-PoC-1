@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     let currentUrl = this.router.url;
   }
   title = 'app';
-<<<<<<< HEAD
   showhideCondrols: boolean = false;
 
 
@@ -43,13 +42,15 @@ export class AppComponent implements OnInit {
     return this.showhideCondrols;
   }
 
-=======
 
   selectedMenuItem: any;
   
   clicked(object) {
       this.selectedMenuItem = object;
   }
->>>>>>> da16897bdbb122cf0f6a5fa4283e64bdcb289fac
+
+  navigateToMenu(){
+    this.router.navigateByUrl('/datasets');
+  }
 }
 
