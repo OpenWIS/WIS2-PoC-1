@@ -18,6 +18,22 @@ export class SubmitFormComponent implements OnInit {
   // @ViewChild('sidenav') private sidenav: MatSidenav;
    @ViewChild('datasetName') private text1: MatInput;
   
+   
+   dataSet = [
+    {id: '3231231',
+     name: 'Ath whether',
+     description:'',
+     dateFrom:'',
+     dateTo:'',
+     // ...
+     Country:'',
+     // ...
+     dataformat:'',
+    // ...
+    }
+  ];
+  
+
 
 countries = [
   {value: 'mord', viewValue: 'Mordor'},
@@ -95,7 +111,11 @@ addSelected(){
       awsQueue: new FormControl('', []),
 
     });
+
+    this.datasetName.value ="dimi ole";
     
+    
+
    // this.text1.value= "dimi ole";
    // this.description.value = "dimi 2  ok";
   }

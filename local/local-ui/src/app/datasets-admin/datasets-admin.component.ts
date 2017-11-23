@@ -23,7 +23,6 @@ export class DatasetsAdminComponent implements OnInit {
 export interface Element {
   name: string;
   description: string;
-  url:string;
 }
 
 

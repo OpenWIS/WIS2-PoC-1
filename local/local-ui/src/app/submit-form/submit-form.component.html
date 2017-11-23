@@ -16,8 +16,11 @@
 
         <!-- Name: // free text  -->
         <mat-form-field  class="mat-form">
-          <input matInput placeholder="Dataset Name" formControlName="datasetName">
+          <input matInput placeholder="Dataset Name" formControlName="datasetName" 
+          value={{dataSet.name}} >
         </mat-form-field>
+        {{dataSet.name}}
+
         <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('required')">
           Dataset Name is required
         </div>
