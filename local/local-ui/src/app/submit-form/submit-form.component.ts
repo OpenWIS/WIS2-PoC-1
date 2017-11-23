@@ -19,7 +19,7 @@ export class SubmitFormComponent implements OnInit {
    @ViewChild('datasetName') private text1: MatInput;
   
    
-   dataSet = [
+   dataSet = 
     {id: '3231231',
      name: 'Ath whether',
      description:'',
@@ -30,8 +30,7 @@ export class SubmitFormComponent implements OnInit {
      // ...
      dataformat:'',
     // ...
-    }
-  ];
+    };
   
 
 
@@ -101,7 +100,7 @@ addSelected(){
       divisions: new FormControl('', [Validators.required, Validators.minLength(2)]),
       areaCodes: new FormControl('', [Validators.required, Validators.minLength(2)]),
       references: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      datasetName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      datasetName: new FormControl(this.dataSet.name, [Validators.required, Validators.minLength(2)]),
       description: new FormControl('', [Validators.required, Validators.minLength(2)]),
       license: new FormControl('', [Validators.required, Validators.minLength(2)]),
       // stations: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -112,7 +111,7 @@ addSelected(){
 
     });
 
-    this.datasetName.value ="dimi ole";
+    // this.datasetName.value ="dimi ole";
     
     
 

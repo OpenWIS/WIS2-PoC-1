@@ -15,8 +15,6 @@ export class DatasetsMainComponent implements OnInit {
 
 
   ngOnInit() {
-
-
   }
   
   
@@ -31,7 +29,7 @@ export interface Element {
   const datasetList: Element[] = [
   {name: 'Athens rain', description:"Rain volume in Athens", url:"/submit"},
   {name: 'Thesaloniki wind', description:"Wind power in Thesaloniki", url:"/submit"},
-  {name: 'Mordor fire', description:"Fire volume in Mordor", url:"/submit"},
+  {name: 'Iraklio sun', description:"Sun strength in Iraklio", url:"/submit"},
 
 ];
 
