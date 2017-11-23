@@ -73,7 +73,6 @@ main-content {
 }
 
 mat-sidenav {
-    width: 200px;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 1px 4px 0 rgba(0, 0, 0, .14), 0 1px 4px 0 rgba(0, 0, 0, .12);
 }
 
@@ -102,16 +101,17 @@ footer {
 mat-sidenav li {
     list-style-type: none;
     margin: 0;
-    padding: 1em 0;
     color: #ffffff;
     border-bottom: 1px dashed #bdbdbd;
     cursor: pointer;
-    padding-left: 2em;
 }
 
 mat-sidenav li a {
     color: #bdbdbd;
     text-decoration: none;
+    padding: 1em 0 1em 2em;
+    width: 11em;
+    display: inline-block;
 }
 
 mat-sidenav li:hover {
