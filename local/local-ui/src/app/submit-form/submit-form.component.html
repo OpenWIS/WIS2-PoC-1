@@ -1,7 +1,7 @@
 <div class="box">
 <div style="padding:2em;"> 
 
-  <form novalidate [formGroup]="metadataForm" class="field-full-width">
+  <form novalidate [formGroup]="metadataForm" class="field-full-width" >
 
     <mat-toolbar #componentToolbar class="header-small">
       <p>Insert Weather Metadata</p>
@@ -11,16 +11,15 @@
     </mat-toolbar>
 
     <mat-tab-group>
+        
+
       <mat-tab label="Dataset Information">
         <!--Dataset Information -->
 
         <!-- Name: // free text  -->
         <mat-form-field  class="mat-form">
-          <input matInput placeholder="Dataset Name" formControlName="datasetName" >
+          <input matInput placeholder="Dataset Name" formControlName="datasetName"  [readonly]="!editMode" >
         </mat-form-field>
-
-          <!-- value={{dataSet.name}} > 
-          {{dataSet.name}} -->
 
         <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('required')">
           Dataset Name is required
@@ -31,7 +30,7 @@
         <p>
           <!-- Description:// free text -->
           <mat-form-field class="mat-form">
-            <input matInput placeholder="Description" formControlName="description">
+            <input matInput placeholder="Description" formControlName="description" [readonly]="!editMode">
           </mat-form-field>
           <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
             Description is required
@@ -44,7 +43,7 @@
             <!-- From: //datepicker  -->
             <mat-form-field>
               <!-- <input matInput [matDatepickerFrom]="picker" placeholder="From  date:"> -->
-              <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :">
+              <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :" [readonly]="!editMode" >
               <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
               <mat-datepicker #pickerFrom></mat-datepicker>
             </mat-form-field>
@@ -52,7 +51,7 @@
 
             <!-- To:: //datepicker -->
             <mat-form-field>
-              <input matInput [matDatepicker]="pickerTo" placeholder="Period To:">
+              <input matInput [matDatepicker]="pickerTo" placeholder="Period To:" [readonly]="!editMode" >
               <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
               <mat-datepicker #pickerTo></mat-datepicker>
             </mat-form-field>
@@ -64,7 +63,7 @@
 
               <!-- License: // free text -->
               <mat-form-field class="mat-form">
-                <input matInput placeholder="License" formControlName="license">
+                <input matInput placeholder="License" formControlName="license" [readonly]="!editMode">
               </mat-form-field>
               <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('required')">
                 License is required
@@ -79,9 +78,9 @@
                 Measurement Types:
                 <!-- selection list of Available Reading Types-->
                 <div style="width:100%;float:left; display:block;">
-                  <mat-selection-list #readingTypesAvl class="field-div3-width">
+                  <mat-selection-list #readingTypesAvl class="field-div3-width" [disableRipple]="!editMode">
                     <h3 matSubheader>Available Measurement Types</h3>
-                    <mat-list-option *ngFor="let readingType of readingTypes">
+                    <mat-list-option *ngFor="let readingType of readingTypes" >
                       {{readingType.label}}
                     </mat-list-option>
                   </mat-selection-list>
@@ -89,19 +88,15 @@
 
                   <!-- button -->
                   <div class="field-div3-width">
-                    <button mat-raised-button (click)="addSelected()">
-                      << </button>
-                        <button mat-raised-button (click)="setTest()"> >> </button>
+                    <button mat-raised-button (click)="addSelected()" [disabled]="!editMode" > << </button>
+                        <button mat-raised-button (click)="setTest()" [disabled]="!editMode"> >> </button>
                   </div>
                   <!-- selection list of selected Reading Types-->
 
-                  <mat-selection-list #readingTpSel class="field-div3-width">
+                  <mat-selection-list #readingTpSel class="field-div3-width"[disableRipple]="!editMode">
                     <h3 matSubheader>Selected Reading Types</h3>
                     <div *ngIf="readingTypesSel?.length > 0"></div>
-
-                    <!-- <div *ngIf="readingTypes?.length > 0" ></div> -->
-
-                    <mat-list-option *ngFor="let readingType of readingTypesSel">
+                    <mat-list-option *ngFor="let readingType of readingTypesSel"  >
                       {{readingType.label}}
                     </mat-list-option>
                   </mat-selection-list>
@@ -119,8 +114,6 @@
                 <p>
                   <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
                   <p>
-
-
 
       </mat-tab>
 

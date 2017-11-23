@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { MatInput } from '@angular/material';
+import {MatCheckbox}from '@angular/material';
 
 
 
@@ -17,8 +18,9 @@ export class SubmitFormComponent implements OnInit {
   
   // @ViewChild('sidenav') private sidenav: MatSidenav;
    @ViewChild('datasetName') private text1: MatInput;
-  
    
+   
+
    dataSet = 
     {id: '3231231',
      name: 'Ath whether',
@@ -91,45 +93,42 @@ addSelected(){
 //  console.log("adding: "+  this.readingTpSel.nativeElement.selectedOptions);
 }
 
-
+  //  editMode:true;
+  editMode:false;
+  
    constructor() {}
  
   ngOnInit() {
+
     this.metadataForm = new FormGroup({
       state: new FormControl('', [Validators.required, Validators.minLength(2)]),
       divisions: new FormControl('', [Validators.required, Validators.minLength(2)]),
       areaCodes: new FormControl('', [Validators.required, Validators.minLength(2)]),
       references: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      datasetName: new FormControl(this.dataSet.name, [Validators.required, Validators.minLength(2)]),
+      datasetName: new FormControl({value: this.dataSet.name, disabled: this.editMode}, [Validators.required, Validators.minLength(2)]),
       description: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      license: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      license: new FormControl({value:'', disabled: this.editMode, Validators:this.editMode}, [Validators.required, Validators.minLength(2)]),
       // stations: new FormControl('', [Validators.required, Validators.minLength(2)]),
       relativeUrl: new FormControl('',  ),
       jsonLd: new FormControl('',  ) ,
       downloadLink: new FormControl('', []),
       awsQueue: new FormControl('', []),
-
     });
+  } 
+  
 
-    // this.datasetName.value ="dimi ole";
-    
-    
-
-   // this.text1.value= "dimi ole";
-   // this.description.value = "dimi 2  ok";
-  }
-// temp:
-//   @ViewChild('datasetName') private text1: MatInput;
-
-
-
+  // first: new FormControl({value: 'Nancy', disabled: true}, Validators.required),
+  
+  
 
   onSubmit() {
     console.log("submit");
   }
 
+  setReadonly(){
 
- 
+  }
+
 
   getErrorMessage() {
     return this.metadataForm.hasError('required') ? 'You must enter a value' :

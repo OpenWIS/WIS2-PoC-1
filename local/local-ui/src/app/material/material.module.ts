@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule
   , MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule
-  , MatTabsModule, MatTableModule
+  , MatTabsModule, MatTableModule,
 } from '@angular/material';
 
 // , MatCardModule, MatIconModule,
@@ -18,7 +18,7 @@ import {
 const MATERIAL_MODULES: any[] = [
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatInputModule,
   MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule,
-  MatTabsModule, MatTableModule
+  MatTabsModule, MatTableModule,
 ];
 
 // , MatCardModule, MatIconModule,
