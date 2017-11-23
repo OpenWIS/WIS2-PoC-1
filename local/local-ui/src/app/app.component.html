@@ -2,7 +2,9 @@
   <mat-toolbar-row class="header-top">
   </mat-toolbar-row>
   <mat-toolbar-row class="header">
-    <mat-icon class="menu-icon" (click)="sidenav.toggle()">menu</mat-icon>
+    <mat-icon class="menu-icon" (click)="sidenav.toggle()" 
+    *ngIf="hideShowControls()">menu</mat-icon>
+    
     <p>Local Web Application</p>
     <span class="ui-spacer"></span>
     <mat-icon class="ui-icon">favorite</mat-icon>
@@ -27,18 +29,10 @@
 
   <div class="main-content">
 
-    <!-- na paei mesa sto component -->
-    
-
-
 
   <router-outlet></router-outlet>
         
 
-      <!-- Submit form -->
-      <!-- <app-submit-form></app-submit-form> -->
-      <!-- view form  -->
-      <!-- <app-datasets-main></app-datasets-main> -->
 
   </div>
 
