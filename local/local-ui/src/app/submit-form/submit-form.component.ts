@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ViewChild } from '@angular/core';
+import { MatInput } from '@angular/material';
 
 
 
@@ -10,10 +11,13 @@ import { ViewChild } from '@angular/core';
   styleUrls: ['./submit-form.component.css']
 })
 export class SubmitFormComponent implements OnInit {
+  [x: string]: any;
   
   metadataForm: FormGroup;
   
-  @ViewChild('readingTpSel') private readingTpSel: ElementRef;
+  // @ViewChild('sidenav') private sidenav: MatSidenav;
+   @ViewChild('datasetName') private text1: MatInput;
+  
 
 countries = [
   {value: 'mord', viewValue: 'Mordor'},
@@ -73,7 +77,6 @@ addSelected(){
 }
 
 
-
    constructor() {}
  
   ngOnInit() {
@@ -92,7 +95,16 @@ addSelected(){
       awsQueue: new FormControl('', []),
 
     });
+    
+   // this.text1.value= "dimi ole";
+   // this.description.value = "dimi 2  ok";
   }
+// temp:
+//   @ViewChild('datasetName') private text1: MatInput;
+
+
+
+
   onSubmit() {
     console.log("submit");
   }

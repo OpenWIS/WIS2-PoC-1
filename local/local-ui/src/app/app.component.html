@@ -2,13 +2,11 @@
   <mat-toolbar-row class="header-top">
   </mat-toolbar-row>
   <mat-toolbar-row class="header">
-    <mat-icon class="menu-icon" (click)="sidenav.toggle()" 
-    *ngIf="hideShowControls()">menu</mat-icon>
-    
-    <p>Local Web Application</p>
+    <mat-icon class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
+
+    <p>Local Data Sharing Hub</p>
     <span class="ui-spacer"></span>
-    <mat-icon class="ui-icon">favorite</mat-icon>
-    <mat-icon class="ui-icon">delete</mat-icon>
+    <mat-icon class="ui-icon">apps</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -17,23 +15,28 @@
   <mat-sidenav #sidenav mode="side" opened="true" class="nav">
     <ul>
 
-      <li class="nav-item"><a class="nav-link" routerLink="home">Home Page</a></li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="datasets" [ngClass]="{ 'active': selectedMenuItem == 'datasets' }" (click)="clicked('datasets')">
+          <mat-icon class="ui-icon">insert_drive_file</mat-icon>Datasets
+        </a>
+      </li>
 
-      <li class="nav-item"><a class="nav-link" routerLink="rdsh">RDSH</a></li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="rdsh" [ngClass]="{ 'active': selectedMenuItem == 'rdsh' }" (click)="clicked('rdsh')">
+          <mat-icon class="ui-icon">call_split</mat-icon>RDSH
+        </a>
+      </li>
 
-      <li class="nav-item"><a class="nav-link" routerLink="settings">Settings</a></li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="settings" [ngClass]="{ 'active': selectedMenuItem == 'settings' }" (click)="clicked('settings')">
+          <mat-icon class="ui-icon">settings</mat-icon>Settings
+        </a>
+      </li>
     </ul>
 
   </mat-sidenav>
-
-
   <div class="main-content">
-
-
-  <router-outlet></router-outlet>
-        
-
-
+    <router-outlet></router-outlet>
   </div>
 
 </mat-sidenav-container>
