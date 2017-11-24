@@ -31,7 +31,7 @@
           <p>
             <!-- Description:// free text   -->
             <mat-form-field class="mat-form">
-              <input matInput placeholder="Description" formControlName="description" >
+              <input matInput placeholder="Description" formControlName="description">
             </mat-form-field>
             <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
               Description is required
@@ -52,7 +52,7 @@
 
               <!-- To:: //datepicker -->
               <mat-form-field>
-                <input matInput [matDatepicker]="pickerTo" placeholder="Period To:"  formControlName="periodTo">
+                <input matInput [matDatepicker]="pickerTo" placeholder="Period To:" formControlName="periodTo">
                 <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                 <mat-datepicker #pickerTo></mat-datepicker>
               </mat-form-field>
@@ -76,57 +76,74 @@
 
                   <!-- Measurement Types:// ADD SECTION -->
 
-                  Measurement 
+                  Measurement
                   <!-- selection list of Available Reading Types-->
+
                   <div style="width:100%;float:left; display:block;">
-                    <mat-selection-list #readingTypesAvl class="field-div3-width" [disableRipple]="!editMode">
+
+
+                    <!-- autocomplete dropdown -->
+                    <div class="field-div3-width">
+                        <h4 matSubheader>Available Measurement Types</h4>
+                    <mat-autocomplete>
+                      <mat-option *ngFor="let measurement of measurements" [value]="measurement">
+                        {{ measurement.label }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <!--  { wmocode: 'http://codes.wmo.int/common/unit/a', label: 'year' }, -->
+                    <!-- <mat-selection-list #readingTypesAvl class="field-div3-width" >
                       <h3 matSubheader>Available Measurement Types</h3>
                       <mat-list-option *ngFor="let readingType of readingTypes">
                         {{readingType.label}}
                       </mat-list-option>
-                    </mat-selection-list>
-
+                    </mat-selection-list>  -->
+                  </div>
 
                     <!-- button -->
                     <div class="field-div3-width">
-                      <button mat-raised-button (click)="addSelected()" [disabled]="!editMode">
+                      <button mat-raised-button (click)="addSelected()">
                         << </button>
-                          <button mat-raised-button (click)="setTest()" [disabled]="!editMode"> >> </button>
+                          <button mat-raised-button (click)="setTest()"> >> </button>
                     </div>
+
                     <!-- selection list of selected Reading Types-->
 
-                    <mat-selection-list #readingTpSel class="field-div3-width" [disableRipple]="!editMode">
+                    <!-- chip -->
+                    <mat-chip-list>
+                       <mat-chip *ngFor="let measurement of measurements" [selectable]="selectable" [removable]="removable" (remove)="remove(measurement)">
+                        {{measurement.label}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Add measurement..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+                    </mat-chip-list>
+
+                    <!-- <mat-selection-list #readingTpSel class="field-div3-width" >
                       <h3 matSubheader>Selected Reading Types</h3>
                       <div *ngIf="readingTypesSel?.length > 0"></div>
                       <mat-list-option *ngFor="let readingType of readingTypesSel">
                         {{readingType.label}}
                       </mat-list-option>
-                    </mat-selection-list>
+                    </mat-selection-list>-->
                   </div>
-                  <br/>
-                  <!-- Stations: // free text -- removed
-              <mat-form-field class="mat-form">
-                <input matInput placeholder="Stations" formControlName="stations">
-              </mat-form-field>
-              <p>-->
+                  <br/> 
 
-                  <!-- Dataset Image: <FIle upload> -->
+                    <!-- Dataset Image: <FIle upload> -->
 
-                  <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
-                  <p>
-                    <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
+                    <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
                     <p>
+                      <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
+                      <p>
 
         </mat-tab>
 
         <mat-tab label="Location Information">
 
           <!-- Country:// drop down -->
-          
+
           <mat-form-field>
-            <mat-select #countrySelect placeholder="Country"  formControlName="countryCB"
-            [value]="country">
-              <mat-option  *ngFor="let country of countries" [value]="country.value" [class.selected]="section === selectedSection"   >
+            <mat-select #countrySelect placeholder="Country" formControlName="countryCB" [value]="country">
+              <mat-option *ngFor="let country of countries" [value]="country.value" [class.selected]="section === selectedSection">
                 {{country.viewValue}}
               </mat-option>
             </mat-select>
@@ -146,54 +163,54 @@
           </div>
           <!-- <p></p> -->
 
-            <!--  Divisions: // free text  -->
+          <!--  Divisions: // free text  -->
 
-            <mat-form-field class="mat-form">
-              <input matInput placeholder="Divisions" formControlName="divisions">
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Divisions" formControlName="divisions">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('required')">
+            Divisions is a required field
+          </div>
+          <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('minlength')">
+            Minimum of 2 characters
+          </div>
+
+          <!-- Area Codes:// free text -->
+
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Area Codes" formControlName="areaCodes">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('required')">
+            Area Codes is required field
+          </div>
+          <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('minlength')">
+            Minimum of 2 characters
+          </div>
+          <p>
+
+
+            <!-- Climate: //drop down -->
+            <mat-form-field>
+              <mat-select #climateSelect placeholder="Climate" formControlName="climate" [value]="climate">
+                <mat-option *ngFor="let climate of climates" [value]="climate.value" [class.selected]="section === selectedSection">
+                  {{climate.viewValue}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
-            <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('required')">
-              Divisions is a required field
-            </div>
-            <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('minlength')">
-              Minimum of 2 characters
-            </div>
-
-            <!-- Area Codes:// free text -->
-
-            <mat-form-field class="mat-form">
-              <input matInput placeholder="Area Codes" formControlName="areaCodes">
-            </mat-form-field>
-            <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('required')">
-              Area Codes is required field
-            </div>
-            <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('minlength')">
-              Minimum of 2 characters
-            </div>
             <p>
 
 
-              <!-- Climate: //drop down -->
-              <mat-form-field>
-                <mat-select #climateSelect placeholder="Climate" formControlName="climate" [value]="climate">
-                  <mat-option *ngFor="let climate of climates" [value]="climate.value" [class.selected]="section === selectedSection"  >
-                    {{climate.viewValue}}
-                  </mat-option>
-                </mat-select>
+              <!-- References: // free text    -->
+              <mat-form-field class="mat-form">
+                <input matInput placeholder="References" formControlName="references">
               </mat-form-field>
+              <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
+                References are required
+              </div>
+              <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
+                Minimum of 2 characters
+              </div>
               <p>
-
-
-                <!-- References: // free text    -->
-                <mat-form-field class="mat-form">
-                  <input matInput placeholder="References" formControlName="references">
-                </mat-form-field>
-                <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
-                  References are required
-                </div>
-                <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
-                  Minimum of 2 characters
-                </div>
-                <p>
 
         </mat-tab>
 
@@ -201,25 +218,21 @@
         <mat-tab label="Distribution Information">
 
           <!--# Distribution Information -->
-          <!-- <mat-toolbar #componentToolbar1 class="header-small">
-              <p> Distribution Information</p>
-              <span class="ui-spacer"></span>
-            </mat-toolbar> -->
           <!-- Relative URL: /datasets/aisa-adala -->
           <mat-form-field class="mat-form">
             <input matInput placeholder=" Relative URL" formControlName="relativeUrl">
           </mat-form-field>
-          
 
-             <!-- filename preFIX -->
+
+          <!-- filename preFIX -->
           <mat-form-field class="mat-form">
-              <input matInput placeholder="Filename Prefix" formControlName="filenameprefix">
-            </mat-form-field>
-            <p>
+            <input matInput placeholder="Filename Prefix" formControlName="filenameprefix">
+          </mat-form-field>
+          <p>
 
             <!--  Data Format: //drop down -->
             <mat-form-field>
-              <mat-select #climateSelect placeholder="Data format" formControlName= "dataformat">
+              <mat-select #climateSelect placeholder="Data format" formControlName="dataformat">
                 <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value" [class.selected]="section === selectedSection">
                   {{dataformat.viewValue}}
                 </mat-option>
@@ -229,11 +242,11 @@
               <mat-checkbox #rdshDis formControlName="rdshDissEnabled" (change)="rdshAdjust($event.srcElement)">RDSH Dissemination</mat-checkbox>
               <br>
 
-              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked"    >
-                  <mat-radio-button value="1">Notification Only</mat-radio-button>
-                  <br>
-                  <mat-radio-button value="2">Notification + Data</mat-radio-button>
-                </mat-radio-group>
+              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked">
+                <mat-radio-button value="1">Notification Only</mat-radio-button>
+                <br>
+                <mat-radio-button value="2">Notification + Data</mat-radio-button>
+              </mat-radio-group>
               <p>
                 <!-- Download Link -->
                 <mat-form-field class="mat-form">
@@ -262,9 +275,9 @@
       <button mat-button>Clear</button>
 
     </form>
+    </div>
   </div>
-</div>
-<!-- 
+  <!-- 
     TODO
     responsive adjustments: 
 add fleX:

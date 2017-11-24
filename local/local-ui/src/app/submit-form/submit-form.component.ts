@@ -80,7 +80,7 @@ export class SubmitFormComponent implements OnInit {
   ];
 
 
-  readingTypes = [
+  measurements = [
     { wmocode: 'http://codes.wmo.int/common/unit/a', label: 'year' },
     { wmocode: 'http://codes.wmo.int/common/unit/mon', label: 'month' },
     { wmocode: 'http://codes.wmo.int/common/unit/d', label: 'day' },
