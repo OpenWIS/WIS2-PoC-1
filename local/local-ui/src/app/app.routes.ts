@@ -7,6 +7,7 @@ import { SubmitFormComponent } from "./submit-form/submit-form.component";
 import { RDSHComponent } from "./rdsh/rdsh.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { DatasetsMainComponent } from "./datasets-main/datasets-main.component";
+import { DatasetViewComponent } from "./dataset-view/dataset-view.component";
 
 export const routerConfig: Routes = [
   {
@@ -26,12 +27,12 @@ export const routerConfig: Routes = [
     component: SettingsComponent
   },
   {
-    path: "submit",
-    component: SubmitFormComponent
+    path: "view",
+    component: DatasetViewComponent
   },
   // edit mode
   {
-    path: "submit/:id",
+    path: "submit",
     component: SubmitFormComponent
   },
   {

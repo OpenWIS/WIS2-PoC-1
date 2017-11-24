@@ -13,6 +13,7 @@ import { DatasetsMainComponent } from './datasets-main/datasets-main.component';
 import { DatasetsAdminComponent } from './datasets-admin/datasets-admin.component';
 import { RDSHComponent } from './rdsh/rdsh.component';
 import {SettingsComponent} from './settings/settings.component';
+import { DatasetViewComponent } from './dataset-view/dataset-view.component';
 
 
 
@@ -23,7 +24,8 @@ import {SettingsComponent} from './settings/settings.component';
     DatasetsMainComponent,
     DatasetsAdminComponent,
     RDSHComponent,
-    SettingsComponent
+    SettingsComponent,
+    DatasetViewComponent
   ],
   imports: [
     BrowserModule,

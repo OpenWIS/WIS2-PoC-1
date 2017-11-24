@@ -1,0 +1,111 @@
+<!-- <p>
+  dataset-view works!
+</p> -->
+<div class="box">
+  <div style="padding:2em;">
+
+    <form novalidate [formGroup]="metadataForm" class="field-full-width">
+
+      <mat-toolbar #componentToolbar class="header-small">
+        <p>Dataset NAME</p>
+        <span class="ui-spacer"></span>
+        <mat-icon class="ui-icon">backup</mat-icon>
+        <mat-icon class="ui-icon">donut_large</mat-icon>
+      </mat-toolbar>
+
+      <!-- <mat-tab-group> -->
+
+      <h4>Location Information</h4>
+      <h3>[image]</h3>
+
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Country:" formControlName="country">
+      </mat-form-field>
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="State" formControlName="state">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Divisions" formControlName="divisions">
+      </mat-form-field>
+      <!-- Area Codes:// free text -->
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Area Codes" formControlName="areaCodes">
+      </mat-form-field>
+      <br>
+      <!-- Climate:  -->
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Climate" formControlName="climate">
+      </mat-form-field>
+      <br>
+      <!-- References: // free text    -->
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="References" formControlName="references">
+      </mat-form-field>
+      <br>
+
+
+      <h4>Dataset Informationn</h4>
+
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Dataset Name" formControlName="datasetName">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Description" formControlName="description">
+      </mat-form-field>
+      <br> 
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerFrom" placeholder="Period From : " formControlName="periodFrom">
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerTo" placeholder="Period To:" formControlName="periodTo">
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+      <br>
+
+
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="License" formControlName="license">
+      </mat-form-field>
+      <br>
+
+      <!-- Measurement Types:// ADD SECTION -->
+
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Measurment" formControlName="license">
+      </mat-form-field>
+      <br>
+
+
+      <h4>Distribution Information </h4>
+
+      <!--  Data Format: //drop down -->
+      <mat-form-field class="mat-form">
+          <input matInput placeholder="Data format" formControlName="dataformat">
+        </mat-form-field>
+      <br>
+
+      <!-- Download Link -->
+      <mat-form-field class="mat-form">
+        <input matInput placeholder="Download Link" formControlName="downloadLink">
+      </mat-form-field>
+
+      <!-- AWS Queue -->
+      <mat-form-field class="mat-form">
+        <input matInput placeholder=" AWS Queue" formControlName="awsQueue">
+      </mat-form-field>
+      <p>
+
+        <!-- submit -->
+        <span class="ui-spacer"></span>
+        <hr>
+        <!--                          <button mat-button (click)="onSubmit(user)"> Submit form </button>
+                            <button mat-button>Clear</button> -->
+
+    </form>
+  </div>
+</div>

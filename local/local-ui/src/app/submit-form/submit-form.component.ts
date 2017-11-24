@@ -13,16 +13,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./submit-form.component.css']
 })
 export class SubmitFormComponent implements OnInit {
-  // @Input() id: string;
 
   rdshDissEnabled = false;
   metadataForm: FormGroup;
   paramsObj: Object;
 
 
-  // @ViewChild('sidenav') private sidenav: MatSidenav;
   @ViewChild('datasetName') private text1: MatInput;
-
   @ViewChild('rdshDis') private rdshCb: MatCheckbox;
   @ViewChild('rdshOptions') private rdshOptions: MatRadioGroup;
 
@@ -131,7 +128,7 @@ export class SubmitFormComponent implements OnInit {
 
     if (dataset == null){
       // create new 
-      this.dataSet = this.emptyDataSet;
+      // this.dataSet = this.emptyDataSet;
       this.metadataForm = new FormGroup({
         state: new FormControl('', [Validators.required, Validators.minLength(2)]),
         divisions: new FormControl('', [Validators.required, Validators.minLength(2)]),

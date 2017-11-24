@@ -17,13 +17,14 @@ export class DatasetsMainComponent implements OnInit {
   ngOnInit() {
   }
 
-  gotoPge(id:string){
+  gotoPage(id:string){
     
     console.log("TO ID "+ id);
-    this.router.navigate(['/submit'],
-     { queryParams: {"id": id } });
-     console.log("ok");
-     
+     this.router.navigate(['/view'], 
+      { queryParams: {"id": id } });
+  
+  //gia to edit 
+    //  this.router.navigate(['/submit'],{ queryParams: {"id": id } });
     }
     
  
@@ -31,15 +32,14 @@ export class DatasetsMainComponent implements OnInit {
 export interface Element {
   name: string;
   description: string;
-  url:string;
   id:string;
 }
 
 
   const datasetList: Element[] = [
-  {name: 'Athens rain', description:"Rain volume in Athens", url:"submit", id:"10"},
-  {name: 'Thesaloniki wind', description:"Wind power in Thesaloniki", url:"/submit", id:"30"},
-  {name: 'Iraklio sun', description:"Sun strength in Iraklio", url:"/submit", id:"12"},
+  {name: 'Athens rain', description:"Rain volume in Athens", id:"10"},
+  {name: 'Thesaloniki wind', description:"Wind power in Thesaloniki", id:"30"},
+  {name: 'Iraklio sun', description:"Sun strength in Iraklio", id:"12"},
 
 ];
 
