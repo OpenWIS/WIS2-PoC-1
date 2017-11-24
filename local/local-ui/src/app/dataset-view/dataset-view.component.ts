@@ -49,7 +49,6 @@ export class DatasetViewComponent implements OnInit {
       periodTo:''
 
     };
-// emptyDataSet = { id: '', name: '', description: '', state: '', dateFrom: '', dateTo: '', Country: '', dataformat: '', divisions: '', areaCodes: '', references: '', license: '', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: '', awsQueue: '', rdshDissEnabled: '', };
 
   dataSetList = [
     { id: '10', name: 'Athens', description: 'Rain volume in Athens', state: 'Athens', dateFrom: '', dateTo: '', country: 'Greece', dataformat: 'CSV', climate:'Mediterranean', divisions: 'Attica Athens', areaCodes: '12313, 12543,12432', references: 'https://en.wikipedia.org/wiki/Athens', license: ' https://creativecommons.org/licenses/by/4.0/', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: 'aLink.com', awsQueue: '/arn:aws:sns:us-ATH-1:11784:SEDataQueue', rdshDissEnabled: 'false',
@@ -121,7 +120,6 @@ export class DatasetViewComponent implements OnInit {
         periodFrom: new FormControl({value: new Date(dataset.periodFrom), disabled:this.viewMode}, []),
         periodTo: new FormControl({value: new Date(), disabled:this.viewMode}, []),
 
-      //  TODO Measurement 
     });
   }
   }
@@ -132,13 +130,8 @@ export class DatasetViewComponent implements OnInit {
 
 
 
-  // first: new FormControl({value: 'Nancy', disabled: true}, Validators.required),
 
 
-
-  // onSubmit() {
-  //   console.log("submit");
-  // }
 
   setReadonly() {
   }

@@ -12,9 +12,9 @@ import { DatasetViewComponent } from "./dataset-view/dataset-view.component";
 export const routerConfig: Routes = [
   {
     path: "home",
-    component: DatasetsMainComponent  
+    component: DatasetsMainComponent
   },
-    {
+  {
     path: "datasets",
     component: DatasetsAdminComponent
   },

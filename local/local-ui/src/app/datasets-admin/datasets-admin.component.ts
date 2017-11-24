@@ -15,22 +15,31 @@ export class DatasetsAdminComponent implements OnInit {
 
   ngOnInit() {}
 
-  navigateToEditDataset(){
+  navigateToEditDataset(id: string){
     //this.router.navigateByUrl('/datasets');
+    this.router.navigate(['/submit'],{ queryParams: {"id": id } });
   }
 
-  navigateToViewDataset(){
-    //this.router.navigateByUrl('/datasets');
+  navigateToViewDataset(id: string){
+    this.router.navigate(['/view'], { queryParams: { "id": id } });
   }
+  addNewDataset(){
+    //mock new id 100;
+    this.router.navigate(['/submit'],{ queryParams: {"id":100 } });
+
+  }
+
+
 }
 export interface Element {
   name: string;
   description: string;
-  // url: string;
+  id: string;
 }
 
+
 const datasetList: Element[] = [
-  { name: "Athens", description: "Temperature/Rainfall in Athens" },
-  { name: "Thesaloniki", description: "Temperature/Rainfall in Thesaloniki" },
-  { name: "Iraklion", description: "Wind speed/direction in Iraklion" }
+  { name: 'Athens rain', description: "Temperature/Rainfall in Athens", id: "10" },
+  { name: 'Thesaloniki wind', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
+  { name: "Iraklion", description: "Wind speed/direction in Iraklion" , id: "12" },
 ];
