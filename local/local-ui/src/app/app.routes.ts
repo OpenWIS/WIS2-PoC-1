@@ -29,6 +29,11 @@ export const routerConfig: Routes = [
     path: "submit",
     component: SubmitFormComponent
   },
+  // edit mode
+  {
+    path: "submit/:id",
+    component: SubmitFormComponent
+  },
   {
     path: "about",
     component: SubmitFormComponent

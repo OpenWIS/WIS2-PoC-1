@@ -38,8 +38,10 @@
 
             <mat-cell *matCellDef="let element">
               <!-- <a class="nav-link" routerLink="../submit">Submit</a> -->
-              <a class="nav-link" routerLink={{element.url}}>Open</a>
+              <!-- <a class="nav-link" (click) = "gotoPge(element.id)" >Open</a> -->
+              <a class="nav-link" routerLink (click) = "gotoPge(element.id)">Oen</a>
             </mat-cell>
+            <!-- routerLink={{element.url}} -->
 
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

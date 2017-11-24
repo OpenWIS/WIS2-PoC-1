@@ -4,28 +4,28 @@ import { CommonModule } from '@angular/common';
 import {
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule
   , MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule
-  , MatTabsModule, MatTableModule,
+  , MatTabsModule, MatTableModule,MatCheckboxModule,MatRadioModule
 } from '@angular/material';
 
 // , MatCardModule, MatIconModule,
 // MatMenuModule, MatTooltipModule,
-//  MatSlideToggleModule, MatCheckboxModule,
+//  MatSlideToggleModule, ,
 //  , MatSnackBarModule, 
-//  MatAutocompleteModule, MatRadioModule, MatSliderModule, , MatButtonToggleModule
+//  MatAutocompleteModule,  MatSliderModule, , MatButtonToggleModule
 
 
 
 const MATERIAL_MODULES: any[] = [
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatInputModule,
   MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule,
-  MatTabsModule, MatTableModule,
+  MatTabsModule, MatTableModule,MatCheckboxModule, MatRadioModule
 ];
 
 // , MatCardModule, MatIconModule,
 // MatListModule, MatMenuModule, MatTooltipModule,
-// MatSlideToggleModule, , MatCheckboxModule,
+// MatSlideToggleModule, , ,
 // MatToolbarModule, MatSnackBarModule, MatSidenavModule,
-// MatButtonToggleModule, MatAutocompleteModule, MatRadioModule, MatSliderModule,
+// MatButtonToggleModule, MatAutocompleteModule, , MatSliderModule,
 
 
 
