@@ -30,7 +30,6 @@
           </div>
           <p>
             <!-- Description:// free text   -->
-            <!--  [readonly]="!editMode" -->
             <mat-form-field class="mat-form">
               <input matInput placeholder="Description" formControlName="description" >
             </mat-form-field>
@@ -45,7 +44,7 @@
               <!-- From: //datepicker  -->
               <mat-form-field>
                 <!-- <input matInput [matDatepickerFrom]="picker" placeholder="From  date:"> -->
-                <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :" [readonly]="!editMode">
+                <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :" formControlName="periodFrom">
                 <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
                 <mat-datepicker #pickerFrom></mat-datepicker>
               </mat-form-field>
@@ -53,7 +52,7 @@
 
               <!-- To:: //datepicker -->
               <mat-form-field>
-                <input matInput [matDatepicker]="pickerTo" placeholder="Period To:" [readonly]="!editMode">
+                <input matInput [matDatepicker]="pickerTo" placeholder="Period To:"  formControlName="periodTo">
                 <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
                 <mat-datepicker #pickerTo></mat-datepicker>
               </mat-form-field>
@@ -65,7 +64,7 @@
 
                 <!-- License: // free text -->
                 <mat-form-field class="mat-form">
-                  <input matInput placeholder="License" formControlName="license" [readonly]="!editMode">
+                  <input matInput placeholder="License" formControlName="license">
                 </mat-form-field>
                 <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('required')">
                   License is required
@@ -123,10 +122,11 @@
         <mat-tab label="Location Information">
 
           <!-- Country:// drop down -->
-
+          
           <mat-form-field>
-            <mat-select #countrySelect placeholder="Country">
-              <mat-option *ngFor="let country of countries" [value]="country.value">
+            <mat-select #countrySelect placeholder="Country"  formControlName="countryCB"
+            [value]="country">
+              <mat-option  *ngFor="let country of countries" [value]="country.value" [class.selected]="section === selectedSection"   >
                 {{country.viewValue}}
               </mat-option>
             </mat-select>
@@ -174,8 +174,8 @@
 
               <!-- Climate: //drop down -->
               <mat-form-field>
-                <mat-select #climateSelect placeholder="Climate">
-                  <mat-option *ngFor="let climate of climates" [value]="climate.value">
+                <mat-select #climateSelect placeholder="Climate" formControlName="climate" [value]="climate">
+                  <mat-option *ngFor="let climate of climates" [value]="climate.value" [class.selected]="section === selectedSection"  >
                     {{climate.viewValue}}
                   </mat-option>
                 </mat-select>
@@ -200,13 +200,11 @@
 
         <mat-tab label="Distribution Information">
 
-
           <!--# Distribution Information -->
           <!-- <mat-toolbar #componentToolbar1 class="header-small">
               <p> Distribution Information</p>
               <span class="ui-spacer"></span>
             </mat-toolbar> -->
-
           <!-- Relative URL: /datasets/aisa-adala -->
           <mat-form-field class="mat-form">
             <input matInput placeholder=" Relative URL" formControlName="relativeUrl">
@@ -221,16 +219,13 @@
 
             <!--  Data Format: //drop down -->
             <mat-form-field>
-              <mat-select #climateSelect placeholder="Data format">
-                <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value">
+              <mat-select #climateSelect placeholder="Data format" formControlName= "dataformat">
+                <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value" [class.selected]="section === selectedSection">
                   {{dataformat.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
             <p>
-
-
               <mat-checkbox #rdshDis formControlName="rdshDissEnabled" (change)="rdshAdjust($event.srcElement)">RDSH Dissemination</mat-checkbox>
               <br>
 
