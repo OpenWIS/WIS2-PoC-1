@@ -157,6 +157,7 @@ export class SubmitFormComponent implements OnInit {
         countryCB: new FormControl(''),
         climate: new FormControl(''),
         dataformat: new FormControl(''),
+        datasetImage: new FormControl('')
 
       });
 
@@ -183,6 +184,7 @@ export class SubmitFormComponent implements OnInit {
 
         periodFrom: new FormControl(new Date(dataset.periodFrom), [Validators.required, Validators.minLength(2)]),
         periodTo: new FormControl(new Date(), [Validators.required, Validators.minLength(2)]),
+        datasetImage: new FormControl('')
 
       });
     }

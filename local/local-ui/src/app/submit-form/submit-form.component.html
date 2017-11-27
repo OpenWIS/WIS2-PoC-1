@@ -1,14 +1,13 @@
 <div class="box">
+
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Dataset</p>
+    <span class="ui-spacer"></span>
+  </mat-toolbar>
+
   <div style="padding:2em;">
 
     <form novalidate [formGroup]="metadataForm" class="field-full-width">
-
-      <mat-toolbar #componentToolbar class="header-small">
-        <p>Insert Weather Metadata</p>
-        <span class="ui-spacer"></span>
-        <mat-icon class="ui-icon">backup</mat-icon>
-        <mat-icon class="ui-icon">donut_large</mat-icon>
-      </mat-toolbar>
 
       <mat-tab-group>
 
@@ -28,18 +27,18 @@
           <div class="error" *ngIf="metadataForm.get('datasetName').touched && metadataForm.get('datasetName').hasError('minlength')">
             Minimum of 2 characters
           </div>
-          <p>  </p>
-            <!-- Description:// free text   -->
-            <mat-form-field class="mat-form">
-              <input matInput placeholder="Description" formControlName="description">
-            </mat-form-field>
-            <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
-              Description is required
-            </div>
-            <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('minlength')">
-              Minimum of 2 characters
-            </div>
-        
+          <p> </p>
+          <!-- Description:// free text   -->
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Description" formControlName="description">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
+            Description is required
+          </div>
+          <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('minlength')">
+            Minimum of 2 characters
+          </div>
+
           <p>
             <!-- From: //datepicker  -->
             <mat-form-field>
@@ -68,37 +67,47 @@
           <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('minlength')">
             Minimum of 2 characters
           </div>
-          
-          
-            <!-- Measurement Types:// ADD SECTION -->
-            <br>
-            <!-- selection list of Available Reading Types-->
-            <div style="width:100%;float:left; display:block;">
-              <!-- autocomplete dropdown -->
-              <div class="field-div3-width">
 
-                <h4 matSubheader>Available Measurement Types:</h4>
-                <mat-form-field floatPlaceholder="never">
-                  <input matInput placeholder="Mesurment" [matAutocomplete]="auto" [formControl]="stateCtrl">
-                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                    <mat-option *ngFor="let measurement of filteredStates | async" [value]="measurement.label">
-                      <span> {{ measurement.label }}</span>
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </div>
+          <!-- Dataset Image: <FIle upload> -->
+          <br/>
+          <p>
+            <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
+          </p>
+          <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
 
-              <!-- button -->
-              <div class="field-div3-width">
-                <button mat-raised-button (click)="addSelected()">
-                  << </button>
-                    <button mat-raised-button (click)="addSelected()"> >> </button>
-              </div>
 
-              <!-- selection list of selected Reading Types-->
+          <!-- Measurement Types:// ADD SECTION -->
 
-              <!-- chip  -->
+          <!-- selection list of Available Reading Types-->
+          <div style="width:100%;float:left; display:block;">
+            <!-- autocomplete dropdown -->
+            <div class="field-div3-width">
+              <h4 matSubheader>Available Measurement Types:</h4>
+              <mat-form-field floatPlaceholder="never">
+                <input matInput placeholder="Mesurment" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let measurement of filteredStates | async" [value]="measurement.label">
+                    <span> {{ measurement.label }}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
 
+            <!-- button -->
+            <div class="field-div3-width" style="padding:4em 0;">
+              <button mat-button (click)="addSelected()">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+              <button mat-button (click)="addSelected()">
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+
+            <!-- selection list of selected Reading Types-->
+
+            <!-- chip  -->
+            <div class="field-div3-width">
+              <h4 matSubheader>Selected Measurement Types:</h4>
               <mat-chip-list #chipList>
                 <mat-chip *ngFor="let measurement of measurements" [selectable]="selectable" [removable]="removable" (remove)="remove(measurement)">
                   {{measurement.label}}
@@ -108,11 +117,7 @@
                   [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
               </mat-chip-list>
             </div>
-          <!-- Dataset Image: <FIle upload> -->
-          <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
-          <p>
-            <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
-          </p>
+          </div>
         </mat-tab>
 
         <mat-tab label="Location Information">
@@ -171,18 +176,18 @@
               </mat-select>
             </mat-form-field>
           </p>
-           
-            <!-- References: // free text    -->
-            <mat-form-field class="mat-form">
-              <input matInput placeholder="References" formControlName="references">
-            </mat-form-field>
-            <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
-              References are required
-            </div>
-            <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
-              Minimum of 2 characters
-            </div>
-           
+
+          <!-- References: // free text    -->
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="References" formControlName="references">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
+            References are required
+          </div>
+          <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
+            Minimum of 2 characters
+          </div>
+
         </mat-tab>
 
 
@@ -203,45 +208,48 @@
 
           <!--  Data Format: //drop down -->
           <p>
-          <mat-form-field>
-            <mat-select #climateSelect placeholder="Data format" formControlName="dataformat">
-              <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value" [class.selected]="section === selectedSection">
-                {{dataformat.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </p>
+            <mat-form-field>
+              <mat-select #climateSelect placeholder="Data format" formControlName="dataformat">
+                <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value" [class.selected]="section === selectedSection">
+                  {{dataformat.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+
+          <p>
             <mat-checkbox #rdshDis formControlName="rdshDissEnabled" (change)="rdshAdjust($event.srcElement)">RDSH Dissemination</mat-checkbox>
-            <br>
 
-            <mat-radio-group #rdshOptions *ngIf="rdshDis.checked">
-              <mat-radio-button value="1">Notification Only</mat-radio-button>
-              <br>
-              <mat-radio-button value="2">Notification + Data</mat-radio-button>
-            </mat-radio-group>
-            <p>
-              <!-- Download Link -->
-              <mat-form-field class="mat-form">
-                <input matInput placeholder="Download Link" formControlName="downloadLink">
-              </mat-form-field>
-
-              <!-- AWS Queue -->
-              <mat-form-field class="mat-form">
-                <input matInput placeholder=" AWS Queue" formControlName="awsQueue">
-              </mat-form-field>
-            </p>
-                <!-- Json -ld input -->
-                <mat-form-field class="field-full-width">
-                  <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="20"
-                    class="field-full-width"></textarea>
-                </mat-form-field>
+            <span style="padding:0.5em 1em;display:block;">
+              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked">
+                <mat-radio-button value="1">Notification Only</mat-radio-button>
                 
+                <mat-radio-button value="2">Notification + Data</mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </p>
+          <p>
+            <!-- Download Link -->
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Download Link" formControlName="downloadLink">
+            </mat-form-field>
+
+            <!-- AWS Queue -->
+            <mat-form-field class="mat-form">
+              <input matInput placeholder=" AWS Queue" formControlName="awsQueue">
+            </mat-form-field>
+          </p>
+          <!-- Json -ld input -->
+          <mat-form-field class="field-full-width">
+            <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="20"
+              class="field-full-width"></textarea>
+          </mat-form-field>
+
         </mat-tab>
       </mat-tab-group>
 
       <!-- submit -->
       <span class="ui-spacer"></span>
-      <hr>
 
       <button mat-button (click)="onSubmit()"> Submit form </button>
       <button mat-button>Clear</button>

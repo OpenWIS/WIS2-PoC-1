@@ -35,7 +35,6 @@ material-app {
 
 button{
     color: #FAFAFA !important;
-    background: #2196F3 !important;
     background: #1976D2 !important;
 }
 
@@ -120,6 +119,11 @@ mat-sidenav {
 
 .mat-drawer {
     background-color: #62757f;
+}
+
+.mat-radio-button{
+    margin-bottom:0.2em !important;
+    display:block !important;
 }
 
 .box{
