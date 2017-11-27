@@ -39,7 +39,7 @@ export interface Element {
 
 
 const datasetList: Element[] = [
-  { name: 'Athens rain', description: "Temperature/Rainfall in Athens", id: "10" },
-  { name: 'Thesaloniki wind', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
+  { name: 'Athens', description: "Temperature/Rainfall in Athens", id: "10" },
+  { name: 'Thesaloniki', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
   { name: "Iraklion", description: "Wind speed/direction in Iraklion" , id: "12" },
 ];

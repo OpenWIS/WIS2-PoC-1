@@ -1,6 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$openwis-app-primary: mat-palette($mat-blue);
+$openwis-app-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$openwis-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$openwis-app-theme: mat-light-theme($openwis-app-primary, $openwis-app-accent, $openwis-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($openwis-app-theme);
+
+
 html,
 body,
 material-app {
@@ -12,8 +34,9 @@ material-app {
 }
 
 button{
-    color: #dedede !important;
-    background: #62757f !important;
+    color: #FAFAFA !important;
+    background: #2196F3 !important;
+    background: #1976D2 !important;
 }
 
 button.transparent{
@@ -84,6 +107,7 @@ mat-icon{
 
 .ui-icon.dark{
     color: #62757f;
+    color: #1976D2;
 } 
 
 .ui-spacer {
@@ -149,7 +173,7 @@ li a.active:hover{
 }
 
 mat-header-cell{
-    color: #2196F3 !important;
+    color: #1976D2 !important;
     font-size: 1em !important;
 }
 
@@ -170,7 +194,7 @@ mat-header-cell{
 
 .header-small{
     color: #ffffff;
-    background: #90a4ae;
+    background: #62757f;
 }
 
 .mat-toolbar {}

@@ -1,50 +1,54 @@
+<h2 style="text-align: center; color:#1976D2; ">
+  Welcome to the Local Data Sharing Hub
+</h2>
+
+<p>
+  <i>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc lectus, mollis a convallis in, convallis in enim. Sed
+    dignissim vulputate dolor. Quisque porttitor sagittis felis id blandit. In convallis sollicitudin lectus, quis vulputate
+    nisl cursus id. Donec vehicula dolor eu accumsan tristique. Maecenas non lacus arcu. Integer purus enim, blandit commodo
+    bibendum quis, pharetra sit amet ipsum. Nullam viverra posuere neque, vel malesuada nunc elementum id. Etiam sed interdum
+    ante. Duis a ex enim.
+  </i>
+</p>
+
 <div class="box">
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Registered Datasets</p>
+    <span class="ui-spacer"></span>
+  </mat-toolbar>
+
+
   <div style="padding:2em;">
-    <h2 style="    text-align: center; color:cornflowerblue; ">
-      Welcome to Local Data Sharing Hub
-    
-    </h2>
-    <i>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc lectus, mollis a convallis in, convallis in enim. Sed
-      dignissim vulputate dolor. Quisque porttitor sagittis felis id blandit. In convallis sollicitudin lectus, quis vulputate
-      nisl cursus id. Donec vehicula dolor eu accumsan tristique. Maecenas non lacus arcu. Integer purus enim, blandit commodo
-      bibendum quis, pharetra sit amet ipsum. Nullam viverra posuere neque, vel malesuada nunc elementum id. Etiam sed interdum
-      ante. Duis a ex enim.
-    </i>
-    <p>
-      <p>
 
-        <span class="ui-spacer"></span>
-        <mat-toolbar #componentToolbar class="header-small">Available Datasets</mat-toolbar>
+    <mat-table #table [dataSource]="dataSource">
 
-        <mat-table #table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
 
-          <!-- Position Column -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-          </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-          </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef> Page </mat-header-cell>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="url">
-            <mat-header-cell *matHeaderCellDef> Page </mat-header-cell>
+        <mat-cell *matCellDef="let element">
 
-            <mat-cell *matCellDef="let element">
+          <a class="nav-link" routerLink (click)="gotoPage(element.id)">View Datasource</a>
 
-              <a class="nav-link" routerLink (click) = "gotoPage(element.id)">View Datasource</a>
-              
-            </mat-cell>
+        </mat-cell>
 
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
   </div>
 </div>
