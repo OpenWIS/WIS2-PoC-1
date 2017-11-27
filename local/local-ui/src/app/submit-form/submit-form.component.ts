@@ -4,6 +4,9 @@ import { ViewChild } from '@angular/core';
 import { MatInput, MatRadioGroup } from '@angular/material';
 import { MatCheckbox } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
 
 
 
@@ -18,6 +21,8 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
 
+  stateCtrl: FormControl;
+  filteredStates: Observable<any[]>;
 
   @ViewChild('datasetName') private text1: MatInput;
   @ViewChild('rdshDis') private rdshCb: MatCheckbox;
@@ -42,19 +47,19 @@ export class SubmitFormComponent implements OnInit {
       downloadLink: '',
       awsQueue: '',
       rdshDissEnabled: '',
-      periodFrom:Date,
-      periodTo:Date
+      periodFrom: Date,
+      periodTo: Date
     };
 
 
   dataSetList = [
-    { id: '10', name: 'Athens', description: 'Rain volume in Athens', state: 'Athens',  country: 'gr', dataformat: 'csv', climate:'med', divisions: 'Attica Athens', areaCodes: '12313, 12543,12432', references: 'https://en.wikipedia.org/wiki/Athens', license: ' https://creativecommons.org/licenses/by/4.0/', relativeUrl: 'ath/weth/', filenameprefix: 'ath::', jsonLd: '', downloadLink: 'aLink.com', awsQueue: '/arn:aws:sns:us-ATH-1:11784:SEDataQueue', rdshDissEnabled: 'false',
-    periodFrom:'1984/01/01',   periodTo:'Now' },
-    { id: '30', name: 'Thesaloniki wind', description: 'Wind power in Thesaloniki', state: 'Thesaloniki',  country: 'gr', dataformat: 'txt', climate:'med', divisions: 'text', areaCodes: '', references: '', license: '', relativeUrl: '/daddada/uril', filenameprefix: 'Thesx', jsonLd: '', downloadLink: '', awsQueue: '/arn:aws:sns:us-east-1:11784:SEDataQueue', rdshDissEnabled: '', periodFrom:'1984/01/01',   periodTo:'Now' },
-    { id: '12', name: 'Iraklio sun', description: 'Sun strength in Iraklio', state: '', country: 'gr', dataformat: 'csv', climate:'med', divisions: '', areaCodes: '', references: '', license: '', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: '', awsQueue: '', rdshDissEnabled: '', periodFrom:'1984/01/01',   periodTo:'Now' }
+    {
+      id: '10', name: 'Athens', description: 'Rain volume in Athens', state: 'Athens', country: 'gr', dataformat: 'csv', climate: 'med', divisions: 'Attica Athens', areaCodes: '12313, 12543,12432', references: 'https://en.wikipedia.org/wiki/Athens', license: ' https://creativecommons.org/licenses/by/4.0/', relativeUrl: 'ath/weth/', filenameprefix: 'ath::', jsonLd: '', downloadLink: 'aLink.com', awsQueue: '/arn:aws:sns:us-ATH-1:11784:SEDataQueue', rdshDissEnabled: 'false',
+      periodFrom: '1984/01/01', periodTo: 'Now'
+    },
+    { id: '30', name: 'Thesaloniki wind', description: 'Wind power in Thesaloniki', state: 'Thesaloniki', country: 'gr', dataformat: 'txt', climate: 'med', divisions: 'text', areaCodes: '', references: '', license: '', relativeUrl: '/daddada/uril', filenameprefix: 'Thesx', jsonLd: '', downloadLink: '', awsQueue: '/arn:aws:sns:us-east-1:11784:SEDataQueue', rdshDissEnabled: '', periodFrom: '1984/01/01', periodTo: 'Now' },
+    { id: '12', name: 'Iraklio sun', description: 'Sun strength in Iraklio', state: '', country: 'gr', dataformat: 'csv', climate: 'med', divisions: '', areaCodes: '', references: '', license: '', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: '', awsQueue: '', rdshDissEnabled: '', periodFrom: '1984/01/01', periodTo: 'Now' }
   ];
-
-
 
   countries = [
     { value: 'gr', viewValue: 'Greece' },
@@ -80,7 +85,7 @@ export class SubmitFormComponent implements OnInit {
   ];
 
 
-  measurements = [
+  measurements: any = [
     { wmocode: 'http://codes.wmo.int/common/unit/a', label: 'year' },
     { wmocode: 'http://codes.wmo.int/common/unit/mon', label: 'month' },
     { wmocode: 'http://codes.wmo.int/common/unit/d', label: 'day' },
@@ -96,16 +101,6 @@ export class SubmitFormComponent implements OnInit {
 
 
 
-  readingTypesSel = [
-    { value: '', viewValue: '' }
-  ];
-
-
-  setTest() {
-    console.log("It works");
-
-  }
-
   addSelected() {
     // todo 
     // get selected values
@@ -113,12 +108,12 @@ export class SubmitFormComponent implements OnInit {
     //  console.log("adding: "+  this.readingTpSel.nativeElement.selectedOptions);
   }
 
-  //  editMode:true;
   editMode: boolean = true;
-  selectedCountry:string= 'gr';
+  selectedCountry: string = 'gr';
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router) { }
+
 
   ngOnInit() {
 
@@ -128,17 +123,19 @@ export class SubmitFormComponent implements OnInit {
     let id = this.paramsObj['params']['id'];
     let dataset = this.dataSetList.find(i => i.id === id);
 
-    if (dataset == null){
+
+    this.stateCtrl = new FormControl();
+
+    if (dataset == null) {
       // create new 
-      // this.dataSet = this.emptyDataSet;
       this.metadataForm = new FormGroup({
         state: new FormControl('', [Validators.required, Validators.minLength(2)]),
         divisions: new FormControl('', [Validators.required, Validators.minLength(2)]),
         areaCodes: new FormControl('', [Validators.required, Validators.minLength(2)]),
         references: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        datasetName: new FormControl( '', [Validators.required, Validators.minLength(2)]),
+        datasetName: new FormControl('', [Validators.required, Validators.minLength(2)]),
         description: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        license: new FormControl( '' , [Validators.required, Validators.minLength(2)]),
+        license: new FormControl('', [Validators.required, Validators.minLength(2)]),
         relativeUrl: new FormControl('', ),
         filenameprefix: new FormControl('', ),
         jsonLd: new FormControl('', ),
@@ -150,48 +147,55 @@ export class SubmitFormComponent implements OnInit {
         countryCB: new FormControl(''),
         climate: new FormControl(''),
         dataformat: new FormControl(''),
+
       });
-    }else {
-    this.metadataForm = new FormGroup({
-      datasetName: new FormControl( dataset.name, [Validators.required, Validators.minLength(2)]),
-      
-      countryCB: new FormControl(dataset.country),
-      climate: new FormControl(dataset.climate),
-      state: new FormControl(dataset.state, [Validators.required, Validators.minLength(2)]),
-      divisions: new FormControl( dataset.divisions, [Validators.required, Validators.minLength(2)]),
-      areaCodes: new FormControl( dataset.areaCodes, [Validators.required, Validators.minLength(2)]),
-      references: new FormControl( dataset.references , [Validators.required, Validators.minLength(2)]),
-      description: new FormControl(dataset.description, [Validators.required, Validators.minLength(2)]),
-      license: new FormControl( dataset.license, [Validators.required, Validators.minLength(2)]),
-      relativeUrl: new FormControl(dataset.relativeUrl, [Validators.required, Validators.minLength(2)]),
-      filenameprefix: new FormControl(dataset.filenameprefix, [Validators.required, Validators.minLength(2)]),
-      jsonLd: new FormControl( dataset.jsonLd, [Validators.required, Validators.minLength(2)]),
-      downloadLink: new FormControl(dataset.downloadLink, [Validators.required, Validators.minLength(2)]),
-      awsQueue: new FormControl(dataset.awsQueue, [Validators.required, Validators.minLength(2)]),
-      rdshDissEnabled: new FormControl(dataset.rdshDissEnabled, [Validators.required, Validators.minLength(2)]),
-      dataformat: new FormControl(dataset.dataformat),
-      
-      periodFrom: new FormControl(new Date(dataset.periodFrom), [Validators.required, Validators.minLength(2)]),
-      periodTo: new FormControl(new Date(), [Validators.required, Validators.minLength(2)]),
 
 
-    });
+    } else {
+      this.metadataForm = new FormGroup({
+        datasetName: new FormControl(dataset.name, [Validators.required, Validators.minLength(2)]),
+
+        countryCB: new FormControl(dataset.country),
+        climate: new FormControl(dataset.climate),
+        state: new FormControl(dataset.state, [Validators.required, Validators.minLength(2)]),
+        divisions: new FormControl(dataset.divisions, [Validators.required, Validators.minLength(2)]),
+        areaCodes: new FormControl(dataset.areaCodes, [Validators.required, Validators.minLength(2)]),
+        references: new FormControl(dataset.references, [Validators.required, Validators.minLength(2)]),
+        description: new FormControl(dataset.description, [Validators.required, Validators.minLength(2)]),
+        license: new FormControl(dataset.license, [Validators.required, Validators.minLength(2)]),
+        relativeUrl: new FormControl(dataset.relativeUrl, [Validators.required, Validators.minLength(2)]),
+        filenameprefix: new FormControl(dataset.filenameprefix, [Validators.required, Validators.minLength(2)]),
+        jsonLd: new FormControl(dataset.jsonLd, [Validators.required, Validators.minLength(2)]),
+        downloadLink: new FormControl(dataset.downloadLink, [Validators.required, Validators.minLength(2)]),
+        awsQueue: new FormControl(dataset.awsQueue, [Validators.required, Validators.minLength(2)]),
+        rdshDissEnabled: new FormControl(dataset.rdshDissEnabled, [Validators.required, Validators.minLength(2)]),
+        dataformat: new FormControl(dataset.dataformat),
+
+        periodFrom: new FormControl(new Date(dataset.periodFrom), [Validators.required, Validators.minLength(2)]),
+        periodTo: new FormControl(new Date(), [Validators.required, Validators.minLength(2)]),
+
+      });
+    }
+
+
+    this.filteredStates = this.stateCtrl.valueChanges.startWith(null)
+      .map(measurement => measurement ? this.filterStates(measurement) : this.measurements.slice());
   }
+
+  filterStates(name: string) {
+    console.log("name " + name);
+    let out = this.measurements.filter(measurement => measurement.label.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    console.log("OUT  " + out);
+    return out;
   }
+
 
   rdshAdjust(srcElement: HTMLInputElement) {
     console.log("CBval   " + this.rdshCb.checked);
   }
 
-
-
   onSubmit() {
     console.log("submit");
-
-  }
-
-  setReadonly() {
-
   }
 
 

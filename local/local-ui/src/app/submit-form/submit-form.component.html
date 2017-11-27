@@ -76,7 +76,19 @@
 
                   <!-- Measurement Types:// ADD SECTION -->
 
-                  Measurement
+                  <h4 matSubheader>Available Measurement Types:</h4>
+                  <mat-form-field floatPlaceholder="never">
+                 <input matInput placeholder="Mesurment" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                 <!-- formControlName="autocoMesurments" -->
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" > 
+                    <mat-option *ngFor="let measurement of filteredStates | async" [value]="measurement.label">
+                      <span> {{ measurement.label }}</span>
+                    </mat-option>
+                  
+                </mat-autocomplete>
+              </mat-form-field>
+              
+                  <br>
                   <!-- selection list of Available Reading Types-->
 
                   <div style="width:100%;float:left; display:block;">
@@ -84,31 +96,19 @@
 
                     <!-- autocomplete dropdown -->
                     <div class="field-div3-width">
-                        <h4 matSubheader>Available Measurement Types</h4>
-                    <mat-autocomplete>
-                      <mat-option *ngFor="let measurement of measurements" [value]="measurement">
-                        {{ measurement.label }}
-                      </mat-option>
-                    </mat-autocomplete>
-                    <!--  { wmocode: 'http://codes.wmo.int/common/unit/a', label: 'year' }, -->
-                    <!-- <mat-selection-list #readingTypesAvl class="field-div3-width" >
-                      <h3 matSubheader>Available Measurement Types</h3>
-                      <mat-list-option *ngFor="let readingType of readingTypes">
-                        {{readingType.label}}
-                      </mat-list-option>
-                    </mat-selection-list>  -->
+
                   </div>
 
                     <!-- button -->
                     <div class="field-div3-width">
                       <button mat-raised-button (click)="addSelected()">
                         << </button>
-                          <button mat-raised-button (click)="setTest()"> >> </button>
+                          <button mat-raised-button (click)="addSelected()"> >> </button>
                     </div>
 
                     <!-- selection list of selected Reading Types-->
 
-                    <!-- chip -->
+                    <!-- chip  UNCOMMENT -->
                     <mat-chip-list>
                        <mat-chip *ngFor="let measurement of measurements" [selectable]="selectable" [removable]="removable" (remove)="remove(measurement)">
                         {{measurement.label}}
@@ -118,13 +118,6 @@
                         [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
                     </mat-chip-list>
 
-                    <!-- <mat-selection-list #readingTpSel class="field-div3-width" >
-                      <h3 matSubheader>Selected Reading Types</h3>
-                      <div *ngIf="readingTypesSel?.length > 0"></div>
-                      <mat-list-option *ngFor="let readingType of readingTypesSel">
-                        {{readingType.label}}
-                      </mat-list-option>
-                    </mat-selection-list>-->
                   </div>
                   <br/> 
 
@@ -161,7 +154,6 @@
           <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('minlength')">
             Minimum of 2 characters
           </div>
-          <!-- <p></p> -->
 
           <!--  Divisions: // free text  -->
 
@@ -188,7 +180,6 @@
           </div>
           <p>
 
-
             <!-- Climate: //drop down -->
             <mat-form-field>
               <mat-select #climateSelect placeholder="Climate" formControlName="climate" [value]="climate">
@@ -198,7 +189,6 @@
               </mat-select>
             </mat-form-field>
             <p>
-
 
               <!-- References: // free text    -->
               <mat-form-field class="mat-form">
