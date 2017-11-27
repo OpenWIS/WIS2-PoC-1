@@ -228,12 +228,19 @@ mat-sidenav-container {
 dl{
     width: 100%; 
     float: left; 
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -moz-margin-before: 1em;
+    -moz-margin-after: 1em;
+    -moz-margin-start: 0px;
+    -moz-margin-end: 0px;
 }
 dt {
     float: left; 
     clear: left; 
     width: 12em; 
-    font-weight: bold; 
 }
 
 dd { 
