@@ -224,3 +224,18 @@ mat-sidenav-container {
 .mat-sidenav-content {
     z-index: 1;
 }
+
+dl{
+    width: 100%; 
+    float: left; 
+}
+dt {
+    float: left; 
+    clear: left; 
+    width: 30%; 
+    font-weight: bold; 
+}
+
+dd { 
+    float: left; 
+}
