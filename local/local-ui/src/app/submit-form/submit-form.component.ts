@@ -116,6 +116,8 @@ export class SubmitFormComponent implements OnInit {
     // get selected values
     // remove them from the available 
     //  console.log("adding: "+  this.readingTpSel.nativeElement.selectedOptions);
+    console.log("called.")
+    return true;
   }
 
   editMode: boolean = true;
@@ -189,7 +191,6 @@ export class SubmitFormComponent implements OnInit {
       });
     }
 
-
     this.filteredStates = this.stateCtrl.valueChanges.startWith(null)
       .map(measurement => measurement ? this.filterStates(measurement) : this.measurements.slice());
   }
@@ -230,7 +231,7 @@ export class SubmitFormComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("submit");
+    console.log("SSSubmit");
   }
 
 
