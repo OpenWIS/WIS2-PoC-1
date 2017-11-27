@@ -43,10 +43,14 @@ export class AppComponent implements OnInit {
   }
 
 
-  selectedMenuItem: any;
+  static selectedMenuItem: any;
   
   clicked(object) {
-      this.selectedMenuItem = object;
+    AppComponent.selectedMenuItem = object;
+  }
+
+  get selectedMenuItem() {
+    return AppComponent.selectedMenuItem;
   }
 
   navigateToMenu(){

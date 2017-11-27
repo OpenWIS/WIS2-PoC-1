@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material";
 import { RouterModule, Routes, Router } from "@angular/router";
+import { AppComponent } from "../app.component";
 
 @Component({
   selector: "app-datasets-admin",
@@ -10,8 +11,11 @@ import { RouterModule, Routes, Router } from "@angular/router";
 export class DatasetsAdminComponent implements OnInit {
   displayedColumns = ["name", "description", "url"];
   dataSource = new MatTableDataSource<Element>(datasetList);
+  static menuOpen : boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    AppComponent.selectedMenuItem = 'datasets';
+  }
 
   ngOnInit() {}
 
@@ -27,6 +31,14 @@ export class DatasetsAdminComponent implements OnInit {
     //mock new id 100;
     this.router.navigate(['/submit'],{ queryParams: {"id":100 } });
 
+  }
+
+  ngAfterViewInit(){
+    if(!DatasetsAdminComponent.menuOpen){
+      document.getElementById('sitenav').click();
+      DatasetsAdminComponent.menuOpen = true;
+    }
+    
   }
 
 
