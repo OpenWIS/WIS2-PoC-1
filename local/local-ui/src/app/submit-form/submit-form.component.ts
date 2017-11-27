@@ -1,12 +1,14 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild } from '@angular/core';
-import { MatInput, MatRadioGroup } from '@angular/material';
+import { MatInput, MatRadioGroup, MatChipInputEvent } from '@angular/material';
 import { MatCheckbox } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+
 
 
 
@@ -20,9 +22,17 @@ export class SubmitFormComponent implements OnInit {
   rdshDissEnabled = false;
   metadataForm: FormGroup;
   paramsObj: Object;
-
+  //autocomplete
   stateCtrl: FormControl;
   filteredStates: Observable<any[]>;
+  //Chips 
+  visible: boolean = true;
+  selectable: boolean = true;
+  removable: boolean = true;
+  addOnBlur: boolean = true;
+
+  separatorKeysCodes = [ENTER, COMMA];
+
 
   @ViewChild('datasetName') private text1: MatInput;
   @ViewChild('rdshDis') private rdshCb: MatCheckbox;
@@ -183,9 +193,8 @@ export class SubmitFormComponent implements OnInit {
   }
 
   filterStates(name: string) {
-    console.log("name " + name);
     let out = this.measurements.filter(measurement => measurement.label.toLowerCase().indexOf(name.toLowerCase()) === 0);
-    console.log("OUT  " + out);
+
     return out;
   }
 
@@ -193,6 +202,30 @@ export class SubmitFormComponent implements OnInit {
   rdshAdjust(srcElement: HTMLInputElement) {
     console.log("CBval   " + this.rdshCb.checked);
   }
+
+  add(event: MatChipInputEvent): void {
+    let input = event.input;
+    let value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.measurements.push({ label: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(measurement: any): void {
+    let index = this.measurements.indexOf(measurement);
+
+    if (index >= 0) {
+      this.measurements.splice(index, 1);
+    }
+  }
+
 
   onSubmit() {
     console.log("submit");
