@@ -13,6 +13,9 @@
 
 
         <mat-tab label="Dataset Information">
+          <div style="height: 1.2em;"></div>
+
+
           <!--Dataset Information -->
 
           <!-- Name: // free text  -->
@@ -57,6 +60,7 @@
           </p>
           <!-- TODO ADD time validation <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" -->
 
+          <p></p>
           <!-- License: // free text -->
           <mat-form-field class="mat-form">
             <input matInput placeholder="License" formControlName="license">
@@ -68,14 +72,11 @@
             Minimum of 2 characters
           </div>
 
-          <!-- Dataset Image: <FIle upload> -->
-          <br/>
           <p>
-            <label for="input-file-id" class="md-button md-raised md-primary">Dataset Image</label>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Image URL" formControlName="datasetImage">
+            </mat-form-field>
           </p>
-          <input mat-button id="input-file-id" multiple type="file" class="md-button md-raised md-primary" />
-
-
           <!-- Measurement Types:// ADD SECTION -->
 
           <!-- selection list of Available Reading Types-->
@@ -121,6 +122,9 @@
         </mat-tab>
 
         <mat-tab label="Location Information">
+
+          <div style="height: 1.2em;"></div>
+
           <!-- Country:// drop down -->
           <mat-form-field>
             <mat-select #countrySelect placeholder="Country" formControlName="countryCB" [value]="country">
@@ -133,65 +137,52 @@
           <!-- State: // free text -->
 
           <mat-form-field class="mat-form">
-            <input matInput placeholder="State" formControlName="state">
+            <input matInput placeholder="State / Region" formControlName="state">
           </mat-form-field>
           <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('required')">
             State is required
           </div>
-          <div class="error" *ngIf="metadataForm.get('state').touched && metadataForm.get('state').hasError('minlength')">
-            Minimum of 2 characters
-          </div>
-
-          <!--  Divisions: // free text  -->
 
           <mat-form-field class="mat-form">
-            <input matInput placeholder="Divisions" formControlName="divisions">
+            <input matInput placeholder="City" formControlName="city">
           </mat-form-field>
-          <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('required')">
-            Divisions is a required field
-          </div>
-          <div class="error" *ngIf="metadataForm.get('divisions').touched && metadataForm.get('divisions').hasError('minlength')">
-            Minimum of 2 characters
-          </div>
 
-          <!-- Area Codes:// free text -->
+
+
+
+          <p></p>
 
           <mat-form-field class="mat-form">
-            <input matInput placeholder="Area Codes" formControlName="areaCodes">
+            <input matInput placeholder="Latitude" formControlName="latitude">
           </mat-form-field>
-          <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('required')">
-            Area Codes is required field
+          <div class="error" *ngIf="metadataForm.get('latitude').touched && metadataForm.get('latitude').hasError('required')">
+            Latitude is a required field
           </div>
-          <div class="error" *ngIf="metadataForm.get('areaCodes').touched && metadataForm.get('areaCodes').hasError('minlength')">
-            Minimum of 2 characters
-          </div>
-          <p>
 
-            <!-- Climate: //drop down -->
-            <mat-form-field>
-              <mat-select #climateSelect placeholder="Climate" formControlName="climate" [value]="climate">
-                <mat-option *ngFor="let climate of climates" [value]="climate.value" [class.selected]="section === selectedSection">
-                  {{climate.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </p>
+          <p></p>
 
-          <!-- References: // free text    -->
           <mat-form-field class="mat-form">
-            <input matInput placeholder="References" formControlName="references">
+            <input matInput placeholder="Longitude" formControlName="longitude">
           </mat-form-field>
-          <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('required')">
-            References are required
+          <div class="error" *ngIf="metadataForm.get('longitude').touched && metadataForm.get('longitude').hasError('required')">
+            Longitude is a required field
           </div>
-          <div class="error" *ngIf="metadataForm.get('references').touched && metadataForm.get('references').hasError('minlength')">
-            Minimum of 2 characters
+
+          <p></p>
+
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Elevation" formControlName="elevation">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('elevation').touched && metadataForm.get('elevation').hasError('required')">
+            Elevation is a required field
           </div>
 
         </mat-tab>
 
 
-        <mat-tab label="Distribution Information">
+        <mat-tab label="Dissemination Information">
+
+          <div style="height: 1.2em;"></div>
 
           <!--# Distribution Information -->
           <!-- Relative URL: /datasets/aisa-adala -->
@@ -205,6 +196,15 @@
               <input matInput placeholder="Filename Prefix" formControlName="filenameprefix">
             </mat-form-field>
           </p>
+
+          <p>
+
+            Download Link: http://localhost/attica/athens/ath
+            <br> 
+            Subscription URI: arn:aws:sns:attica:athens:ath
+          </p>
+
+
 
           <!--  Data Format: //drop down -->
           <p>
@@ -223,40 +223,42 @@
             <span style="padding:0.5em 1em;display:block;">
               <mat-radio-group #rdshOptions *ngIf="rdshDis.checked">
                 <mat-radio-button value="1">Notification Only</mat-radio-button>
-                
+
                 <mat-radio-button value="2">Notification + Data</mat-radio-button>
               </mat-radio-group>
             </span>
           </p>
-          <p>
-            <!-- Download Link -->
-            <mat-form-field class="mat-form">
-              <input matInput placeholder="Download Link" formControlName="downloadLink">
-            </mat-form-field>
 
-            <!-- AWS Queue -->
-            <mat-form-field class="mat-form">
-              <input matInput placeholder=" AWS Queue" formControlName="awsQueue">
+
+        </mat-tab>
+
+        <mat-tab label="Search Engine Metadata">
+
+            <div style="height: 1.2em;"></div>
+
+           <!-- Json -ld input -->
+           <mat-form-field class="field-full-width" style="width:60%;">
+              <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
+                class="field-full-width" rows="20"></textarea>
             </mat-form-field>
-          </p>
-          <!-- Json -ld input -->
-          <mat-form-field class="field-full-width">
-            <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="20"
-              class="field-full-width"></textarea>
-          </mat-form-field>
 
         </mat-tab>
       </mat-tab-group>
 
       <!-- submit -->
       <span class="ui-spacer"></span>
-
-      <button mat-button (click)="onSubmit()"> Submit form </button>
-      <button mat-button>Clear</button>
-
     </form>
   </div>
 </div>
+
+<div class="box" style="margin-top:1em;">
+  <div style="padding:2em;">
+    <button mat-button (click)="onSubmit()">Save</button>
+    <button mat-button class="cancel-button">Cancel</button>
+  </div>
+</div>
+
+
 <!-- 
     TODO
     responsive adjustments: 
