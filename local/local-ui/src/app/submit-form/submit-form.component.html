@@ -7,8 +7,8 @@
 
   <div style="padding:2em;">
 
-    <form  [formGroup]="metadataForm" class="field-full-width"  (submit)="onSubmit()" >
-<!-- novalidate  (submit)="onSubmit()"  novalidate-->
+    <form [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
+      <!-- novalidate  (submit)="onSubmit()"  novalidate-->
       <mat-tab-group>
 
 
@@ -126,7 +126,7 @@
           <div style="height: 1.2em;"></div>
 
           <!-- Country:// drop down -->
-          <mat-form-field>
+          <mat-form-field class="mat-form">
             <mat-select #countrySelect placeholder="Country" formControlName="countryCB" [value]="country">
               <mat-option *ngFor="let country of countries" [value]="country.value" [class.selected]="section === selectedSection">
                 {{country.viewValue}}
@@ -194,21 +194,32 @@
             <!-- filename preFIX -->
             <mat-form-field class="mat-form">
               <input matInput placeholder="Filename Prefix" formControlName="filenameprefix">
+              <mat-hint>Prefix to be used as initial part of exported file.</mat-hint>
             </mat-form-field>
           </p>
+          <br>
+          <!--   Download Link: 
+  <mat-form-field class="mat-form">
+    <input link matInput placeholder="Download Link:" formControlName="downloadLink">
+  </mat-form-field>
+-->
+          <!-- Subscription URI:
+  <mat-form-field class="mat-form">
+    <input url matInput placeholder="Subscription URI:" formControlName="awsQueue">
+    <mat-hint> MQTT uri </mat-hint>
+  </mat-form-field>
+</p> -->
 
           <p>
-
             Download Link: http://localhost/attica/athens/ath
-            <br> 
-            Subscription URI: arn:aws:sns:attica:athens:ath
           </p>
-
-
-
+          <br>
+          <p>
+            Subscription URI: /arn:aws:sns:us-ATH-1:11784:SEDataQueue
+          </p>
           <!--  Data Format: //drop down -->
           <p>
-            <mat-form-field>
+            <mat-form-field class="mat-form">
               <mat-select #climateSelect placeholder="Data format" formControlName="dataformat">
                 <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value" [class.selected]="section === selectedSection">
                   {{dataformat.viewValue}}
@@ -234,13 +245,13 @@
 
         <mat-tab label="Search Engine Metadata">
 
-            <div style="height: 1.2em;"></div>
+          <div style="height: 1.2em;"></div>
 
-           <!-- Json -ld input -->
-           <mat-form-field class="field-full-width" style="width:60%;">
-              <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
-                class="field-full-width" rows="20"></textarea>
-            </mat-form-field>
+          <!-- Json -ld input -->
+          <mat-form-field class="field-full-width" style="width:60%;">
+            <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
+              class="field-full-width" rows="20"></textarea>
+          </mat-form-field>
 
         </mat-tab>
       </mat-tab-group>

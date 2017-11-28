@@ -74,7 +74,7 @@ export class SubmitFormComponent implements OnInit {
       relativeUrl: "attica/athens",
       filenameprefix: "ath",
       jsonLd: "",
-      downloadLink: "aLink.com",
+      downloadLink: "http://localhost/attica/athens/ath",
       awsQueue: "/arn:aws:sns:us-ATH-1:11784:SEDataQueue",
       rdshDissEnabled: "false",
       periodFrom: "1984/01/01",

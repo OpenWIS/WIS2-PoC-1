@@ -91,6 +91,10 @@ field-full-width{
     padding: 20px;
 }
 
+.mat-form {
+    width: 16em;
+}
+
 mat-sidenav-container,
 main-content {
     height: calc(100vh - 105px);
