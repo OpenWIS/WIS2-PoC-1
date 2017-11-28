@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.metadataForm = new FormGroup({
       title: new FormControl("", [Validators.required]),
+      systemId: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required]),
       copyright: new FormControl("", [])
     });
