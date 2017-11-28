@@ -7,8 +7,8 @@
 
   <div style="padding:2em;">
 
-    <form novalidate [formGroup]="metadataForm" class="field-full-width">
-
+    <form  [formGroup]="metadataForm" class="field-full-width"  (submit)="onSubmit()" >
+<!-- novalidate  (submit)="onSubmit()"  novalidate-->
       <mat-tab-group>
 
 
@@ -96,10 +96,10 @@
 
             <!-- button -->
             <div class="field-div3-width" style="padding:4em 0;">
-              <button mat-button (click)="addSelected()">
+              <button mat-button type="button" (click)="addSelected()">
                 <mat-icon>arrow_back</mat-icon>
               </button>
-              <button mat-button (click)="addSelected()">
+              <button mat-button type="button" (click)="addSelected()">
                 <mat-icon>arrow_forward</mat-icon>
               </button>
             </div>
