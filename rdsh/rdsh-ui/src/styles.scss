@@ -1,0 +1,256 @@
+/* You can add global styles to this file, and also import other style files */
+
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$openwis-app-primary: mat-palette($mat-blue);
+$openwis-app-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$openwis-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$openwis-app-theme: mat-light-theme($openwis-app-primary, $openwis-app-accent, $openwis-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($openwis-app-theme);
+
+
+html,
+body,
+material-app {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+}
+
+button{
+    color: #FAFAFA !important;
+    background: #43A047 !important;
+}
+
+button.transparent{
+    background: transparent!important;
+}
+
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    -moz-margin-before: 0em;
+    -moz-margin-after: 0em;
+    -moz-margin-start: 0px;
+    -moz-margin-end: 0em;
+    -moz-padding-start: 0px;
+    margin: 0;
+}
+
+
+field-full-width{
+    width: 100%;
+}
+
+
+.field-div3-width{
+    width: 30%;
+    float:left;
+}
+
+.filed-div-center{
+    align-content: center;
+}
+
+.container {
+    width: 500px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidenav {
+    padding: 20px;
+}
+
+mat-sidenav-container,
+main-content {
+    height: calc(100vh - 105px);
+}
+
+mat-icon{
+    vertical-align:text-bottom;
+}
+
+.ui-icon {
+    padding: 0 14px;
+}
+
+.ui-icon.dark{
+    color: #62757f;
+    color: #43A047;
+} 
+
+.ui-spacer {
+    flex: 1 1 auto;
+}
+
+mat-sidenav {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 1px 4px 0 rgba(0, 0, 0, .14), 0 1px 4px 0 rgba(0, 0, 0, .12);
+}
+
+.mat-drawer {
+    background-color: #62757f;
+}
+
+.mat-radio-button{
+    margin-bottom:0.2em !important;
+    display:block !important;
+}
+
+.box{
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 1px 4px 0 rgba(0, 0, 0, .14), 0 1px 4px 0 rgba(0, 0, 0, .12);
+}
+
+footer {
+    height: 40px;
+    width: 100%;
+    background: #212121;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 1px 4px 0 rgba(0, 0, 0, .14), 0 1px 4px 0 rgba(0, 0, 0, .12);
+}
+
+.footer-message {
+    font-size: 12px;
+    padding: 4px 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+mat-sidenav li {
+    list-style-type: none;
+    margin: 0;
+    color: #ffffff;
+    cursor: pointer;
+    
+}
+
+mat-sidenav li a {
+    color: #dedede;
+    text-decoration: none;
+    padding: 1em 0 1em 0em;
+    width: 14em;
+    display: inline-block;
+    border-bottom: 1px dashed #dedede;
+}
+
+a.active {
+    background: #dedede;
+    color: #62757f;
+}
+
+mat-sidenav li a:hover {
+    color: #ffffff;
+    /* background: #dedede ; */
+}
+
+li a.active:hover{
+    background: #dedede;
+    color: #62757f;
+}
+
+mat-header-cell{
+    color: #43A047 !important;
+    font-size: 1em !important;
+}
+
+.header {
+    color: #ffffff;
+    background-color:#43A047;
+    height: auto !important;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 1px 4px 0 rgba(0, 0, 0, .14), 0 1px 4px 0 rgba(0, 0, 0, .12);
+    z-index: 2;
+}
+
+.header p {
+    color: #ffffff;
+    margin-left: 1em;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+.header-small{
+    color: #ffffff;
+    background: #62757f;
+}
+
+.main-header{
+    text-align: center; 
+    color:#43A047; 
+
+}
+
+.mat-toolbar {}
+
+.mat-toolbar .header-top {
+    color: #ffffff;
+    background: #43A047;
+    padding: 4px 0;
+    height: 18px;
+}
+
+.menu-icon {
+    cursor: pointer;
+}
+
+.main-content {
+    padding: 2em;
+}
+
+mat-sidenav-container {
+}
+
+.mat-sidenav-content {
+    z-index: 1;
+}
+
+dl{
+    width: 100%; 
+    float: left; 
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    -moz-margin-before: 0em;
+    -moz-margin-after: 0em;
+    -moz-margin-start: 0px;
+    -moz-margin-end: 0em;
+    -moz-padding-start: 0px;
+}
+dt {
+    float: left; 
+    clear: left; 
+    width: 12em; 
+}
+
+dd { 
+    float: left; 
+}
