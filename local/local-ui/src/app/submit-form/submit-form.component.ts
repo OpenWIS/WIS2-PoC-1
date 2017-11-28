@@ -352,7 +352,12 @@ export class SubmitFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("SSSubmit");
+    console.log("Submit");
+  }
+
+
+  replaceSlash(s:string) {
+    return s && s.replace('/',':');
   }
 
   getErrorMessage() {

@@ -187,35 +187,24 @@
           <!--# Distribution Information -->
           <!-- Relative URL: /datasets/aisa-adala -->
           <mat-form-field class="mat-form">
-            <input matInput placeholder=" Relative URL" formControlName="relativeUrl">
+            <input matInput placeholder=" Relative URL" formControlName="relativeUrl" #relativeUrl>
           </mat-form-field>
 
           <p>
             <!-- filename preFIX -->
             <mat-form-field class="mat-form">
-              <input matInput placeholder="Filename Prefix" formControlName="filenameprefix">
+              <input matInput placeholder="Filename Prefix" formControlName="filenameprefix" #filenameprefix>
               <mat-hint>Prefix to be used as initial part of exported file.</mat-hint>
             </mat-form-field>
           </p>
           <br>
-          <!--   Download Link: 
-  <mat-form-field class="mat-form">
-    <input link matInput placeholder="Download Link:" formControlName="downloadLink">
-  </mat-form-field>
--->
-          <!-- Subscription URI:
-  <mat-form-field class="mat-form">
-    <input url matInput placeholder="Subscription URI:" formControlName="awsQueue">
-    <mat-hint> MQTT uri </mat-hint>
-  </mat-form-field>
-</p> -->
 
           <p>
-            Download Link: http://localhost/attica/athens/ath
+            Download URL: <span style="color:#62757f;">http://localhost/</span><span style="color:#2196F3;">{{relativeUrl.value}}</span>/<span style="color:#1976D2;">{{filenameprefix.value}}</span>
           </p>
           <br>
           <p>
-            Subscription URI: /arn:aws:sns:us-ATH-1:11784:SEDataQueue
+            Subscription URI: <span style="color:#62757f;">arn:aws:sns:</span><span style="color:#2196F3;" [innerHTML]="replaceSlash(relativeUrl.value)"></span>:<span style="color:#1976D2;">{{filenameprefix.value}}</span>
           </p>
           <!--  Data Format: //drop down -->
           <p>
