@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { MatTableDataSource } from "@angular/material";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatTableDataSource, MatSidenav } from "@angular/material";
 import { RouterModule, Routes, Router } from "@angular/router";
 import { AppComponent } from "../app.component";
 
@@ -12,9 +12,10 @@ export class LdshsAdminComponent implements OnInit {
   displayedColumns = ["name", "description", "url"];
   dataSource = new MatTableDataSource<Element>(ldshList);
   static menuOpen : boolean = false;
+  
 
   constructor(private router: Router) {
-    AppComponent.selectedMenuItem = 'ldshList';
+    AppComponent.selectedMenuItem = 'ldshs';
   }
 
   ngOnInit() {}

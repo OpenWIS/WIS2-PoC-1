@@ -3,9 +3,9 @@ import { Routes, RouterModule } from "@angular/router";
 
 // component list:
 import { SettingsComponent } from "./settings/settings.component";
-import { DatasetsMainComponent } from "./datasets-main/datasets-main.component";
 import { LdshsAdminComponent } from "./ldshs-admin/ldshs-admin.component";
 import { QueueAdminComponent } from "./queue-admin/queue-admin.component";
+import { LdshsMainComponent } from "./ldshs-main/ldshs-main.component";
 
 // import { DatasetsAdminComponent } from "./datasets-admin/datasets-admin.component";
 // import { SubmitFormComponent } from "./submit-form/submit-form.component";
@@ -15,7 +15,7 @@ import { QueueAdminComponent } from "./queue-admin/queue-admin.component";
 export const routerConfig: Routes = [
   {
     path: "home",
-    component: DatasetsMainComponent
+    component: LdshsMainComponent
   },
   {
     path: "ldshs",

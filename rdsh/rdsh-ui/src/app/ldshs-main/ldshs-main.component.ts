@@ -3,11 +3,11 @@ import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-datasets-main',
-  templateUrl: './datasets-main.component.html',
-  styleUrls: ['./datasets-main.component.css']
+  selector: 'app-ldshs-main',
+  templateUrl: './ldshs-main.component.html',
+  styleUrls: ['./ldshs-main.component.css']
 })
-export class DatasetsMainComponent implements OnInit {
+export class LdshsMainComponent implements OnInit {
   displayedColumns = ['name', 'description', 'url'];
   dataSource = new MatTableDataSource<Element>(datasetList);
 
@@ -19,9 +19,8 @@ export class DatasetsMainComponent implements OnInit {
 
   gotoPage(id: string) {
 
-    // console.log("TO ID "+ id);
     this.router.navigate(['/view'], { queryParams: { "id": id } });
-    //  this.router.navigate(['/submit'],{ queryParams: {"id": id } });
+
   }
 
 
@@ -34,9 +33,8 @@ export interface Element {
 
 
 const datasetList: Element[] = [
-  { name: 'Athens', description: "Temperature/Rainfall in Athens", id: "10" },
-  { name: 'Thesaloniki', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
-  { name: "Iraklion", description: "Wind speed/direction in Iraklion" , id: "12" },
+  { name: 'Athens', description: "Athens ldsh", id: "1" },
+  { name: 'Thesaloniki', description: "Thesaloniki ldsh", id: "30" },
+  { name: "Iraklion", description: "Iraklion ldsh" , id: "12" },
 ];
-
 

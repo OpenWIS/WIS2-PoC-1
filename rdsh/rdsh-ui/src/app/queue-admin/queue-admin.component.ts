@@ -14,7 +14,7 @@ export class QueueAdminComponent implements OnInit {
   static menuOpen : boolean = false;
 
   constructor(private router: Router) {
-    AppComponent.selectedMenuItem = 'Queues';
+    AppComponent.selectedMenuItem = 'queues';
   }
 
   ngOnInit() {}
@@ -33,12 +33,7 @@ export class QueueAdminComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(){
-    if(!QueueAdminComponent.menuOpen){
-      document.getElementById('sitenav').click();
-      QueueAdminComponent.menuOpen = true;
-    }
-  }
+  ngAfterViewInit(){ }
 
 }
 
