@@ -2,6 +2,11 @@
   <mat-toolbar #componentToolbar class="header-small">
     <p>LDSH Queues </p>
     <span class="ui-spacer"></span>
+
+    <button mat-icon-button class="transparent" (click)="addQueue()">
+      <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
+    </button>
+
   </mat-toolbar>
 
   <div style="padding:2em;">
@@ -20,32 +25,34 @@
         <mat-cell *matCellDef="let element"> {{element.uri}} </mat-cell>
       </ng-container>
 
-      <!-- Weight Column -->
+      <!-- Action Column -->
       <ng-container matColumnDef="url">
         <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
 
         <mat-cell *matCellDef="let element">
 
-          <button mat-icon-button class="transparent">
-              <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditLdsh(element.id)">edit</mat-icon>  
+          <button mat-icon-button class="transparent" matTooltip="Edit">
+            <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditLdsh(element.id)">edit</mat-icon>
           </button>
-          <button mat-icon-button class="transparent">
-              <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewLdsh(element.id)">pageview</mat-icon>  
+          <button mat-icon-button class="transparent" matTooltip="View">
+            <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewLdsh(element.id)">pageview</mat-icon>
           </button>
-          <button mat-icon-button class="transparent">
-              <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>  
+
+          <!-- Purge Column -->
+          <button mat-icon-button class="transparent" aria-label="View" matTooltip="Purge Queuue">
+            <mat-icon class="ui-icon dark" (click)="navigateToViewLdsh(element.id)">clear_all</mat-icon>
+          </button>
+
+          <button mat-icon-button class="transparent" matTooltip="Delete">
+            <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>
           </button>
         </mat-cell>
 
       </ng-container>
 
-      
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-   
 
-    <br>
-    <button mat-button (click)="addNewLdsh()" > Add new LDSH Queue </button>
   </div>
 </div>

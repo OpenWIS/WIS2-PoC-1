@@ -27,11 +27,12 @@ export class QueueAdminComponent implements OnInit {
   navigateToViewLdsh(id: string){
     this.router.navigate(['/view'], { queryParams: { "id": id } });
   }
-  addNewLdsh(){
-    //mock new id 100;
-    this.router.navigate(['/submit'],{ queryParams: {"id":100 } });
 
-  }
+
+  addQueue(){
+    //mock new id 100;
+  this.router.navigate(['/submit'],{ queryParams: {"id":111 } });
+ }
 
   ngAfterViewInit(){ }
 
