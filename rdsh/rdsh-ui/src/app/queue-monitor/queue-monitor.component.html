@@ -1,0 +1,72 @@
+<div class="box">
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Registered Local Data Sharing Hubs</p>
+    <span class="ui-spacer"></span>
+  </mat-toolbar>
+
+
+  <div style="padding:2em;">
+
+    <mat-table #table [dataSource]="dataSource">
+      <!--  name:  -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      <!--openConnections -->
+      <ng-container matColumnDef="openConnections">
+        <mat-header-cell *matHeaderCellDef> Open Connections </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.openConnections}} </mat-cell>
+      </ng-container>
+      <!--  closedConnections -->
+
+      <ng-container matColumnDef="closedConnections">
+        <mat-header-cell *matHeaderCellDef> Closed Connections </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.closedConnections}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="messagesSent">
+        <mat-header-cell *matHeaderCellDef> Messages Sent </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.messagesSent}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bytesSent">
+        <mat-header-cell *matHeaderCellDef> Bytes Sent </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.bytesSent}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="failedConnections">
+        <mat-header-cell *matHeaderCellDef> Failed Connections </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.failedConnections}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
+
+        <mat-cell *matCellDef="let element">
+          <a class="nav-link" routerLink (click)="gotoQueue(element.id)">Open Queue</a>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Purge Column -->
+      <ng-container matColumnDef="purge">
+          <mat-header-cell *matHeaderCellDef> Empty </mat-header-cell>
+          
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button class="transparent" aria-label="View" matTooltip="Purge">
+            <mat-icon class="ui-icon dark" (click)="purge(element.id)">clear_all</mat-icon> 
+          </button>
+        </mat-cell>
+      </ng-container>
+
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </div>
+</div>

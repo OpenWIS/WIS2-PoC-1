@@ -34,6 +34,10 @@ export class QueueAdminComponent implements OnInit {
   this.router.navigate(['/queueEdit'],{ queryParams: {"id":111 } });
  }
 
+monitor(){
+  this.router.navigate(['/monitor']);
+}
+
   ngAfterViewInit(){ }
 
 }
