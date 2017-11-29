@@ -23,6 +23,10 @@
         <dt>License:</dt>
         <dd>{{dataSet.license}}</dd>
         <dt>Measurment:</dt>
+        <dd>{{dataSet.measurement}}</dd>
+        <dt>Measurment Unit:</dt>
+        <dd>{{dataSet.measurementUnit}}</dd>
+        
       </dl>
       <!-- <dd>{{dataSet.measurment}}</dd> -->
 
@@ -32,7 +36,6 @@
 
 
     <div>
-      <!--  class="box-content-row" -->
 
       <h4>Location Information</h4>
 
@@ -47,6 +50,13 @@
         <dd>{{dataSet.state}}</dd>
         <dt>City:</dt>
         <dd>{{dataSet.divisions}}</dd>
+        <dt>Latitude:</dt>
+        <dd>{{dataSet.latitude}}</dd>
+        <dt>Longitude:</dt>
+        <dd>{{dataSet.longitude}}</dd>
+        <dt>Elevation:</dt>
+        <dd>{{dataSet.elevation}}</dd>
+
         <!-- <dt>Area Codes:</dt>
         <dd>{{dataSet.areaCodes}}</dd> -->
         <!-- <dt>Climate:</dt>
@@ -65,14 +75,13 @@
 
         <dt>Data Format:</dt>
         <dd>{{dataSet.dataformat}}</dd>
-        <dt>Dissemination Link:</dt>
+        <dt>Download URL:</dt>
         <dd>
           <a href={{dataSet.downloadLink}}>{{dataSet.downloadLink}}</a>
         </dd>
-        <dt>Subscription URI:</dt>
+        <dt>Subscription URL:</dt>
         <dd>{{dataSet.awsQueue}}</dd>
       </dl>
-
     </div>
 
     <div style='clear:both;'></div>
