@@ -39,13 +39,17 @@
         </mat-form-field>
       </div>
       <div>
-      Token:<h5>  {{securityToken}}</h5>
-      <button mat-button (click)="generateToken()" matTooltip="Generate token">
+        Token:
+        <h5> {{securityToken}}</h5>
+        <br>
+      </div>
+      <div>
+        <button mat-button (click)="generateToken()" matTooltip="Generate token">
           <mat-icon class="ui-icon" aria-label="New">cached</mat-icon>
-      </button>
-    </div>
-    <br>
-    <div>
+        </button>
+      </div>
+      <br>
+      <div>
         <button mat-button (click)="onSubmit()">Save</button>
         <button mat-button class="cancel-button">Cancel</button>
       </div>

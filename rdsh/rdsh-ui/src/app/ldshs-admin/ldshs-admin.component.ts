@@ -30,7 +30,7 @@ export class LdshsAdminComponent implements OnInit {
   }
   addNewLdsh(){
     //mock new id 100;
-    this.router.navigate(['/submit'],{ queryParams: {"id":100 } });
+    this.router.navigate(['/ldshEdit'],{ queryParams: {"id":100 } });
 
   }
 
@@ -55,7 +55,7 @@ export interface Element {
 
 
 const ldshList: Element[] = [
-  { name: 'Athens', description: "Athens data shairing hub", id: "10" },
-  { name: 'Thesaloniki', description: "Thesaloniki data shairing hub", id: "30" },
-  { name: "Iraklion", description: "Iraklion data shairing hub" , id: "12" },
+  { name: 'Athens', description: "Athens data shairing hub", id: "31" },
+  { name: 'Thesaloniki', description: "Thesaloniki data shairing hub", id: "32" },
+  { name: "Iraklion", description: "Iraklion data shairing hub" , id: "33" },
 ];
