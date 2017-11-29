@@ -78,7 +78,9 @@ export class SubmitFormComponent implements OnInit {
       awsQueue: "/arn:aws:sns:us-ATH-1:11784:SEDataQueue",
       rdshDissEnabled: "false",
       periodFrom: "1984/01/01",
-      periodTo: "Now"
+      periodTo: "Now",
+      measurementUnit: "Day"
+      // measurementUnit: "http://codes.wmo.int/common/unit/d"
     },
     {
       id: "30",
@@ -102,7 +104,8 @@ export class SubmitFormComponent implements OnInit {
       awsQueue: "/arn:aws:sns:us-east-1:11784:SEDataQueue",
       rdshDissEnabled: "",
       periodFrom: "1984/01/01",
-      periodTo: "Now"
+      periodTo: "Now",
+      measurementUnit:"Month"
     },
     {
       id: "12",
@@ -126,7 +129,8 @@ export class SubmitFormComponent implements OnInit {
       awsQueue: "",
       rdshDissEnabled: "",
       periodFrom: "1984/01/01",
-      periodTo: "Now"
+      periodTo: "Now",
+      measurementUnit:"Hour"
     }
   ];
 
@@ -152,15 +156,21 @@ export class SubmitFormComponent implements OnInit {
     { value: "exl", viewValue: "Excel" }
   ];
 
+
+  measurementUnits: any = [
+    // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
+    { wmocode: "http://codes.wmo.int/common/unit/mon", label: "Month" },
+    { wmocode: "http://codes.wmo.int/common/unit/d", label: "Day" },
+    { wmocode: "http://codes.wmo.int/common/unit/h", label: "Hour" },
+    { wmocode: "http://codes.wmo.int/common/unit/min",label: "Minute (time)"},
+  ];
+
   measurements: any = [
-    { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
-    { wmocode: "http://codes.wmo.int/common/unit/mon", label: "month" },
-    { wmocode: "http://codes.wmo.int/common/unit/d", label: "day" },
-    { wmocode: "http://codes.wmo.int/common/unit/h", label: "hour" },
-    {
-      wmocode: "http://codes.wmo.int/common/unit/min",
-      label: " minute (time)"
-    },
+    // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
+    // { wmocode: "http://codes.wmo.int/common/unit/mon", label: "month" },
+    // { wmocode: "http://codes.wmo.int/common/unit/d", label: "day" },
+    // { wmocode: "http://codes.wmo.int/common/unit/h", label: "hour" },
+    // { wmocode: "http://codes.wmo.int/common/unit/min",label: " minute (time)"},
     {
       wmocode: "http://codes.wmo.int/grib2/codeflag/4.2/0-2-0",
       label: "Wind direction (from which blowing)"
@@ -193,7 +203,7 @@ export class SubmitFormComponent implements OnInit {
   }
 
   editMode: boolean = true;
-  selectedCountry: string = "gr";
+  // selectedCountry: string = "gr";
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
@@ -240,6 +250,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
+        measurementUnitsCb:  new FormControl(""),
         countryCB: new FormControl(""),
         climate: new FormControl(""),
         dataformat: new FormControl(""),
@@ -251,7 +262,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-
+        measurementUnitsCb: new FormControl(dataset.measurementUnit),
         countryCB: new FormControl(dataset.country),
         climate: new FormControl(dataset.climate),
         state: new FormControl(dataset.state, [Validators.required]),

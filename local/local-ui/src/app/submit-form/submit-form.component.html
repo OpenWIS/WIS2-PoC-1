@@ -94,6 +94,7 @@
               </mat-form-field>
             </div>
 
+
             <!-- button -->
             <div class="field-div3-width" style="padding:4em 0;">
               <button mat-button type="button" (click)="addSelected()">
@@ -119,12 +120,22 @@
               </mat-chip-list>
             </div>
           </div>
+
+         <!-- UPDATE frequent -->
+         <mat-form-field class="mat-form">
+          <mat-select #countrySelect placeholder="Measurement Units" formControlName="measurementUnitsCb" [value]="measurementUnit">
+            <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.label" 
+            [class.selected]="section === selectedSection">
+              {{measurementUnit.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         </mat-tab>
 
+
         <mat-tab label="Location Information">
-
           <div style="height: 1.2em;"></div>
-
           <!-- Country:// drop down -->
           <mat-form-field class="mat-form">
             <mat-select #countrySelect placeholder="Country" formControlName="countryCB" [value]="country">
