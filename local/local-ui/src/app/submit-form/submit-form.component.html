@@ -8,7 +8,6 @@
   <div style="padding:2em;">
 
     <form [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
-      <!-- novalidate  (submit)="onSubmit()"  novalidate-->
       <mat-tab-group>
 
 
@@ -77,7 +76,7 @@
               <input matInput placeholder="Image URL" formControlName="datasetImage">
             </mat-form-field>
           </p>
-          <!-- Measurement Types:// ADD SECTION -->
+          <!-- Measurement Types -->
 
           <!-- selection list of Available Reading Types-->
           <div style="width:100%;float:left; display:block;">
@@ -85,7 +84,7 @@
             <div class="field-div3-width">
               <h4 matSubheader>Available Measurement Types:</h4>
               <mat-form-field floatPlaceholder="never">
-                <input matInput placeholder="Mesurment" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <input matInput placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngFor="let measurement of filteredStates | async" [value]="measurement.label">
                     <span> {{ measurement.label }}</span>
@@ -93,7 +92,6 @@
                 </mat-autocomplete>
               </mat-form-field>
             </div>
-
 
             <!-- button -->
             <div class="field-div3-width" style="padding:4em 0;">
@@ -157,9 +155,6 @@
           <mat-form-field class="mat-form">
             <input matInput placeholder="City" formControlName="city">
           </mat-form-field>
-
-
-
 
           <p></p>
 
