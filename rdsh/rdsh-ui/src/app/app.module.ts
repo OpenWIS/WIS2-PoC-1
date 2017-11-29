@@ -10,6 +10,7 @@ import { LdshsAdminComponent } from './ldshs-admin/ldshs-admin.component';
 import { QueueAdminComponent } from './queue-admin/queue-admin.component';
 import { LdshsMainComponent } from './ldshs-main/ldshs-main.component';
 import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
+import { QueueEditComponent } from './queue-edit/queue-edit.component';
 
 
 
@@ -21,6 +22,7 @@ import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
     QueueAdminComponent,
     LdshsMainComponent,
     LdshsEditComponent,
+    QueueEditComponent,
   ],
   imports: [
     BrowserModule,

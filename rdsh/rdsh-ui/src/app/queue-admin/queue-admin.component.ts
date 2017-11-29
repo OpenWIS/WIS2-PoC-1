@@ -19,19 +19,19 @@ export class QueueAdminComponent implements OnInit {
 
   ngOnInit() {}
 
-  navigateToEditLdsh(id: string){
+  navigateToEditQueue(id: string){
     //TODO FIX
-    this.router.navigate(['/submit'],{ queryParams: {"id": id } });
+    this.router.navigate(['/queueEdit'],{ queryParams: {"id": id } });
   }
 
-  navigateToViewLdsh(id: string){
+  navigateToViewQueue(id: string){
     this.router.navigate(['/view'], { queryParams: { "id": id } });
   }
 
 
   addQueue(){
     //mock new id 100;
-  this.router.navigate(['/submit'],{ queryParams: {"id":111 } });
+  this.router.navigate(['/queueEdit'],{ queryParams: {"id":111 } });
  }
 
   ngAfterViewInit(){ }
@@ -47,7 +47,7 @@ export interface Element {
 
 
 const queueList: Element[] = [
-  { name: 'AthQ', uri: "/arn:aws:sns:us-ATH-1:11784:SEDataQueue ", id: "3" },
-  { name: 'ThesQ', uri: "/arn:aws:sns:us-THES-1:753424:SEDataQueue", id: "4" },
-  { name: "IrakQ", uri: "/arn:aws:sns:us-IRR-1:23284:SEDataQueue " , id: "5" },
+  { name: 'AthQ', uri: "arn:aws:sns:us-ATH-1:11784:SEDataQueue ", id: "23" },
+  { name: 'ThesQ', uri: "arn:aws:sns:us-THES-1:753424:SEDataQueue", id: "24" },
+  { name: "HerkQ", uri: "arn:aws:sns:us-Her-1:23284:SEDataQueue " , id: "25" },
 ];

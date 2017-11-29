@@ -1,0 +1,33 @@
+<div class="box">
+    <mat-toolbar #componentToolbar class="header-small">
+      <p>Queue Settings</p>
+      <span class="ui-spacer"></span>
+    </mat-toolbar>
+  
+    <div style="padding:2em;">
+      <form novalidate [formGroup]="metadataForm" class="field-full-width">
+        <div>
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Name" formControlName="name">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('name').touched && metadataForm.get('name').hasError('required')">
+            Name is required
+          </div>
+        </div>
+  
+        <div>
+          <mat-form-field class="mat-form">
+            <input matInput placeholder="Uri" formControlName="uri">
+          </mat-form-field>
+          <div class="error" *ngIf="metadataForm.get('uri').touched && metadataForm.get('uri').hasError('required')">
+              Uri is required
+          </div>
+        </div>
+  
+       
+        <br>
+        <div>
+          <button mat-button (click)="onSubmit()">Save</button>
+          <button mat-button class="cancel-button">Cancel</button>
+        </div>
+      </form>

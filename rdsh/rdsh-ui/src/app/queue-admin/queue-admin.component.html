@@ -3,9 +3,14 @@
     <p>LDSH Queues </p>
     <span class="ui-spacer"></span>
 
-    <button mat-icon-button class="transparent" (click)="addQueue()">
+    <button mat-icon-button class="transparent" (click)="addQueue()" matTooltip="Monitor all">
+      <mat-icon class="ui-icon" aria-label="monitor">desktop_windows </mat-icon>
+    </button>
+
+    <button mat-icon-button class="transparent" (click)="addQueue()" matTooltip="Add New">
       <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
     </button>
+
 
   </mat-toolbar>
 
@@ -32,15 +37,15 @@
         <mat-cell *matCellDef="let element">
 
           <button mat-icon-button class="transparent" matTooltip="Edit">
-            <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditLdsh(element.id)">edit</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditQueue(element.id)">edit</mat-icon>
           </button>
           <button mat-icon-button class="transparent" matTooltip="View">
-            <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewLdsh(element.id)">pageview</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewQueue(element.id)">pageview</mat-icon>
           </button>
 
           <!-- Purge Column -->
-          <button mat-icon-button class="transparent" aria-label="View" matTooltip="Purge Queuue">
-            <mat-icon class="ui-icon dark" (click)="navigateToViewLdsh(element.id)">clear_all</mat-icon>
+          <button mat-icon-button class="transparent" aria-label="View" matTooltip="Purge">
+            <mat-icon class="ui-icon dark" (click)="navigateToViewQueue(element.id)">clear_all</mat-icon>
           </button>
 
           <button mat-icon-button class="transparent" matTooltip="Delete">
