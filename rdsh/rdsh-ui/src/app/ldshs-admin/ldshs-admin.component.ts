@@ -22,7 +22,7 @@ export class LdshsAdminComponent implements OnInit {
 
   navigateToEditLdsh(id: string){
     //TODO FIX
-    this.router.navigate(['/submit'],{ queryParams: {"id": id } });
+    this.router.navigate(['/ldshEdit'],{ queryParams: {"id": id } });
   }
 
   navigateToViewLdsh(id: string){

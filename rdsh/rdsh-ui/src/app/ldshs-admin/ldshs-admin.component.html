@@ -2,6 +2,10 @@
   <mat-toolbar #componentToolbar class="header-small">
     <p>Registered Local Data Sharing Hubs </p>
     <span class="ui-spacer"></span>
+    <button mat-icon-button class="transparent" (click)="addNewLdsh()" matTooltip="Add new LDSH" >
+        <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
+      </button>
+
   </mat-toolbar>
 
   <div style="padding:2em;">
@@ -26,13 +30,13 @@
 
         <mat-cell *matCellDef="let element">
 
-          <button mat-icon-button class="transparent">
+          <button mat-icon-button class="transparent" matTooltip="Edit LDSH">
               <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditLdsh(element.id)">edit</mat-icon>  
           </button>
-          <button mat-icon-button class="transparent">
+          <button mat-icon-button class="transparent" matTooltip="View LDSH" >
               <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewLdsh(element.id)">pageview</mat-icon>  
           </button>
-          <button mat-icon-button class="transparent">
+          <button mat-icon-button class="transparent" matTooltip="Delete LDSH" >
               <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>  
           </button>
         </mat-cell>
@@ -45,7 +49,5 @@
     </mat-table>
    
 
-    <br>
-    <button mat-button (click)="addNewLdsh()" > Add new LDSH </button>
   </div>
 </div>
