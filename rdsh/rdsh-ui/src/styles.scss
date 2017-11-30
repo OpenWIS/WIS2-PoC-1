@@ -109,7 +109,6 @@ mat-icon{
 }
 
 .ui-icon.dark{
-    color: #62757f;
     color: #43A047;
 } 
 
@@ -122,7 +121,7 @@ mat-sidenav {
 }
 
 .mat-drawer {
-    background-color: #62757f;
+    background-color: #455A64;
 }
 
 .mat-radio-button{
@@ -167,7 +166,7 @@ mat-sidenav li a {
 
 a.active {
     background: #dedede;
-    color: #62757f;
+    color: #455A64;
 }
 
 mat-sidenav li a:hover {
@@ -177,7 +176,7 @@ mat-sidenav li a:hover {
 
 li a.active:hover{
     background: #dedede;
-    color: #62757f;
+    color: #455A64;
 }
 
 mat-header-cell{
@@ -202,7 +201,7 @@ mat-header-cell{
 
 .header-small{
     color: #ffffff;
-    background: #62757f;
+    background: #455A64;
 }
 
 .main-header{
