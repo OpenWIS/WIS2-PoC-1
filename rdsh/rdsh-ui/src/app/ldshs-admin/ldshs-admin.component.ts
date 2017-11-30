@@ -26,7 +26,7 @@ export class LdshsAdminComponent implements OnInit {
   }
 
   navigateToViewLdsh(id: string){
-    this.router.navigate(['/view'], { queryParams: { "id": id } });
+    this.router.navigate(['/ldshView'], { queryParams: { "id": id } });
   }
   addNewLdsh(){
     //mock new id 100;
