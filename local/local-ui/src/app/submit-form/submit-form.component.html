@@ -8,7 +8,6 @@
   <div style="padding:2em;">
 
     <form [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
-      <!-- novalidate  (submit)="onSubmit()"  novalidate-->
       <mat-tab-group>
 
 
@@ -77,7 +76,7 @@
               <input matInput placeholder="Image URL" formControlName="datasetImage">
             </mat-form-field>
           </p>
-          <!-- Measurement Types:// ADD SECTION -->
+          <!-- Measurement Types -->
 
           <!-- selection list of Available Reading Types-->
           <div style="width:100%;float:left; display:block;">
@@ -85,7 +84,7 @@
             <div class="field-div3-width">
               <h4 matSubheader>Available Measurement Types:</h4>
               <mat-form-field floatPlaceholder="never">
-                <input matInput placeholder="Mesurment" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <input matInput placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngFor="let measurement of filteredStates | async" [value]="measurement.label">
                     <span> {{ measurement.label }}</span>
@@ -119,12 +118,22 @@
               </mat-chip-list>
             </div>
           </div>
+
+         <!-- UPDATE frequent -->
+         <mat-form-field class="mat-form">
+          <mat-select #countrySelect placeholder="Measurement Units" formControlName="measurementUnitsCb" [value]="measurementUnit">
+            <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.label" 
+            [class.selected]="section === selectedSection">
+              {{measurementUnit.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         </mat-tab>
 
+
         <mat-tab label="Location Information">
-
           <div style="height: 1.2em;"></div>
-
           <!-- Country:// drop down -->
           <mat-form-field class="mat-form">
             <mat-select #countrySelect placeholder="Country" formControlName="countryCB" [value]="country">
@@ -146,9 +155,6 @@
           <mat-form-field class="mat-form">
             <input matInput placeholder="City" formControlName="city">
           </mat-form-field>
-
-
-
 
           <p></p>
 

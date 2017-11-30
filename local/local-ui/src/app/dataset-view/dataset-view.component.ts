@@ -46,15 +46,20 @@ export class DatasetViewComponent implements OnInit {
       rdshDissEnabled: '',
       climate :'',
       periodFrom:'',
-      periodTo:''
-
+      periodTo:'',
+      latitude:'',
+      longitude:'',
+      elevation:'',
+      measurement:'',
+      measurementUnit:''
     };
 
+
   dataSetList = [
-    { id: '10', name: 'Athens', description: 'Rain volume in Athens', state: 'Athens', dateFrom: '', dateTo: '', country: 'Greece', dataformat: 'CSV', climate:'Mediterranean', divisions: 'Attica Athens', areaCodes: '12313, 12543,12432', references: 'https://en.wikipedia.org/wiki/Athens', license: ' https://creativecommons.org/licenses/by/4.0/', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: 'https://en.wikipedia.org/wiki/Athens', awsQueue: '/arn:aws:sns:us-ATH-1:11784:SEDataQueue', rdshDissEnabled: 'false',
-    periodFrom:'1984/01/01',   periodTo:'Now', map:'https://upload.wikimedia.org/wikipedia/commons/c/cf/Phyle_map-en.svg' },
-    { id: '30', name: 'Thesaloniki wind', description: 'Wind power in Thesaloniki', state: 'Thesaloniki', dateFrom: '', dateTo: '', country: 'Greece', dataformat: '',climate:'Mediterranean', divisions: 'text', areaCodes: '', references: '', license: '', relativeUrl: '/daddada/uril', filenameprefix: 'Thesx', jsonLd: '', downloadLink: '', awsQueue: '/arn:aws:sns:us-east-1:11784:SEDataQueue', rdshDissEnabled: '',periodFrom:'1984/01/01',   periodTo:'Now', map:'https://upload.wikimedia.org/wikipedia/commons/a/aa/2011_Dimos_Thessalonikis.png' },
-    { id: '12', name: 'Iraklio sun', description: 'Sun strength in Iraklio', state: '', dateFrom: '', dateTo: '', country: '', dataformat: '',climate:'Mediterranean', divisions: '', areaCodes: '', references: '', license: '', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: '', awsQueue: '', rdshDissEnabled: '',periodFrom:'1984/01/01',   periodTo:'Now', map :'https://upload.wikimedia.org/wikipedia/commons/3/3c/Nomos_Irakliou.png' }
+    { id: '10', name: 'Athens', description: 'Rain volume in Athens', state: 'Athens', dateFrom: '', dateTo: '', country: 'Greece', dataformat: 'CSV', climate:'Mediterranean', divisions: 'Attica Athens', areaCodes: '12313, 12543,12432', references: 'https://en.wikipedia.org/wiki/Athens', license: ' https://creativecommons.org/licenses/by/4.0/', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: 'https://en.wikipedia.org/wiki/Athens', awsQueue: '/arn:aws:sns:us-ATH-1:11784:SEDataQueue', rdshDissEnabled: 'false',measurement:'Wind speed',
+    periodFrom:'1984/01/01',   periodTo:'Now', map:'https://upload.wikimedia.org/wikipedia/commons/c/cf/Phyle_map-en.svg',latitude:'37.9838° N', longitude:'23.7275° E', elevation:'72',measurementUnit:'Day' },
+    { id: '30', name: 'Thesaloniki wind', description: 'Wind power in Thesaloniki', state: 'Thesaloniki', dateFrom: '', dateTo: '', country: 'Greece', dataformat: '',climate:'Mediterranean', divisions: 'text', areaCodes: '', references: '', license: '', relativeUrl: '/daddada/uril', filenameprefix: 'Thesx', jsonLd: '', downloadLink: '', awsQueue: '/arn:aws:sns:us-east-1:11784:SEDataQueue', rdshDissEnabled: '',periodFrom:'1984/01/01',   periodTo:'Now', map:'https://upload.wikimedia.org/wikipedia/commons/a/aa/2011_Dimos_Thessalonikis.png',latitude:'40.7368 ° N,', longitude:'22.9444° E', elevation:'5',measurementUnit:'Month' , measurement:'Wind speed'},
+    { id: '12', name: 'Iraklio sun', description: 'Sun strength in Iraklio', state: '', dateFrom: '', dateTo: '', country: '', dataformat: '',climate:'Mediterranean', divisions: '', areaCodes: '', references: '', license: '', relativeUrl: '', filenameprefix: '', jsonLd: '', downloadLink: '', awsQueue: '', rdshDissEnabled: '',periodFrom:'1984/01/01',   periodTo:'Now', map :'https://upload.wikimedia.org/wikipedia/commons/3/3c/Nomos_Irakliou.png',latitude:'35.3387° N', longitude:'25.1442° E', elevation:'8', measurementUnit:'Hour', measurement:'Wind speed' }
   ];
 
 
@@ -73,9 +78,7 @@ export class DatasetViewComponent implements OnInit {
     });
     let id = this.paramsObj['params']['id'];
     let dataset = this.dataSetList.find(i => i.id === id);
-// console.log("id "+ id);
     this.dataSet = dataset;
-    console.log(this.dataSet);
 
     if (dataset == null){
     //empty
@@ -125,7 +128,7 @@ export class DatasetViewComponent implements OnInit {
   }
 
   rdshAdjust(srcElement: HTMLInputElement) {
-    console.log("CBval   " + this.rdshCb.checked);
+    // console.log("CBval   " + this.rdshCb.checked);
   }
 
   setReadonly() {
