@@ -1,5 +1,5 @@
 <mat-toolbar #componentToolbar class="header-small">
-  <p>Local Data Sharing Hub</p>
+  <p>Local Data Sharing Hub Queue</p>
   <span class="ui-spacer"></span>
 </mat-toolbar>
 <div style="padding:2em;">
@@ -13,4 +13,14 @@
       <dd>{{queue.uri}}</dd>
     </dl>
   </div>
+    <br>
+    <br>
+    <h4>Queue Statistic Graph</h4>
+
+  <div class="row">
+      <div class="col-xs-12">
+          <img [src]="fullImagePath">
+      </div>
+  </div>
+
   <div style='clear:both;'></div>

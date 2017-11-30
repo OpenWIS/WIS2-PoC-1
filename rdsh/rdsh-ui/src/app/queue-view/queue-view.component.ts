@@ -10,9 +10,14 @@ export class QueueViewComponent implements OnInit {
 
   paramsObj: Object;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
 
+    this.fullImagePath = '../../assets/aGrafph.png'
+    
+   }
 
+  fullImagePath: string;
+  
   queue = {
     name: "",
     uri: "",
