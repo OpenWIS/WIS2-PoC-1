@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { ViewChild } from "@angular/core";
+import { AppComponent } from "../app.component";
 
 @Component({
   selector: "app-settings",
@@ -12,7 +13,9 @@ export class SettingsComponent implements OnInit {
 
   @ViewChild("readingTpSel") private readingTpSel: ElementRef;
 
-  constructor() {}
+  constructor() {
+    AppComponent.selectedMenuItem = 'settings';
+  }
 
   ngOnInit() {
     this.metadataForm = new FormGroup({
@@ -32,5 +35,11 @@ export class SettingsComponent implements OnInit {
       : this.metadataForm.hasError("email")
         ? "Not a valid email"
         : "not valid Mail";
+  }
+
+  ngAfterViewInit(){
+    if(!AppComponent.menuOpen){
+      document.getElementById('sitenav').click();
+    }    
   }
 }

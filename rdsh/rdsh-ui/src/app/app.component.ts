@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   currentUrl: string;
   static selectedMenuItem: any;
-  static menuOpen: boolean;
+  static menuOpen: boolean = true;
 
   constructor(private router: Router) { 
     
@@ -57,10 +57,6 @@ export class AppComponent implements OnInit {
   get selectedMenuItem() {
     return AppComponent.selectedMenuItem;
   }
-
-  // get sidenav(){
-  //   return AppComponent.sidenav;
-  // }
 
   navigateToMenu(){
     this.router.navigateByUrl('/ldshs');
