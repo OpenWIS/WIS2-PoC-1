@@ -11,7 +11,6 @@ import { AppComponent } from "../app.component";
 export class DatasetsAdminComponent implements OnInit {
   displayedColumns = ["name", "description", "url"];
   dataSource = new MatTableDataSource<Element>(datasetList);
-  static menuOpen : boolean = false;
 
   constructor(private router: Router) {
     AppComponent.selectedMenuItem = 'datasets';
@@ -34,9 +33,8 @@ export class DatasetsAdminComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    if(!DatasetsAdminComponent.menuOpen){
+    if(!AppComponent.menuOpen){
       document.getElementById('sitenav').click();
-      DatasetsAdminComponent.menuOpen = true;
     }
     
   }
