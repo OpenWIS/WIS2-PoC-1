@@ -17,10 +17,8 @@ export class LdshsMainComponent implements OnInit {
   ngOnInit() {
   }
 
-  gotoPage(id: string) {
-
-    this.router.navigate(['/view'], { queryParams: { "id": id } });
-
+  navigateToViewLdsh(id: string){
+    this.router.navigate(['/ldshView'], { queryParams: { "id": id } });
   }
 
 
@@ -33,8 +31,8 @@ export interface Element {
 
 
 const datasetList: Element[] = [
-  { name: 'Athens', description: "Athens ldsh", id: "1" },
-  { name: 'Thesaloniki', description: "Thesaloniki ldsh", id: "30" },
-  { name: "Iraklion", description: "Iraklion ldsh" , id: "12" },
+  { name: 'Athens', description: "Athens ldsh", id: "31" },
+  { name: 'Thesaloniki', description: "Thesaloniki ldsh", id: "32" },
+  { name: "Iraklion", description: "Iraklion ldsh" , id: "33" },
 ];
 
