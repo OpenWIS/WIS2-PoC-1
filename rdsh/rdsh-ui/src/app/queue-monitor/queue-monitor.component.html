@@ -8,8 +8,7 @@
   <div style="padding:2em;">
 
     <mat-table #table [dataSource]="dataSource">
-      <!--  name:  -->
-
+      
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
@@ -42,27 +41,20 @@
         <mat-cell *matCellDef="let element"> {{element.failedConnections}} </mat-cell>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="url">
-        <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
-
+      <!-- Action Column -->
+      <ng-container matColumnDef="Actions">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <a class="nav-link" routerLink (click)="gotoQueue(element.id)">Open Queue</a>
-        </mat-cell>
-      </ng-container>
+          <button mat-icon-button class="transparent" aria-label="View" matTooltip="View">
+            <mat-icon class="ui-icon dark" (click)="gotoQueue(element.id)"> pageview</mat-icon>
+          </button>
 
-      <!-- Purge Column -->
-      <ng-container matColumnDef="purge">
-          <mat-header-cell *matHeaderCellDef> Empty </mat-header-cell>
-          
-        <mat-cell *matCellDef="let element">
           <button mat-icon-button class="transparent" aria-label="View" matTooltip="Purge">
-            <mat-icon class="ui-icon dark" (click)="purge(element.id)">clear_all</mat-icon> 
+            <mat-icon class="ui-icon dark" (click)="purge(element.id)">clear_all</mat-icon>
           </button>
         </mat-cell>
+
       </ng-container>
-
-
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

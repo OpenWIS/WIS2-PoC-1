@@ -9,19 +9,18 @@ import { RouterModule, Routes, Router } from "@angular/router";
   styleUrls: ['./queue-monitor.component.css']
 })
 export class QueueMonitorComponent implements OnInit {
-    displayedColumns = [ "name" , "openConnections","closedConnections", "messagesSent", "bytesSent" , "failedConnections", "url", "purge"];
+    displayedColumns = [ "name" , "openConnections","closedConnections", "messagesSent", "bytesSent" , "failedConnections", "Actions"];
 
   dataSource = new MatTableDataSource<Element>(queueList);
   
   constructor(private router: Router) {}
     
   ngOnInit() {
-    // console.log(this.dataSource);
   }
 
 
   gotoQueue(id: string){
-    this.router.navigate(['/view'], { queryParams: { "id": id } });
+    this.router.navigate(['/queueView'], { queryParams: { "id": id } });
   }
 
   purge(id: string){}
