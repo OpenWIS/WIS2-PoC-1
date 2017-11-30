@@ -15,7 +15,7 @@
 
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" opened="true" class="nav">
+  <mat-sidenav #sidenav mode="side" opened="true" class="nav" (openedChange)="onOpenedChange()">
     <ul>
 
       <li class="nav-item">

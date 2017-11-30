@@ -11,7 +11,6 @@ import { AppComponent } from "../app.component";
 export class LdshsAdminComponent implements OnInit {
   displayedColumns = ["name", "description", "url"];
   dataSource = new MatTableDataSource<Element>(ldshList);
-  static menuOpen : boolean = false;
   
 
   constructor(private router: Router) {
@@ -36,9 +35,8 @@ export class LdshsAdminComponent implements OnInit {
 
 
   ngAfterViewInit(){
-    if(!LdshsAdminComponent.menuOpen){
+    if(!AppComponent.menuOpen){
       document.getElementById('sitenav').click();
-      LdshsAdminComponent.menuOpen = true;
     }
   }
 

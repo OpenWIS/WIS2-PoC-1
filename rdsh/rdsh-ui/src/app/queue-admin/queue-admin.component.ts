@@ -11,7 +11,6 @@ import { AppComponent } from "../app.component";
 export class QueueAdminComponent implements OnInit {
   displayedColumns = ["name", "uri", "url"];
   dataSource = new MatTableDataSource<Element>(queueList);
-  static menuOpen : boolean = false;
 
   constructor(private router: Router) {
     AppComponent.selectedMenuItem = 'queues';

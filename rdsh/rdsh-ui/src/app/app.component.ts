@@ -14,12 +14,20 @@ import { MatSidenav } from '@angular/material';
 
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) { }
-
-
   @ViewChild('sidenav') private sidenav: MatSidenav;
-  
+
   currentUrl: string;
+  static selectedMenuItem: any;
+  static menuOpen: boolean;
+
+  constructor(private router: Router) { 
+    
+  }
+
+  onOpenedChange(){
+    AppComponent.menuOpen = this.sidenav.opened;
+  }
+
 
   ngOnInit() {
     let currentUrl = this.router.url;
@@ -41,8 +49,6 @@ export class AppComponent implements OnInit {
     return this.showhideCondrols;
   }
 
-
-  static selectedMenuItem: any;
   
   clicked(object) {
     AppComponent.selectedMenuItem = object;
@@ -52,8 +58,16 @@ export class AppComponent implements OnInit {
     return AppComponent.selectedMenuItem;
   }
 
+  // get sidenav(){
+  //   return AppComponent.sidenav;
+  // }
+
   navigateToMenu(){
     this.router.navigateByUrl('/ldshs');
+  }
+
+  ngAfterViewInit(){
+    // AppComponent.sn = this.sidenav;
   }
 }
 
