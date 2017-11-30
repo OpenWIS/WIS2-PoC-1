@@ -9,6 +9,8 @@ import { LdshsMainComponent } from "./ldshs-main/ldshs-main.component";
 import { LdshsEditComponent } from "./ldshs-edit/ldshs-edit.component";
 import { QueueEditComponent } from "./queue-edit/queue-edit.component";
 import { QueueMonitorComponent } from "./queue-monitor/queue-monitor.component";
+import { LdshsViewComponent } from "./ldshs-view/ldshs-view.component";
+import { QueueViewComponent } from "./queue-view/queue-view.component";
 
 export const routerConfig: Routes = [
   {
@@ -39,6 +41,14 @@ export const routerConfig: Routes = [
   {
     path: "monitor",
     component: QueueMonitorComponent
+  },
+  {
+    path: "ldshView",
+    component: LdshsViewComponent
+  },
+  {
+    path: "queueView",
+    component: QueueViewComponent
   },
   //   {
   //   path: "submit",

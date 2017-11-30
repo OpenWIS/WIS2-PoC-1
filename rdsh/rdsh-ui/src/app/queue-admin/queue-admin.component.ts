@@ -25,7 +25,7 @@ export class QueueAdminComponent implements OnInit {
   }
 
   navigateToViewQueue(id: string){
-    this.router.navigate(['/view'], { queryParams: { "id": id } });
+    this.router.navigate(['/queueView'], { queryParams: { "id": id } });
   }
 
 
