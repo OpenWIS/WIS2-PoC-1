@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   @ViewChild("sidenav") private sidenav: MatSidenav;
 
   currentUrl: string;
-  static menuOpen: boolean;
+  static menuOpen: boolean = true;
 
   onOpenedChange() {
     AppComponent.menuOpen = this.sidenav.opened;

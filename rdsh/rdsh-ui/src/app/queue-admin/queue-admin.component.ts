@@ -4,41 +4,43 @@ import { RouterModule, Routes, Router } from "@angular/router";
 import { AppComponent } from "../app.component";
 
 @Component({
-  selector: 'app-queue-admin',
-  templateUrl: './queue-admin.component.html',
-  styleUrls: ['./queue-admin.component.css']
+  selector: "app-queue-admin",
+  templateUrl: "./queue-admin.component.html",
+  styleUrls: ["./queue-admin.component.css"]
 })
 export class QueueAdminComponent implements OnInit {
   displayedColumns = ["name", "uri", "url"];
   dataSource = new MatTableDataSource<Element>(queueList);
 
   constructor(private router: Router) {
-    AppComponent.selectedMenuItem = 'queues';
+    AppComponent.selectedMenuItem = "queues";
   }
 
   ngOnInit() {}
 
-  navigateToEditQueue(id: string){
+  navigateToEditQueue(id: string) {
     //TODO FIX
-    this.router.navigate(['/queueEdit'],{ queryParams: {"id": id } });
+    this.router.navigate(["/queueEdit"], { queryParams: { id: id } });
   }
 
-  navigateToViewQueue(id: string){
-    this.router.navigate(['/view'], { queryParams: { "id": id } });
+  navigateToViewQueue(id: string) {
+    this.router.navigate(["/view"], { queryParams: { id: id } });
   }
 
-
-  addQueue(){
+  addQueue() {
     //mock new id 100;
-  this.router.navigate(['/queueEdit'],{ queryParams: {"id":111 } });
- }
+    this.router.navigate(["/queueEdit"], { queryParams: { id: 111 } });
+  }
 
-monitor(){
-  this.router.navigate(['/monitor']);
-}
+  monitor() {
+    this.router.navigate(["/monitor"]);
+  }
 
-  ngAfterViewInit(){ }
-
+  ngAfterViewInit() {
+    if (!AppComponent.menuOpen) {
+      document.getElementById("sitenav").click();
+    }
+  }
 }
 
 export interface Element {
@@ -47,10 +49,8 @@ export interface Element {
   id: string;
 }
 
-
-
 const queueList: Element[] = [
-  { name: 'AthQ', uri: "arn:aws:sns:us-ATH-1:11784:SEDataQueue ", id: "23" },
-  { name: 'ThesQ', uri: "arn:aws:sns:us-THES-1:753424:SEDataQueue", id: "24" },
-  { name: "HerkQ", uri: "arn:aws:sns:us-Her-1:23284:SEDataQueue " , id: "25" },
+  { name: "AthQ", uri: "arn:aws:sns:us-ATH-1:11784:SEDataQueue ", id: "23" },
+  { name: "ThesQ", uri: "arn:aws:sns:us-THES-1:753424:SEDataQueue", id: "24" },
+  { name: "HerkQ", uri: "arn:aws:sns:us-Her-1:23284:SEDataQueue ", id: "25" }
 ];

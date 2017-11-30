@@ -35,8 +35,7 @@ export class DatasetsAdminComponent implements OnInit {
   ngAfterViewInit(){
     if(!AppComponent.menuOpen){
       document.getElementById('sitenav').click();
-    }
-    
+    }    
   }
 
 

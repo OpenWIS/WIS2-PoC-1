@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { ViewChild } from "@angular/core";
+import { AppComponent } from "../app.component";
 
 @Component({
   selector: "app-rdsh",
@@ -14,7 +15,9 @@ export class RDSHComponent implements OnInit {
 
  
 
-  constructor() {}
+  constructor() {
+    AppComponent.selectedMenuItem = 'rdsh';
+  }
 
   ngOnInit() {
     this.metadataForm = new FormGroup({
@@ -33,5 +36,11 @@ export class RDSHComponent implements OnInit {
       : this.metadataForm.hasError("email")
         ? "Not a valid email"
         : "not valid Mail";
+  }
+
+  ngAfterViewInit(){
+    if(!AppComponent.menuOpen){
+      document.getElementById('sitenav').click();
+    }    
   }
 }
