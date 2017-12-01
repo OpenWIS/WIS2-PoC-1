@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-awisc-main',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AwiscMainComponent implements OnInit {
 
-  constructor() { }
+  searchForm: FormGroup;
+  
+  constructor() {  }
+
 
   ngOnInit() {
+    this.searchForm = new FormGroup({
+      datasetSearch: new FormControl("")
+    });
   }
+
+  ngAfterViewInit(){
+    if(!AppComponent.menuOpen){
+      document.getElementById('sitenav').click();
+    }    
+  }
+
+
+  Search() {}
+
 
 }
