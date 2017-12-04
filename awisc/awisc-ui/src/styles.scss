@@ -35,7 +35,7 @@ material-app {
 
 button{
     color: #FAFAFA !important;
-    background: #00838f !important;
+    background: #D81B60 !important;
 }
 
 button.transparent{
@@ -109,7 +109,7 @@ mat-icon{
 }
 
 .ui-icon.dark{
-    color: #00838f;
+    color: #D81B60;
 } 
 
 .ui-spacer {
@@ -121,7 +121,7 @@ mat-sidenav {
 }
 
 .mat-drawer {
-    background-color: #455A64;
+    background-color: #37474F;
 }
 
 .mat-radio-button{
@@ -166,7 +166,7 @@ mat-sidenav li a {
 
 a.active {
     background: #dedede;
-    color: #455A64;
+    color: #37474F;
 }
 
 mat-sidenav li a:hover {
@@ -176,17 +176,17 @@ mat-sidenav li a:hover {
 
 li a.active:hover{
     background: #dedede;
-    color: #455A64;
+    color: #37474F;
 }
 
 mat-header-cell{
-    color: #00838f !important;
+    color: #D81B60 !important;
     font-size: 1em !important;
 }
 
 .header {
     color: #ffffff;
-    background-color:#00838f;
+    background-color:#D81B60;
     height: auto !important;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 1px 4px 0 rgba(0, 0, 0, .14), 0 1px 4px 0 rgba(0, 0, 0, .12);
     z-index: 2;
@@ -201,12 +201,12 @@ mat-header-cell{
 
 .header-small{
     color: #ffffff;
-    background: #455A64;
+    background: #37474F;
 }
 
 .main-header{
     text-align: center; 
-    color:#00838f; 
+    color:#D81B60; 
 
 }
 
@@ -256,4 +256,10 @@ dt {
 
 dd { 
     float: left; 
+}
+
+
+.cancel-button{
+    color: #37474F !important;
+    background: #cfd8dc !important;
 }
