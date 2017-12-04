@@ -14,6 +14,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 export class AwiscSearchComponent implements OnInit {
   panelOpenState: boolean = false;
+  searchResults: boolean = false;
 
   stateCtrl: FormControl;
 
@@ -24,13 +25,27 @@ export class AwiscSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
+    this.searchResults = false;
     this.stateCtrl = new FormControl();
-    
+
     this.searchForm = new FormGroup({
       datasetSearch: new FormControl(""),
     });
   }
+
+
+  search() {
+    // call search service 
+    //...
+    this.showSearchResults();
+  }
+
+
+  showSearchResults() {
+    this.searchResults = true;
+  }
+
 
 
 
@@ -73,7 +88,7 @@ export class AwiscSearchComponent implements OnInit {
 
 
 
-  navigateToHome(){
+  navigateToHome() {
     this.router.navigateByUrl('/home');
   }
 

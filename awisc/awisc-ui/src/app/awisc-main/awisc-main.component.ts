@@ -32,7 +32,15 @@ export class AwiscMainComponent implements OnInit {
     this.router.navigateByUrl('/awiscSearch');
   }
 
-  Search() {}
+  search() {
+    // call search service 
+    //...
+    this.showSearchResults();
+  }
 
+
+  showSearchResults() {
+    this.searchResults = true;
+  }
 
 }
