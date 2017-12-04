@@ -42,6 +42,8 @@
               </mat-selection-list>
 
             </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title style="width:50%">
@@ -61,7 +63,8 @@
                 </mat-list-option>
               </mat-selection-list>
             </mat-expansion-panel>
-
+          </mat-accordion>
+          <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title style="width:50%">
@@ -78,7 +81,6 @@
                     <div style="width:55%">{{tmpr.label}}</div>
                     <div style="width:45%"> {{tmpr.wmocode}}</div>
                   </div>
-                  <!-- {{tmpr.label}} : {{tmpr.wmocode}} -->
                 </mat-list-option>
               </mat-selection-list>
             </mat-expansion-panel>
