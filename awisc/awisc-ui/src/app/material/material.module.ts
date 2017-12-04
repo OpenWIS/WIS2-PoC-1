@@ -5,30 +5,37 @@ import {
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule
   , MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule
   , MatTabsModule, MatTableModule, MatCheckboxModule, MatRadioModule, MatAutocompleteModule,
-   MatChipsModule, MatTooltipModule,
+   MatChipsModule,  MatTooltipModule, 
 
 } from '@angular/material';
 
+import {MatExpansionModule} from '@angular/material/expansion';
+
+//  
+
+
 // , MatCardModule, MatIconModule,
-// MatMenuModule, 
+// MatMenuModule, MatExpansionPanel 
 //  MatSlideToggleModule, ,
 //  , MatSnackBarModule, 
 //    MatSliderModule, , MatButtonToggleModule
 
-
+// MatAccordion 
 
 const MATERIAL_MODULES: any[] = [
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatInputModule,
   MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule,
   MatTabsModule, MatTableModule,MatCheckboxModule, MatRadioModule, MatAutocompleteModule,
-  MatChipsModule, MatTooltipModule,
+  MatChipsModule,  MatTooltipModule , MatExpansionModule
 ];
 
-// , MatCardModule, MatIconModule,
+// MatAccordion , , MatExpansionPanel
+
+// , MatCardModule, MatIconModule, 
 // MatListModule, MatMenuModule, 
-// MatSlideToggleModule, , ,
+// MatSlideToggleModule, 
 // MatToolbarModule, MatSnackBarModule, MatSidenavModule,
-// MatButtonToggleModule, , , MatSliderModule,
+// MatButtonToggleModule, MatSliderModule,
 
 
 
