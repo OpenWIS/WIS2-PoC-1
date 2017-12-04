@@ -1,22 +1,22 @@
 <div class="box">
-  
-    <mat-toolbar #componentToolbar class="header-small">
-      <p>Search</p>
-      <span class="ui-spacer"></span>
-      <button mat-icon-button class="transparent" (click)="navigateToMenu()">
-          <mat-icon class="ui-icon" aria-label="Menu">menu</mat-icon>
-      </button>
-    </mat-toolbar>
-    <div style="padding:2em;">
 
-      <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
-        
-        <mat-form-field class="mat-form">
-          <input matInput placeholder="Search datasets" formControlName="datasetSearch">
-        </mat-form-field>
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Search</p>
+    <span class="ui-spacer"></span>
+    <button mat-icon-button class="transparent" (click)="navigateToMenu()">
+      <mat-icon class="ui-icon" aria-label="Menu">menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div style="padding:2em;">
 
-        <button mat-button type="button"  (click)="Search()" >Search</button>
-        
-      </form>
-    </div>
+    <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
+
+      <mat-form-field class="mat-form" style="width :80%">
+        <input matInput placeholder="Search datasets" formControlName="datasetSearch">
+      </mat-form-field>
+
+      <button mat-button type="button" (click)="Search()">Search</button>
+
+    </form>
+  </div>
 </div>
