@@ -8,7 +8,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
-$openwis-app-primary: mat-palette($mat-blue);
+$openwis-app-primary: mat-palette($mat-blue-grey);
 $openwis-app-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -262,4 +262,30 @@ dd {
 .cancel-button{
     color: #37474F !important;
     background: #cfd8dc !important;
+}
+
+.search-results-title{
+    margin: 1em 0;
+    color: #1E88E5;
+    font-size: 1.4em;
+}
+
+.search-result{
+    margin-bottom: 1.3em;
+}
+
+.search-result-link{
+    font-size: 1em;
+}
+
+.search-result-link-text{
+    font-size: 1em;
+    color:#43A047;
+}
+
+.search-result-info .info-chunk{
+    color:#757575;
+    font-size: 0.8em;
+    display: inline-block;
+    margin-right: 0.8em;
 }

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import {SettingsComponent} from './settings/settings.component';
 import { AwiscMainComponent } from './awisc-main/awisc-main.component';
 import { AwiscSearchComponent } from './awisc-search/awisc-search.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { AwiscSearchComponent } from './awisc-search/awisc-search.component';
     SettingsComponent,
     AwiscMainComponent,
     AwiscSearchComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,

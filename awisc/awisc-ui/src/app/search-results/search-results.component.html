@@ -1,0 +1,14 @@
+<div class="search-results-title">Search results</div>
+<div class="search-result" *ngFor="let result of searchResults">
+  <div class="search-result-link">
+    <a href="{{result.url}}">{{result.name}}</a>
+  </div>
+  <div class="search-result-link-text">{{result.url}}</div>
+  <div class="search-result-info">
+    <div class="info-chunk">LDSH: {{result.ldsh}} ({{result.latitude}}, {{result.latitude}}, {{result.elevation}});</div>
+    <div class="info-chunk">Format: {{result.dataFormat}};</div>
+    <div class="info-chunk">Update frequency: {{result.updateFrequency}};</div>
+    <div class="info-chunk">Last update: {{result.lastUpdate}}</div>
+  </div>
+  <div class="search-result-description">{{result.description}}</div>
+</div>
