@@ -73,5 +73,9 @@ export class AwiscSearchComponent implements OnInit {
 
 
 
+  navigateToHome(){
+    this.router.navigateByUrl('/home');
+  }
+
 
 }

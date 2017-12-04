@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-awisc-main',
@@ -11,7 +12,7 @@ export class AwiscMainComponent implements OnInit {
 
   searchForm: FormGroup;
   
-  constructor() {  }
+  constructor(private router: Router) {  }
 
 
   ngOnInit() {
@@ -26,6 +27,10 @@ export class AwiscMainComponent implements OnInit {
     }    
   }
 
+
+  navigateToMenu(){
+    this.router.navigateByUrl('/awiscSearch');
+  }
 
   Search() {}
 
