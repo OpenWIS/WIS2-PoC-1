@@ -1,6 +1,6 @@
 <mat-toolbar #toolbar class="header">
   <mat-toolbar-row class="header">
-    <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
+    <!-- <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon> -->
 
     <p>Authoritative WIS Catalogue (AWISC)</p>
     <span class="ui-spacer"></span>
@@ -13,7 +13,7 @@
 
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" opened="true" class="nav" (openedChange)="onOpenedChange()">
+  <!-- <mat-sidenav #sidenav mode="side" opened="true" class="nav" (openedChange)="onOpenedChange()">
     <ul>
 
       <li class="nav-item">
@@ -29,7 +29,7 @@
       </li>
     </ul>
 
-  </mat-sidenav>
+  </mat-sidenav> -->
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>

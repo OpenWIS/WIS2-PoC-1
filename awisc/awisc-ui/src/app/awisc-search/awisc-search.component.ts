@@ -34,11 +34,11 @@ export class AwiscSearchComponent implements OnInit {
 
 
 
-  ngAfterViewInit() {
-    if (!AppComponent.menuOpen) {
-      document.getElementById('sitenav').click();
-    }
-  }
+  // ngAfterViewInit() {
+  //   if (!AppComponent.menuOpen) {
+  //     document.getElementById('sitenav').click();
+  //   }
+  // }
 
   windCodes: any = [
     { label: "Wind direction (from which blowing)", wmocode: "grib2/codeflag/4.2/0-2-0" },
