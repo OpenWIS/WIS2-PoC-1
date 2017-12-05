@@ -11,6 +11,7 @@ import { AwiscSearchComponent } from './awisc-search/awisc-search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { LdshsAdminComponent } from './ldshs-admin/ldshs-admin.component';
 import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
+import { LdshsViewComponent } from './ldshs-view/ldshs-view.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
     AwiscSearchComponent,
     SearchResultsComponent,
     LdshsAdminComponent,
-    LdshsEditComponent
+    LdshsEditComponent,
+    LdshsViewComponent
   ],
   imports: [
     BrowserModule,

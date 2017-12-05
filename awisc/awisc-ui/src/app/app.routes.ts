@@ -7,6 +7,7 @@ import { AwiscMainComponent } from "./awisc-main/awisc-main.component";
 import { AwiscSearchComponent } from "./awisc-search/awisc-search.component";
 import { LdshsAdminComponent } from "./ldshs-admin/ldshs-admin.component";
 import { LdshsEditComponent } from "./ldshs-edit/ldshs-edit.component";
+import { LdshsViewComponent } from "./ldshs-view/ldshs-view.component";
 
 
 export const routerConfig: Routes = [
@@ -30,6 +31,10 @@ export const routerConfig: Routes = [
   {
     path: "ldshEdit",
     component: LdshsEditComponent
+  },
+  {
+    path: "ldshView",
+    component: LdshsViewComponent
   },
   {
     path: "",

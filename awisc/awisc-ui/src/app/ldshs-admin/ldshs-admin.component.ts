@@ -27,12 +27,12 @@ export class LdshsAdminComponent implements OnInit {
   navigateToViewLdsh(id: string){
     this.router.navigate(['/ldshView'], { queryParams: { "id": id } });
   }
+
   addNewLdsh(){
     //mock new id 100;
     this.router.navigate(['/ldshEdit'],{ queryParams: {"id":100 } });
 
   }
-
 
   ngAfterViewInit(){
     if(!AppComponent.menuOpen){

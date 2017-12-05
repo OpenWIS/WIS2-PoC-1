@@ -1,10 +1,10 @@
 <mat-toolbar #toolbar class="header">
   <mat-toolbar-row class="header">
-    <!-- <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon> -->
+    <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
 
     <p>Authoritative WIS Catalogue</p>
     <span class="ui-spacer"></span>
-    <button mat-icon-button class="transparent" (click)="clicked('ldshs')">
+    <button mat-icon-button class="transparent" (click)="navigateToMenu()">
         <mat-icon class="ui-icon" aria-label="Menu">build</mat-icon>
     </button>
     

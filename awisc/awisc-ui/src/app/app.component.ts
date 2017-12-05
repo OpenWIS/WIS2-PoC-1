@@ -1,55 +1,43 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
-import { MatSidenav } from '@angular/material';
-
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { RouterModule, Routes, Router } from "@angular/router";
+import { MatSidenav } from "@angular/material";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
-
-
-
 export class AppComponent implements OnInit {
-
-  @ViewChild('sidenav') private sidenav: MatSidenav;
+  @ViewChild("sidenav") private sidenav: MatSidenav;
 
   currentUrl: string;
   static selectedMenuItem: any;
   static menuOpen: boolean = true;
 
-  constructor(private router: Router) { 
-    
-  }
+  constructor(private router: Router) {}
 
-  onOpenedChange(){
+  onOpenedChange() {
     AppComponent.menuOpen = this.sidenav.opened;
   }
-
 
   ngOnInit() {
     let currentUrl = this.router.url;
   }
-  title = 'app';
+  title = "app";
   showhideCondrols: boolean = false;
-
 
   hideShowControls(): boolean {
     let currentUrl = this.router.url;
-    
-    
-    if (this.router.url === '/home'){
+
+    if (this.router.url === "/home") {
       this.showhideCondrols = false;
-      // this.sidenav.close();
-    }else{
+      this.sidenav.close();
+    } else {
       this.showhideCondrols = true;
     }
     return this.showhideCondrols;
   }
 
-  
   clicked(object) {
     AppComponent.selectedMenuItem = object;
   }
@@ -58,11 +46,9 @@ export class AppComponent implements OnInit {
     return AppComponent.selectedMenuItem;
   }
 
-  navigateToMenu(){
-    this.router.navigateByUrl('/awiscSearch');
+  navigateToMenu() {
+    this.router.navigateByUrl("/ldshs");
   }
 
-  ngAfterViewInit(){
-  }
+  ngAfterViewInit() {}
 }
-
