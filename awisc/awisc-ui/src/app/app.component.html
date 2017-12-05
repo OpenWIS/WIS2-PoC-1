@@ -4,21 +4,21 @@
 
     <p>Authoritative WIS Catalogue</p>
     <span class="ui-spacer"></span>
-    <!-- <button mat-icon-button class="transparent" (click)="navigateToMenu()">
+    <button mat-icon-button class="transparent" (click)="clicked('ldshs')">
         <mat-icon class="ui-icon" aria-label="Menu">build</mat-icon>
-    </button> -->
+    </button>
     
   </mat-toolbar-row>
 </mat-toolbar>
 
 
 <mat-sidenav-container>
-  <!-- <mat-sidenav #sidenav mode="side" opened="true" class="nav" (openedChange)="onOpenedChange()">
+  <mat-sidenav #sidenav mode="side" opened="true" class="nav" (openedChange)="onOpenedChange()">
     <ul>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="awiscSearch" [ngClass]="{ 'active': selectedMenuItem == 'awiscSearch' }" (click)="clicked('ldshs')">
-          <mat-icon class="ui-icon">search</mat-icon>Search
+        <a class="nav-link" routerLink="ldshs" [ngClass]="{ 'active': selectedMenuItem == 'ldshs' }" (click)="clicked('ldshs')">
+          <mat-icon class="ui-icon">insert_drive_file</mat-icon>LDSHs
         </a>
       </li>
 
@@ -29,7 +29,7 @@
       </li>
     </ul>
 
-  </mat-sidenav> -->
+  </mat-sidenav>
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>

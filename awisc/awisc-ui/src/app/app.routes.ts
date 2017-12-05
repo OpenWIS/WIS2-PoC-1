@@ -5,6 +5,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { SettingsComponent } from "./settings/settings.component";
 import { AwiscMainComponent } from "./awisc-main/awisc-main.component";
 import { AwiscSearchComponent } from "./awisc-search/awisc-search.component";
+import { LdshsAdminComponent } from "./ldshs-admin/ldshs-admin.component";
+import { LdshsEditComponent } from "./ldshs-edit/ldshs-edit.component";
 
 
 export const routerConfig: Routes = [
@@ -12,6 +14,7 @@ export const routerConfig: Routes = [
     path: "home",
     component: AwiscMainComponent
   },
+  
   {
     path: "awiscSearch",
     component: AwiscSearchComponent
@@ -19,6 +22,14 @@ export const routerConfig: Routes = [
   {
     path: "settings",
     component: SettingsComponent
+  },
+  {
+    path: "ldshs",
+    component: LdshsAdminComponent
+  },
+  {
+    path: "ldshEdit",
+    component: LdshsEditComponent
   },
   {
     path: "",
