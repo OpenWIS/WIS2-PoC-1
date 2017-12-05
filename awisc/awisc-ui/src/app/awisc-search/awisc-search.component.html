@@ -13,7 +13,7 @@
     <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
 
       <!-- selection list of Available Reading Types-->
-      <div style="display:inline-block;width :40%;">
+      <div style="display:inline-block;width :55%;">
         <h5 matSubheader>Search with WMO Codes:</h5>
         <mat-form-field floatPlaceholder="never" style="width :80%;">
           <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
@@ -29,7 +29,7 @@
       </div>
       <div style="display:inline-block;width :10%;"></div>
 
-      <div style="display:inline-block;width :40%;">
+      <div style="display:inline-block;width :30%;">
         <!-- chip  -->
         <h5 matSubheader>Selected Measurement Types:</h5>
         <mat-chip-list #chipList>
