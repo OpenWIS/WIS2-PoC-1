@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AwiscMainComponent implements OnInit {
 
+  searchResults: boolean = false;
+  
   searchForm: FormGroup;
   
   constructor(private router: Router) {  }
