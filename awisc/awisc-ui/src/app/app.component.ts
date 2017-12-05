@@ -14,7 +14,7 @@ import { MatSidenav } from '@angular/material';
 
 export class AppComponent implements OnInit {
 
-  // @ViewChild('sidenav') private sidenav: MatSidenav;
+  @ViewChild('sidenav') private sidenav: MatSidenav;
 
   currentUrl: string;
   static selectedMenuItem: any;
@@ -24,9 +24,9 @@ export class AppComponent implements OnInit {
     
   }
 
-  // onOpenedChange(){
-  //   AppComponent.menuOpen = this.sidenav.opened;
-  // }
+  onOpenedChange(){
+    AppComponent.menuOpen = this.sidenav.opened;
+  }
 
 
   ngOnInit() {
@@ -36,18 +36,18 @@ export class AppComponent implements OnInit {
   showhideCondrols: boolean = false;
 
 
-  // hideShowControls(): boolean {
-  //   let currentUrl = this.router.url;
+  hideShowControls(): boolean {
+    let currentUrl = this.router.url;
     
     
-  //   if (this.router.url === '/home'){
-  //     this.showhideCondrols = false;
-  //     // this.sidenav.close();
-  //   }else{
-  //     this.showhideCondrols = true;
-  //   }
-  //   return this.showhideCondrols;
-  // }
+    if (this.router.url === '/home'){
+      this.showhideCondrols = false;
+      // this.sidenav.close();
+    }else{
+      this.showhideCondrols = true;
+    }
+    return this.showhideCondrols;
+  }
 
   
   clicked(object) {

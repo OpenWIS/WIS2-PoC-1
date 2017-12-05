@@ -9,6 +9,8 @@ import {SettingsComponent} from './settings/settings.component';
 import { AwiscMainComponent } from './awisc-main/awisc-main.component';
 import { AwiscSearchComponent } from './awisc-search/awisc-search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { LdshsAdminComponent } from './ldshs-admin/ldshs-admin.component';
+import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     SettingsComponent,
     AwiscMainComponent,
     AwiscSearchComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    LdshsAdminComponent,
+    LdshsEditComponent
   ],
   imports: [
     BrowserModule,
