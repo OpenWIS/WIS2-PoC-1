@@ -5,6 +5,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { DatasetsAdminComponent } from "./datasets-admin/datasets-admin.component";
 import { SubmitFormComponent } from "./submit-form/submit-form.component";
 import { RDSHComponent } from "./rdsh/rdsh.component";
+import { AWISCComponent } from "./awisc/awisc.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { DatasetsMainComponent } from "./datasets-main/datasets-main.component";
 import { DatasetViewComponent } from "./dataset-view/dataset-view.component";
@@ -21,6 +22,10 @@ export const routerConfig: Routes = [
   {
     path: "rdsh",
     component: RDSHComponent
+  },
+  {
+    path: "awisc",
+    component: AWISCComponent
   },
   {
     path: "settings",
