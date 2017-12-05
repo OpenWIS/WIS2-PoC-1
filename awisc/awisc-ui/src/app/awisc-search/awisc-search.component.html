@@ -21,7 +21,7 @@
 
       <div style="width:100%;float:left; display:block;">
         <div style="width:auto">
-          <mat-accordion>
+         <!--  <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title style="width:50%">
@@ -84,8 +84,44 @@
                 </mat-list-option>
               </mat-selection-list>
             </mat-expansion-panel>
-          </mat-accordion>
+          </mat-accordion>-->
+        </div> 
+
+
+        <!-- selection list of Available Reading Types-->
+        <div style="width:100%;float:left; display:block;">
+          <h4 matSubheader>Search with WMO Codes:</h4>
+          <mat-form-field floatPlaceholder="never" style="width :80%">
+            <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.label">
+                <span> {{ wmo.label }} </span> >>>
+                <small> Code: {{ wmo.wmocode }}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
+        
+        <!-- add button -->
+        <button mat-button type="button" (click)="addSearchCriteria()">add</button>
+        
+
+
+        <!-- chip  -->
+        <h4 matSubheader>Selected Measurement Types:</h4>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let wmos of wmoCodes" [selectable]="selectable" [removable]="removable" (remove)="remove(wmos)">
+            {{wmos.label}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Add Code..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-list>
+        <!-- </div> -->
+
+
+
+
 
         <br>
         <br>
