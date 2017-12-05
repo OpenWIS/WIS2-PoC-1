@@ -12,8 +12,39 @@
 
     <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
 
-      <mat-form-field class="mat-form" style="width :80%">
+      <!-- selection list of Available Reading Types-->
+      <div style="display:inline-block;width :40%;">
+        <h5 matSubheader>Search with WMO Codes:</h5>
+        <mat-form-field floatPlaceholder="never" style="width :80%;">
+          <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.label">
+              <span> {{ wmo.label }} </span> ---
+              <small> Code: {{ wmo.wmocode }}</small>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <!-- add button -->
+        <button mat-button type="button" (click)="addSearchCriteria()">Add</button>
+      </div>
+      <div style="display:inline-block;width :10%;"></div>
 
+      <div style="display:inline-block;width :40%;">
+        <!-- chip  -->
+        <h5 matSubheader>Selected Measurement Types:</h5>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let wmos of wmoCodes" [selectable]="selectable" [removable]="removable" (remove)="remove(wmos)">
+            {{wmos.label}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Add Code..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-list>
+      </div>
+
+
+
+      <mat-form-field class="mat-form" style="width :80%">
         <input matInput placeholder="Search datasets" formControlName="datasetSearch">
       </mat-form-field>
 
@@ -21,7 +52,7 @@
 
       <div style="width:100%;float:left; display:block;">
         <div style="width:auto">
-         <!--  <mat-accordion>
+          <!--  <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title style="width:50%">
@@ -85,39 +116,13 @@
               </mat-selection-list>
             </mat-expansion-panel>
           </mat-accordion>-->
-        </div> 
-
-
-        <!-- selection list of Available Reading Types-->
-        <div style="width:100%;float:left; display:block;">
-          <h5 matSubheader>Search with WMO Codes:</h5>
-          <mat-form-field floatPlaceholder="never" style="width :80%">
-            <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-              <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.label">
-                <span> {{ wmo.label }} </span> ---
-                <small> Code: {{ wmo.wmocode }}</small>
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <!-- add button -->
-          <button mat-button type="button" (click)="addSearchCriteria()">Add</button>
         </div>
-        
-        
-        <!-- chip  -->
-        <h5 matSubheader>Selected Measurement Types:</h5>
-        <mat-chip-list #chipList>
-          <mat-chip *ngFor="let wmos of wmoCodes" [selectable]="selectable" [removable]="removable" (remove)="remove(wmos)">
-            {{wmos.label}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="Add Code..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)" />
-        </mat-chip-list>
 
-        <br>
-        <br>
+
+
+
+
+
       </div>
     </form>
     <div *ngIf="searchResults">
