@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { DatasetsMainComponent } from './datasets-main/datasets-main.component';
 import { DatasetsAdminComponent } from './datasets-admin/datasets-admin.component';
 import { RDSHComponent } from './rdsh/rdsh.component';
+import { AWISCComponent } from './awisc/awisc.component';
 import {SettingsComponent} from './settings/settings.component';
 import { DatasetViewComponent } from './dataset-view/dataset-view.component';
 
@@ -24,6 +25,7 @@ import { DatasetViewComponent } from './dataset-view/dataset-view.component';
     DatasetsMainComponent,
     DatasetsAdminComponent,
     RDSHComponent,
+    AWISCComponent,
     SettingsComponent,
     DatasetViewComponent
   ],

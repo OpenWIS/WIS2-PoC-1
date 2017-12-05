@@ -29,7 +29,11 @@
           <mat-icon class="ui-icon">call_split</mat-icon>RDSH
         </a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" routerLink="awisc" [ngClass]="{ 'active': selectedMenuItem == 'awisc' }" (click)="clicked('awisc')">
+          <mat-icon class="ui-icon">language</mat-icon>AWISC
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="settings" [ngClass]="{ 'active': selectedMenuItem == 'settings' }" (click)="clicked('settings')">
           <mat-icon class="ui-icon">settings</mat-icon>Settings
