@@ -16,6 +16,10 @@ export class AwiscMainComponent implements OnInit {
   
   constructor(private router: Router) {  }
 
+  onSubmit(){
+    
+  }
+
 
   ngOnInit() {
     this.searchForm = new FormGroup({

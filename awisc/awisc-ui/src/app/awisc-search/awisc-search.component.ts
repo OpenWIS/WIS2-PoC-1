@@ -21,8 +21,14 @@ export class AwiscSearchComponent implements OnInit {
   searchResults: boolean = false;
   filteredStates: Observable<any[]>;
   removable: boolean = true;
+  addOnBlur: any;
+  displayFn: any;
+  separatorKeysCodes: any;
   
   
+  onSubmit(){
+    
+  }
 
   stateCtrl: FormControl;
 
