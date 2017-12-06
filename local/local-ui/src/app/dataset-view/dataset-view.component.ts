@@ -51,7 +51,8 @@ export class DatasetViewComponent implements OnInit {
       longitude:'',
       elevation:'',
       measurement:'',
-      measurementUnit:''
+      measurementUnit:'',
+      map:''
     };
 
 
