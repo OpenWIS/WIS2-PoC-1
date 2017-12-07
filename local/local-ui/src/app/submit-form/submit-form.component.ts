@@ -15,6 +15,9 @@ import { ENTER, COMMA } from "@angular/cdk/keycodes";
   styleUrls: ["./submit-form.component.css"]
 })
 export class SubmitFormComponent implements OnInit {
+  displayFn: any;
+  measurementUnit: any;
+  country: any;
   rdshDissEnabled = false;
   metadataForm: FormGroup;
   paramsObj: Object;
