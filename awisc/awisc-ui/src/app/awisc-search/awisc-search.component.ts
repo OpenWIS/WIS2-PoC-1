@@ -21,11 +21,8 @@ export class AwiscSearchComponent implements OnInit {
   searchResults: boolean = false;
   filteredStates: Observable<any[]>;
   removable: boolean = true;
-  
-  
-
+  codeSelected: any;
   stateCtrl: FormControl;
-
   searchForm: FormGroup;
 
   constructor(private router: Router) {
@@ -36,62 +33,92 @@ export class AwiscSearchComponent implements OnInit {
 
     this.searchResults = false;
     this.stateCtrl = new FormControl();
-
     this.searchForm = new FormGroup({
       datasetSearch: new FormControl(""),
     });
 
-
-    this.filteredStates = this.stateCtrl.valueChanges
-    .startWith(null)
-    .map(
-      wmoCode =>
-      wmoCode
-          ? this.filterStates(wmoCode)
-          : this.wmoCodes.slice()
-    );
+    this.refreshAutoCompleteList();
   }
 
 
   filterStates(name: string) {
     let out = this.wmoCodes.filter(
       wmoCode =>
-      wmoCode.label.toLowerCase().indexOf(name.toLowerCase()) === 0
+        wmoCode.label.toLowerCase().indexOf(name.toLowerCase()) === 0
     );
-
     return out;
   }
-
 
 
   add(event: MatChipInputEvent): void {
     let input = event.input;
     let value = event.value;
 
-    // Add our fruit
+    // Add code
     if ((value || "").trim()) {
       this.wmoCodes.push({ label: value.trim() });
     }
-
-    // Reset the input value
+    // Reset 
     if (input) {
       input.value = "";
     }
   }
 
-  remove(measurement: any): void {
-    let index = this.wmoCodes.indexOf(measurement);
+  deSelect(code: any): void {
 
+    this.removeFromArray(this.selectedCodes, code);
+    //Add to unselected
+    this.addToArray(this.wmoCodes, code);
+    this.refreshAutoCompleteList();
+  }
+
+
+  private addToArray(array: any[], item: any) {
+    array.push(item);
+  }
+
+  private removeFromArray(array: any[], item: any) {
+    let index = array.indexOf(item);
     if (index >= 0) {
-      this.wmoCodes.splice(index, 1);
+      array.splice(index, 1);
     }
   }
 
 
+  private refreshAutoCompleteList() {
 
-  addSearchCriteria(){
-
+    this.filteredStates = this.stateCtrl.valueChanges
+      .startWith(null)
+      .map(
+      wmoCode =>
+        wmoCode
+          ? this.filterStates(wmoCode)
+          : this.wmoCodes.slice()
+      );
   }
+
+
+  addSearchCriteria() {
+
+    if (this.codeSelected != "") {
+      let code = this.wmoCodes.find(i => i.wmocode === this.codeSelected);
+      var index = this.wmoCodes.indexOf(code, 0);
+      if (index > -1) {
+        this.wmoCodes.splice(index, 1);
+        this.selectedCodes.push(code);
+        this.codeSelected = "";
+      }
+    }
+
+    this.stateCtrl.setValue("");
+  }
+
+
+  setSelectedCode($event, wmocode) {
+    this.codeSelected = wmocode;
+  }
+
+
 
   search() {
     // call search service 
@@ -105,19 +132,14 @@ export class AwiscSearchComponent implements OnInit {
   }
 
 
-
-
-  // ngAfterViewInit() {
-  //   if (!AppComponent.menuOpen) {
-  //     document.getElementById('sitenav').click();
-  //   }
-  // }
-
+  //chips
+  selectedCodes: any = [
+    { label: "Wind direction (from which blowing)", wmocode: "grib2/codeflag/4.2/0-2-0" },
+    { label: "Wind speed", wmocode: "grib2/codeflag/4.2/0-2-1" },
+  ];
 
 
   wmoCodes: any = [
-    { label: "Wind direction (from which blowing)", wmocode: "grib2/codeflag/4.2/0-2-0" },
-    { label: "Wind speed", wmocode: "grib2/codeflag/4.2/0-2-1" },
     { label: "Wind speed", wmocode: "grib2/codeflag/4.2/3-1-19" },
     { label: "Wind chill factor", wmocode: "grib2/codeflag/4.2/0-0-13" },
     { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-001/4" },
@@ -137,39 +159,6 @@ export class AwiscSearchComponent implements OnInit {
     { label: "Minimum temperature", wmocode: "grib2/codeflag/4.2/0-0-5" },
     { label: "Minimum temperature", wmocode: "bufr4/codeflag/0-08-050/8" },
   ];
-
-// delete:
-
-  // windCodes: any = [
-  //   { label: "Wind direction (from which blowing)", wmocode: "grib2/codeflag/4.2/0-2-0" },
-  //   { label: "Wind speed", wmocode: "grib2/codeflag/4.2/0-2-1" },
-  //   { label: "Wind speed", wmocode: "grib2/codeflag/4.2/3-1-19" },
-  //   { label: "Wind chill factor", wmocode: "grib2/codeflag/4.2/0-0-13" },
-  //   { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-001/4" },
-  //   { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-086/4" },
-  // ];
-
-
-  // rainCodes: any = [
-  //   { label: "Rain", wmocode: "bufr4/codeflag/0-20-004/16" },
-  //   { label: "Rain", wmocode: "bufr4/codeflag/0-20-004/6" },
-  //   { label: "Rain", wmocode: "bufr4/codeflag/0-20-005/6" },
-  //   { label: "Precipitation of rain", wmocode: "306/4678/RA" },
-  //   { label: "Precipitation of rain", wmocode: "bufr4/codeflag/0-20-003/280" },
-  //   { label: "Categorical freezing rain", wmocode: "grib2/codeflag/4.2/0-1-34" },
-  //   { label: "Reflectivity of rain", wmocode: "grib2/codeflag/4.2/0-15-12" },
-  // ];
-
-  // temperatureCodes: any = [
-  //   { label: "Apparent temperature", wmocode: "grib2/codeflag/4.2/0-0-21" },
-  //   { label: "Dewpoint temperature", wmocode: "bufr4/b/12/103" },
-  //   { label: "Dewpoint temperature", wmocode: "bufr4/b/12/024" },
-  //   { label: "Dewpoint temperature", wmocode: "grib2/codeflag/4.2/0-0-6" },
-  //   { label: "Highest daily mean temperature", wmocode: "bufr4/b/12/152" },
-  //   { label: "Minimum temperature", wmocode: "grib2/codeflag/4.2/0-0-5" },
-  //   { label: "Minimum temperature", wmocode: "bufr4/codeflag/0-08-050/8" },
-  // ];
-
 
 
 
