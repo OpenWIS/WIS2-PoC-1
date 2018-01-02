@@ -1,0 +1,62 @@
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions, URLSearchParams }
+from '@angular/http';
+import { HttpClient, HttpParams, HttpInterceptor, HttpRequest, HttpHandler,
+  HttpEvent, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
+import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+
+@Injectable()
+export class DataService {
+  headers: Headers;
+  options: RequestOptions;
+
+  constructor(private httpClient: HttpClient) {
+      this.headers = new Headers({ 'Content-Type': 'application/json','Accept': 'application/json' });
+      this.options = new RequestOptions({ headers: this.headers });
+  }
+
+  // create(url: string, param: any): Promise<any> {
+  // let body = JSON.stringify(param);
+  // return this.http
+  //     .post(url, body, this.options)
+  //     .toPromise()
+  //     .then(this.extractData)
+  //     .catch(this.handleError);
+  // }  
+
+
+  // get call
+  public getImportMessage<T>(url: string): Observable<T> {
+    
+        return this.httpClient.get<T>(url);
+      }
+
+
+          // .post(this.api + url, datasetDTO, {
+// todo na pros8esw to full url
+
+  public create(url: string, datasetDTO: any): Observable<any> {
+
+    console.log(datasetDTO);
+        return this.httpClient
+          .post("http://localhost:8181" +url, datasetDTO, {
+            headers: new HttpHeaders().set('Content-Type', 'application/json')
+              .set("Access-Control-Allow-Origin", "*")
+          });
+      }
+
+      // ,responseType: 'json'
+
+
+
+  private extractData(res: Response) {
+      let body = res.json();
+      return body || {};
+  }
+
+  private handleError(error: any): Promise<any> {
+      console.error('An error occurred', error);
+      return Promise.reject(error.message || error);
+  }
+}

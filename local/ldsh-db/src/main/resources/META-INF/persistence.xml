@@ -1,0 +1,22 @@
+<persistence version="2.0"
+xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="ldshPU"  transaction-type="JTA">
+		<!--
+		transaction-type="RESOURCE_LOCAL"> -->
+		 <!-- <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=ldshDataSource)</non-jta-data-source>  -->
+			<jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=ldshDataSource)</jta-data-source>
+
+		 <class>openwis.pilot.ldsh.db.model.Dataset</class>
+		 <class>openwis.pilot.ldsh.db.model.WmoCode</class>
+
+		<!-- auto-create the database schema -->
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<prop key="hibernate.hbm2ddl.auto">create</prop>
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+		</properties>
+
+	</persistence-unit>
+</persistence>
