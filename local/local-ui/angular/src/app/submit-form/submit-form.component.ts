@@ -378,13 +378,12 @@ export class SubmitFormComponent implements OnInit {
     }
   }
 
-
   // SERVICE_URL ='/cxf/api/verification'
   // SERVICE_URL ='/cxf/api/testget'
   onGET(){
 
-    this.dataService.getImportMessage("/cxf/api/testget").subscribe((result) => {
-        console.log("I RECEIVEEEEEEEE: ");
+    this.dataService.getImportMessage("/cxf/api/getDataset/id=10").subscribe((result) => {
+      console.log("I got: ");
         console.log(result);
           });
 

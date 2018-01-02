@@ -29,10 +29,9 @@
 					<instructions>
 						<Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
 						<Bundle-ClassPath>.,{maven-dependencies}</Bundle-ClassPath>
-						<DynamicImport-Package>
-							org.hibernate,org.hibernate.proxy,javassist.util.proxy,javax.persistence,openwis.pilot
-						</DynamicImport-Package>
-						 <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+<DynamicImport-Package>org.hibernate,org.hibernate.proxy,javassist.util.proxy</DynamicImport-Package>
+<!-- <DynamicImport-Package>	org.hibernate,org.hibernate.proxy,javassist.util.proxy,javax.persistence,openwis.pilot</DynamicImport-Package> -->
+						 <!-- <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency> -->
 					</instructions>
 				</configuration>
 			</plugin>

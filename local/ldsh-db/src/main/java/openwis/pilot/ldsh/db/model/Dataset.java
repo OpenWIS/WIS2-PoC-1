@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,9 +20,12 @@ public class Dataset implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ids_gen")
+	 @SequenceGenerator(name = "ids_gen", sequenceName = "ids_sequence", allocationSize = 20)
+	-- >> org.hibernate.dialect.MySQL5Dialect does not support sequences
+	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ids_gen")
-	@SequenceGenerator(name = "ids_gen", sequenceName = "ids_sequence", allocationSize = 20)
 	@Column(name = "id")
 	private long id;
 
@@ -45,7 +50,9 @@ public class Dataset implements Serializable {
 	@Column(name = "measurementunit")
 	private String measurementUnit; // todo Enum
 
+
 	@Column(name = "wmocodes")
+	@OneToMany(targetEntity=WmoCode.class, mappedBy="code", fetch=FetchType.EAGER)
 	private List<WmoCode> wmoCodes;
 
 	// Location Information
@@ -75,7 +82,7 @@ public class Dataset implements Serializable {
 	@Column(name = "filenameprefix")
 	private String filenameprefix;
 
-	@Column(name = "subscriptionuri")
+	@Column(name = "downloadUrl")
 	private String downloadUrl;
 
 	@Column(name = "subscriptionuri")

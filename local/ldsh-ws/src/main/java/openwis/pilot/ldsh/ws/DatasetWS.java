@@ -10,11 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+// import javax.ws.rs.core.Request;
 
 import openwis.pilot.ldsh.dto.DatasetDTO;
 import openwis.pilot.ldsh.manager.service.DatasetService;
@@ -42,6 +44,46 @@ public class DatasetWS {
     @OsgiService
     private DatasetService datasetService;
 
+
+    @POST
+    @Path("/verification")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response userVerification(DatasetDTO dataset) {
+
+        logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
+        return Response.ok(datasetService.saveDataset(dataset))
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+                .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+                .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+                .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,
+                        "Access-Control-Allow-Headers, origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+                .build();
+    }
+
+    
+    
+    @GET
+    @Path("/getDataset/id={id}")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response fetchDataset(@PathParam("id") long id) {
+        
+        System.out.println(" featching.. dataset with id ="+id);
+        
+        logger.log(Level.INFO, "Featching ....: "+ id);
+        // return Response.ok(datasetService.saveDataset(new DatasetDTO())).build();
+        //   return Response.ok((new DatasetDTO()))
+        return Response.ok( datasetService.getDataSet(id))
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+        .build();
+    }
+
+
     @POST
     @Path("/register")
     @CrossOriginResourceSharing(allowAllOrigins = true, allowCredentials = true, maxAge = 1, allowHeaders = {
@@ -57,66 +99,22 @@ public class DatasetWS {
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,
                         "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
                 .build();
-
     }
 
-    @POST
-    @Path("/verification")
-    @CrossOriginResourceSharing(allowAllOrigins = true)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response userVerification(DatasetDTO dataset) {
+    
+    
+    //     @POST
+    //     @Path("/testPost")
+    //     @Produces(MediaType.APPLICATION_JSON)
+    //     @Consumes(MediaType.APPLICATION_JSON)
+    //     public DatasetDTO testpost(DatasetDTO dataset) {
+    
+    //         System.out.println("testpost \n " + dataset.toString());
+    // logger.log(Level.SEVERE, "I got At WS: \n " + dataset.toString());
+    //         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //         return dataset;
+    //     }
 
-        // logger.log(Level.INFO, "I got At WS: \n " + dataset.toString());
-        logger.log(Level.INFO, "calling service....: \n ");
-        // return Response.ok(dataset)
-        return Response.ok(datasetService.saveDataset(dataset))
-        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-                .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-                .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-                .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,
-                        "Access-Control-Allow-Headers, origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-                .build();
-    }
-
-
-
-
-    @POST
-    @Path("/testPost")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public DatasetDTO testpost(DatasetDTO dataset) {
-
-        System.out.println("testpost \n " + dataset.toString());
-logger.log(Level.SEVERE, "I got At WS: \n " + dataset.toString());
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // edw prepei na kanei read..............................................................
-        return dataset;
-    }
-
-
-    @GET
-    @Path("/testget")
-    @CrossOriginResourceSharing(allowAllOrigins = true)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response test() {
-
-        ///TODO 
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // edw prepei na kanei read.......................
-        // return Response.ok(datasetService.saveDataset(new DatasetDTO())).build();
-
-        //   return Response.ok((new DatasetDTO()))
-          return Response.ok(("new DatasetDTO() APO TO SERVER"))
-                  .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-                  .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-                  .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-                  .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-                  .build();
-
-    }
 
     // @OPTIONS
     // @Path("{path : .*}")

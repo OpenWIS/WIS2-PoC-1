@@ -38,10 +38,6 @@ export class DataService {
           });
       }
 
-      // ,responseType: 'json'
-
-
-
   private extractData(res: Response) {
       let body = res.json();
       return body || {};

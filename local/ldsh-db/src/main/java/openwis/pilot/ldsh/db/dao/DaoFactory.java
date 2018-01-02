@@ -4,11 +4,13 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
@@ -25,8 +27,16 @@ public class DaoFactory implements IDaoFactory {
 
 	private static Map<Class<?>, GenericDao<?>> daoRegistry = new ConcurrentHashMap<Class<?>, GenericDao<?>>();
 	
+	private String RESOURCE_PATH = "/";
+	// private String RESOURCE_PATH = "/openwis/pilot";
+	
 	@PersistenceContext(unitName = "ldshPU")
 	protected EntityManagerFactory emf;
+	// private EntityManager em;
+	
+
+
+
 
 	@SuppressWarnings("unchecked")
 	private <T> GenericDao<T> getCandidateDaoExtenderClass(Class<T> entityClass) {
@@ -35,7 +45,7 @@ public class DaoFactory implements IDaoFactory {
 			Bundle b = FrameworkUtil.getBundle(this.getClass());
 			BundleWiring bundleWiring = b.adapt(BundleWiring.class);
 
-			Collection<String> resources = bundleWiring.listResources("/com/eurodyn", "*.class",
+			Collection<String> resources = bundleWiring.listResources(RESOURCE_PATH, "*.class",
 					BundleWiring.LISTRESOURCES_RECURSE);
 
 			for (String r : resources) {
@@ -52,18 +62,12 @@ public class DaoFactory implements IDaoFactory {
 					} catch (ClassCastException cce) {
 						// would throw exception if there is no actual generic type (e.g. GenericDao<T>)
 					}
-
 				}
 			}
-
-		
-
 		} catch (Throwable t) {
 			logger.log(Level.SEVERE, t.getMessage(), t);
 		}
-
 		return null;
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -71,10 +75,17 @@ public class DaoFactory implements IDaoFactory {
 		GenericDao<T> dao = (GenericDao<T>) daoRegistry.get(entityClass);
 		if (dao == null) {
 			dao = getCandidateDaoExtenderClass(entityClass);
+System.out.println("dao ok: "+dao.toString());
 			if (dao == null) {
+System.out.println("NO DAO FOUND");
+				
 				dao = new GenericDao<T>();
 			}
+			
+			System.out.println("Entitymanagerfactory to string"+ emf.toString());
+			System.out.println("Entitymanagerfactory is open"+ emf.isOpen());
 			dao.setEntityManager(emf.createEntityManager());
+			// dao.setEntityManager(em);
 			daoRegistry.put(entityClass, dao);
 		}
 		return dao;

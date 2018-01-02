@@ -7,20 +7,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class GenericDao<T> {
 
 	private static final Logger logger = Logger.getLogger(GenericDao.class.getName());
 
+	@PersistenceContext(unitName = "ldshPU")
 	protected EntityManager entityManager;
 
 	public void create(T o) {
 		try {
+
+System.out.println("creating...");
+
 			entityManager.getTransaction().begin();
 			entityManager.persist(o);
 			entityManager.flush();
 		} catch (Throwable t) {
 			entityManager.getTransaction().rollback();
+System.out.println(t.getStackTrace());
 			logger.log(Level.SEVERE, t.getMessage(), t);
 		}
 		entityManager.getTransaction().commit();

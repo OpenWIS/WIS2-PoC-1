@@ -15,10 +15,12 @@ import javax.persistence.Table;
 public class WmoCode implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
+	/**
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idsw_gen")
 	@SequenceGenerator(name = "idsw_gen", sequenceName = "ids_sequence", allocationSize = 20)
+	-- >> org.hibernate.dialect.MySQL5Dialect does not support sequences
+	*/
+	@Id
 	@Column(name = "id")
 	private long id;
 
