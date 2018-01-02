@@ -16,24 +16,16 @@ export class DataService {
       this.options = new RequestOptions({ headers: this.headers });
   }
 
-  // create(url: string, param: any): Promise<any> {
-  // let body = JSON.stringify(param);
-  // return this.http
-  //     .post(url, body, this.options)
-  //     .toPromise()
-  //     .then(this.extractData)
-  //     .catch(this.handleError);
-  // }  
 
 
   // get call
   public getImportMessage<T>(url: string): Observable<T> {
     
-        return this.httpClient.get<T>(url);
+        return this.httpClient.get<T>("http://localhost:8181"+url);
       }
 
 
-          // .post(this.api + url, datasetDTO, {
+// .post(this.api + url, datasetDTO, {
 // todo na pros8esw to full url
 
   public create(url: string, datasetDTO: any): Observable<any> {

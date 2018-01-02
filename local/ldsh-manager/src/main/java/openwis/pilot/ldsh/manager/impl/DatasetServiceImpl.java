@@ -35,11 +35,12 @@ public class DatasetServiceImpl implements DatasetService {
 	private static final Logger logger = Logger.getLogger(DatasetServiceImpl.class.getName());
 
 
-	public String saveDataset(DatasetDTO datasetDTO) {
-		System.out.println("SAVE DATASET CALLED");
-		// userAccountDAO = iDaoFactory.getDao(UserAccount.class);
-		// travellerDAO = (TravellerDao) iDaoFactory.getDao(Traveller.class);
+	public DatasetDTO saveDataset(DatasetDTO datasetDTO) {
 
+
+		System.out.println("SAVE DATASET CALLED");
+
+		// userAccountDAO = iDaoFactory.getDao(UserAccount.class);
 		 String serviceResponse = "messge from SAVE DATASET service..";
 		
 		 try {
@@ -65,8 +66,6 @@ public class DatasetServiceImpl implements DatasetService {
 		// 		modelTraveller.setUserAccount(userAccount);
 				
 		// 		serviceResponse = "The user was created";
-
-				
 				/**
 				 * Email configuration
 				 */
@@ -121,7 +120,7 @@ public class DatasetServiceImpl implements DatasetService {
 
 		}
 		
-		return serviceResponse;
+		return datasetDTO;
 	}
 
 }

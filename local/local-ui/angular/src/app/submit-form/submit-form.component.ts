@@ -378,6 +378,60 @@ export class SubmitFormComponent implements OnInit {
     }
   }
 
+
+  // SERVICE_URL ='/cxf/api/verification'
+  // SERVICE_URL ='/cxf/api/testget'
+  onGET(){
+
+    this.dataService.getImportMessage("/cxf/api/testget").subscribe((result) => {
+        console.log("I RECEIVEEEEEEEE: ");
+        console.log(result);
+          });
+
+  }
+
+
+  onPOST(){
+
+    var messageObject = new Object();
+    
+    let dataset = this.dataSetList.find(i => i.id === '10');
+    
+    messageObject['message'] ; // todo object to send...
+    
+    messageObject['id'] = dataset.id;
+		messageObject['name'] = dataset.name;
+		messageObject['description'] = dataset.description;
+		messageObject['periodFrom'] = dataset.periodFrom;
+		messageObject['periodTo'] = dataset.periodTo;
+		messageObject['license'] = dataset.license;
+		messageObject['imageUrl'] = dataset.imageUrl;
+		messageObject['measurementUnit'] = dataset.measurementUnit;
+		messageObject['wmoCodes'] = [];
+		messageObject['country'] = dataset.country;
+		messageObject['state'] = dataset.state;
+		messageObject['city'] = dataset.city;
+		messageObject['latitude'] = dataset.latitude;
+		messageObject['longitude'] =  dataset.longitude;
+		messageObject['elevation'] =  dataset.elevation;
+		messageObject['relativeUrl'] =  dataset.relativeUrl;
+		messageObject['filenameprefix'] =  dataset.filenameprefix;
+		messageObject['downloadUrl'] =  "TODO addme ";
+		messageObject['subscriptionUri'] =  "TODOaddme";
+		messageObject['dataformat'] =  dataset.dataformat;
+		messageObject['rdshDissEnabled'] =  dataset.rdshDissEnabled;
+    messageObject['jsonLd'] = dataset.jsonLd;
+    
+    console.log(messageObject);
+    // this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
+    this.dataService.create("/cxf/api/verification", messageObject).subscribe((result) => {
+      console.log("I RECEIVEEEEEEEE: ");
+      console.log(result);
+        });
+  }
+
+
+
   onSubmit() {
     console.log("Submit");
     var messageObject = new Object();
@@ -411,14 +465,13 @@ export class SubmitFormComponent implements OnInit {
 		messageObject['jsonLd'] = dataset.jsonLd;
 
     // this.dataService.getImportMessage(this.SERVICE_URL).subscribe((result) => {
-
-
+    //   console.log("I RECEIVEEEEEEEE: ");
+    //   console.log(result);
+    //     });
 
     this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
- 
-console.log("I RECEIVEEEEEEEE: ");
-console.log(result);
-
+  console.log("I RECEIVEEEEEEEE: ");
+  console.log(result);
     // }).catch((ex) => {
       // console.error('Error fetching response', ex);
     });

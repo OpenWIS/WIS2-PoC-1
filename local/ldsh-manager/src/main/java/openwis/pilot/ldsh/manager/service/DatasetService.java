@@ -5,6 +5,6 @@ import openwis.pilot.ldsh.dto.DatasetDTO;
 
 public interface DatasetService {
 
-	public String saveDataset(DatasetDTO dataset); 
+	public DatasetDTO saveDataset(DatasetDTO dataset); 
 
 }

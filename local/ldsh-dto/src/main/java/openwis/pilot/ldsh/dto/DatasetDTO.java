@@ -18,7 +18,7 @@ public class DatasetDTO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2038955410428203765L;
+	private static final long serialVersionUID = 2038915410328204765L;
 
 	@XmlElement
 	private long id;
