@@ -39,8 +39,6 @@ public class DatasetServiceImpl implements DatasetService {
 	public DatasetDTO saveDataset(DatasetDTO datasetDTO) {
 
 		datasetDAO = iDaoFactory.getDao(Dataset.class);
-		System.out.println("dao factory created...");
-
 		Dataset dataset = new Dataset();
 		// TODO add mapper!!!
 		dataset.setId(datasetDTO.getId());

@@ -14,12 +14,12 @@ import { DataService } from "../data.service";
   selector: "app-submit-form",
   templateUrl: "./submit-form.component.html",
   styleUrls: ["./submit-form.component.css"],
-  providers:[DataService]
+  providers: [DataService]
 })
 export class SubmitFormComponent implements OnInit {
   displayFn: any;
-  measurementUnit: any;
-  country: any;
+  // measurementUnit: any; ????
+  // country: any;?????
   rdshDissEnabled = false;
   metadataForm: FormGroup;
   paramsObj: Object;
@@ -31,39 +31,41 @@ export class SubmitFormComponent implements OnInit {
   selectable: boolean = true;
   removable: boolean = true;
   addOnBlur: boolean = true;
+  editMode: boolean = true;
 
   separatorKeysCodes = [ENTER, COMMA];
 
-  postObject: any = null
-  
+  selectedDataSet: any = null;
+  // postObject: any = null
+
 
   @ViewChild("datasetName") private text1: MatInput;
   @ViewChild("rdshDis") private rdshCb: MatCheckbox;
   @ViewChild("rdshOptions") private rdshOptions: MatRadioGroup;
 
-  dataSet = {
-    id: "",
-    name: "",
-    description: "",
-    state: "",
-    city: "",
-    Country: "",
-    dataformat: "",
-    latitude: "",
-    longitude: "",
-    elevation: "",
-    references: "",
-    license: "",
-    relativeUrl: "",
-    filenameprefix: "",
-    jsonLd: "",
-    imageUrl: "",
-    downloadLink: "",
-    awsQueue: "",
-    rdshDissEnabled: "",
-    periodFrom: Date,
-    periodTo: Date
-  };
+  // dataSet = {
+  //   id: "",
+  //   name: "",
+  //   description: "",
+  //   state: "",
+  //   city: "",
+  //   Country: "",
+  //   dataformat: "",
+  //   latitude: "",
+  //   longitude: "",
+  //   elevation: "",
+  //   references: "",
+  //   license: "",
+  //   relativeUrl: "",
+  //   filenameprefix: "",
+  //   jsonLd: "",
+  //   imageUrl: "",
+  //   downloadLink: "",
+  //   awsQueue: "",
+  //   rdshDissEnabled: "",
+  //   periodFrom: Date,
+  //   periodTo: Date
+  // };
 
   dataSetList = [
     {
@@ -90,7 +92,7 @@ export class SubmitFormComponent implements OnInit {
       periodTo: "Now",
       measurementUnit: "Day",
       imageUrl: "",
-         // measurementUnit: "http://codes.wmo.int/common/unit/d"
+      // measurementUnit: "http://codes.wmo.int/common/unit/d"
     },
     {
       id: "30",
@@ -115,7 +117,7 @@ export class SubmitFormComponent implements OnInit {
       rdshDissEnabled: "",
       periodFrom: "1984/01/01",
       periodTo: "Now",
-      measurementUnit:"Month",
+      measurementUnit: "Month",
       imageUrl: "",
     },
     {
@@ -141,7 +143,7 @@ export class SubmitFormComponent implements OnInit {
       rdshDissEnabled: "",
       periodFrom: "1984/01/01",
       periodTo: "Now",
-      measurementUnit:"Hour",
+      measurementUnit: "Hour",
       imageUrl: "",
     }
   ];
@@ -174,54 +176,134 @@ export class SubmitFormComponent implements OnInit {
     { wmocode: "http://codes.wmo.int/common/unit/mon", label: "Month" },
     { wmocode: "http://codes.wmo.int/common/unit/d", label: "Day" },
     { wmocode: "http://codes.wmo.int/common/unit/h", label: "Hour" },
-    { wmocode: "http://codes.wmo.int/common/unit/min",label: "Minute (time)"},
+    { wmocode: "http://codes.wmo.int/common/unit/min", label: "Minute (time)" },
   ];
 
-  measurements: any = [
-    // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
-    // { wmocode: "http://codes.wmo.int/common/unit/mon", label: "month" },
-    // { wmocode: "http://codes.wmo.int/common/unit/d", label: "day" },
-    // { wmocode: "http://codes.wmo.int/common/unit/h", label: "hour" },
-    // { wmocode: "http://codes.wmo.int/common/unit/min",label: " minute (time)"},
-    {
-      wmocode: "http://codes.wmo.int/grib2/codeflag/4.2/0-2-0",
-      label: "Wind direction (from which blowing)"
-    },
-    {
-      wmocode: "http://codes.wmo.int/grib2/codeflag/4.2/0-2-1",
-      label: "Wind speed"
-    },
-    {
-      wmocode: "http://codes.wmo.int/grib2/codeflag/4.2/0-0-21",
-      label: "Apparent temperature"
-    },
-    {
-      wmocode: "http://codes.wmo.int/grib2/codeflag/4.2/0-0-6",
-      label: "Dewpoint temperature"
-    },
-    {
-      wmocode: "http://codes.wmo.int/grib2/codeflag/4.2/0-3-11",
-      label: "Altimeter setting"
-    }
+
+  //chips
+  // measurements
+  wmoCodes: any = [
+    { label: "Wind speed", wmocode: "grib2/codeflag/4.2/3-1-19" },
+    { label: "Wind chill factor", wmocode: "grib2/codeflag/4.2/0-0-13" },
+    { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-001/4" },
+    { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-086/4" },
+    { label: "Rain", wmocode: "bufr4/codeflag/0-20-004/16" },
+    { label: "Rain", wmocode: "bufr4/codeflag/0-20-004/6" },
+    { label: "Rain", wmocode: "bufr4/codeflag/0-20-005/6" },
+    { label: "Precipitation of rain", wmocode: "306/4678/RA" },
+    { label: "Precipitation of rain", wmocode: "bufr4/codeflag/0-20-003/280" },
+    { label: "Categorical freezing rain", wmocode: "grib2/codeflag/4.2/0-1-34" },
+    { label: "Reflectivity of rain", wmocode: "grib2/codeflag/4.2/0-15-12" },
+    { label: "Apparent temperature", wmocode: "grib2/codeflag/4.2/0-0-21" },
+    { label: "Dewpoint temperature", wmocode: "bufr4/b/12/103" },
+    { label: "Dewpoint temperature", wmocode: "bufr4/b/12/024" },
+    { label: "Dewpoint temperature", wmocode: "grib2/codeflag/4.2/0-0-6" },
+    { label: "Highest daily mean temperature", wmocode: "bufr4/b/12/152" },
+    { label: "Minimum temperature", wmocode: "grib2/codeflag/4.2/0-0-5" },
+    { label: "Minimum temperature", wmocode: "bufr4/codeflag/0-08-050/8" },
+    { label: "Wind direction (from which blowing)", wmocode: "grib2/codeflag/4.2/0-2-0" },
   ];
+
+  selectedCodes: any = [{ label: "Wind speed", wmocode: "grib2/codeflag/4.2/0-2-1" }
+  ];
+  codeSelected: any;
+
 
   addSelected() {
     // todo
-    // get selected values
-    // remove them from the available
-    //  console.log("adding: "+  this.readingTpSel.nativeElement.selectedOptions);
-    console.log("called.")
-    return true;
+    
+    if (this.codeSelected != "") {
+      let code = this.wmoCodes.find(i => i.wmocode === this.codeSelected);
+      var index = this.wmoCodes.indexOf(code, 0);
+      if (index > -1) {
+        this.wmoCodes.splice(index, 1);
+        this.selectedCodes.push(code);
+        this.codeSelected = "";
+      }
+    }
+    this.stateCtrl.setValue("");
   }
 
-  editMode: boolean = true;
-  // selectedCountry: string = "gr";
-  
-  
-  SERVICE_URL ='/cxf/api/verification'
+
+  setSelectedCode($event, wmocode) {
+    this.codeSelected = wmocode;
+  }
+
+
+
+  filterStates(name: string) {
+    let out = this.wmoCodes.filter(
+      wmoCode =>
+        wmoCode.label.toLowerCase().indexOf(name.toLowerCase()) === 0
+    );
+    return out;
+  }
+
+
+  add(event: MatChipInputEvent): void {
+    let input = event.input;
+    let value = event.value;
+
+    // Add code
+    if ((value || "").trim()) {
+      this.wmoCodes.push({ label: value.trim() });
+    }
+    // Reset 
+    if (input) {
+      input.value = "";
+    }
+  }
+
+  remove(measurement: any): void {
+    let index = this.wmoCodes.indexOf(measurement);
+
+    if (index >= 0) {
+      this.wmoCodes.splice(index, 1);
+    }
+  }
+
+
+
+  deSelect(code: any): void {
+
+    this.removeFromArray(this.selectedCodes, code);
+    //Add to unselected
+    this.addToArray(this.wmoCodes, code);
+    this.refreshAutoCompleteList();
+  }
+
+
+  private addToArray(array: any[], item: any) {
+    array.push(item);
+  }
+
+  private removeFromArray(array: any[], item: any) {
+    let index = array.indexOf(item);
+    if (index >= 0) {
+      array.splice(index, 1);
+    }
+  }
+
+  private refreshAutoCompleteList() {
+
+    this.filteredStates = this.stateCtrl.valueChanges
+      .startWith(null)
+      .map(
+      wmoCode =>
+        wmoCode
+          ? this.filterStates(wmoCode)
+          : this.wmoCodes.slice()
+      );
+  }
+
+
+
+
+
+  SERVICE_URL = '/cxf/api/verification'
   // SERVICE_URL ='/cxf/api/testget'
 
-  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(params => {
@@ -229,6 +311,8 @@ export class SubmitFormComponent implements OnInit {
     });
     let id = this.paramsObj["params"]["id"];
     let dataset = this.dataSetList.find(i => i.id === id);
+
+    this.selectedDataSet = dataset;
 
     this.stateCtrl = new FormControl();
 
@@ -266,7 +350,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        measurementUnitsCb:  new FormControl(""),
+        measurementUnitsCb: new FormControl(""),
         countryCB: new FormControl(""),
         climate: new FormControl(""),
         dataformat: new FormControl(""),
@@ -332,101 +416,71 @@ export class SubmitFormComponent implements OnInit {
       });
     }
 
-    this.filteredStates = this.stateCtrl.valueChanges
-      .startWith(null)
-      .map(
-        measurement =>
-          measurement
-            ? this.filterStates(measurement)
-            : this.measurements.slice()
-      );
+
+    this.refreshAutoCompleteList();
   }
 
-  filterStates(name: string) {
-    let out = this.measurements.filter(
-      measurement =>
-        measurement.label.toLowerCase().indexOf(name.toLowerCase()) === 0
-    );
-
-    return out;
-  }
 
   rdshAdjust(srcElement: HTMLInputElement) {
     console.log("CBval   " + this.rdshCb.checked);
   }
 
-  add(event: MatChipInputEvent): void {
-    let input = event.input;
-    let value = event.value;
-
-    // Add our fruit
-    if ((value || "").trim()) {
-      this.measurements.push({ label: value.trim() });
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = "";
-    }
-  }
-
-  remove(measurement: any): void {
-    let index = this.measurements.indexOf(measurement);
-
-    if (index >= 0) {
-      this.measurements.splice(index, 1);
-    }
-  }
 
   // SERVICE_URL ='/cxf/api/verification'
   // SERVICE_URL ='/cxf/api/testget'
-  onGET(){
-
+  onGET() {
+    //todo fix id
     this.dataService.getImportMessage("/cxf/api/getDataset/id=10").subscribe((result) => {
       console.log("I got: ");
-        console.log(result);
-          });
+      console.log(result);
+    });
 
   }
 
 
-  onPOST(){
+  onPOST() {
 
     var messageObject = new Object();
-    
-    let dataset = this.dataSetList.find(i => i.id === '10');
-    
-    messageObject['message'] ; // todo object to send...
-    
+    //@ Depricated   id =10 athens.
+    // let dataset = this.dataSetList.find(i => i.id === '10');
+
+    // TODO REfresh object selectedDataSet gia to update??????????
+    let dataset = this.metadataForm.value;
+    //this.selectedDataSet;
+
+    console.log("formValue");
+    // todo object to send...
+    messageObject['message'];
+
     messageObject['id'] = dataset.id;
-		messageObject['name'] = dataset.name;
-		messageObject['description'] = dataset.description;
-		messageObject['periodFrom'] = dataset.periodFrom;
-		messageObject['periodTo'] = dataset.periodTo;
-		messageObject['license'] = dataset.license;
-		messageObject['imageUrl'] = dataset.imageUrl;
-		messageObject['measurementUnit'] = dataset.measurementUnit;
-		messageObject['wmoCodes'] = [];
-		messageObject['country'] = dataset.country;
-		messageObject['state'] = dataset.state;
-		messageObject['city'] = dataset.city;
-		messageObject['latitude'] = dataset.latitude;
-		messageObject['longitude'] =  dataset.longitude;
-		messageObject['elevation'] =  dataset.elevation;
-		messageObject['relativeUrl'] =  dataset.relativeUrl;
-		messageObject['filenameprefix'] =  dataset.filenameprefix;
-		messageObject['downloadUrl'] =  "TODO addme ";
-		messageObject['subscriptionUri'] =  "TODOaddme";
-		messageObject['dataformat'] =  dataset.dataformat;
-		messageObject['rdshDissEnabled'] =  dataset.rdshDissEnabled;
+    messageObject['name'] = dataset.name;
+    messageObject['description'] = dataset.description;
+    messageObject['periodFrom'] = dataset.periodFrom;
+    messageObject['periodTo'] = dataset.periodTo;
+    messageObject['license'] = dataset.license;
+    messageObject['imageUrl'] = dataset.imageUrl;
+    messageObject['measurementUnit'] = dataset.measurementUnit;
+    messageObject['wmoCodes'] = []; // TODO
+    messageObject['country'] = dataset.country;
+    messageObject['state'] = dataset.state;
+    messageObject['city'] = dataset.city;
+    messageObject['latitude'] = dataset.latitude;
+    messageObject['longitude'] = dataset.longitude;
+    messageObject['elevation'] = dataset.elevation;
+    messageObject['relativeUrl'] = dataset.relativeUrl;
+    messageObject['filenameprefix'] = dataset.filenameprefix;
+    messageObject['downloadUrl'] = dataset.downloadUrl;
+    messageObject['subscriptionUri'] = dataset.subscriptionUri;
+    messageObject['dataformat'] = dataset.dataformat;
+    messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
     messageObject['jsonLd'] = dataset.jsonLd;
-    
+
     console.log(messageObject);
     // this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
-    this.dataService.create("/cxf/api/verification", messageObject).subscribe((result) => {
-      console.log("I RECEIVEEEEEEEE: ");
-      console.log(result);
-        });
+    // this.dataService.create("/cxf/api/verification", messageObject).subscribe((result) => {
+    //   console.log("I RECEIVEEEEEEEE: ");
+    //   console.log(result);
+    //     });
   }
 
 
@@ -434,34 +488,42 @@ export class SubmitFormComponent implements OnInit {
   onSubmit() {
     console.log("Submit");
     var messageObject = new Object();
-    
-    // test 2 id =10 athens.
-    let dataset = this.dataSetList.find(i => i.id === '10');
-    
-    messageObject['message'] ; // todo object to send...
-    
+
+    //@ Depricated   id =10 athens.
+    // let dataset = this.dataSetList.find(i => i.id === '10');
+
+    // TODO REfresh object selectedDataSet gia to update??????????
+    let dataset = this.selectedDataSet;
+
+    let formValue = this.metadataForm.value;
+    console.log("formValue");
+    console.log(formValue);
+
+
+    messageObject['message']; // todo object to send...
+
     messageObject['id'] = dataset.id;
-		messageObject['name'] = dataset.name;
-		messageObject['description'] = dataset.description;
-		messageObject['periodFrom'] = dataset.periodFrom;
-		messageObject['periodTo'] = dataset.periodTo;
-		messageObject['license'] = dataset.license;
-		messageObject['imageUrl'] = dataset.imageUrl;
-		messageObject['measurementUnit'] = dataset.measurementUnit;
-		 messageObject['wmoCodes'] = "dataset.wmoCodes TODO FIXME"
-		messageObject['country'] = dataset.country;
-		messageObject['state'] = dataset.state;
-		messageObject['city'] = dataset.city;
-		messageObject['latitude'] = dataset.latitude;
-		messageObject['longitude'] =  dataset.longitude;
-		messageObject['elevation'] =  dataset.elevation;
-		messageObject['relativeUrl'] =  dataset.relativeUrl;
-		messageObject['filenameprefix'] =  dataset.filenameprefix;
-		messageObject['downloadUrl'] =  "dataset.downloadUrl TODO FIXME";
-		messageObject['subscriptionUri'] =  "dataset.subscriptionUri TODO FIX ME";
-		messageObject['dataformat'] =  dataset.dataformat;
-		messageObject['rdshDissEnabled'] =  dataset.rdshDissEnabled;
-		messageObject['jsonLd'] = dataset.jsonLd;
+    messageObject['name'] = dataset.name;
+    messageObject['description'] = dataset.description;
+    messageObject['periodFrom'] = dataset.periodFrom;
+    messageObject['periodTo'] = dataset.periodTo;
+    messageObject['license'] = dataset.license;
+    messageObject['imageUrl'] = dataset.imageUrl;
+    messageObject['measurementUnit'] = dataset.measurementUnit;
+    messageObject['wmoCodes'] = "dataset.wmoCodes TODO FIXME"
+    messageObject['country'] = dataset.country;
+    messageObject['state'] = dataset.state;
+    messageObject['city'] = dataset.city;
+    messageObject['latitude'] = dataset.latitude;
+    messageObject['longitude'] = dataset.longitude;
+    messageObject['elevation'] = dataset.elevation;
+    messageObject['relativeUrl'] = dataset.relativeUrl;
+    messageObject['filenameprefix'] = dataset.filenameprefix;
+    messageObject['downloadUrl'] = "dataset.downloadUrl TODO FIXME";
+    messageObject['subscriptionUri'] = "dataset.subscriptionUri TODO FIX ME";
+    messageObject['dataformat'] = dataset.dataformat;
+    messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
+    messageObject['jsonLd'] = dataset.jsonLd;
 
     // this.dataService.getImportMessage(this.SERVICE_URL).subscribe((result) => {
     //   console.log("I RECEIVEEEEEEEE: ");
@@ -469,15 +531,14 @@ export class SubmitFormComponent implements OnInit {
     //     });
 
     this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
-  console.log("I RECEIVEEEEEEEE: ");
-  console.log(result);
-    // }).catch((ex) => {
+      console.log("I RECEIVEEEEEEEE: ");
+      console.log(result);
+      // }).catch((ex) => {
       // console.error('Error fetching response', ex);
     });
 
-
-  // test
-      // this.onSubmit2();
+    // test
+    // this.onSubmit2();
 
 
   }
@@ -485,92 +546,27 @@ export class SubmitFormComponent implements OnInit {
 
   onSubmit2() {
     console.log("Onsubmit 2 >>>>>>>>>>>>>>>>>>" + this.metadataForm.valid);
-    
-        // if (this.metadataForm.valid) {}
-          let formValue = this.metadataForm.value;
-           console.log(formValue)
-    
-          //  city
-          //  :
-          //  "Athens"
-          //  climate
-          //  :
-          //  "med"
-          //  countryCB
-          //  :
-          //  "gr"
-          //  dataformat
-          //  :
-          //  "csv"
-          //  datasetImage
-          //  :
-          //  ""
-          //  datasetName
-          //  :
-          //  "Athens"
-          //  description
-          //  :
-          //  "Rain volume in Athens"
-          //  downloadLink
-          //  :
-          //  "http://localhost/attica/athens/ath"
-          //  elevation
-          //  :
-          //  ""
-          //  filenameprefix
-          //  :
-          //  "ath"
-          //  jsonLd
-          //  :
-          //  ""
-          //  latitude
-          //  :
-          //  ""
-          //  license
-          //  :
-          //  " https://creativecommons.org/licenses/by/4.0/"
-          //  longitude
-          //  :
-          //  ""
-          //  measurementUnitsCb
-          //  :
-          //  "Day"
-          //  periodFrom
-          //  :
-          //  Sun Jan 01 1984 00:00:00 GMT+0200 (GTB Standard Time) {}
-          //  periodTo
-          //  :
-          //  Fri Dec 22 2017 16:23:15 GMT+0200 (GTB Standard Time) {}
-          //  rdshDissEnabled
-          //  :
-          //  "false"
-          //  relativeUrl
-          //  :
-          //  "attica/athens"
-          //  state
-          //  :
-          //  "Attica"
+
+    // if (this.metadataForm.valid) {}
+    let formValue = this.metadataForm.value;
+    console.log(formValue);
+
+    // this.postObject.comments = formValue.comments;
+    // this.postObject.controlScope = formValue.controlScope;
+    // this.postObject.controlType = formValue.controlType;
+    // this.postObject.user = 1
+    // this.postObject.documentType = formValue.documentType;
+    // this.postObject.creationDate = new Date().getTime();
+    // this.postObject.orderNum = this.dataService.getRandom(5);
+    // this.dataService.create(this.SERVICE_URL, this.postObject).subscribe((data: any) => {
+    //   // this.router.navigate(['/control-panel'], { relativeTo: this.activatedRoute })
+    // });
+  }
 
 
 
-          // this.postObject.comments = formValue.comments;
-          // this.postObject.controlScope = formValue.controlScope;
-          // this.postObject.controlType = formValue.controlType;
-          // this.postObject.user = 1
-          // this.postObject.documentType = formValue.documentType;
-          // this.postObject.creationDate = new Date().getTime();
-          // this.postObject.orderNum = this.dataService.getRandom(5);
-          // this.dataService.create(this.SERVICE_URL, this.postObject).subscribe((data: any) => {
-          //   console.log("dddddd");
-          //   // this.router.navigate(['/control-panel'], { relativeTo: this.activatedRoute })
-          // });
-      
-    }
-
-
-
-  replaceSlash(s:string) {
-    return s && s.replace('/',':');
+  replaceSlash(s: string) {
+    return s && s.replace('/', ':');
   }
 
   getErrorMessage() {
