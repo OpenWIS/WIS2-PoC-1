@@ -13,7 +13,7 @@ public class GenericDao<T> {
 
 	private static final Logger logger = Logger.getLogger(GenericDao.class.getName());
 
-	@PersistenceContext(unitName = "ldshPU")
+	// @PersistenceContext(unitName = "ldshPU")
 	protected EntityManager entityManager;
 
 	public void create(T o) {

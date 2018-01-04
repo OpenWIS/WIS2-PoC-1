@@ -33,9 +33,6 @@ public class DaoFactory implements IDaoFactory {
 	@PersistenceContext(unitName = "ldshPU")
 	protected EntityManagerFactory emf;
 	// private EntityManager em;
-	
-
-
 
 
 	@SuppressWarnings("unchecked")
@@ -85,7 +82,6 @@ System.out.println("NO DAO FOUND");
 			System.out.println("Entitymanagerfactory to string"+ emf.toString());
 			System.out.println("Entitymanagerfactory is open"+ emf.isOpen());
 			dao.setEntityManager(emf.createEntityManager());
-			// dao.setEntityManager(em);
 			daoRegistry.put(entityClass, dao);
 		}
 		return dao;

@@ -7,7 +7,7 @@
 
   <div style="padding:2em;">
 
-    <form [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
+    <form  *ngIf="metadataForm" [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
       <mat-tab-group>
 
 
@@ -86,9 +86,9 @@
               <mat-form-field floatPlaceholder="never">
                 <input matInput placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                  <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.label"
-                  (onSelectionChange)="setSelectedCode($event, wmo.wmocode)">
-                    <span> {{ wmo.label }}</span>
+                  <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.name"
+                  (onSelectionChange)="setSelectedCode($event, wmo.code)">
+                    <span> {{ wmo.name }}</span>
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
@@ -105,13 +105,12 @@
             </div>
 
             <!-- selection list of selected Reading Types-->
-
             <!-- chip  -->
             <div class="field-div3-width">
               <h4 matSubheader>Selected Measurement Types:</h4>
-              <mat-chip-list #chipList>
+              <mat-chip-list #chipList  formControlName="wmoSelectedCodes" >
                 <mat-chip *ngFor="let measurement of selectedCodes" [selectable]="selectable" [removable]="removable" (remove)="deSelect(measurement)">
-                  {{measurement.label}}
+                  {{measurement.name}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <!-- <input placeholder="Add measurement..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -123,9 +122,9 @@
          <!-- UPDATE frequent -->
          <mat-form-field class="mat-form">
           <mat-select #countrySelect placeholder="Dataset Update Frequency" formControlName="measurementUnitsCb" [value]="measurementUnit">
-            <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.label" 
+            <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.name" 
             [class.selected]="section === selectedSection">
-              {{measurementUnit.label}}
+              {{measurementUnit.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -207,7 +206,9 @@
           <br>
 
           <p>
-            Download URL: <span style="color:#62757f;">http://localhost/</span><span style="color:#2196F3;">{{relativeUrl.value}}</span>/<span style="color:#1976D2;">{{filenameprefix.value}}</span>
+            Download URL: 
+          <span style="color:#62757f;" >http://localhost/</span><span style="color:#2196F3;">{{relativeUrl.value}}</span>/<span style="color:#1976D2;">{{filenameprefix.value}}</span>
+
           </p>
           <br>
           <p>
@@ -258,7 +259,7 @@
   </div>
 </div>
 
-<div class="box" style="margin-top:1em;">
+<div   *ngIf="metadataForm" class="box" style="margin-top:1em;">
   <div style="padding:2em;">
       <button mat-button (click)="onGET()">GET</button>
       <button mat-button (click)="onPOST()">POST</button>

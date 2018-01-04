@@ -6,6 +6,8 @@ import { HttpClient, HttpParams, HttpInterceptor, HttpRequest, HttpHandler,
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 
+
+
 @Injectable()
 export class DataService {
   headers: Headers;
@@ -19,9 +21,9 @@ export class DataService {
 
 
   // get call
-  public getImportMessage<T>(url: string): Observable<T> {
+  public getImportMessage<T>(url: string):Promise<any>  {
     
-        return this.httpClient.get<T>("http://localhost:8181"+url);
+        return this.httpClient.get<T>("http://localhost:8181"+url).toPromise();
       }
 
 

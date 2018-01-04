@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,7 +53,7 @@ public class Dataset implements Serializable {
 
 
 	@Column(name = "wmocodes")
-	@OneToMany(targetEntity=WmoCode.class, mappedBy="code", fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=WmoCode.class, mappedBy="code", cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<WmoCode> wmoCodes;
 
 	// Location Information

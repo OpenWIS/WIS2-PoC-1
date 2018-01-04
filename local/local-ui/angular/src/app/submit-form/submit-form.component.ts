@@ -35,37 +35,13 @@ export class SubmitFormComponent implements OnInit {
 
   separatorKeysCodes = [ENTER, COMMA];
 
-  selectedDataSet: any = null;
+  selectedDataSetId: number = null;
   // postObject: any = null
-
 
   @ViewChild("datasetName") private text1: MatInput;
   @ViewChild("rdshDis") private rdshCb: MatCheckbox;
   @ViewChild("rdshOptions") private rdshOptions: MatRadioGroup;
 
-  // dataSet = {
-  //   id: "",
-  //   name: "",
-  //   description: "",
-  //   state: "",
-  //   city: "",
-  //   Country: "",
-  //   dataformat: "",
-  //   latitude: "",
-  //   longitude: "",
-  //   elevation: "",
-  //   references: "",
-  //   license: "",
-  //   relativeUrl: "",
-  //   filenameprefix: "",
-  //   jsonLd: "",
-  //   imageUrl: "",
-  //   downloadLink: "",
-  //   awsQueue: "",
-  //   rdshDissEnabled: "",
-  //   periodFrom: Date,
-  //   periodTo: Date
-  // };
 
   dataSetList = [
     {
@@ -173,47 +149,49 @@ export class SubmitFormComponent implements OnInit {
 
   measurementUnits: any = [
     // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
-    { wmocode: "http://codes.wmo.int/common/unit/mon", label: "Month" },
-    { wmocode: "http://codes.wmo.int/common/unit/d", label: "Day" },
-    { wmocode: "http://codes.wmo.int/common/unit/h", label: "Hour" },
-    { wmocode: "http://codes.wmo.int/common/unit/min", label: "Minute (time)" },
+    { wmocode: "http://codes.wmo.int/common/unit/mon", name: "Month" },
+    { wmocode: "http://codes.wmo.int/common/unit/d", name: "Day" },
+    { wmocode: "http://codes.wmo.int/common/unit/h", name: "Hour" },
+    { wmocode: "http://codes.wmo.int/common/unit/min", name: "Minute (time)" },
   ];
 
 
   //chips
   // measurements
+  // todo fetch from db.. change label to name
   wmoCodes: any = [
-    { label: "Wind speed", wmocode: "grib2/codeflag/4.2/3-1-19" },
-    { label: "Wind chill factor", wmocode: "grib2/codeflag/4.2/0-0-13" },
-    { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-001/4" },
-    { label: "Maximum wind level", wmocode: "bufr4/codeflag/0-08-086/4" },
-    { label: "Rain", wmocode: "bufr4/codeflag/0-20-004/16" },
-    { label: "Rain", wmocode: "bufr4/codeflag/0-20-004/6" },
-    { label: "Rain", wmocode: "bufr4/codeflag/0-20-005/6" },
-    { label: "Precipitation of rain", wmocode: "306/4678/RA" },
-    { label: "Precipitation of rain", wmocode: "bufr4/codeflag/0-20-003/280" },
-    { label: "Categorical freezing rain", wmocode: "grib2/codeflag/4.2/0-1-34" },
-    { label: "Reflectivity of rain", wmocode: "grib2/codeflag/4.2/0-15-12" },
-    { label: "Apparent temperature", wmocode: "grib2/codeflag/4.2/0-0-21" },
-    { label: "Dewpoint temperature", wmocode: "bufr4/b/12/103" },
-    { label: "Dewpoint temperature", wmocode: "bufr4/b/12/024" },
-    { label: "Dewpoint temperature", wmocode: "grib2/codeflag/4.2/0-0-6" },
-    { label: "Highest daily mean temperature", wmocode: "bufr4/b/12/152" },
-    { label: "Minimum temperature", wmocode: "grib2/codeflag/4.2/0-0-5" },
-    { label: "Minimum temperature", wmocode: "bufr4/codeflag/0-08-050/8" },
-    { label: "Wind direction (from which blowing)", wmocode: "grib2/codeflag/4.2/0-2-0" },
+    { id: "1", name: "Wind speed", code: "grib2/codeflag/4.2/3-1-19" },
+    { id: "2", name: "Wind chill factor", code: "grib2/codeflag/4.2/0-0-13" },
+    { id: "3", name: "Maximum wind level", code: "bufr4/codeflag/0-08-001/4" },
+    { id: "4", name: "Maximum wind level", code: "bufr4/codeflag/0-08-086/4" },
+    { id: "5", name: "Rain", code: "bufr4/codeflag/0-20-004/16" },
+    { id: "6", name: "Rain", code: "bufr4/codeflag/0-20-004/6" },
+    { id: "7", name: "Rain", code: "bufr4/codeflag/0-20-005/6" },
+    { id: "8", name: "Precipitation of rain", code: "306/4678/RA" },
+    { id: "9", name: "Precipitation of rain", code: "bufr4/codeflag/0-20-003/280" },
+    { id: "10", name: "Categorical freezing rain", code: "grib2/codeflag/4.2/0-1-34" },
+    { id: "11", name: "Reflectivity of rain", code: "grib2/codeflag/4.2/0-15-12" },
+    { id: "12", name: "Apparent temperature", code: "grib2/codeflag/4.2/0-0-21" },
+    { id: "13", name: "Dewpoint temperature", code: "bufr4/b/12/024" },
+    { id: "14", name: "Dewpoint temperature", code: "grib2/codeflag/4.2/0-0-6" },
+    { id: "15", name: "Highest daily mean temperature", code: "bufr4/b/12/152" },
+    { id: "16", name: "Minimum temperature", code: "grib2/codeflag/4.2/0-0-5" },
+    { id: "17", name: "Minimum temperature", code: "bufr4/codeflag/0-08-050/8" },
+    { id: "18", name: "Wind direction (from which blowing)", code: "grib2/codeflag/4.2/0-2-0" },
+    { id: "19", name: "Dewpoint temperature", code: "bufr4/b/12/103" },
   ];
 
-  selectedCodes: any = [{ label: "Wind speed", wmocode: "grib2/codeflag/4.2/0-2-1" }
+  selectedCodes: any = [{name: "Wind speed", code: "grib2/codeflag/4.2/0-2-1" }
   ];
+
+
   codeSelected: any;
 
 
   addSelected() {
-    // todo
-    
+
     if (this.codeSelected != "") {
-      let code = this.wmoCodes.find(i => i.wmocode === this.codeSelected);
+      let code = this.wmoCodes.find(i => i.code === this.codeSelected);
       var index = this.wmoCodes.indexOf(code, 0);
       if (index > -1) {
         this.wmoCodes.splice(index, 1);
@@ -234,7 +212,7 @@ export class SubmitFormComponent implements OnInit {
   filterStates(name: string) {
     let out = this.wmoCodes.filter(
       wmoCode =>
-        wmoCode.label.toLowerCase().indexOf(name.toLowerCase()) === 0
+        wmoCode.name.toLowerCase().indexOf(name.toLowerCase()) === 0
     );
     return out;
   }
@@ -246,7 +224,7 @@ export class SubmitFormComponent implements OnInit {
 
     // Add code
     if ((value || "").trim()) {
-      this.wmoCodes.push({ label: value.trim() });
+      this.wmoCodes.push({ name: value.trim() });
     }
     // Reset 
     if (input) {
@@ -310,11 +288,24 @@ export class SubmitFormComponent implements OnInit {
       this.paramsObj = { ...params.keys, ...params };
     });
     let id = this.paramsObj["params"]["id"];
-    let dataset = this.dataSetList.find(i => i.id === id);
+    this.fetchDataset(id);
 
-    this.selectedDataSet = dataset;
+  }
 
-    this.stateCtrl = new FormControl();
+  rdshAdjust(srcElement: HTMLInputElement) {
+    console.log("CBval   " + this.rdshCb.checked);
+  }
+
+
+  // SERVICE_URL ='/cxf/api/verification'
+  // SERVICE_URL ='/cxf/api/testget'
+
+  private buildForm(dataset: DataSet, id) {
+    // console.log("dataset :");
+    // console.log(dataset);
+    this.selectedDataSetId = id;
+    console.log(dataset);
+    // let dataset = this.dataSetList.find(i => i.id === id);
 
     if (dataset == null) {
       // create new
@@ -354,17 +345,19 @@ export class SubmitFormComponent implements OnInit {
         countryCB: new FormControl(""),
         climate: new FormControl(""),
         dataformat: new FormControl(""),
-        datasetImage: new FormControl("")
+        datasetImage: new FormControl(""),
+        wmoSelectedCodes: new FormControl("")
       });
+      this.stateCtrl = new FormControl();
     } else {
       this.metadataForm = new FormGroup({
         datasetName: new FormControl(dataset.name, [
           Validators.required,
           Validators.minLength(2)
         ]),
-        measurementUnitsCb: new FormControl(dataset.measurementUnit),
+        measurementUnitsCb: new FormControl(dataset.measurementUnitsCb),
         countryCB: new FormControl(dataset.country),
-        climate: new FormControl(dataset.climate),
+        // climate: new FormControl(dataset.climate),
         state: new FormControl(dataset.state, [Validators.required]),
         city: new FormControl(dataset.city),
         latitude: new FormControl(dataset.latitude, [Validators.required]),
@@ -412,28 +405,47 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        datasetImage: new FormControl("")
+        datasetImage: new FormControl(""),
+        wmoSelectedCodes: new FormControl("")
       });
+      this.stateCtrl = new FormControl();
     }
 
 
     this.refreshAutoCompleteList();
+    console.log("dataset loading complete");
+
   }
 
+  private fetchDataset(id: number) {
 
-  rdshAdjust(srcElement: HTMLInputElement) {
-    console.log("CBval   " + this.rdshCb.checked);
+    console.log("dataset loading starts");
+
+    this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).then(result => {
+      console.log("dataset fetched");
+      console.log(result);
+      this.buildForm(result, id);
+    }
+    )
   }
+  // return this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).subscribe((result) => {
+  // return this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).toPromise().then( result => <DataSet> result) ;
+  // console.log("I got: ");
+  // messageObject :DataSet;
 
 
-  // SERVICE_URL ='/cxf/api/verification'
-  // SERVICE_URL ='/cxf/api/testget'
+  // .then((result) => {       });
+  // return  null;
+
+  // return <DataSet>result;
+
+
   onGET() {
     //todo fix id
-    this.dataService.getImportMessage("/cxf/api/getDataset/id=10").subscribe((result) => {
-      console.log("I got: ");
-      console.log(result);
-    });
+    // this.dataService.getImportMessage("/cxf/api/getDataset/id=10").subscribe((result) => {
+    //   console.log("I got: ");
+    //   console.log(result);
+    // });
 
   }
 
@@ -446,22 +458,15 @@ export class SubmitFormComponent implements OnInit {
 
     // TODO REfresh object selectedDataSet gia to update??????????
     let dataset = this.metadataForm.value;
-    //this.selectedDataSet;
+    let id = this.selectedDataSetId;
 
-    console.log("formValue");
     // todo object to send...
     messageObject['message'];
-
-    messageObject['id'] = dataset.id;
-    messageObject['name'] = dataset.name;
+    messageObject['id'] = id;
     messageObject['description'] = dataset.description;
     messageObject['periodFrom'] = dataset.periodFrom;
     messageObject['periodTo'] = dataset.periodTo;
     messageObject['license'] = dataset.license;
-    messageObject['imageUrl'] = dataset.imageUrl;
-    messageObject['measurementUnit'] = dataset.measurementUnit;
-    messageObject['wmoCodes'] = []; // TODO
-    messageObject['country'] = dataset.country;
     messageObject['state'] = dataset.state;
     messageObject['city'] = dataset.city;
     messageObject['latitude'] = dataset.latitude;
@@ -469,18 +474,29 @@ export class SubmitFormComponent implements OnInit {
     messageObject['elevation'] = dataset.elevation;
     messageObject['relativeUrl'] = dataset.relativeUrl;
     messageObject['filenameprefix'] = dataset.filenameprefix;
-    messageObject['downloadUrl'] = dataset.downloadUrl;
-    messageObject['subscriptionUri'] = dataset.subscriptionUri;
     messageObject['dataformat'] = dataset.dataformat;
     messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
     messageObject['jsonLd'] = dataset.jsonLd;
+    messageObject['country'] = dataset.countryCB;
+    messageObject['name'] = dataset.datasetName;
+    messageObject['measurementUnit'] = dataset.measurementUnitsCb;
+    messageObject['imageUrl'] = dataset.datasetImage;
+
+    //check
+    messageObject['wmoCodes'] = this.selectedCodes;
+    //dataset.wmoSelectedCodes;
+
+    // TODO fix us:
+    // messageObject['downloadUrl'] = dataset.downloadLink;
+    // messageObject['subscriptionUri'] = dataset.subscriptionUri;
 
     console.log(messageObject);
     // this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
-    // this.dataService.create("/cxf/api/verification", messageObject).subscribe((result) => {
-    //   console.log("I RECEIVEEEEEEEE: ");
-    //   console.log(result);
-    //     });
+    //UNCOMMENT
+    this.dataService.create("/cxf/api/saveDataset", messageObject).subscribe((result) => {
+      console.log("I RECEIVEEEEEEEE: ");
+      console.log(result);
+    });
   }
 
 
@@ -493,11 +509,11 @@ export class SubmitFormComponent implements OnInit {
     // let dataset = this.dataSetList.find(i => i.id === '10');
 
     // TODO REfresh object selectedDataSet gia to update??????????
-    let dataset = this.selectedDataSet;
+    // let dataset = this.selectedDataSet;
 
-    let formValue = this.metadataForm.value;
+    let dataset = this.metadataForm.value;
     console.log("formValue");
-    console.log(formValue);
+    console.log(dataset);
 
 
     messageObject['message']; // todo object to send...
@@ -577,3 +593,29 @@ export class SubmitFormComponent implements OnInit {
         : "not valid Mail";
   }
 }
+
+
+export interface DataSet {
+  id: number,
+  name: String,
+  description: String,
+  state: String,
+  city: String,
+  country: String,
+  dataformat: String,
+  latitude: String,
+  longitude: String,
+  elevation: String,
+  references: String,
+  license: String,
+  relativeUrl: String,
+  filenameprefix: String,
+  jsonLd: String,
+  imageUrl: String,
+  downloadLink: String,
+  awsQueue: String
+  rdshDissEnabled: String,
+  measurementUnitsCb: String,
+  periodFrom: Date,
+  periodTo: Date
+};

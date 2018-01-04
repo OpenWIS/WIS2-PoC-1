@@ -45,7 +45,7 @@ public class DatasetDTO implements Serializable {
 	private String measurementUnit;
 
 	@XmlElement
-	private List<WmoCode> wmoCodes;
+	private List<WmoCodeDTO> wmoCodes;
 
 	@XmlElement
 	private String country;
@@ -95,7 +95,7 @@ public class DatasetDTO implements Serializable {
 
 	public DatasetDTO(long id, String name, String description,
 			Date periodFrom, Date periodTo, String license, String imageUrl,
-			String measurementUnit, List<WmoCode> wmoCodes, String country,
+			String measurementUnit, List<WmoCodeDTO> wmoCodes, String country,
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, String dataformat,
@@ -201,11 +201,11 @@ public class DatasetDTO implements Serializable {
 		this.measurementUnit = measurementUnit;
 	}
 
-	public List<WmoCode> getWmoCodes() {
+	public List<WmoCodeDTO> getWmoCodes() {
 		return wmoCodes;
 	}
 
-	public void setWmoCodes(List<WmoCode> wmoCodes) {
+	public void setWmoCodes(List<WmoCodeDTO> wmoCodes) {
 		this.wmoCodes = wmoCodes;
 	}
 

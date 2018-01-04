@@ -46,13 +46,14 @@ public class DatasetWS {
 
 
     @POST
-    @Path("/verification")
+    @Path("/saveDataset")
     @CrossOriginResourceSharing(allowAllOrigins = true)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response userVerification(DatasetDTO dataset) {
 
         logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
+System.out.println(dataset.toString());
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
@@ -62,7 +63,6 @@ public class DatasetWS {
                 .build();
     }
 
-    
     
     @GET
     @Path("/getDataset/id={id}")

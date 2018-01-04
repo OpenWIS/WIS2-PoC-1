@@ -6,12 +6,6 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import openwis.pilot.ldsh.db.dao.GenericDao;
 import openwis.pilot.ldsh.db.dao.IDaoFactory;
 import openwis.pilot.ldsh.db.model.Dataset;
@@ -39,19 +33,20 @@ public class DatasetServiceImpl implements DatasetService {
 	public DatasetDTO saveDataset(DatasetDTO datasetDTO) {
 
 		datasetDAO = iDaoFactory.getDao(Dataset.class);
-		Dataset dataset = new Dataset();
-		// TODO add mapper!!!
-		dataset.setId(datasetDTO.getId());
-		dataset.setName(datasetDTO.getName());
-		dataset.setCountry(datasetDTO.getCountry());
-		dataset.setDescription(datasetDTO.getDescription());
-		dataset.setCity(datasetDTO.getCity());
-		dataset.setFilenameprefix(datasetDTO.getFilenameprefix());
+
+		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+		Dataset dataset = mapper.map(datasetDTO, Dataset.class);
 
 		try {
-System.out.println("SAVing " + dataset);
 
-			datasetDAO.create(dataset);
+			Dataset ds = datasetDAO.get(dataset.getId());
+			System.out.println(ds.toString());
+			if (ds != null) {	
+				datasetDAO.update(dataset);
+			} else {
+				datasetDAO.create(dataset);
+			}
+
 			System.out.println("saved.");
 
 		} catch (Exception e) {
@@ -65,18 +60,14 @@ System.out.println("SAVing " + dataset);
 
 		datasetDAO = iDaoFactory.getDao(Dataset.class);
 		Dataset dataset = datasetDAO.get(id);
-		if (dataset == null ){
-System.out.println("NO DATASET FOUND");
+		if (dataset == null) {
+			System.out.println("NO DATASET FOUND");
 			return null;
 		}
 		// TODO MAPPER
-		DatasetDTO datasetDTO = new DatasetDTO();
-		datasetDTO.setId(dataset.getId());
-		datasetDTO.setName(dataset.getName());
-		datasetDTO.setCountry(dataset.getCountry());
-		datasetDTO.setDescription(dataset.getDescription());
-		datasetDTO.setCity(dataset.getCity());
-		datasetDTO.setFilenameprefix(dataset.getFilenameprefix());
+
+		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+		DatasetDTO datasetDTO = mapper.map(dataset, DatasetDTO.class);
 
 		return datasetDTO;
 	}
