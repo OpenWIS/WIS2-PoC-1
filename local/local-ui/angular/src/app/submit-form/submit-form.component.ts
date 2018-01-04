@@ -18,8 +18,6 @@ import { DataService } from "../data.service";
 })
 export class SubmitFormComponent implements OnInit {
   displayFn: any;
-  // measurementUnit: any; ????
-  // country: any;?????
   rdshDissEnabled = false;
   metadataForm: FormGroup;
   paramsObj: Object;
@@ -32,11 +30,8 @@ export class SubmitFormComponent implements OnInit {
   removable: boolean = true;
   addOnBlur: boolean = true;
   editMode: boolean = true;
-
   separatorKeysCodes = [ENTER, COMMA];
-
   selectedDataSetId: number = null;
-  // postObject: any = null
 
   @ViewChild("datasetName") private text1: MatInput;
   @ViewChild("rdshDis") private rdshCb: MatCheckbox;
@@ -181,8 +176,9 @@ export class SubmitFormComponent implements OnInit {
     { id: "19", name: "Dewpoint temperature", code: "bufr4/b/12/103" },
   ];
 
-  selectedCodes: any = [{name: "Wind speed", code: "grib2/codeflag/4.2/0-2-1" }
-  ];
+  //  selectedCodes:any[]=[];
+  selectedCodes: WmoCode[];
+  //  = [{name: "Wind speed", code: "grib2/codeflag/4.2/0-2-1" }  ];
 
 
   codeSelected: any;
@@ -301,8 +297,7 @@ export class SubmitFormComponent implements OnInit {
   // SERVICE_URL ='/cxf/api/testget'
 
   private buildForm(dataset: DataSet, id) {
-    // console.log("dataset :");
-    // console.log(dataset);
+
     this.selectedDataSetId = id;
     console.log(dataset);
     // let dataset = this.dataSetList.find(i => i.id === id);
@@ -401,20 +396,25 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        periodTo: new FormControl(new Date(), [
+        periodTo: new FormControl(dataset.periodTo, [
           Validators.required,
           Validators.minLength(2)
         ]),
-        datasetImage: new FormControl(""),
+        datasetImage: new FormControl(dataset.imageUrl),
         wmoSelectedCodes: new FormControl("")
       });
       this.stateCtrl = new FormControl();
     }
 
+    if (dataset.wmoCodes) {
+      this.selectedCodes = [];
+    } else {
+      this.selectedCodes = dataset.wmoCodes;
+    }
+    console.log(dataset.wmoCodes);
+    // dataset.wmoCodes ;
 
     this.refreshAutoCompleteList();
-    console.log("dataset loading complete");
-
   }
 
   private fetchDataset(id: number) {
@@ -595,6 +595,9 @@ export class SubmitFormComponent implements OnInit {
 }
 
 
+
+export interface WmoCode { id: number, name: String, code: String };
+
 export interface DataSet {
   id: number,
   name: String,
@@ -617,5 +620,6 @@ export interface DataSet {
   rdshDissEnabled: String,
   measurementUnitsCb: String,
   periodFrom: Date,
-  periodTo: Date
+  periodTo: Date,
+  wmoCodes: any
 };
