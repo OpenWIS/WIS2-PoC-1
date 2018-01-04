@@ -1,11 +1,11 @@
 package openwis.pilot.ldsh.manager.impl;
 
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import openwis.pilot.ldsh.db.dao.GenericDao;
 import openwis.pilot.ldsh.db.dao.IDaoFactory;
 import openwis.pilot.ldsh.db.model.Dataset;
@@ -25,7 +25,6 @@ public class DatasetServiceImpl implements DatasetService {
 	@Inject
 	private IDaoFactory iDaoFactory;
 
-	// private DatasetDTO datasetDTO;
 	private GenericDao<Dataset> datasetDAO;
 
 	private static final Logger logger = Logger.getLogger(DatasetServiceImpl.class.getName());
@@ -40,14 +39,13 @@ public class DatasetServiceImpl implements DatasetService {
 		try {
 
 			Dataset ds = datasetDAO.get(dataset.getId());
-			System.out.println(ds.toString());
 			if (ds != null) {	
 				datasetDAO.update(dataset);
 			} else {
 				datasetDAO.create(dataset);
 			}
 
-			System.out.println("saved.");
+System.out.println("saved.");
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error", e);
@@ -64,12 +62,9 @@ public class DatasetServiceImpl implements DatasetService {
 			System.out.println("NO DATASET FOUND");
 			return null;
 		}
-		// TODO MAPPER
-
 		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 		DatasetDTO datasetDTO = mapper.map(dataset, DatasetDTO.class);
 
 		return datasetDTO;
 	}
-
 }

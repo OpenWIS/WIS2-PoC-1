@@ -4,10 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
-
 // import com.eurodyn.iborderctrl.traveller.server.db.model.Traveller;
 // import com.eurodyn.iborderctrl.traveller.server.db.model.UserAccount;
-
 import openwis.pilot.ldsh.db.model.Dataset;
 
 public class DatasetDao extends GenericDao<Dataset> {
@@ -18,25 +16,11 @@ public class DatasetDao extends GenericDao<Dataset> {
 	public boolean userExists(String email) {
 		logger.log(Level.INFO, "entityManager: " + entityManager);
 		String hql_traveller = "FROM Traveller as t WHERE  t.email = :email and t.userAccount.status = true" ;
-		//String hql_userAccount = "FROM UserAccount as u WHERE  u.email = ?";
 		int count = entityManager.createQuery(hql_traveller).setParameter("email", email).getResultList().size();
-		
 		if (count > 0) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	// @Transactional
-	// public UserAccount userId(String email,String activationLink) {
-		
-	// 	String hql = "FROM Traveller as t WHERE  t.email = :email and t.userAccount.verificationUrl =:activationLink";
-	// 	Traveller traveller = (Traveller)entityManager.createQuery(hql).setParameter("email", email).setParameter("verificationUrl", activationLink).getSingleResult();
-		
-	// 	UserAccount userAccount = traveller.getUserAccount();
-		
-	// 	return userAccount;
-	// }
-
 }

@@ -44,6 +44,10 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<properties>
+		<camel.version>2.20.0</camel.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -55,19 +59,32 @@
 			<artifactId>cxf-rt-rs-security-cors</artifactId>
 			<version>3.1.11</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-service-description</artifactId>
 			<version>3.1.11</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>${javax.ws.rs-api.version}</version>
 			<!--<scope>provided</scope> -->
 		</dependency>
+
+		<!--FTP -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-ftp</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>openwis.pilot.ldsh</groupId>
 			<artifactId>ldsh-dto</artifactId>
