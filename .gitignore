@@ -36,3 +36,5 @@ awisc/awisc-ui/package-lock\.json
 local/local-ui/package-lock\.json
 
 rdsh/rdsh-ui/package-lock\.json
+
+local/local-ui/node_modules/
