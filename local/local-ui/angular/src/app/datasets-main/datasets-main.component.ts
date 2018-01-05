@@ -1,29 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-datasets-main',
   templateUrl: './datasets-main.component.html',
-  styleUrls: ['./datasets-main.component.css']
+  styleUrls: ['./datasets-main.component.css'],
+  providers: [DataService]
+  
 })
 export class DatasetsMainComponent implements OnInit {
   displayedColumns = ['name', 'description', 'url'];
   dataSource = new MatTableDataSource<Element>(datasetList);
 
-  constructor(private router: Router) { }
+  constructor(private dataService: DataService, private router: Router) { }
 
 
   ngOnInit() {
+    this.loadDatasets();
   }
 
   gotoPage(id: string) {
 
-    // console.log("TO ID "+ id);
     this.router.navigate(['/view'], { queryParams: { "id": id } });
-    //  this.router.navigate(['/submit'],{ queryParams: {"id": id } });
   }
 
+  loadDatasets(){
+    this.dataService.getImportMessage("/cxf/api/getAllDatasets").then(result => {
+      
+      console.log(result);
+edw eimai  todo na balw to resutl sthn lista kai na faietai swsta
+      // this.buildForm(result);
+    })
+  }
 
 }
 export interface Element {
@@ -33,6 +43,7 @@ export interface Element {
 }
 
 
+//get all datasets..
 const datasetList: Element[] = [
   { name: 'Athens', description: "Temperature/Rainfall in Athens", id: "10" },
   { name: 'Thesaloniki', description: "Temperature/Rainfall in Thesaloniki", id: "30" },

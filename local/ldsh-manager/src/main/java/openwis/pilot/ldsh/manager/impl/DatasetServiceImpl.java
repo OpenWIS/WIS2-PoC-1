@@ -1,5 +1,7 @@
 package openwis.pilot.ldsh.manager.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,25 +29,23 @@ public class DatasetServiceImpl implements DatasetService {
 
 	private GenericDao<Dataset> datasetDAO;
 
-	private static final Logger logger = Logger.getLogger(DatasetServiceImpl.class.getName());
+	private static final Logger logger = Logger
+			.getLogger(DatasetServiceImpl.class.getName());
 
 	public DatasetDTO saveDataset(DatasetDTO datasetDTO) {
 
 		datasetDAO = iDaoFactory.getDao(Dataset.class);
-
 		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 		Dataset dataset = mapper.map(datasetDTO, Dataset.class);
 
 		try {
 
 			Dataset ds = datasetDAO.get(dataset.getId());
-			if (ds != null) {	
+			if (ds != null) {
 				datasetDAO.update(dataset);
 			} else {
 				datasetDAO.create(dataset);
 			}
-
-System.out.println("saved.");
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error", e);
@@ -66,5 +66,22 @@ System.out.println("saved.");
 		DatasetDTO datasetDTO = mapper.map(dataset, DatasetDTO.class);
 
 		return datasetDTO;
+	}
+
+	@Override
+	public List<DatasetDTO>  getAllDataSets() {
+		datasetDAO = iDaoFactory.getDao(Dataset.class);
+		ArrayList<Dataset> datasets = (ArrayList<Dataset>) datasetDAO.list();
+System.out.println("DASETS I got " + datasets.size());
+
+		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+		ArrayList<DatasetDTO> datasetList = new ArrayList<DatasetDTO>();
+
+		for (int i = 0; i < datasets.size(); i++) {
+
+			DatasetDTO datasetDTO = mapper.map(datasets.get(i),DatasetDTO.class);
+			datasetList.add(datasetDTO);
+		}
+		return datasetList;
 	}
 }

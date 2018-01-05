@@ -62,6 +62,23 @@ System.out.println(dataset.toString());
                         "Access-Control-Allow-Headers, origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
                 .build();
     }
+    
+    
+    
+
+    @GET
+    @Path("/getAllDatasets")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response fetchDataset() {
+        return Response.ok( datasetService.getAllDataSets())
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+        .build();
+    }
+
 
     
     @GET
@@ -70,11 +87,9 @@ System.out.println(dataset.toString());
     @Produces(MediaType.APPLICATION_JSON)
     public Response fetchDataset(@PathParam("id") long id) {
         
-        System.out.println(" featching.. dataset with id ="+id);
         
         logger.log(Level.INFO, "Featching ....: "+ id);
-        // return Response.ok(datasetService.saveDataset(new DatasetDTO())).build();
-        //   return Response.ok((new DatasetDTO()))
+
         return Response.ok( datasetService.getDataSet(id))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")

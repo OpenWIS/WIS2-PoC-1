@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -53,7 +54,7 @@ public class Dataset implements Serializable {
 
 
 	@Column(name = "wmocodes")
-	@OneToMany(targetEntity=WmoCode.class, mappedBy="code", cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+	@ManyToMany(targetEntity=WmoCode.class, mappedBy="code", cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<WmoCode> wmoCodes;
 
 	// Location Information
