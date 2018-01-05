@@ -17,10 +17,11 @@
         <h5 matSubheader>Search with WMO Codes:</h5>
         <mat-form-field floatPlaceholder="never" style="width :80%;">
           <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-            <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.label">
-              <span> {{ wmo.label }} </span> ---
-              <small> Code: {{ wmo.wmocode }}</small>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"  >
+            <mat-option *ngFor="let wmo of filteredStates | async"  [value]="wmo.label"  
+            (onSelectionChange)="setSelectedCode($event, wmo.wmocode)" >
+               <span> {{ wmo.label }} </span> ---
+              <small> Code: {{ wmo.wmocode }}</small> 
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -33,7 +34,7 @@
         <!-- chip  -->
         <h5 matSubheader>Selected Measurement Types:</h5>
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let wmos of wmoCodes" [selectable]="selectable" [removable]="removable" (remove)="remove(wmos)">
+          <mat-chip *ngFor="let wmos of selectedCodes" [selectable]="selectable" [removable]="removable" (remove)="deSelect(wmos)">
             {{wmos.label}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
@@ -117,12 +118,6 @@
             </mat-expansion-panel>
           </mat-accordion>-->
         </div>
-
-
-
-
-
-
       </div>
     </form>
     <div *ngIf="searchResults">
