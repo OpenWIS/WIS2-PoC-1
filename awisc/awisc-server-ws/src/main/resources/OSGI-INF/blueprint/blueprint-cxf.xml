@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+
+
+	<jaxrs:server id="IBORDERCTRL" address="/api">
+		<jaxrs:serviceBeans>
+			<ref component-id="travellerWS" />
+			<ref component-id="loginWS" />
+		</jaxrs:serviceBeans>
+
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+			<bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter" />
+			
+			<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+				<property name="dropRootElement" value="true" />
+				<property name="dropCollectionWrapperElement" value="true" />
+				<property name="serializeAsArray" value="true" />
+				<property name="supportUnwrapped" value="true" />
+			</bean>
+			
+
+		</jaxrs:providers>
+
+	</jaxrs:server>
+
+
+
+
+</blueprint>
