@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>openwis.pilot.awisc</groupId>
+	<artifactId>awisc-server-parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../awisc-server-db</module>
+		<module>../awisc-server-common</module>
+		<module>../awisc-server-manager</module>
+		<module>../awisc-server-ws</module>
+	</modules>
+
+	<properties>
+		<maven-bundle-plugin.version>3.4.0</maven-bundle-plugin.version>
+		<blueprint-maven-plugin.version>1.5.0</blueprint-maven-plugin.version>
+		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<maven.resources.plugin.version>3.0.2</maven.resources.plugin.version>
+		<maven.install.plugin.version>2.5.2</maven.install.plugin.version>
+		<pax.cdi.version>0.12.0</pax.cdi.version>
+		<javax.inject.version>1</javax.inject.version>
+		<javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
+		<javax.transaction.version>1.2</javax.transaction.version>
+		<aspectj.version>1.8.13</aspectj.version>
+
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- AOP dependencies. -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjtools</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>${javax.inject.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ops4j.pax.cdi</groupId>
+				<artifactId>pax-cdi-api</artifactId>
+				<version>${pax.cdi.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>openwis.pilot.awisc</groupId>
+				<artifactId>awisc-server-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>openwis.pilot.awisc</groupId>
+				<artifactId>awisc-server-db</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>openwis.pilot.awisc</groupId>
+				<artifactId>awisc-server-manager</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>openwis.pilot.awisc</groupId>
+				<artifactId>awisc-server-ws</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>aspectj-maven-plugin</artifactId>
+					<version>1.10</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.aspectj</groupId>
+							<artifactId>aspectjrt</artifactId>
+							<version>${aspectj.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.aspectj</groupId>
+							<artifactId>aspectjtools</artifactId>
+							<version>${aspectj.version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
