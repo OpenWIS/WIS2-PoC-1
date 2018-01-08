@@ -27,7 +27,7 @@ export class DatasetsMainComponent implements OnInit {
   }
 
   loadDatasets() {
-    this.dataService.getImportMessage("/cxf/api/getAllDatasets").then(result => {
+    this.dataService.getCall("/cxf/api/getAllDatasets").then(result => {
       this.loadDatasetsTable(result);
     })
   }

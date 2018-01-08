@@ -413,7 +413,7 @@ export class SubmitFormComponent implements OnInit {
 
   private fetchDataset(id: number) {
 
-    this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).then(result => {
+    this.dataService.getCall("/cxf/api/getDataset/id=" + id).then(result => {
       // console.log("dataset fetched");
       // console.log(result);
       this.buildForm(result, id);
