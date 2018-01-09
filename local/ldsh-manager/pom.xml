@@ -107,7 +107,6 @@
 			<version>3.5</version>
 		</dependency>
 		
-<!-- 		<artifactId>camel-core</artifactId> -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core-osgi</artifactId>
@@ -124,13 +123,6 @@
 			<artifactId>camel-ftp</artifactId>
 			<version>${camel.version}</version>
 		</dependency> 
-	
-	<!-- den paizei me auto 
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-ftp-starter</artifactId>
-			<version>${camel.version}</version>
-		</dependency>-->
 
 	</dependencies>
 </project>
