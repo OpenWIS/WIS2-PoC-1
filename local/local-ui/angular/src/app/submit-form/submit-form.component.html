@@ -121,7 +121,7 @@
 
          <!-- UPDATE frequent -->
          <mat-form-field class="mat-form">
-          <mat-select #countrySelect placeholder="Dataset Update Frequency" formControlName="measurementUnitsCb" [value]="measurementUnit">
+          <mat-select #countrySelect placeholder="Dataset Update Frequency" formControlName="measurementUnit" [value]="measurementUnit">
             <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.name" 
             [class.selected]="section === selectedSection">
               {{measurementUnit.name}}

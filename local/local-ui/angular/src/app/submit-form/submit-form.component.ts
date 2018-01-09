@@ -38,108 +38,108 @@ export class SubmitFormComponent implements OnInit {
   @ViewChild("rdshOptions") private rdshOptions: MatRadioGroup;
 
 
-  dataSetList = [
-    {
-      id: "10",
-      name: "Athens",
-      description: "Rain volume in Athens",
-      state: "Attica",
-      city: "Athens",
-      latitude: "",
-      longitude: "",
-      elevation: "",
-      country: "gr",
-      dataformat: "csv",
-      climate: "med",
-      divisions: "Attica Athens",
-      license: " https://creativecommons.org/licenses/by/4.0/",
-      relativeUrl: "attica/athens",
-      filenameprefix: "ath",
-      jsonLd: "",
-      downloadLink: "http://localhost/attica/athens/ath",
-      awsQueue: "/arn:aws:sns:us-ATH-1:11784:SEDataQueue",
-      rdshDissEnabled: "false",
-      periodFrom: "1984/01/01",
-      periodTo: "Now",
-      measurementUnit: "Day",
-      imageUrl: "",
-      // measurementUnit: "http://codes.wmo.int/common/unit/d"
-    },
-    {
-      id: "30",
-      name: "Thesaloniki wind",
-      description: "Wind power in Thesaloniki",
-      state: "Thesaloniki",
-      city: "Thesaloniki",
-      latitude: "",
-      longitude: "",
-      elevation: "",
-      country: "gr",
-      dataformat: "txt",
-      climate: "med",
-      divisions: "text",
-      areaCodes: "",
-      license: "",
-      relativeUrl: "/daddada/uril",
-      filenameprefix: "Thesx",
-      jsonLd: "",
-      downloadLink: "",
-      awsQueue: "/arn:aws:sns:us-east-1:11784:SEDataQueue",
-      rdshDissEnabled: "",
-      periodFrom: "1984/01/01",
-      periodTo: "Now",
-      measurementUnit: "Month",
-      imageUrl: "",
-    },
-    {
-      id: "12",
-      name: "Iraklio sun",
-      description: "Sun strength in Iraklio",
-      state: "Iraklio",
-      city: "Iraklio",
-      latitude: "",
-      longitude: "",
-      elevation: "",
-      country: "gr",
-      dataformat: "csv",
-      climate: "med",
-      divisions: "",
-      areaCodes: "",
-      license: "",
-      relativeUrl: "",
-      filenameprefix: "",
-      jsonLd: "",
-      downloadLink: "",
-      awsQueue: "",
-      rdshDissEnabled: "",
-      periodFrom: "1984/01/01",
-      periodTo: "Now",
-      measurementUnit: "Hour",
-      imageUrl: "",
-    }
-  ];
+  // dataSetList = [
+  //   {
+  //     id: "10",
+  //     name: "Athens",
+  //     description: "Rain volume in Athens",
+  //     state: "Attica",
+  //     city: "Athens",
+  //     latitude: "",
+  //     longitude: "",
+  //     elevation: "",
+  //     country: "gr",
+  //     dataformat: "csv",
+  //     climate: "med",
+  //     divisions: "Attica Athens",
+  //     license: " https://creativecommons.org/licenses/by/4.0/",
+  //     relativeUrl: "attica/athens",
+  //     filenameprefix: "ath",
+  //     jsonLd: "",
+  //     downloadLink: "http://localhost/attica/athens/ath",
+  //     awsQueue: "/arn:aws:sns:us-ATH-1:11784:SEDataQueue",
+  //     rdshDissEnabled: "false",
+  //     periodFrom: "1984/01/01",
+  //     periodTo: "Now",
+  //     measurementUnit: "Day",
+  //     imageUrl: "",
+  //     // measurementUnit: "http://codes.wmo.int/common/unit/d"
+  //   },
+  //   {
+  //     id: "30",
+  //     name: "Thesaloniki wind",
+  //     description: "Wind power in Thesaloniki",
+  //     state: "Thesaloniki",
+  //     city: "Thesaloniki",
+  //     latitude: "",
+  //     longitude: "",
+  //     elevation: "",
+  //     country: "gr",
+  //     dataformat: "txt",
+  //     climate: "med",
+  //     divisions: "text",
+  //     areaCodes: "",
+  //     license: "",
+  //     relativeUrl: "/daddada/uril",
+  //     filenameprefix: "Thesx",
+  //     jsonLd: "",
+  //     downloadLink: "",
+  //     awsQueue: "/arn:aws:sns:us-east-1:11784:SEDataQueue",
+  //     rdshDissEnabled: "",
+  //     periodFrom: "1984/01/01",
+  //     periodTo: "Now",
+  //     measurementUnit: "Month",
+  //     imageUrl: "",
+  //   },
+  //   {
+  //     id: "12",
+  //     name: "Iraklio sun",
+  //     description: "Sun strength in Iraklio",
+  //     state: "Iraklio",
+  //     city: "Iraklio",
+  //     latitude: "",
+  //     longitude: "",
+  //     elevation: "",
+  //     country: "gr",
+  //     dataformat: "csv",
+  //     climate: "med",
+  //     divisions: "",
+  //     areaCodes: "",
+  //     license: "",
+  //     relativeUrl: "",
+  //     filenameprefix: "",
+  //     jsonLd: "",
+  //     downloadLink: "",
+  //     awsQueue: "",
+  //     rdshDissEnabled: "",
+  //     periodFrom: "1984/01/01",
+  //     periodTo: "Now",
+  //     measurementUnit: "Hour",
+  //     imageUrl: "",
+  //   }
+  // ];
 
-  countries = [
-    { value: "gr", viewValue: "Greece" },
-    { value: "uk", viewValue: "United Kingdom" },
-    { value: "cb", viewValue: "Cuba" }
-  ];
+  // countries = [
+  //   { value: "gr", viewValue: "Greece" },
+  //   { value: "uk", viewValue: "United Kingdom" },
+  //   { value: "cb", viewValue: "Cuba" }
+  // ];
 
-  climates = [
-    { value: "pol", viewValue: "Polar" },
-    { value: "tem", viewValue: "Temperate" },
-    { value: "ari", viewValue: "Arid" },
-    { value: "tro", viewValue: "Tropical" },
-    { value: "tun", viewValue: "Tundra" },
-    { value: "med", viewValue: "Mediterranean" }
-  ];
+  // climates = [
+  //   { value: "pol", viewValue: "Polar" },
+  //   { value: "tem", viewValue: "Temperate" },
+  //   { value: "ari", viewValue: "Arid" },
+  //   { value: "tro", viewValue: "Tropical" },
+  //   { value: "tun", viewValue: "Tundra" },
+  //   { value: "med", viewValue: "Mediterranean" }
+  // ];
 
-  dataformats = [
-    { value: "csv", viewValue: "CSV" },
-    { value: "xml", viewValue: "XML" },
-    { value: "txt", viewValue: "Text" },
-    { value: "exl", viewValue: "Excel" }
-  ];
+  // dataformats = [
+  //   { value: "csv", viewValue: "CSV" },
+  //   { value: "xml", viewValue: "XML" },
+  //   { value: "txt", viewValue: "Text" },
+  //   { value: "exl", viewValue: "Excel" }
+  // ];
 
 
   measurementUnits: any = [
@@ -271,9 +271,6 @@ export class SubmitFormComponent implements OnInit {
   }
 
 
-
-
-
   SERVICE_URL = '/cxf/api/verification'
   // SERVICE_URL ='/cxf/api/testget'
 
@@ -289,12 +286,9 @@ export class SubmitFormComponent implements OnInit {
   }
 
   rdshAdjust(srcElement: HTMLInputElement) {
-    console.log("CBval   " + this.rdshCb.checked);
+    // console.log("CBval   " + this.rdshCb.checked);
   }
 
-
-  // SERVICE_URL ='/cxf/api/verification'
-  // SERVICE_URL ='/cxf/api/testget'
 
   private buildForm(dataset: DataSet, id) {
 
@@ -336,7 +330,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        measurementUnitsCb: new FormControl(""),
+        measurementUnit: new FormControl(""),
         countryCB: new FormControl(""),
         climate: new FormControl(""),
         dataformat: new FormControl(""),
@@ -350,7 +344,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        measurementUnitsCb: new FormControl(dataset.measurementUnitsCb),
+        measurementUnit: new FormControl(dataset.measurementUnit),
         countryCB: new FormControl(dataset.country),
         // climate: new FormControl(dataset.climate),
         state: new FormControl(dataset.state, [Validators.required]),
@@ -406,24 +400,22 @@ export class SubmitFormComponent implements OnInit {
       this.stateCtrl = new FormControl();
     }
 
-    if (dataset.wmoCodes) {
-      this.selectedCodes = [];
+    if (dataset.wmoCodes instanceof Array) {
+      this.selectedCodes = (dataset.wmoCodes).slice();
     } else {
-      this.selectedCodes = dataset.wmoCodes;
+      this.selectedCodes = [];
+      if (dataset.wmoCodes != undefined) {
+        this.selectedCodes.push(dataset.wmoCodes);
+      }
     }
-    console.log(dataset.wmoCodes);
-    // dataset.wmoCodes ;
-
     this.refreshAutoCompleteList();
   }
 
   private fetchDataset(id: number) {
 
-    console.log("dataset loading starts");
-
     this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).then(result => {
-      console.log("dataset fetched");
-      console.log(result);
+      // console.log("dataset fetched");
+      // console.log(result);
       this.buildForm(result, id);
     }
     )
@@ -479,7 +471,7 @@ export class SubmitFormComponent implements OnInit {
     messageObject['jsonLd'] = dataset.jsonLd;
     messageObject['country'] = dataset.countryCB;
     messageObject['name'] = dataset.datasetName;
-    messageObject['measurementUnit'] = dataset.measurementUnitsCb;
+    messageObject['measurementUnit'] = dataset.measurementUnit;
     messageObject['imageUrl'] = dataset.datasetImage;
 
     //check
@@ -618,8 +610,8 @@ export interface DataSet {
   downloadLink: String,
   awsQueue: String
   rdshDissEnabled: String,
-  measurementUnitsCb: String,
+  measurementUnit: String,
   periodFrom: Date,
   periodTo: Date,
-  wmoCodes: any
+  wmoCodes: WmoCode[]
 };
