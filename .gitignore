@@ -42,3 +42,15 @@ local/local-ui/node_modules/
 e2e
 /local/local-ui/.settings
 .settings
+
+awisc/awisc-ui/target/
+
+awisc/awisc-ui/temp/
+
+awisc/awisc-ui/angular/node_modules/
+
+awisc/awisc-ui/angular/\.editorconfig
+
+awisc/awisc-ui/angular/package-lock\.json
+
+awisc/awisc-ui/e2e/
