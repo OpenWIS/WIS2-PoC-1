@@ -1,7 +1,5 @@
 package openwis.pilot.awisc.server.db.dao;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +22,12 @@ public class GenericDao<T> {
 	private static final Logger logger = Logger.getLogger(GenericDao.class.getName());
 
 	protected EntityManager entityManager;
+	
+	protected Class<T> entityClass;
+	
+	public GenericDao(Class<T> entityClass) {
+		this.entityClass = entityClass;
+	}
 
 	@Transaction
 	public void create(T o) {
@@ -40,11 +44,9 @@ public class GenericDao<T> {
 		entityManager.remove(o);
 	}
 
-	@SuppressWarnings("unchecked")
 	public T get(Object id) {
 		try {
-			Type genericType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-			return (T) entityManager.find(Class.forName(genericType.getTypeName()), id);
+			return (T) entityManager.find(entityClass, id);
 		} catch (Throwable t) {
 			logger.log(Level.SEVERE, t.getMessage(), t);
 		}
@@ -52,11 +54,11 @@ public class GenericDao<T> {
 
 	}
 
+	@Transaction
 	@SuppressWarnings("unchecked")
 	public List<T> list() {
 		try {
-			Type genericType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-			String jpql = "from " + genericType.getTypeName();
+			String jpql = "from " + entityClass.getSimpleName() + " as o";
 			return entityManager.createQuery(jpql).getResultList();
 		} catch (Throwable t) {
 			logger.log(Level.SEVERE, t.getMessage(), t);
@@ -67,10 +69,9 @@ public class GenericDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> executeSimpleListQuery(QueryFragment... fragments) {
 		try {
-			Type genericType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 			Map<String, Object> parameters = new LinkedHashMap<String, Object>();
 
-			String jpql = "from " + genericType.getTypeName() + " where ";
+			String jpql = "select o from " + entityClass.getSimpleName() + " o where ";
 
 			for (QueryFragment qf : fragments) {
 				JpqlFragment jpqlf = processQueryFragment(qf);
@@ -92,18 +93,19 @@ public class GenericDao<T> {
 	@SuppressWarnings("unchecked")
 	public T executeSimpleGetQuery(QueryFragment... fragments) {
 		try {
-			Type genericType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 			Map<String, Object> parameters = new LinkedHashMap<String, Object>();
 
-			String jpql = "from " + genericType.getTypeName() + " where ";
-
+			String jpql = "from " + entityClass.getSimpleName() + " o where ";
+			
 			for (QueryFragment qf : fragments) {
 				JpqlFragment jpqlf = processQueryFragment(qf);
 				jpql += jpqlf.getJpql();
 				parameters.putAll(jpqlf.getParameters());
 			}
-
+			
+			logger.info("JPQL: [" + jpql + "]");
 			Query q = entityManager.createQuery(jpql);
+						
 			for (Entry<String, Object> e : parameters.entrySet()) {
 				q.setParameter(e.getKey(), e.getValue());
 			}
@@ -119,8 +121,8 @@ public class GenericDao<T> {
 		switch (qf.getType()) {
 		case EQUALS:
 			Equals<?> equals = (Equals<?>) qf;
-			String paramName = equals.getKey() + "__";
-			jpqlf.setJpql(" " + equals.getKey() + "= :" + paramName + " ");
+			String paramName = "parameter" + equals.getKey();
+			jpqlf.setJpql(" o." + equals.getKey() + " =:" + paramName + " ");
 			jpqlf.getParameters().put(paramName, equals.getValue());
 			break;
 		case AND:
@@ -149,7 +151,6 @@ public class GenericDao<T> {
 			}
 			break;
 		}
-		logger.log(Level.INFO, "JPQL: [" + jpqlf.getJpql() + "]");
 		return jpqlf;
 	}
 
@@ -159,6 +160,14 @@ public class GenericDao<T> {
 
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
+	}
+
+	public Class<T> getEntityClass() {
+		return entityClass;
+	}
+
+	public void setEntityClass(Class<T> entityClass) {
+		this.entityClass = entityClass;
 	}
 
 }

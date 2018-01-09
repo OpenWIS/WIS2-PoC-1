@@ -1,0 +1,39 @@
+repo-add cxf 3.1.11
+feature:install cxf-jaxrs cxf-jackson
+feature:install pax-cdi
+install -s wrap:mvn:javax.inject/javax.inject/1
+feature:install war
+feature:install jpa transaction jndi jdbc pax-jdbc pax-jdbc-pool-dbcp2 pax-jdbc-config hibernate
+feature:install transaction
+feature:install pax-jdbc-mysql
+
+install -s wrap:mvn:org.apache.cxf/cxf-rt-rs-security-cors/3.1.11
+install -s wrap:mvn:commons-collections/commons-collections/3.2.2
+install -s wrap:mvn:commons-beanutils/commons-beanutils/1.9.3
+install -s wrap:mvn:org.apache.commons/commons-lang3/3.5
+install -s wrap:mvn:com.github.dozermapper/dozer-schema/6.1.0
+install -s wrap:mvn:com.github.dozermapper/dozer-core/6.1.0
+
+
+
+
+install -s wrap:mvn:io.jsonwebtoken/jjwt/0.9.0
+
+config:edit org.ops4j.datasource-awisc  
+config:property-set osgi.jdbc.driver.name mysql
+
+config:property-set url jdbc:mysql://localhost:3306/awisc
+config:property-set databaseName  awisc
+config:property-set user root
+config:property-set password jijikos
+config:property-set dataSourceName awiscDataSource
+config:update 
+
+
+bundle:install -s mvn:openwis.pilot.awisc/awisc-server-common/1.0.0-SNAPSHOT
+bundle:install -s mvn:openwis.pilot.awisc/awisc-server-db/1.0.0-SNAPSHOT
+bundle:install -s mvn:openwis.pilot.awisc/awisc-server-manager/1.0.0-SNAPSHOT
+bundle:install -s mvn:openwis.pilot.awisc/awisc-server-ws/1.0.0-SNAPSHOT
+
+
+list

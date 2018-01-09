@@ -25,7 +25,7 @@ public class DaoFactory implements IDaoFactory {
 
 	private static Map<Class<?>, GenericDao<?>> daoRegistry = new ConcurrentHashMap<Class<?>, GenericDao<?>>();
 	
-	@PersistenceContext(unitName = "iborderdbconfiguration")
+	@PersistenceContext(unitName = "awiscPU")
 	protected EntityManagerFactory emf;
 
 	@SuppressWarnings("unchecked")
@@ -50,7 +50,7 @@ public class DaoFactory implements IDaoFactory {
 							return (GenericDao<T>) clazz.newInstance();
 						}
 					} catch (ClassCastException cce) {
-						// would throw exception if there is no actual generic type (e.g. GenericDao<T>)
+						// would throw exception for GenericDao itself as it doesn't have a generic superclass
 					}
 
 				}
@@ -72,7 +72,7 @@ public class DaoFactory implements IDaoFactory {
 		if (dao == null) {
 			dao = getCandidateDaoExtenderClass(entityClass);
 			if (dao == null) {
-				dao = new GenericDao<T>();
+				dao = new GenericDao<T>(entityClass);
 			}
 			dao.setEntityManager(emf.createEntityManager());
 			daoRegistry.put(entityClass, dao);
