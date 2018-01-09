@@ -38,3 +38,7 @@ local/local-ui/package-lock\.json
 rdsh/rdsh-ui/package-lock\.json
 
 local/local-ui/node_modules/
+/local/local-ui/angular/e2e
+e2e
+/local/local-ui/.settings
+.settings

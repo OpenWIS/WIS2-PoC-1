@@ -13,7 +13,7 @@
 		<module>../ldsh-manager</module>
 		<module>../ldsh-ws</module>
 		<!-- TODO rename UNCOMMENT -->
-		<!-- <module>../local-ui</module> -->
+		<module>../local-ui</module>
 	</modules>
 
 	<properties>
