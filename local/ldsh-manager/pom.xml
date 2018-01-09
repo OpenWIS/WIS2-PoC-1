@@ -1,6 +1,5 @@
-<project 
-	xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>openwis.pilot.ldsh</groupId>
@@ -11,6 +10,9 @@
 	<artifactId>ldsh-manager</artifactId>
 	<packaging>bundle</packaging>
 	<build>
+		<filters>
+			<filter>src/main/resources/ftp.properties</filter>
+		</filters>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -104,6 +106,32 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
 		</dependency>
+		
+<!-- 		<artifactId>camel-core</artifactId> -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core-osgi</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cdi</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-ftp</artifactId>
+			<version>${camel.version}</version>
+		</dependency> 
+	
+	<!-- den paizei me auto 
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-ftp-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>-->
+
 	</dependencies>
 </project>
 

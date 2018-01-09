@@ -18,8 +18,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 // import javax.ws.rs.core.Request;
 
+
 import openwis.pilot.ldsh.dto.DatasetDTO;
 import openwis.pilot.ldsh.manager.service.DatasetService;
+import openwis.pilot.ldsh.manager.service.PollingService;
 
 import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
@@ -43,6 +45,10 @@ public class DatasetWS {
     @Inject
     @OsgiService
     private DatasetService datasetService;
+    
+    @Inject
+    @OsgiService
+    private PollingService pollingService;
 
 
     @POST
@@ -54,6 +60,10 @@ public class DatasetWS {
 
         logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
 System.out.println(dataset.toString());
+System.out.println("POLL TESTING........");
+//TEST TODO ADD se squeduler  ktl
+		pollingService.poll();
+
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")

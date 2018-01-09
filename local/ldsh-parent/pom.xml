@@ -12,9 +12,8 @@
 		<module>../ldsh-dto</module>
 		<module>../ldsh-manager</module>
 		<module>../ldsh-ws</module>
-		<!-- TODO rename  -->
-		<module>../local-ui</module>
-
+		<!-- TODO rename UNCOMMENT -->
+		<!-- <module>../local-ui</module> -->
 	</modules>
 
 	<properties>
@@ -27,6 +26,8 @@
 		<javax.inject.version>1</javax.inject.version>
 		<javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
 		<javax.transaction.version>1.2</javax.transaction.version>
+		<camel.version>2.20.1</camel.version>
+		<log4j-version>1.2.17</log4j-version>
 	</properties>
 
 	<build>
