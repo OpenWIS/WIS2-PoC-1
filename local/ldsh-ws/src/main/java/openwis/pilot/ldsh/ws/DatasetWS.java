@@ -46,9 +46,9 @@ public class DatasetWS {
     @OsgiService
     private DatasetService datasetService;
     
-    @Inject
-    @OsgiService
-    private PollingService pollingService;
+//    @Inject
+//    @OsgiService
+//    private PollingService pollingService;
 
 
     @POST
@@ -58,11 +58,13 @@ public class DatasetWS {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response userVerification(DatasetDTO dataset) {
 
-        logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
-System.out.println(dataset.toString());
-System.out.println("POLL TESTING........");
-//TEST TODO ADD se squeduler  ktl
-		pollingService.poll();
+    	logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
+    	
+
+System.out.println("NEW "+ dataset.toString());
+
+
+//		pollingService.poll();
 
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
@@ -89,7 +91,41 @@ System.out.println("POLL TESTING........");
         .build();
     }
 
+    
+//    getCountries() 
+    @GET
+    @Path("/getAllCountries")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response fetchCountries() {
+        return Response.ok( datasetService.getCountries())
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+        .build();
+    }
+    
+    
+//    getDataFormats()
 
+    @GET
+    @Path("/getAllDataFormats")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response fetchDataFormats() {
+        return Response.ok( datasetService.getDataFormats())
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+        .build();
+    }
+    
+    
+    
+    
+  
     
     @GET
     @Path("/getDataset/id={id}")

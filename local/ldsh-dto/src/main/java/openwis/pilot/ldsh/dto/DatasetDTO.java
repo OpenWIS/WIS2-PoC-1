@@ -9,8 +9,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import openwis.pilot.ldsh.db.model.WmoCode;
-
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DatasetDTO implements Serializable {
@@ -21,7 +19,7 @@ public class DatasetDTO implements Serializable {
 	private static final long serialVersionUID = 2038915410328204765L;
 
 	@XmlElement
-	private long id;
+	private Long id;
 
 	@XmlElement
 	private String name;
@@ -48,7 +46,7 @@ public class DatasetDTO implements Serializable {
 	private List<WmoCodeDTO> wmoCodes;
 
 	@XmlElement
-	private String country;
+	private CountryDTO country;
 
 	@XmlElement
 	private String state;
@@ -78,7 +76,7 @@ public class DatasetDTO implements Serializable {
 	private String subscriptionUri;
 
 	@XmlElement
-	private String dataformat; // Todo Enum
+	private DataFormatDTO dataformat; 
 
 	@XmlElement
 	private boolean rdshDissEnabled; // null true false? Notification Only
@@ -86,7 +84,7 @@ public class DatasetDTO implements Serializable {
 	@XmlElement
 	private String jsonLd;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -95,10 +93,10 @@ public class DatasetDTO implements Serializable {
 
 	public DatasetDTO(long id, String name, String description,
 			Date periodFrom, Date periodTo, String license, String imageUrl,
-			String measurementUnit, List<WmoCodeDTO> wmoCodes, String country,
+			String measurementUnit, List<WmoCodeDTO> wmoCodes, CountryDTO country,
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
-			String downloadUrl, String subscriptionUri, String dataformat,
+			String downloadUrl, String subscriptionUri, DataFormatDTO dataformat,
 			boolean rdshDissEnabled, String jsonLd) {
 		super();
 		this.id = id;
@@ -141,7 +139,7 @@ public class DatasetDTO implements Serializable {
 				+ "]";
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -209,11 +207,11 @@ public class DatasetDTO implements Serializable {
 		this.wmoCodes = wmoCodes;
 	}
 
-	public String getCountry() {
+	public CountryDTO getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(CountryDTO country) {
 		this.country = country;
 	}
 
@@ -289,11 +287,11 @@ public class DatasetDTO implements Serializable {
 		this.subscriptionUri = subscriptionUri;
 	}
 
-	public String getDataformat() {
+	public DataFormatDTO getDataformat() {
 		return dataformat;
 	}
 
-	public void setDataformat(String dataformat) {
+	public void setDataformat(DataFormatDTO dataformat) {
 		this.dataformat = dataformat;
 	}
 
