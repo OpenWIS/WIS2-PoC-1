@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>openwis.pilot.awisc</groupId>
+		<artifactId>awisc-server-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../awisc-server-parent</relativePath>
+	</parent>
+	<artifactId>awisc-dist</artifactId>
+	<packaging>karaf-assembly</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>karaf-maven-plugin</artifactId>
+				<version>${karaf.maven.plugin.version}</version>
+				<extensions>true</extensions>
+
+				<configuration>
+					<startupFeatures>
+						<feature>eventadmin</feature>
+						<feature>scr</feature>
+					</startupFeatures>
+					<installedFeatures>
+						<feature>wrapper</feature>
+					</installedFeatures>
+					<bootFeatures>
+						<!-- <feature>standard</feature> <feature>config</feature> <feature>management</feature> 
+							<feature>ssh</feature> <feature>package</feature> <feature>kar</feature> 
+							<feature>jndi</feature> -->
+
+						<feature>wrap</feature>
+						<feature>aries-blueprint</feature>
+						<feature>shell</feature>
+						<feature>shell-compat</feature>
+						<feature>feature</feature>
+						<feature>jaas</feature>
+						<feature>ssh</feature>
+						<!--<feature>management</feature> -->
+						<feature>bundle</feature>
+						<feature>config</feature>
+						<feature>deployer</feature>
+						<feature>diagnostic</feature>
+						<feature>feature</feature>
+						<!--<feature>instance</feature> -->
+						<feature>kar</feature>
+						<feature>log</feature>
+						<feature>package</feature>
+						<feature>service</feature>
+						<feature>system</feature>
+						<feature>jndi</feature>
+
+
+						<feature>awisc</feature>
+					</bootFeatures>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/assembly/**/*.*</exclude>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.karaf.features</groupId>
+			<artifactId>framework</artifactId>
+			<version>${karaf.version}</version>
+			<type>kar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.karaf.features</groupId>
+			<artifactId>standard</artifactId>
+			<version>${karaf.version}</version>
+			<classifier>features</classifier>
+			<type>xml</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.karaf.features</groupId>
+			<artifactId>enterprise</artifactId>
+			<version>${karaf.version}</version>
+			<classifier>features</classifier>
+			<type>xml</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>openwis.pilot.awisc</groupId>
+			<artifactId>awisc-karaf-features</artifactId>
+			<version>${project.version}</version>
+			<type>xml</type>
+			<classifier>features</classifier>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>
+
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @formatter:off -->
+
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="awisc">
+  <!-- External repositories needed for this features set -->
+  <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
+
+  <feature name="awisc" version="${project.version}">
+  	<feature>awisc-deps</feature>
+    <!-- <feature>awisc-database</feature> -->
+    <feature>awisc-server</feature>
+    <!-- <feature>awisc-ui</feature> -->
+  </feature>
+  
+  <feature name="awisc-deps" version="${project.version}">
+    <feature>cxf-jaxrs</feature>
+    <feature>cxf-jackson</feature>
+    <feature>pax-cdi</feature>
+    <feature>war</feature>
+    <feature>jpa</feature>
+    <feature>transaction</feature>
+    <feature>jndi</feature>
+    <bundle>wrap:mvn:mysql/mysql-connector-java/5.1.45</bundle>
+    <feature>jdbc</feature>
+    <feature>pax-jdbc</feature>
+    <feature>pax-jdbc-pool-dbcp2</feature>
+    <feature>pax-jdbc-config</feature>
+    <feature>pax-jdbc-mysql</feature>
+    <feature version="4.3.6.Final">hibernate</feature>
+    <feature>eventadmin</feature>    
+    <bundle>wrap:mvn:org.apache.cxf/cxf-rt-rs-security-cors/3.1.11</bundle>
+    <bundle>wrap:mvn:commons-collections/commons-collections/3.2.2</bundle>
+    <bundle>wrap:mvn:commons-beanutils/commons-beanutils/1.9.3</bundle>
+    <bundle>wrap:mvn:org.apache.commons/commons-lang3/3.5</bundle>
+    <bundle>wrap:mvn:com.github.dozermapper/dozer-schema/6.1.0</bundle>
+    <bundle>wrap:mvn:com.github.dozermapper/dozer-core/6.1.0</bundle>
+    <bundle>wrap:mvn:io.jsonwebtoken/jjwt/0.9.0</bundle>
+  </feature>
+
+  <feature name="awisc-database" version="${project.version}">
+    <!-- Configuration -->
+    <!-- <configfile finalname="/etc/org.ops4j.datasource-awisc.cfg">mvn:openwis.pilot.awisc/awisc-server-common/${project.version}/cfg/org.ops4j.datasource-awisc.cfg</configfile> -->
+  </feature>
+
+  <feature name="awisc-server" version="${project.version}">
+    <bundle>mvn:openwis.pilot.awisc/awisc-server-common/${project.version}</bundle>
+    <!-- <bundle>mvn:openwis.pilot.awisc/awisc-server-db/${project.version}</bundle>
+    <bundle>mvn:openwis.pilot.awisc/awisc-server-manager/${project.version}</bundle>
+    <bundle>mvn:openwis.pilot.awisc/awisc-server-ws/${project.version}</bundle> -->
+  </feature>
+
+  <feature name="awisc-ui" version="${project.version}">
+    <bundle>mvn:openwis.pilot.awisc/awisc-ui/${project.version}</bundle>
+  </feature>
+
+
+  
+
+</features>
