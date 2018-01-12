@@ -137,8 +137,8 @@
           <!-- Country:// drop down -->
           <mat-form-field class="mat-form">
             <mat-select #countrySelect placeholder="Country" formControlName="countryCB" [value]="country">
-              <mat-option *ngFor="let country of countries" [value]="country.value" [class.selected]="section === selectedSection">
-                {{country.viewValue}}
+              <mat-option *ngFor="let country of countries" [value]="country.id" [class.selected]="section === selectedSection">
+                {{country.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -217,9 +217,9 @@
           <!--  Data Format: //drop down -->
           <p>
             <mat-form-field class="mat-form">
-              <mat-select #climateSelect placeholder="Data format" formControlName="dataformat">
-                <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.value" [class.selected]="section === selectedSection">
-                  {{dataformat.viewValue}}
+              <mat-select #climateSelect placeholder="Data format" formControlName="dataformat" [value]="dataformat" >
+                <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.id" [class.selected]="section === selectedSection">
+                  {{dataformat.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

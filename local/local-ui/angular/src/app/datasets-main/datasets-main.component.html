@@ -21,7 +21,7 @@
 
   <div style="padding:2em;">
 
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table *ngIf="dataSource" #table [dataSource]="dataSource">
 
       <!-- Position Column -->
       <ng-container matColumnDef="name">

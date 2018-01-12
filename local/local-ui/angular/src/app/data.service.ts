@@ -21,14 +21,11 @@ export class DataService {
 
 
   // get call
-  public getImportMessage<T>(url: string):Promise<any>  {
+  public getCall<T>(url: string):Promise<any>  {
     
         return this.httpClient.get<T>("http://localhost:8181"+url).toPromise();
       }
 
-
-// .post(this.api + url, datasetDTO, {
-// todo na pros8esw to full url
 
   public create(url: string, datasetDTO: any): Observable<any> {
 

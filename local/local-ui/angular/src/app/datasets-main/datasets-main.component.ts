@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
   templateUrl: './datasets-main.component.html',
   styleUrls: ['./datasets-main.component.css'],
   providers: [DataService]
-  
+
 })
 export class DatasetsMainComponent implements OnInit {
   displayedColumns = ['name', 'description', 'url'];
@@ -26,16 +26,29 @@ export class DatasetsMainComponent implements OnInit {
     this.router.navigate(['/view'], { queryParams: { "id": id } });
   }
 
-  loadDatasets(){
-    this.dataService.getImportMessage("/cxf/api/getAllDatasets").then(result => {
-      
-      console.log(result);
-edw eimai  todo na balw to resutl sthn lista kai na faietai swsta
-      // this.buildForm(result);
+  loadDatasets() {
+    this.dataService.getCall("/cxf/api/getAllDatasets").then(result => {
+      this.loadDatasetsTable(result);
     })
   }
 
+
+  private loadDatasetsTable(datasets: Element[]) {
+
+    if (datasets instanceof Array) {
+      datasetList = (datasets).slice();
+    } else {
+      datasetList = [];
+      if (datasets != undefined) {
+        datasetList.push(datasets);
+      }
+    }
+    this.dataSource = new MatTableDataSource<Element>(datasetList);
+  }
+
+
 }
+
 export interface Element {
   name: string;
   description: string;
@@ -44,10 +57,9 @@ export interface Element {
 
 
 //get all datasets..
-const datasetList: Element[] = [
-  { name: 'Athens', description: "Temperature/Rainfall in Athens", id: "10" },
-  { name: 'Thesaloniki', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
-  { name: "Iraklion", description: "Wind speed/direction in Iraklion" , id: "12" },
-];
+var datasetList: Element[] = [];
+  // { name: 'Athens', description: "Temperature/Rainfall in Athens", id: "10" },
+  // { name: 'Thesaloniki', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
+  // { name: "Iraklion", description: "Wind speed/direction in Iraklion" , id: "12" },
 
 

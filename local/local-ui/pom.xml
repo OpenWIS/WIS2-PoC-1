@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project 
-    xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
 		<groupId>openwis.pilot.ldsh</groupId>
 		<artifactId>ldsh-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../ldsh-parent</relativePath>
 	</parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>ldsh-ui</artifactId>
-    <packaging>bundle</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>ldsh-ui</artifactId>
+	<packaging>bundle</packaging>
 	<properties>
 		<skip.npm.deps>${skip.npm.deps}</skip.npm.deps>
 	</properties>
-    <build>
-        <plugins>
-            <!-- Plugin to execute command  "npm install" and "npm run build" inside /angular directory -->
+	<build>
+		<plugins>
+			<!-- Plugin to execute command "npm install" and "npm run build" inside 
+				/angular directory -->
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.0</version>
+				<version>1.6</version>
 				<configuration>
 					<workingDirectory>angular</workingDirectory>
 					<installDirectory>temp</installDirectory>
@@ -33,9 +33,9 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v6.11.3</nodeVersion>
-							<npmVersion>5.3.0</npmVersion>
-							 <skip>${skip.npm.deps}</skip>
+							<nodeVersion>v8.9.4</nodeVersion>
+							<npmVersion>5.6.0</npmVersion>
+							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
 
@@ -51,7 +51,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install cdk -->
+					<!-- It will execute command install cdk -->
 					<execution>
 						<id>npm install cdk</id>
 						<goals>
@@ -63,7 +63,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install material -->
+					<!-- It will execute command install material -->
 					<execution>
 						<id>npm install material</id>
 						<goals>
@@ -71,11 +71,11 @@
 						</goals>
 						<configuration>
 							<arguments>install --save @angular/material</arguments>
-							 <skip>${skip.npm.deps}</skip>
+							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install animations -->
+					<!-- It will execute command install animations -->
 					<execution>
 						<id>npm install animations</id>
 						<goals>
@@ -87,7 +87,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install hammerjs -->
+					<!-- It will execute command install hammerjs -->
 					<execution>
 						<id>npm install hammerjs</id>
 						<goals>
@@ -99,7 +99,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command "npm install" inside "/angular" directory -->
+					<!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>
 						<id>npm install</id>
 						<goals>
@@ -111,7 +111,8 @@
 						</configuration>
 					</execution>
 
-					<!-- It will execute command "npm build" inside "/angular" directory to clean and create "/dist" directory-->
+					<!-- It will execute command "npm build" inside "/angular" directory 
+						to clean and create "/dist" directory -->
 					<execution>
 						<id>npm build</id>
 						<goals>
@@ -124,7 +125,8 @@
 				</executions>
 			</plugin>
 
-            <!-- Plugin to copy the content of /angular/dist/ directory to output directory (ie/ /target/transactionManager-1.0/) -->
+			<!-- Plugin to copy the content of /angular/dist/ directory to output 
+				directory (ie/ /target/transactionManager-1.0/) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -148,18 +150,18 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${maven-bundle-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Web-ContextPath>/</Web-ContextPath>
-                        <_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${maven-bundle-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Web-ContextPath>/</Web-ContextPath>
+						<_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

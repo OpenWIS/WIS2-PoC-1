@@ -1,10 +1,15 @@
 package openwis.pilot.ldsh.db.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,13 +18,17 @@ public class WmoCode implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idsw_gen")
-	@SequenceGenerator(name = "idsw_gen", sequenceName = "ids_sequence", allocationSize = 20)
-	-- >> org.hibernate.dialect.MySQL5Dialect does not support sequences
-	*/
+	 * @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
+	 *                          "idsw_gen")
+	 * @SequenceGenerator(name = "idsw_gen", sequenceName = "ids_sequence",
+	 *                         allocationSize = 20) -- >>
+	 *                         org.hibernate.dialect.MySQL5Dialect does not
+	 *                         support sequences
+	 */
 	@Id
-	@Column(name = "id")
-	private long id;
+	@Column(name = "wmocode_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long wmocode_id;
 
 	@Column(name = "code")
 	private String code;
@@ -30,15 +39,26 @@ public class WmoCode implements Serializable {
 	@Column(name = "continent")
 	private String continent;
 
+	@ManyToMany(mappedBy = "WmoCodes")
+	private Set<Dataset> datasets = new HashSet<>();
+
 	@Column(name = "uri")
 	private String uri;
 
-	public long getId() {
-		return id;
+	public long getWmocode_id() {
+		return wmocode_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setWmocode_id(long wmocode_id) {
+		this.wmocode_id = wmocode_id;
+	}
+
+	public Set<Dataset> getDatasets() {
+		return datasets;
+	}
+
+	public void setDatasets(Set<Dataset> datasets) {
+		this.datasets = datasets;
 	}
 
 	public String getName() {
@@ -65,4 +85,11 @@ public class WmoCode implements Serializable {
 		this.uri = uri;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 }

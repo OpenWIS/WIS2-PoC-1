@@ -38,109 +38,6 @@ export class SubmitFormComponent implements OnInit {
   @ViewChild("rdshOptions") private rdshOptions: MatRadioGroup;
 
 
-  // dataSetList = [
-  //   {
-  //     id: "10",
-  //     name: "Athens",
-  //     description: "Rain volume in Athens",
-  //     state: "Attica",
-  //     city: "Athens",
-  //     latitude: "",
-  //     longitude: "",
-  //     elevation: "",
-  //     country: "gr",
-  //     dataformat: "csv",
-  //     climate: "med",
-  //     divisions: "Attica Athens",
-  //     license: " https://creativecommons.org/licenses/by/4.0/",
-  //     relativeUrl: "attica/athens",
-  //     filenameprefix: "ath",
-  //     jsonLd: "",
-  //     downloadLink: "http://localhost/attica/athens/ath",
-  //     awsQueue: "/arn:aws:sns:us-ATH-1:11784:SEDataQueue",
-  //     rdshDissEnabled: "false",
-  //     periodFrom: "1984/01/01",
-  //     periodTo: "Now",
-  //     measurementUnit: "Day",
-  //     imageUrl: "",
-  //     // measurementUnit: "http://codes.wmo.int/common/unit/d"
-  //   },
-  //   {
-  //     id: "30",
-  //     name: "Thesaloniki wind",
-  //     description: "Wind power in Thesaloniki",
-  //     state: "Thesaloniki",
-  //     city: "Thesaloniki",
-  //     latitude: "",
-  //     longitude: "",
-  //     elevation: "",
-  //     country: "gr",
-  //     dataformat: "txt",
-  //     climate: "med",
-  //     divisions: "text",
-  //     areaCodes: "",
-  //     license: "",
-  //     relativeUrl: "/daddada/uril",
-  //     filenameprefix: "Thesx",
-  //     jsonLd: "",
-  //     downloadLink: "",
-  //     awsQueue: "/arn:aws:sns:us-east-1:11784:SEDataQueue",
-  //     rdshDissEnabled: "",
-  //     periodFrom: "1984/01/01",
-  //     periodTo: "Now",
-  //     measurementUnit: "Month",
-  //     imageUrl: "",
-  //   },
-  //   {
-  //     id: "12",
-  //     name: "Iraklio sun",
-  //     description: "Sun strength in Iraklio",
-  //     state: "Iraklio",
-  //     city: "Iraklio",
-  //     latitude: "",
-  //     longitude: "",
-  //     elevation: "",
-  //     country: "gr",
-  //     dataformat: "csv",
-  //     climate: "med",
-  //     divisions: "",
-  //     areaCodes: "",
-  //     license: "",
-  //     relativeUrl: "",
-  //     filenameprefix: "",
-  //     jsonLd: "",
-  //     downloadLink: "",
-  //     awsQueue: "",
-  //     rdshDissEnabled: "",
-  //     periodFrom: "1984/01/01",
-  //     periodTo: "Now",
-  //     measurementUnit: "Hour",
-  //     imageUrl: "",
-  //   }
-  // ];
-
-  // countries = [
-  //   { value: "gr", viewValue: "Greece" },
-  //   { value: "uk", viewValue: "United Kingdom" },
-  //   { value: "cb", viewValue: "Cuba" }
-  // ];
-
-  // climates = [
-  //   { value: "pol", viewValue: "Polar" },
-  //   { value: "tem", viewValue: "Temperate" },
-  //   { value: "ari", viewValue: "Arid" },
-  //   { value: "tro", viewValue: "Tropical" },
-  //   { value: "tun", viewValue: "Tundra" },
-  //   { value: "med", viewValue: "Mediterranean" }
-  // ];
-
-  // dataformats = [
-  //   { value: "csv", viewValue: "CSV" },
-  //   { value: "xml", viewValue: "XML" },
-  //   { value: "txt", viewValue: "Text" },
-  //   { value: "exl", viewValue: "Excel" }
-  // ];
-
 
   measurementUnits: any = [
     // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
@@ -153,7 +50,7 @@ export class SubmitFormComponent implements OnInit {
 
   //chips
   // measurements
-  // todo fetch from db.. change label to name
+  // TODO!!!!!!! fetch from db.. change label to name
   wmoCodes: any = [
     { id: "1", name: "Wind speed", code: "grib2/codeflag/4.2/3-1-19" },
     { id: "2", name: "Wind chill factor", code: "grib2/codeflag/4.2/0-0-13" },
@@ -176,13 +73,11 @@ export class SubmitFormComponent implements OnInit {
     { id: "19", name: "Dewpoint temperature", code: "bufr4/b/12/103" },
   ];
 
-  //  selectedCodes:any[]=[];
+  countries: Country[];
+  dataformats: DataFormat[];
   selectedCodes: WmoCode[];
-  //  = [{name: "Wind speed", code: "grib2/codeflag/4.2/0-2-1" }  ];
-
 
   codeSelected: any;
-
 
   addSelected() {
 
@@ -280,8 +175,10 @@ export class SubmitFormComponent implements OnInit {
     this.activatedRoute.queryParamMap.subscribe(params => {
       this.paramsObj = { ...params.keys, ...params };
     });
+
     let id = this.paramsObj["params"]["id"];
     this.fetchDataset(id);
+    this.featchFormData();
 
   }
 
@@ -291,10 +188,6 @@ export class SubmitFormComponent implements OnInit {
 
 
   private buildForm(dataset: DataSet, id) {
-
-    this.selectedDataSetId = id;
-    console.log(dataset);
-    // let dataset = this.dataSetList.find(i => i.id === id);
 
     if (dataset == null) {
       // create new
@@ -338,14 +231,31 @@ export class SubmitFormComponent implements OnInit {
         wmoSelectedCodes: new FormControl("")
       });
       this.stateCtrl = new FormControl();
+      this.selectedCodes = [];
+
+
+
     } else {
+
+
+      let countrId = null;
+      if (dataset.country) {
+        countrId = dataset.country.id;
+      }
+      let dataformatId = null;
+      if (dataset.dataformat){
+        dataformatId = dataset.dataformat.id;
+      }
+
       this.metadataForm = new FormGroup({
         datasetName: new FormControl(dataset.name, [
           Validators.required,
           Validators.minLength(2)
         ]),
         measurementUnit: new FormControl(dataset.measurementUnit),
-        countryCB: new FormControl(dataset.country),
+        countryCB: new FormControl(countrId),
+
+
         // climate: new FormControl(dataset.climate),
         state: new FormControl(dataset.state, [Validators.required]),
         city: new FormControl(dataset.city),
@@ -384,7 +294,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        dataformat: new FormControl(dataset.dataformat),
+        dataformat: new FormControl(dataformatId),
 
         periodFrom: new FormControl(new Date(dataset.periodFrom), [
           Validators.required,
@@ -398,38 +308,49 @@ export class SubmitFormComponent implements OnInit {
         wmoSelectedCodes: new FormControl("")
       });
       this.stateCtrl = new FormControl();
-    }
 
-    if (dataset.wmoCodes instanceof Array) {
-      this.selectedCodes = (dataset.wmoCodes).slice();
-    } else {
-      this.selectedCodes = [];
-      if (dataset.wmoCodes != undefined) {
-        this.selectedCodes.push(dataset.wmoCodes);
+      console.log("wmo codes I got:");
+      console.log(dataset.wmoCodes);
+      
+
+
+      if (dataset.wmoCodes instanceof Array) {
+        this.selectedCodes = (dataset.wmoCodes).slice();
+      } else {
+        this.selectedCodes = [];
+        if (dataset.wmoCodes != undefined) {
+          this.selectedCodes.push(dataset.wmoCodes);
+        }
       }
     }
+
     this.refreshAutoCompleteList();
   }
 
   private fetchDataset(id: number) {
 
-    this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).then(result => {
-      // console.log("dataset fetched");
-      // console.log(result);
-      this.buildForm(result, id);
+    if (id) {
+      this.dataService.getCall("/cxf/api/getDataset/id=" + id).then(result => {
+        this.selectedDataSetId = id;
+        this.buildForm(result, id);
+      })
+    } else {
+      this.buildForm(null, null);
     }
-    )
   }
-  // return this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).subscribe((result) => {
-  // return this.dataService.getImportMessage("/cxf/api/getDataset/id=" + id).toPromise().then( result => <DataSet> result) ;
-  // console.log("I got: ");
-  // messageObject :DataSet;
+
+  private featchFormData() {
+
+    this.dataService.getCall("/cxf/api/getAllDataFormats").then(result => {
+      this.dataformats = result;
+
+      this.dataService.getCall("/cxf/api/getAllCountries").then(result => {
+        this.countries = result;
+      })
+    })
+  }
 
 
-  // .then((result) => {       });
-  // return  null;
-
-  // return <DataSet>result;
 
 
   onGET() {
@@ -466,10 +387,12 @@ export class SubmitFormComponent implements OnInit {
     messageObject['elevation'] = dataset.elevation;
     messageObject['relativeUrl'] = dataset.relativeUrl;
     messageObject['filenameprefix'] = dataset.filenameprefix;
-    messageObject['dataformat'] = dataset.dataformat;
     messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
     messageObject['jsonLd'] = dataset.jsonLd;
-    messageObject['country'] = dataset.countryCB;
+    messageObject['dataformat'] = this.dataformats.find(i => i.id ===  dataset.dataformat);
+    messageObject['country'] =  this.countries.find(i => i.id ===  dataset.countryCB);
+
+
     messageObject['name'] = dataset.datasetName;
     messageObject['measurementUnit'] = dataset.measurementUnit;
     messageObject['imageUrl'] = dataset.datasetImage;
@@ -477,14 +400,28 @@ export class SubmitFormComponent implements OnInit {
     //check
     messageObject['wmoCodes'] = this.selectedCodes;
     //dataset.wmoSelectedCodes;
+    // edw leipei to code kai to descr
+console.log( "selectedCodes")
+console.log( this.selectedCodes)
+//otan kanw add exei to  code: "grib2/codeflag/4.2/0-0-13"}
+//test an to swzei
+
+//{id: 4, code: "bufr4/codeflag/0-08-086/4", name: "Maximum wind level"}
+//{id: 2, code: "grib2/codeflag/4.2/0-0-13", name: "Wind chill factor"}
+//ssto dao einai check db..
+
+
+// tesT delete ola kai 3ana save. ??
 
     // TODO fix us:
     // messageObject['downloadUrl'] = dataset.downloadLink;
     // messageObject['subscriptionUri'] = dataset.subscriptionUri;
+    // console.log(messageObject);
+    // console.log(dataset.countryCB);
+    // console.log(dataset.dataformat);
 
-    console.log(messageObject);
     // this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
-    //UNCOMMENT
+    //UNCOMMENT:
     this.dataService.create("/cxf/api/saveDataset", messageObject).subscribe((result) => {
       console.log("I RECEIVEEEEEEEE: ");
       console.log(result);
@@ -532,23 +469,7 @@ export class SubmitFormComponent implements OnInit {
     messageObject['dataformat'] = dataset.dataformat;
     messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
     messageObject['jsonLd'] = dataset.jsonLd;
-
-    // this.dataService.getImportMessage(this.SERVICE_URL).subscribe((result) => {
-    //   console.log("I RECEIVEEEEEEEE: ");
-    //   console.log(result);
-    //     });
-
-    this.dataService.create(this.SERVICE_URL, messageObject).subscribe((result) => {
-      console.log("I RECEIVEEEEEEEE: ");
-      console.log(result);
-      // }).catch((ex) => {
-      // console.error('Error fetching response', ex);
-    });
-
-    // test
-    // this.onSubmit2();
-
-
+    
   }
 
 
@@ -588,7 +509,9 @@ export class SubmitFormComponent implements OnInit {
 
 
 
-export interface WmoCode { id: number, name: String, code: String };
+export interface WmoCode { id: number, name: String, code: String, continent:String, uri:String};
+export interface DataFormat { id: number, name: String, description: String };
+export interface Country { id: number, name: String, code: String };
 
 export interface DataSet {
   id: number,
@@ -596,8 +519,8 @@ export interface DataSet {
   description: String,
   state: String,
   city: String,
-  country: String,
-  dataformat: String,
+  country: Country,
+  dataformat: DataFormat,
   latitude: String,
   longitude: String,
   elevation: String,

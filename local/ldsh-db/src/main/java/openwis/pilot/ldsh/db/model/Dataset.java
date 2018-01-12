@@ -2,7 +2,9 @@ package openwis.pilot.ldsh.db.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,9 +13,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -23,13 +27,18 @@ public class Dataset implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ids_gen")
-	 @SequenceGenerator(name = "ids_gen", sequenceName = "ids_sequence", allocationSize = 20)
-	-- >> org.hibernate.dialect.MySQL5Dialect does not support sequences
+	 * @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
+	 *                          "ids_gen")
+	 * @SequenceGenerator(name = "ids_gen", sequenceName = "ids_sequence",
+	 *                         allocationSize = 20) -- >>
+	 *                         org.hibernate.dialect.MySQL5Dialect does not
+	 *                         support sequences
 	 */
+
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
-	@Column(name = "id")
-	private long id;
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
 
 	@Column(name = "name")
 	private String name;
@@ -52,15 +61,14 @@ public class Dataset implements Serializable {
 	@Column(name = "measurementunit")
 	private String measurementUnit; // todo Enum
 
-
-	@Column(name = "wmocodes")
-	@ManyToMany(targetEntity=WmoCode.class, mappedBy="code", cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<WmoCode> wmoCodes;
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "Dataset_WmoCode", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmocode_id") })
+	private Set<WmoCode> WmoCodes = new HashSet<>();
 
 	// Location Information
-
-	@Column(name = "country")
-	private String country;
+	@ManyToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name = "country_id")
+	private Country country;
 
 	@Column(name = "state")
 	private String state;
@@ -90,8 +98,9 @@ public class Dataset implements Serializable {
 	@Column(name = "subscriptionuri")
 	private String subscriptionUri;
 
-	@Column(name = "dataformat")
-	private String dataformat; // Todo Enum
+	@ManyToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name = "dataformat_id")
+	private DataFormat dataformat;
 
 	@Column(name = "rdshdissenabled")
 	private boolean rdshDissEnabled; // null true false? Notification Only
@@ -101,11 +110,19 @@ public class Dataset implements Serializable {
 	@Column(name = "jsonld")
 	private String jsonLd;
 
-	public long getId() {
+	public Set<WmoCode> getWmoCodes() {
+		return WmoCodes;
+	}
+
+	public void setWmoCodes(Set<WmoCode> wmoCodes) {
+		WmoCodes = wmoCodes;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -165,19 +182,11 @@ public class Dataset implements Serializable {
 		this.measurementUnit = measurementUnit;
 	}
 
-	public List<WmoCode> getWmoCodes() {
-		return wmoCodes;
-	}
-
-	public void setWmoCodes(List<WmoCode> wmoCodes) {
-		this.wmoCodes = wmoCodes;
-	}
-
-	public String getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 
@@ -253,11 +262,11 @@ public class Dataset implements Serializable {
 		this.subscriptionUri = subscriptionUri;
 	}
 
-	public String getDataformat() {
+	public DataFormat getDataformat() {
 		return dataformat;
 	}
 
-	public void setDataformat(String dataformat) {
+	public void setDataformat(DataFormat dataformat) {
 		this.dataformat = dataformat;
 	}
 
