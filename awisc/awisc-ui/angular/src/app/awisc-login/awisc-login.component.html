@@ -1,0 +1,127 @@
+<div class="box" style="width:100%;float:left; display:block;">
+
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Login</p>
+    <span class="ui-spacer"></span>
+
+    <button mat-icon-button class="transparent" (click)="navigateToHome()">
+      <mat-icon class="ui-icon" aria-label="Menu">search</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div style="padding:2em;">
+
+    <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
+
+      <!-- selection list of Available Reading Types-->
+      <div style="display:inline-block;width :55%;">
+        <h5 matSubheader>Search with WMO Codes:</h5>
+        <mat-form-field floatPlaceholder="never" style="width :80%;">
+          <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"  >
+            <mat-option *ngFor="let wmo of filteredStates | async"  [value]="wmo.label"  
+            (onSelectionChange)="setSelectedCode($event, wmo.wmocode)" >
+               <span> {{ wmo.label }} </span> ---
+              <small> Code: {{ wmo.wmocode }}</small> 
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <!-- add button -->
+        <button mat-button type="button" (click)="addSearchCriteria()">Add</button>
+      </div>
+      <div style="display:inline-block;width :10%;"></div>
+
+      <div style="display:inline-block;width :30%;">
+        <!-- chip  -->
+        <h5 matSubheader>Selected Measurement Types:</h5>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let wmos of selectedCodes" [selectable]="selectable" [removable]="removable" (remove)="deSelect(wmos)">
+            {{wmos.label}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Add Code..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-list>
+      </div>
+
+
+
+      <mat-form-field class="mat-form" style="width :80%">
+        <input matInput placeholder="Search datasets" formControlName="datasetSearch">
+      </mat-form-field>
+
+      <button mat-button type="button" (click)="search()">Search</button>
+
+      <div style="width:100%;float:left; display:block;">
+        <div style="width:auto">
+          <!--  <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title style="width:50%">
+                  Wind Codes
+                </mat-panel-title>
+                <mat-panel-description style="width:50%">
+                  Select wind codes:
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-selection-list #winds>
+                <mat-list-option *ngFor="let wind of windCodes" checkboxPosition='before'>
+                  <div style="display:inline-flex;">
+                    <div style="width:55%">{{wind.label}}</div>
+                    <div style="width:45%"> {{wind.wmocode}}</div>
+                  </div>
+                </mat-list-option>
+              </mat-selection-list>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title style="width:50%">
+                  Rain Codes
+                </mat-panel-title>
+                <mat-panel-description style="width:50%">
+                  Select Rain codes:
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-selection-list #winds>
+                <mat-list-option *ngFor="let rain of rainCodes" checkboxPosition='before'>
+                  <div style="display:inline-flex;">
+                    <div style="width:55%">{{rain.label}}</div>
+                    <div style="width:45%"> {{rain.wmocode}}</div>
+                  </div>
+                </mat-list-option>
+              </mat-selection-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title style="width:50%">
+                  Temperature Codes
+                </mat-panel-title>
+                <mat-panel-description style="width:50%">
+                  Select Temperature codes:
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-selection-list #winds>
+                <mat-list-option *ngFor="let tmpr of temperatureCodes" checkboxPosition='before'>
+                  <div style="display:inline-flex;">
+                    <div style="width:55%">{{tmpr.label}}</div>
+                    <div style="width:45%"> {{tmpr.wmocode}}</div>
+                  </div>
+                </mat-list-option>
+              </mat-selection-list>
+            </mat-expansion-panel>
+          </mat-accordion>-->
+        </div>
+      </div>
+    </form>
+    <div *ngIf="searchResults">
+      <search-results></search-results>
+    </div>
+  </div>
+</div>

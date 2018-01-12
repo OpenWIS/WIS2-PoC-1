@@ -76,11 +76,12 @@
 				<configuration>
 					<instructions>
 						<Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
-						<Bundle-ClassPath>.,{maven-dependencies}</Bundle-ClassPath>
+						<Bundle-ClassPath>.</Bundle-ClassPath>
 						<DynamicImport-Package>
 							org.hibernate,org.hibernate.proxy,javassist.util.proxy,javax.persistence,openwis.pilot.awisc.server
 						</DynamicImport-Package>
 						<!-- org.hibernate.proxy,javassist.util.proxy,org.hibernate.jpa -->
+						<!-- <Embed-Transitive>true</Embed-Transitive> -->
 						<Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
 					</instructions>
 				</configuration>
@@ -134,6 +135,7 @@
 		<dependency>
 			<groupId>org.ops4j.pax.cdi</groupId>
 			<artifactId>pax-cdi-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -146,12 +148,6 @@
 			<artifactId>javax.transaction-api</artifactId>
 			<version>${javax.transaction.version}</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.ops4j.pax.cdi/pax-cdi-api -->
-		<dependency>
-			<groupId>org.ops4j.pax.cdi</groupId>
-			<artifactId>pax-cdi-api</artifactId>
 		</dependency>
 
 		<dependency>

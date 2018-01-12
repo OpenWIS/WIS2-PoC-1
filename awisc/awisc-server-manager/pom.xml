@@ -16,6 +16,15 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>${maven-bundle-plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<!-- <Bundle-ClassPath>.,{maven-dependencies}</Bundle-ClassPath> -->
+						<Bundle-ClassPath>.</Bundle-ClassPath>
+						<Embed-Dependency>*;scope=compile</Embed-Dependency>
+						<!-- <Embed-Transitive>true</Embed-Transitive> -->
+						<Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+					</instructions>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.aries.blueprint</groupId>
@@ -39,7 +48,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>openwis.pilot.awisc</groupId>
@@ -48,27 +57,12 @@
 		<dependency>
 			<groupId>openwis.pilot.awisc</groupId>
 			<artifactId>awisc-server-db</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ops4j.pax.cdi</groupId>
-			<artifactId>pax-cdi-api</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax.mail -->
-		<dependency>
-			<groupId>org.apache.servicemix.bundles</groupId>
-			<artifactId>org.apache.servicemix.bundles.javax.mail</artifactId>
-			<version>1.4.1_5</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1 -->
-		<dependency>
-			<groupId>org.apache.servicemix.specs</groupId>
-			<artifactId>org.apache.servicemix.specs.activation-api-1.1</artifactId>
-			<version>2.9.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.dozermapper/dozer-core -->
 		<dependency>
@@ -103,12 +97,18 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
-			<version>0.9.0</version>
+			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.ops4j.pax.cdi</groupId>
+			<artifactId>pax-cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 
 
 	</dependencies>

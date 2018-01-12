@@ -18,9 +18,9 @@ public class TransactionAspect {
 	private static final Logger logger = Logger.getLogger(TransactionAspect.class.getName());
 	
 	@Pointcut("execution(@openwis.pilot.awisc.server.common.annotation.Transaction * *(..))")
-	public void transactionAnnotation() {}
+	public void annotation() {}
 	
-	@Around("transactionAnnotation()")
+	@Around("annotation()")
 	public Object wrapTransaction(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object o = null;
 		GenericDao<?> targetDao = (GenericDao<?>)joinPoint.getTarget();

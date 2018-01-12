@@ -2,25 +2,26 @@ package openwis.pilot.awisc.server.common.util;
 
 public class Constants {
 
-	public static class Messages{
-		
-		public static class Types{
-			
-			public static String MESSAGE = "MESSAGE";
-			public static String ERROR = "ERROR";
-			
-		}
-		
-		public static class Codes{
-			
-			public static String LOGIN_SUCCESS = "LOGIN_SUCCESS";
-			public static String LOGIN_FAILURE = "LOGIN_FAILURE";
-			
-		}
-		
-		
-		
-		
+	public static enum MessageType {
+
+		INFORMATION, ERROR
+
 	}
-	
+
+	public static interface MessageCode {
+
+	}
+
+	public static enum ResponseCode implements MessageCode {
+
+		LOGIN_SUCCESS, LOGOUT_SUCCESS
+
+	}
+
+	public static enum ErrorCode implements MessageCode {
+
+		UNEXPECTED_ERROR, UNAUTHORIZED, FORBIDDEN, LOGIN_FAILURE, LOGOUT_FAILURE
+
+	}
+
 }

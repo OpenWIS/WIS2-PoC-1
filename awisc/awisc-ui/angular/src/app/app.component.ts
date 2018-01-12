@@ -46,8 +46,8 @@ export class AppComponent implements OnInit {
     return AppComponent.selectedMenuItem;
   }
 
-  navigateToMenu() {
-    this.router.navigateByUrl("/ldshs");
+  navigateToLogin() {
+    this.router.navigateByUrl("/login");
   }
 
   ngAfterViewInit() {}
