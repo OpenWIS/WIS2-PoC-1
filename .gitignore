@@ -54,3 +54,7 @@ awisc/awisc-ui/angular/\.editorconfig
 awisc/awisc-ui/angular/package-lock\.json
 
 awisc/awisc-ui/e2e/
+awisc/awisc-karaf-features/target
+ldsh/ldsh-server/ldsh-server-dto/target
+ldsh/ldsh-server/ldsh-server-manager/target
+ldsh/ldsh-server/ldsh-server-ws/target

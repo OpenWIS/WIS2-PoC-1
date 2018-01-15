@@ -13,6 +13,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { LdshsAdminComponent } from './ldshs-admin/ldshs-admin.component';
 import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
 import { LdshsViewComponent } from './ldshs-view/ldshs-view.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LdshsViewComponent } from './ldshs-view/ldshs-view.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    routing   
+    routing,
+    HttpClientModule
   ],
   
   
