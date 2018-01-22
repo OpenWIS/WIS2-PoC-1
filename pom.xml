@@ -10,7 +10,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <!-- <module>awisc</module> -->
+    <module>awisc</module>
     <module>ldsh</module>
   </modules>
 

@@ -17,7 +17,7 @@
 
   <modules>
     <module>ldsh-server</module>
-     <module>ldsh-ui</module> -
+     <module>ldsh-ui</module> 
     <module>ldsh-karaf-features</module>
   </modules>
 
