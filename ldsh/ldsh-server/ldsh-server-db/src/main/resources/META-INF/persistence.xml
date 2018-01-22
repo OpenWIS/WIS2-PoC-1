@@ -4,8 +4,8 @@
 	<persistence-unit name="ldshPU" transaction-type="RESOURCE_LOCAL">
 		<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=ldshDataSource)</non-jta-data-source>
 
-		<class>openwis.pilot.ldsh.db.model.Dataset</class>
-		<class>openwis.pilot.ldsh.db.model.WmoCode</class>
+		<class>openwis.pilot.ldsh.manager.model.Dataset</class>
+		<class>openwis.pilot.ldsh.manager.model.WmoCode</class>
 		
 		<!-- auto-create the database schema -->
 		<properties>

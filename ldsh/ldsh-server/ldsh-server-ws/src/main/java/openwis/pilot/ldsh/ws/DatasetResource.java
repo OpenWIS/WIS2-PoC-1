@@ -19,7 +19,8 @@ import javax.ws.rs.core.Response;
 // import javax.ws.rs.core.Request;
 
 
-import openwis.pilot.ldsh.dto.DatasetDTO;
+
+import openwis.pilot.ldsh.common.dto.DatasetDTO;
 import openwis.pilot.ldsh.manager.service.DatasetService;
 import openwis.pilot.ldsh.manager.service.PollingService;
 
@@ -28,16 +29,11 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.apache.cxf.rs.security.cors.LocalPreflight;
 import org.ops4j.pax.cdi.api.OsgiService;
 
-//  @CrossOriginResourceSharing(
-//          allowOrigins = {
-//             "*"
-//          },
-//          allowCredentials = true 
-//          )
-@Singleton
-public class DatasetWS {
 
-    private static final Logger logger = Logger.getLogger(DatasetWS.class.getName());
+@Singleton
+public class DatasetResource {
+
+    private static final Logger logger = Logger.getLogger(DatasetResource.class.getName());
 
     @Context
     private HttpHeaders headers;
@@ -50,6 +46,16 @@ public class DatasetWS {
 //    @OsgiService
 //    private PollingService pollingService;
 
+   // Demo OK response.
+    @GET
+    @Path("/hello-world")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response hw1() {
+      return Response.ok("{\"message\": \"test-plain-json\"}").build();
+    }
+
+    
+    
 
     @POST
     @Path("/saveDataset")
@@ -57,15 +63,9 @@ public class DatasetWS {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response userVerification(DatasetDTO dataset) {
-
     	logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
-    	
-
 System.out.println("NEW "+ dataset.toString());
-
-
 //		pollingService.poll();
-
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
@@ -121,9 +121,6 @@ System.out.println("NEW "+ dataset.toString());
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
         .build();
     }
-    
-    
-    
     
   
     

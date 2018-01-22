@@ -1,4 +1,4 @@
-package openwis.pilot.ldsh.dto;
+package openwis.pilot.ldsh.common.dto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

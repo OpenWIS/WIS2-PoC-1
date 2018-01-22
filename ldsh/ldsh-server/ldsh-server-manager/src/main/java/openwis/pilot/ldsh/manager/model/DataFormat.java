@@ -1,4 +1,4 @@
-package openwis.pilot.ldsh.db.model;
+package openwis.pilot.ldsh.manager.model;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "DataFormat")
+@Table(name = "data_format")
 public class DataFormat implements Serializable {
 	
 
@@ -21,7 +21,7 @@ public class DataFormat implements Serializable {
 	private static final long serialVersionUID = -910433257825026437L;
 
 	@Id
-	@Column(name = "dataformat_id", updatable = false, nullable = false,columnDefinition = "int default 100" )// 
+	@Column(name = "data_format_id", updatable = false, nullable = false) 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 

@@ -13,7 +13,8 @@ public class GenericDao<T> {
 	private static final Logger logger = Logger.getLogger(GenericDao.class.getName());
 
 	protected EntityManager entityManager;
-
+	
+	@Deprecated
 	public void create(T o) {
 		try {
 
@@ -27,6 +28,7 @@ public class GenericDao<T> {
 		entityManager.getTransaction().commit();
 	}
 
+	@Deprecated
 	public void update(T o) {
 		try {
 			entityManager.getTransaction().begin();
@@ -39,6 +41,7 @@ public class GenericDao<T> {
 		entityManager.getTransaction().commit();
 
 	}
+	@Deprecated
 
 	public void delete(T o) {
 		try {
@@ -52,7 +55,7 @@ public class GenericDao<T> {
 		entityManager.getTransaction().commit();
 	}
 
-	@SuppressWarnings("unchecked")
+	@Deprecated
 	public T get(Object id) {
 		try {
 			Type genericType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];

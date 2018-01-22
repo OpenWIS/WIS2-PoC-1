@@ -1,4 +1,4 @@
-package openwis.pilot.ldsh.dto;
+package openwis.pilot.ldsh.common.dto;
 
 import java.io.Serializable;
 

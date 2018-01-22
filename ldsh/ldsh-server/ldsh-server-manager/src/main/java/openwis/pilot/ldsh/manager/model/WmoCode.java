@@ -1,4 +1,4 @@
-package openwis.pilot.ldsh.db.model;
+package openwis.pilot.ldsh.manager.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "WmoCode")
+@Table(name = "wmo_code")
 public class WmoCode implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class WmoCode implements Serializable {
 	 *                         support sequences
 	 */
 	@Id
-	@Column(name = "wmocode_id")
+	@Column(name = "wmo_code_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long wmocode_id;
 
@@ -39,7 +39,7 @@ public class WmoCode implements Serializable {
 	@Column(name = "continent")
 	private String continent;
 
-	@ManyToMany(mappedBy = "WmoCodes")
+	@ManyToMany(mappedBy = "wmoCodes")
 	private Set<Dataset> datasets = new HashSet<>();
 
 	@Column(name = "uri")

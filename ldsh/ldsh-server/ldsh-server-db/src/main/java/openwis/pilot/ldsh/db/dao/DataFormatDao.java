@@ -2,7 +2,7 @@ package openwis.pilot.ldsh.db.dao;
 
 import java.util.logging.Logger;
 
-import openwis.pilot.ldsh.db.model.DataFormat;
+import openwis.pilot.ldsh.manager.model.DataFormat;
 
 
 

@@ -1,8 +1,9 @@
-package openwis.pilot.ldsh.dto;
+package openwis.pilot.ldsh.common.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

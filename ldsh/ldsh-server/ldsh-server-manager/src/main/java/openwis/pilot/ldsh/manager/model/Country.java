@@ -1,4 +1,4 @@
-package openwis.pilot.ldsh.db.model;
+package openwis.pilot.ldsh.manager.model;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Country")
+@Table(name = "country")
 public class Country implements Serializable {
 	
 	/**

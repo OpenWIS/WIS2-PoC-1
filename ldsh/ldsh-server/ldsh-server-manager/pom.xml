@@ -1,134 +1,161 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>openwis.pilot.ldsh</groupId>
-    <artifactId>ldsh</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../</relativePath>
-  </parent>
+	<parent>
+		<groupId>openwis.pilot.ldsh</groupId>
+		<artifactId>ldsh-server</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 
-  <artifactId>ldsh-server-manager</artifactId>
-  <packaging>bundle</packaging>
+	<artifactId>ldsh-server-manager</artifactId>
+	<packaging>bundle</packaging>
 
-  <build>
-    <filters>
-      <filter>src/main/resources/ftp.properties</filter>
-    </filters>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>${maven-bundle-plugin.version}</version>
-        <extensions>true</extensions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.aries.blueprint</groupId>
-        <artifactId>blueprint-maven-plugin</artifactId>
-        <version>${blueprint-maven-plugin.version}</version>
-        <configuration>
-          <!-- Important : The blueprint-maven-plugin needs to know which packages
-            to scan -->
-          <scanPaths>
-            <scanPath>openwis.pilot.ldsh.manager.impl</scanPath>
-            <scanPath>openwis.pilot.ldsh.manager.service</scanPath>
-          </scanPaths>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>blueprint-generate</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>${maven-bundle-plugin.version}</version>
+				<configuration>
+					<instructions>
+						<Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
+						<DynamicImport-Package>org.hibernate,org.hibernate.proxy,javassist.util.proxy,javax.persistence</DynamicImport-Package>
+						<Q-Liquibase-ChangeLog>db/ldsh.liquibase.changelog.xml</Q-Liquibase-ChangeLog>
+						<Q-Liquibase-Priority>110</Q-Liquibase-Priority>
+					</instructions>
+				</configuration>
+			</plugin>
 
-  <dependencies>
-    <dependency>
-      <groupId>openwis.pilot.ldsh</groupId>
-      <artifactId>ldsh-dto</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>openwis.pilot.ldsh</groupId>
-      <artifactId>ldsh-db</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-      <version>${javax.inject.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ops4j.pax.cdi</groupId>
-      <artifactId>pax-cdi-api</artifactId>
-      <version>${pax.cdi.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax.mail -->
-    <dependency>
-      <groupId>org.apache.servicemix.bundles</groupId>
-      <artifactId>org.apache.servicemix.bundles.javax.mail</artifactId>
-      <version>1.4.1_5</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1 -->
-    <dependency>
-      <groupId>org.apache.servicemix.specs</groupId>
-      <artifactId>org.apache.servicemix.specs.activation-api-1.1</artifactId>
-      <version>2.9.0</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.github.dozermapper/dozer-core -->
-    <dependency>
-      <groupId>com.github.dozermapper</groupId>
-      <artifactId>dozer-core</artifactId>
-      <version>6.1.0</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.github.dozermapper/dozer-schema -->
-    <dependency>
-      <groupId>com.github.dozermapper</groupId>
-      <artifactId>dozer-schema</artifactId>
-      <version>6.1.0</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.9.3</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.5</version>
-    </dependency>
+			<plugin>
+				<groupId>org.apache.aries.blueprint</groupId>
+				<artifactId>blueprint-maven-plugin</artifactId>
+				<version>${blueprint-maven-plugin.version}</version>
+				<configuration>
+					<scanPaths>
+						<scanPath>openwis.pilot.ldsh.manager.impl</scanPath>
+						<!-- <scanPath>openwis.pilot.ldsh.manager.service</scanPath> -->
+					</scanPaths>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>blueprint-generate</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>${apt-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>querydsl_mapstruct</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
+							<processors>
+								<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+								<processor>org.mapstruct.ap.MappingProcessor</processor>
+							</processors>
+							<options>
+								<mapstruct.defaultComponentModel>default</mapstruct.defaultComponentModel>
+							</options>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>${querydsl.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.mapstruct</groupId>
+						<artifactId>mapstruct-processor</artifactId>
+						<version>${mapstruct.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-core-osgi</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
+	<dependencies>
+		<dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>${javax.ws.rs-api.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>openwis.pilot.ldsh</groupId>
+			<artifactId>ldsh-server-common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>${javax.persistence.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-jdk8</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>${javax.inject.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>javax.transaction-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.ops4j.pax.cdi</groupId>
+			<artifactId>pax-cdi-api</artifactId>
+			<version>${pax.cdi.version}</version>
+		</dependency>
 
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-cdi</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-ftp</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
+		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-lang3</artifactId> 
+			<version>3.5</version> </dependency> -->
 
-  </dependencies>
+		<!-- TODO <version>${camel.version}</version> -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core-osgi</artifactId>
+			<version>2.18.2</version>
+			<!-- <version>2.20.1</version> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cdi</artifactId>
+			<version>2.18.2</version>
+			<!-- <version>2.20.1</version> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-ftp</artifactId>
+			<version>2.18.2</version>
+		</dependency>
+
+	</dependencies>
 </project>
 

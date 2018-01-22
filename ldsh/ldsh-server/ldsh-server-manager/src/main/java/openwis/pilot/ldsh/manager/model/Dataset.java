@@ -1,15 +1,12 @@
-package openwis.pilot.ldsh.db.model;
+package openwis.pilot.ldsh.manager.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Dataset")
+@Table(name = "dataset")
 public class Dataset implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -59,11 +55,11 @@ public class Dataset implements Serializable {
 	private String imageUrl;
 
 	@Column(name = "measurementunit")
-	private String measurementUnit; // todo Enum
+	private String measurementUnit;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "Dataset_WmoCode", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmocode_id") })
-	private Set<WmoCode> WmoCodes = new HashSet<>();
+	@JoinTable(name = "dataset_wmo_code", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmo_code_id") })
+	private List<WmoCode> wmoCodes;
 
 	// Location Information
 	@ManyToOne(cascade = { CascadeType.REFRESH })
@@ -99,7 +95,7 @@ public class Dataset implements Serializable {
 	private String subscriptionUri;
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
-	@JoinColumn(name = "dataformat_id")
+	@JoinColumn(name = "data_format_id")
 	private DataFormat dataformat;
 
 	@Column(name = "rdshdissenabled")
@@ -110,12 +106,48 @@ public class Dataset implements Serializable {
 	@Column(name = "jsonld")
 	private String jsonLd;
 
-	public Set<WmoCode> getWmoCodes() {
-		return WmoCodes;
+	public Dataset() {
+
 	}
 
-	public void setWmoCodes(Set<WmoCode> wmoCodes) {
-		WmoCodes = wmoCodes;
+	public Dataset(Long id, String name, String description, Date periodFrom,
+			Date periodTo, String license, String imageUrl,
+			String measurementUnit, List<WmoCode> wmoCodes, Country country,
+			String state, String city, String latitude, String longitude,
+			String elevation, String relativeUrl, String filenameprefix,
+			String downloadUrl, String subscriptionUri, DataFormat dataformat,
+			boolean rdshDissEnabled, String jsonLd) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.periodFrom = periodFrom;
+		this.periodTo = periodTo;
+		this.license = license;
+		this.imageUrl = imageUrl;
+		this.measurementUnit = measurementUnit;
+		this.wmoCodes = wmoCodes;
+		this.country = country;
+		this.state = state;
+		this.city = city;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.elevation = elevation;
+		this.relativeUrl = relativeUrl;
+		this.filenameprefix = filenameprefix;
+		this.downloadUrl = downloadUrl;
+		this.subscriptionUri = subscriptionUri;
+		this.dataformat = dataformat;
+		this.rdshDissEnabled = rdshDissEnabled;
+		this.jsonLd = jsonLd;
+	}
+
+	public List<WmoCode> getWmoCodes() {
+		return wmoCodes;
+	}
+
+	public void setWmoCodes(List<WmoCode> wmoCodes) {
+		this.wmoCodes = wmoCodes;
 	}
 
 	public Long getId() {
