@@ -13,7 +13,6 @@
 		<feature>ldsh-deps</feature>
 		<feature>ldsh-database</feature>
 		<feature>ldsh-server</feature>
-		<feature>ldsh-camel</feature>
 		<feature>ldsh-ui</feature>
 	</feature>
 
@@ -25,10 +24,11 @@
 		<feature>qlack2-util-repack-jackson-rs</feature>
 		<feature>qlack2-util-rest</feature>
 		<feature>qlack2-common-util</feature>
+		<feature>ldsh-camel</feature>
 		<bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>
 		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
 		<bundle>mvn:org.mapstruct/mapstruct-jdk8/1.1.0.Final</bundle>
-		<feature>qlack2-util-repack-querydsl</feature>
+		<feature>qlack2-util-repack-querydsl</feature>\
 	</feature>
 
 	<feature name="ldsh-camel" version="${project.version}">
