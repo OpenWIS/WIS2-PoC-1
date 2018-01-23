@@ -34,7 +34,10 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <a [routerLink]="['/ldsh-edit', element.id]">edit</a>
+          <button mat-icon-button class="transparent" matTooltip="Edit LDSH"
+                  [routerLink]="['/ldsh-edit', element.id]">
+            <mat-icon class="ui-icon dark" aria-label="Edit">edit</mat-icon>
+          </button>
         </mat-cell>
       </ng-container>
 
