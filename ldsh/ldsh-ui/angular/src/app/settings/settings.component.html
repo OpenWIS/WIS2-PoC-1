@@ -55,17 +55,17 @@
             </mat-form-field>
           </div>
 
-     
+
         </mat-tab>
 
         <mat-tab label="Polling Service">
-          <!-- private static String FTP_URL =
- "ftp://localhost/?delay=5s&delete=true&passiveMode=true&username=openwis&username=openwis"; -->
-          <!-- edw ta Settings -->
-          <!-- ftp_url ftp_username ftp_password ftpUrl ftpUsername ftpPassword buttons : test start stop -->
           <!-- Start Stop Polling mechanism -->
           <div>
-
+            <br>
+            <div>
+              Status: {{pollingServiceStatus}}
+            </div>
+            <br>
             <mat-form-field class="mat-form">
               <input matInput placeholder="Ftp server base url" formControlName="ftpUrl">
             </mat-form-field>
@@ -85,9 +85,8 @@
           <!-- Start Stop Polling mechanism set up polling meg -->
 
           <div style="padding:2em;">
-            <button mat-button (click)="testConnection()">Test</button>
             <button mat-button (click)="startPolling()">Start</button>
-            <button mat-button (click)="stoptPolling()">Stop</button>
+            <button mat-button (click)="stopPolling()">Stop</button>
           </div>
 
         </mat-tab>
@@ -96,9 +95,9 @@
       </mat-tab-group>
 
       <div>
-          <button mat-button (click)="onSubmit()">Save</button>
-          <button mat-button class="cancel-button" (click)="clear()">Cancel</button>
-        </div>
+        <button mat-button (click)="onSubmit()">Save</button>
+        <button mat-button class="cancel-button" (click)="clear()">Cancel</button>
+      </div>
 
 
     </form>

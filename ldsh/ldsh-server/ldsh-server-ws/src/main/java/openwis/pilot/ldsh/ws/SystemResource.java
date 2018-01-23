@@ -24,6 +24,9 @@ import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.ops4j.pax.cdi.api.OsgiService;
 
+//import com.google.gson.Gson;
+
+
 
 @Singleton
 public class SystemResource {
@@ -106,8 +109,32 @@ public class SystemResource {
 		  }
 		  
 		  
-
-	    
+		  @GET
+		  @Path("/stopPolling") 
+		  @CrossOriginResourceSharing(allowAllOrigins = true)
+		  @Produces(MediaType.APPLICATION_JSON)
+		  public Response stopPolling() {
+		      return Response.ok( polingService.stopPolling())
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+		      .build();
+		  }
+		  
+		  
+		  @GET
+		  @Path("/getPollingStatus")
+		  @CrossOriginResourceSharing(allowAllOrigins = true)
+		  @Produces(MediaType.APPLICATION_JSON)
+		  public Response getPollingStatus() {
+		      return Response.ok( "\"" + polingService.getPollingStatus()+"\"")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+		      .build();
+		  }
 	    
 	    
 	    @POST

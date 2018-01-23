@@ -13,12 +13,13 @@ import { DataService } from "../data.service";
   providers: [DataService]
 })
 export class SettingsComponent implements OnInit {
-  metadataForm: FormGroup;
 
   @ViewChild("readingTpSel") private readingTpSel: ElementRef;
 
-
+  metadataForm: FormGroup;
+  pollingServiceStatus: String = "Not defined"
   sysprops: SystemPropery;
+
 
   constructor(private dataService: DataService, private router: Router) {
     AppComponent.selectedMenuItem = 'settings';
@@ -30,7 +31,7 @@ export class SettingsComponent implements OnInit {
       console.log("I GOTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ");
       console.log(result);
 
-
+      this.checkPollingStatus();
       if (result == null) {
         this.buildForm(null);
       } else {
@@ -64,7 +65,7 @@ export class SettingsComponent implements OnInit {
     } else {
       //TODO fix me
       this.sysprops = rs;
-      
+
       this.metadataForm = new FormGroup({
         title: new FormControl(rs.title, [Validators.required]),
         systemid: new FormControl(rs.systemid, [Validators.required]),
@@ -81,7 +82,7 @@ export class SettingsComponent implements OnInit {
   }
 
 
-  
+
   onSubmit() {
 
     //TODO  id??????????????????
@@ -92,7 +93,7 @@ export class SettingsComponent implements OnInit {
     syspr = this.metadataForm.value;
     console.log(syspr);
     console.log(syspr.systemid);
-    
+
 
     messageObject['message'];
 
@@ -115,22 +116,22 @@ export class SettingsComponent implements OnInit {
       console.log(result);
     });
 
-    /*  
-    getSettings
-
-    title: "Stitle",
-    systemId: "sid"
-    email:"email"
-    copyright: "copy"
-    footerTxt:"footer"
-    homeTxt:"Homepage welcome text"
-    ftpPassword:"ftppass"
-    ftpUrl:"ftpurl"
-    ftpUsername:"ftpusername"
-    */
-
-
   }
+  /*  
+  getSettings
+
+  title: "Stitle",
+  systemId: "sid"
+  email:"email"
+  copyright: "copy"
+  footerTxt:"footer"
+  homeTxt:"Homepage welcome text"
+  ftpPassword:"ftppass"
+  ftpUrl:"ftpurl"
+  ftpUsername:"ftpusername"
+  */
+
+
 
   clear() {
     this.router.navigate(['/settings']);
@@ -150,30 +151,41 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  testConnection() {
-
-  }
 
   startPolling() {
 
-
-    this.dataService.getCall("/cxf/api/startPolling"). then(result => {
-      console.log("I GOTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ");
+    this.dataService.getCall("/cxf/api/startPolling").then(result => {
       console.log(result);
+      this.checkPollingStatus();
+    })
+  }
+
+
+  
+  stopPolling() {
+
+     console.log("STOPPING");
+    this.dataService.getCall("/cxf/api/stopPolling").then(result => {
+      console.log(result);
+      this.checkPollingStatus();
     })
 
   }
 
-  stopPolling() {
-
+  checkPollingStatus() {
+ 
+    this.dataService.getCall("/cxf/api/getPollingStatus").then(result => {
+      console.log(result);
+      this.pollingServiceStatus = result;
+    })
   }
 
 
 }
 export interface SystemPropery {
   id: number,
-  title: String, 
+  title: String,
   systemid: String,
-   email: String, copyright: String, footerTxt: String, homeTxt: String,
+  email: String, copyright: String, footerTxt: String, homeTxt: String,
   ftpPassword: String, ftpUrl: String, ftpUsername: String
 };

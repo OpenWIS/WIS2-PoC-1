@@ -1,5 +1,6 @@
 package openwis.pilot.ldsh.manager.impl;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import openwis.pilot.ldsh.manager.service.PollingService;
 import openwis.pilot.ldsh.manager.service.SystemService;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.ContextName;
 import org.apache.camel.core.osgi.OsgiDefaultCamelContext;
@@ -35,7 +37,7 @@ import openwis.pilot.ldsh.manager.model.QSysProperty;
 @ContextName("Poll-service")
 public class PollingServiceImpl extends RouteBuilder implements PollingService {
 	
-	@Inject
+//	@Inject
 	@PersistenceContext(unitName = "ldshPU")
 	private EntityManagerFactory entityManagerFactory;
 //	private EntityManager em;
@@ -49,12 +51,12 @@ public class PollingServiceImpl extends RouteBuilder implements PollingService {
 
 	private static final Logger logger = Logger.getLogger(PollingServiceImpl.class.getName());
 
-//	private static String FTP_URL = "ftp://localhost/?delay=5s&delete=true&passiveMode=true&password=openwis&username=openwis";
+	private static String FTP_URL = "ftp://localhost/?delay=5s&delete=true&passiveMode=true&password=openwis&username=openwis";
 
 	private  String URL =""; 
 	private  String USERNAME ="";
 	private  String PASSWORD ="";
-	private  String FTP_URL = "ftp://"+URL+"/?delay=5s&delete=true&passiveMode=true&password="+PASSWORD+"&username="+USERNAME;
+	//private  String FTP_URL = "ftp://"+URL+"/?delay=5s&delete=true&passiveMode=true&password="+PASSWORD+"&username="+USERNAME;
 
 	//TODO FIX
 //	@PostConstruct
@@ -75,6 +77,7 @@ public class PollingServiceImpl extends RouteBuilder implements PollingService {
 		 }
  	
     }
+	
 	
 	
 	@Override
@@ -138,7 +141,7 @@ public class PollingServiceImpl extends RouteBuilder implements PollingService {
 		try {
 			
 			this.camelContext.stop();
-
+			
 			logger.log(Level.INFO,"*********************************************************************************");
 			logger.log(Level.INFO, "Camel stoped.");
 			logger.log(Level.INFO,"*********************************************************************************");
@@ -149,5 +152,19 @@ public class PollingServiceImpl extends RouteBuilder implements PollingService {
 			return false;
 		}
 	return true;
+	}
+
+	@Override
+	public String getPollingStatus() {
+		ServiceStatus status ;
+		if (this.camelContext != null) {
+
+			status = this.camelContext.getStatus();
+			return status.toString();
+			
+		} else {
+			
+			return "Stopped";
+		}
 	}
 }

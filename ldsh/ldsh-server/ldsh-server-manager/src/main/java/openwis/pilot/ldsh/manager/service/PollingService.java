@@ -7,5 +7,6 @@ public interface PollingService {
 	public Boolean  poll();
 	public Boolean startPolling();
 	public Boolean stopPolling();
+	public String getPollingStatus();
 
 }
