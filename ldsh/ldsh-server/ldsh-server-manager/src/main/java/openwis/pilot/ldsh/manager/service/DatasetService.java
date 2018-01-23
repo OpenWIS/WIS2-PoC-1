@@ -5,6 +5,7 @@ import java.util.List;
 import openwis.pilot.ldsh.common.dto.CountryDTO;
 import openwis.pilot.ldsh.common.dto.DataFormatDTO;
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
+import openwis.pilot.ldsh.common.dto.WmoCodeDTO;
 
 
 
@@ -16,5 +17,7 @@ public interface DatasetService {
 	public List<DatasetDTO> getAllDataSets();
 	public List<DataFormatDTO> getDataFormats();
 	public List<CountryDTO> getCountries();
+	public List<WmoCodeDTO> getWmoCodes();
+	
 
 }

@@ -14,26 +14,22 @@ import javax.transaction.Transactional;
 import openwis.pilot.ldsh.common.dto.CountryDTO;
 import openwis.pilot.ldsh.common.dto.DataFormatDTO;
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
+import openwis.pilot.ldsh.common.dto.WmoCodeDTO;
 import openwis.pilot.ldsh.manager.model.Country;
 import openwis.pilot.ldsh.manager.model.QCountry;
 import openwis.pilot.ldsh.manager.model.DataFormat;
 import openwis.pilot.ldsh.manager.model.QDataFormat;
 import openwis.pilot.ldsh.manager.model.Dataset;
 import openwis.pilot.ldsh.manager.model.QDataset;
+import openwis.pilot.ldsh.manager.model.WmoCode;
+import openwis.pilot.ldsh.manager.model.QWmoCode;
 import openwis.pilot.ldsh.manager.mappers.DatasetMapperImpl;
 import openwis.pilot.ldsh.manager.mappers.DataFormatMapperImpl;
 import openwis.pilot.ldsh.manager.mappers.CountryMapperImpl;
+import openwis.pilot.ldsh.manager.mappers.WmoCodeMapperImpl;
 import openwis.pilot.ldsh.manager.service.DatasetService;
 
-
-
-
-//import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
-
-
-
-
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -46,6 +42,8 @@ public class DatasetServiceImpl implements DatasetService {
 	private static QDataset qDataset = QDataset.dataset;
 	private static QDataFormat qDataFormat = QDataFormat.dataFormat;
 	private static QCountry qCountry = QCountry.country;
+	private static QWmoCode qWmoCode = QWmoCode.wmoCode;
+	
 		
 	  @PersistenceContext(unitName = "ldshPU")
 	  private EntityManager em;
@@ -67,18 +65,17 @@ public class DatasetServiceImpl implements DatasetService {
 	@Override
 	@Transactional
 	public DatasetDTO saveDataset(DatasetDTO datasetDto) {
-		
+
 		try {
-			if (datasetDto.getId()!= null){
-				//final Dataset ds = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(datasetDto.getId())).fetchOne();
+			if (datasetDto.getId() != null) {
 				em.merge(new DatasetMapperImpl().toDataset(datasetDto));
 			} else {
 				em.persist(new DatasetMapperImpl().toDataset(datasetDto));
-			}	
-			} catch (Exception e) {
-				logger.log(Level.SEVERE, "error", e);
-				e.printStackTrace();
 			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error", e);
+			e.printStackTrace();
+		}
 		return datasetDto;
 	}
 
@@ -111,10 +108,11 @@ public class DatasetServiceImpl implements DatasetService {
 
 	@Override
 	public List<CountryDTO> getCountries() {
-		
+
 		ArrayList<Country> countries = (ArrayList<Country>) new JPAQueryFactory(em).selectFrom(qCountry).fetch();
 		ArrayList<CountryDTO> countrytList = new ArrayList<CountryDTO>();
-		for (Country c: countries){
+		
+		for (Country c : countries) {
 			countrytList.add(new CountryMapperImpl().toCountryDTO(c));
 		}
 		return countrytList;
@@ -125,10 +123,10 @@ public class DatasetServiceImpl implements DatasetService {
 	@Transactional
 	public Boolean deleteDataset(Long id) {
 		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
-		
+
 		try {
 			if (dataset != null) {
-				logger.log(Level.INFO, "*** Deleting ... "+dataset.getName());	
+				logger.log(Level.INFO, "*** Deleting ... " + dataset.getName());
 				em.remove(dataset);
 			} else {
 				return false;
@@ -140,6 +138,20 @@ public class DatasetServiceImpl implements DatasetService {
 		}
 
 		return true;
+	}
+
+
+	@Override
+	public List<WmoCodeDTO> getWmoCodes() {
+
+		ArrayList<WmoCodeDTO> codesDtoList = new ArrayList<WmoCodeDTO>();
+		ArrayList<WmoCode> codes = (ArrayList<WmoCode>) new JPAQueryFactory(em).selectFrom(qWmoCode).fetch();
+
+		for (WmoCode wc : codes) {
+			codesDtoList.add(new WmoCodeMapperImpl().toWmoCodeDTO(wc));
+		}
+		return codesDtoList;
+
 	}
 
 }
