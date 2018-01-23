@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
@@ -34,8 +35,10 @@ import openwis.pilot.ldsh.manager.model.QSysProperty;
 @ContextName("Poll-service")
 public class PollingServiceImpl extends RouteBuilder implements PollingService {
 	
+	@Inject
 	@PersistenceContext(unitName = "ldshPU")
-	private EntityManager em;
+	private EntityManagerFactory entityManagerFactory;
+//	private EntityManager em;
 	
 
 	protected BundleContext context;
@@ -54,13 +57,22 @@ public class PollingServiceImpl extends RouteBuilder implements PollingService {
 	private  String FTP_URL = "ftp://"+URL+"/?delay=5s&delete=true&passiveMode=true&password="+PASSWORD+"&username="+USERNAME;
 
 	//TODO FIX
-	@PostConstruct
-@Transactional 
+//	@PostConstruct
+	@Transactional 
 	@Override
     public void startUp() {
+		System.out.println("TEST");
 		
-//	final SysProperty urlSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpUrl")).fetchOne();
+		 try {
+				Thread.sleep(20);
+				
+		 final SysProperty urlSp = new JPAQueryFactory(entityManagerFactory.createEntityManager()).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpUrl")).fetchOne();
+		 System.out.println("TEST"+urlSp.getValue() );
 //	todo initialize db connection
+		 } catch (InterruptedException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+		 }
  	
     }
 	
@@ -99,13 +111,13 @@ public class PollingServiceImpl extends RouteBuilder implements PollingService {
 		try {
 		
 			System.out.println("reading DB.. ");
-			final SysProperty urlSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpUrl")).fetchOne();
-			final SysProperty userSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpUsername")).fetchOne();
-			final SysProperty passSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpPassword")).fetchOne();
+//			final SysProperty urlSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpUrl")).fetchOne();
+//			final SysProperty userSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpUsername")).fetchOne();
+//			final SysProperty passSp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq("ftpPassword")).fetchOne();
 	        
-			this.URL = urlSp.getValue();
-	        this.USERNAME =  userSp.getValue();
-	        this.PASSWORD = passSp .getValue();
+//			this.URL = urlSp.getValue();
+//	        this.USERNAME =  userSp.getValue();
+//	        this.PASSWORD = passSp .getValue();
 	        
 			logger.log(Level.INFO, "Poling service is starting....");
 			logger.log(Level.INFO,"*********************************************************************************");
