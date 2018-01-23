@@ -58,7 +58,7 @@ public class Dataset implements Serializable {
 	private String measurementUnit;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "dataset_wmo_code", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmo_code_id") })
+	@JoinTable(name = "ldsh_dataset_wmo_code", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmo_code_id") })
 	private List<WmoCode> wmoCodes;
 
 	// Location Information
