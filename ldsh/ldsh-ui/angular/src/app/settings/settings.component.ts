@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataService.getCall("/cxf/api/getSettings").then(result => {
+    this.dataService.getCall("getSettings").then(result => {
       console.log("I GOTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ");
       console.log(result);
 
@@ -111,7 +111,7 @@ export class SettingsComponent implements OnInit {
     messageObject['ftpUsername'] = syspr.ftpUsername;
     messageObject['ftpPassword'] = syspr.ftpPassword;
 
-    this.dataService.create("/cxf/api/saveSettings", messageObject).subscribe((result) => {
+    this.dataService.create("saveSettings", messageObject).subscribe((result) => {
       console.log("I RECEIVEEEEEEEE: ");
       console.log(result);
     });
@@ -154,7 +154,7 @@ export class SettingsComponent implements OnInit {
 
   startPolling() {
 
-    this.dataService.getCall("/cxf/api/startPolling").then(result => {
+    this.dataService.getCall("startPolling").then(result => {
       console.log(result);
       this.checkPollingStatus();
     })
@@ -165,7 +165,7 @@ export class SettingsComponent implements OnInit {
   stopPolling() {
 
      console.log("STOPPING");
-    this.dataService.getCall("/cxf/api/stopPolling").then(result => {
+    this.dataService.getCall("stopPolling").then(result => {
       console.log(result);
       this.checkPollingStatus();
     })
@@ -174,7 +174,7 @@ export class SettingsComponent implements OnInit {
 
   checkPollingStatus() {
  
-    this.dataService.getCall("/cxf/api/getPollingStatus").then(result => {
+    this.dataService.getCall("getPollingStatus").then(result => {
       console.log(result);
       this.pollingServiceStatus = result;
     })

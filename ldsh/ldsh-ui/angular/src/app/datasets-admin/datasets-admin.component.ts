@@ -26,7 +26,7 @@ export class DatasetsAdminComponent implements OnInit {
 
 
   loadDatasets() {
-    this.dataService.getCall("/cxf/api/getAllDatasets").then(result => {
+    this.dataService.getCall("getAllDatasets").then(result => {
       this.loadDatasetsTable(result);
     })
   }
@@ -63,7 +63,7 @@ export class DatasetsAdminComponent implements OnInit {
 
   deleteDataset(id: string) {
 console.log(id);
-    this.dataService.getCall("/cxf/api/deleteDataset/id=" + id).then(result => {
+    this.dataService.getCall("deleteDataset/id=" + id).then(result => {
       
       console.log("After delete..");
 

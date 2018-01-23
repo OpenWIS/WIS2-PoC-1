@@ -31,13 +31,13 @@ export class DatasetsMainComponent implements OnInit {
   }
 
   loadDatasets() {
-    this.dataService.getCall("/cxf/api/getAllDatasets").then(result => {
+    this.dataService.getCall("getAllDatasets").then(result => {
       this.loadDatasetsTable(result);
     })
   }
 
   loadProperties(){
-    this.dataService.getCall("/cxf/api/getSettings").then(result => {
+    this.dataService.getCall("getSettings").then(result => {
       this.homePageText = result.homeTxt;
     })
   }

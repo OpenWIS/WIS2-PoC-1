@@ -23,7 +23,7 @@ export class DataService {
   // get call
   public getCall<T>(url: string):Promise<any>  {
     
-        return this.httpClient.get<T>("http://localhost:8181"+url).toPromise();
+        return this.httpClient.get<T>("http://localhost:8181/cxf/ldsh-api/"+url).toPromise();
       }
 
 
@@ -31,7 +31,7 @@ export class DataService {
 
     console.log(datasetDTO);
         return this.httpClient
-          .post("http://localhost:8181" +url, datasetDTO, {
+          .post("http://localhost:8181/cxf/ldsh-api/" +url, datasetDTO, {
             headers: new HttpHeaders().set('Content-Type', 'application/json')
               .set("Access-Control-Allow-Origin", "*")
           });

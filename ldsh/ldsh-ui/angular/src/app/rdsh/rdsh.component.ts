@@ -34,7 +34,7 @@ export class RDSHComponent implements OnInit {
 
 
   loadRdsh() {
-    this.dataService.getCall("/cxf/api/getRdsh").then(result => {
+    this.dataService.getCall("getRdsh").then(result => {
       console.log(result);
 
   //TODO FIX THIS CALL TO CALL THE RDSH system...
@@ -47,7 +47,7 @@ export class RDSHComponent implements OnInit {
   checkRdshStatus(rs: RemoteSystem): any {
 
     console.log("TODO calling " + rs.url);
-    this.dataService.getCall("/cxf/api/AmIregistered").then(result => {
+    this.dataService.getCall("AmIregistered").then(result => {
       console.log(result);
       this.registrationStatus = result;
     })
@@ -93,7 +93,7 @@ export class RDSHComponent implements OnInit {
     messageObject['url'] = rdsh.url;
     messageObject['id'] = this.rdsh_id;
    
-    this.dataService.create("/cxf/api/saveRemote", messageObject).subscribe((result) => {
+    this.dataService.create("saveRemote", messageObject).subscribe((result) => {
       console.log("I RECEIVEEEEEEEE: ");
       console.log(result);
     });

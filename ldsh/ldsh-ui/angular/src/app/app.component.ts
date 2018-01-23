@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
 
 
   loadProperties(){
-    this.dataService.getCall("/cxf/api/getSettings").then(result => {
+    this.dataService.getCall("getSettings").then(result => {
       this.footerTex = result.footerTxt;
       this.SystemTitleText = result.title;
     })

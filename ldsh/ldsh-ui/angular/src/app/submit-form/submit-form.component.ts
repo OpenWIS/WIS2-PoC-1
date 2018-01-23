@@ -138,8 +138,6 @@ export class SubmitFormComponent implements OnInit {
   }
 
 
-  SERVICE_URL = '/cxf/api/verification'
-
   constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -149,8 +147,6 @@ export class SubmitFormComponent implements OnInit {
 
     let dataset_id = this.paramsObj["params"]["id"];
     this.featchFormData(dataset_id);
-    // this.fetchDataset(id);
-
   }
 
   rdshAdjust(srcElement: HTMLInputElement) {
@@ -297,7 +293,7 @@ export class SubmitFormComponent implements OnInit {
   private fetchDataset(id: number) {
 
     if (id) {
-      this.dataService.getCall("/cxf/api/getDataset/id=" + id).then(result => {
+      this.dataService.getCall("getDataset/id=" + id).then(result => {
         this.selectedDataSetId = id;
         this.buildForm(result, id);
       })
@@ -308,12 +304,12 @@ export class SubmitFormComponent implements OnInit {
 
   private featchFormData(id: number) {
 
-    this.dataService.getCall("/cxf/api/getAllDataFormats").then(result => {
+    this.dataService.getCall("getAllDataFormats").then(result => {
       this.dataformats = result;
-      this.dataService.getCall("/cxf/api/getAllWmoCodes").then(result => {
+      this.dataService.getCall("getAllWmoCodes").then(result => {
         this.wmoCodes = result;
         // console.log(this.wmoCodes);
-        this.dataService.getCall("/cxf/api/getAllCountries").then(result => {
+        this.dataService.getCall("getAllCountries").then(result => {
           this.countries = result;
           this.fetchDataset(id);
         })
@@ -351,7 +347,7 @@ export class SubmitFormComponent implements OnInit {
     messageObject['measurementUnit'] = dataset.measurementUnit;
     messageObject['imageUrl'] = dataset.datasetImage;
     messageObject['wmoCodes'] = this.selectedCodes;
-    this.dataService.create("/cxf/api/saveDataset", messageObject).subscribe((result) => {
+    this.dataService.create("saveDataset", messageObject).subscribe((result) => {
       console.log(result);
       // todo TOAST 
     });

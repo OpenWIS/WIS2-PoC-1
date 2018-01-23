@@ -33,7 +33,7 @@ export class AWISCComponent implements OnInit {
   
 
   loadAwisc() {
-    this.dataService.getCall("/cxf/api/getAwisc").then(result => {
+    this.dataService.getCall("getAwisc").then(result => {
       console.log(result);
 
       //TODO FIX THIS CALL TO CALL THE RDSH system...
@@ -82,7 +82,7 @@ export class AWISCComponent implements OnInit {
     messageObject['url'] = rdsh.url;
     messageObject['id'] = this.awisc_id;
 
-    this.dataService.create("/cxf/api/saveRemote", messageObject).subscribe((result) => {
+    this.dataService.create("saveRemote", messageObject).subscribe((result) => {
       console.log("I RECEIVEEEEEEEE: ");
       console.log(result);
     });
@@ -93,7 +93,7 @@ export class AWISCComponent implements OnInit {
   checkRdshStatus(rs: RemoteSystem): any {
 
    console.log("TODO calling " + rs.url);
-    this.dataService.getCall("/cxf/api/AmIregistered").then(result => {
+    this.dataService.getCall("/AmIregistered").then(result => {
       console.log(result);
       this.registrationStatus = result;
     })
