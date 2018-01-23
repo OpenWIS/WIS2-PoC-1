@@ -1,13 +1,12 @@
-# AWISC - Authoritative WIS Catalogue
- 
 ## Installation
  
 ### Configure the managed datasource
-config:edit org.ops4j.datasource-awisc
+config:edit org.ops4j.datasource-ldsh
 config:property-set user root
 config:property-set password root
-config:property-set url jdbc:mysql://localhost:3306/awisc?autoReconnect=true&createDatabaseIfNotExist=true
-config:property-set dataSourceName awiscDS
+config:property-set url jdbc:mysql://localhost:3306/rdsh?autoReconnect=true&createDatabaseIfNotExist=true
+config:property-set databaseName rdsh
+config:property-set dataSourceName rdshDS
 config:property-set osgi.jdbc.driver.name mysql
 config:property-set osgi.jpa.properties.hibernate.dialect org.hibernate.dialect.MySQL5InnoDBDialect
 config:property-set pool dbcp2
@@ -18,19 +17,19 @@ config:property-set jdbc.pool.testWhileIdle true
 config:property-set jdbc.factory.validationQueryTimeout 15
 config:update
  
-### Configure Liquibase to use the AWISC datasource
+### Configure Liquibase to use the RDSH datasource
 config:edit com.eurodyn.qlack2.util.liquibase
-config:property-set datasource awiscDS
+config:property-set datasource rdshDS
 config:update
  
-### Install AWISC Karaf features repository
-feature:repo-add mvn:openwis.pilot.awisc/awisc-karaf-features/LATEST/xml/features
+### Install RDSH Karaf features repository
+feature:repo-add mvn:openwis.pilot.rdsh/rdsh-karaf-features/LATEST/xml/features
  
 ### Install DB connectivity feature and automatic Liquibase update
-feature:install awisc-database
+feature:install rdsh-database
  
 ### Install dependencies
-feature:install awisc-deps
+feature:install rdsh-deps
 
 ### Install the server feature
-feature:install awisc-server
+feature:install rdsh-server

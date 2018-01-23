@@ -1,0 +1,82 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet author="OpenWIS" id="rdsh_0001">
+    <sql>
+
+    create table dataset (
+       id bigint not null,
+        description varchar(255),
+        elevation varchar(255),
+        last_update datetime,
+        latitude varchar(255),
+        longitude varchar(255),
+        name varchar(255),
+        url varchar(255),
+        data_format_id bigint,
+        ldsh_id bigint,
+        update_frequency_id bigint,
+        primary key (id)
+    ) ;
+
+    create table dataset_codes (
+       dataset_id bigint not null,
+        wmo_code_id bigint not null
+    ) ;
+
+    create table ldsh (
+       id bigint not null,
+        name varchar(255),
+        primary key (id)
+    ) ;
+
+    create table update_frequency (
+       id bigint not null,
+        name varchar(255),
+        primary key (id)
+    ) ;
+
+    create table user (
+       id bigint not null,
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) ;
+
+    create table wmocode (
+       id bigint not null,
+        name varchar(255),
+        primary key (id)
+    ) ;
+
+    alter table dataset
+       add constraint FK_Dataset_Data_Format
+       foreign key (data_format_id)
+       references update_frequency (id);
+
+    alter table dataset
+       add constraint FK_Dataset_LDSH
+       foreign key (ldsh_id)
+       references ldsh (id);
+
+    alter table dataset
+       add constraint FK_Dataset_Update_Frequency
+       foreign key (update_frequency_id)
+       references update_frequency (id);
+
+    alter table dataset_codes
+       add constraint FK_WmoCode_Dataset_Codes
+       foreign key (wmo_code_id)
+       references wmocode (id);
+
+    alter table dataset_codes
+       add constraint FK_Dataset_Dataset_Codes
+       foreign key (dataset_id)
+       references dataset (id);
+
+    insert into user(id, username, password) values(1, 'user1', 'pass1');
+		</sql>
+  </changeSet>
+
+</databaseChangeLog>

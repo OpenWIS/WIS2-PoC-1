@@ -12,6 +12,7 @@
   <modules>
     <module>awisc</module>
     <module>ldsh</module>
+    <module>rdsh</module>
   </modules>
 
   <properties>
