@@ -4,7 +4,7 @@
 config:edit org.ops4j.datasource-ldsh
 config:property-set user root
 config:property-set password ____PASSWORD____
-config:property-set url jdbc:mysql://localhost:3306/LDSH-DB
+config:property-set url jdbc:mysql://localhost:3306/LDSH-DB?autoReconnect=true&createDatabaseIfNotExist=true
 config:property-set databaseName  LDSH-DB 
 config:property-set dataSourceName ldshDataSource 
 config:property-set osgi.jdbc.driver.name mysql
@@ -32,10 +32,6 @@ feature:install ldsh-database
 ### Install dependencies
 feature:install ldsh-deps
 
-### Install camel
-feature:repo-add mvn:org.apache.camel.karaf/apache-camel/2.18.2/xml/features
-
-feature:install ldsh-camel
  
  
 ### Install the server feature
