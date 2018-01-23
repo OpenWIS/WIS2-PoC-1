@@ -31,4 +31,11 @@ public interface LDSHService {
    * @return Returns the LDSH that was saved or created.
    */
   LDSHDTO saveLDSH(LDSHDTO ldshDTO);
+
+  /**
+   * Checks whether an LDSH token is registered into the system.
+   * @param ldshToken The LDSH token to check.
+   * @return Returns true if the token exists, false otherwise.
+   */
+  boolean validateLDSHToken(String ldshToken);
 }

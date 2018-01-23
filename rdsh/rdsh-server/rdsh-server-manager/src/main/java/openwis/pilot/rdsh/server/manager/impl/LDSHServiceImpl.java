@@ -79,4 +79,12 @@ public class LDSHServiceImpl implements LDSHService {
 
     return new LDSHMapperImpl().toLDSHDTO(ldsh);
   }
+
+  @Override
+  public boolean validateLDSHToken(String ldshToken) {
+    return new JPAQueryFactory(em)
+        .selectFrom(qLdsh)
+        .where(qLdsh.token.eq(ldshToken))
+        .fetchOne() != null;
+  }
 }

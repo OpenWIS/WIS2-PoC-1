@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import openwis.pilot.rdsh.server.common.dto.LDSHDTO;
 import openwis.pilot.rdsh.server.manager.service.LDSHService;
 import org.ops4j.pax.cdi.api.OsgiService;
@@ -70,4 +71,20 @@ public class LDSHResource {
     ldshService.deleteLDSH(ldshId);
     return Response.noContent().build();
   }
+
+  /**
+   * Checks if a given LDSH token is valid or not.
+   * @param ldshToken The LDSH token to check for validity.
+   * @return Returns 204 when the token is valid, or 401 otherwise.
+   */
+  @GET
+  @Path("token/{id}")
+  public Response validateToken(@PathParam("id")String ldshToken) {
+    if (ldshService.validateLDSHToken(ldshToken)) {
+      return Response.noContent().build();
+    } else {
+      return Response.status(Status.UNAUTHORIZED).build();
+    }
+  }
+
 }
