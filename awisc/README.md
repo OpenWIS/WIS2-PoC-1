@@ -5,7 +5,7 @@
 ### Configure the managed datasource
 config:edit org.ops4j.datasource-awisc
 config:property-set user root
-config:property-set password ____PASSWORD____
+config:property-set password root
 config:property-set url jdbc:mysql://localhost:3306/awisc?autoReconnect=true&createDatabaseIfNotExist=true
 config:property-set dataSourceName awiscDS
 config:property-set osgi.jdbc.driver.name mysql
@@ -26,18 +26,11 @@ config:update
 ### Install AWISC Karaf features repository
 feature:repo-add mvn:openwis.pilot.awisc/awisc-karaf-features/LATEST/xml/features
  
- 
- 
 ### Install DB connectivity feature and automatic Liquibase update
 feature:install awisc-database
  
 ### Install dependencies
 feature:install awisc-deps
- 
- 
+
 ### Install the server feature
 feature:install awisc-server
-502 file changes in working directory
-View changes
-commit:90046d
-Updated installation instructions
