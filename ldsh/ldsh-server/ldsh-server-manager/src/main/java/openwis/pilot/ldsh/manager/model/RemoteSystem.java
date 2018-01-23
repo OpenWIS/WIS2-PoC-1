@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "remote_system")
+@Table(name = "ldsh_remote_system")
 public class RemoteSystem implements Serializable {
 
 	/**

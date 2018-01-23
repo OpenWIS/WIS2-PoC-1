@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wmo_code")
+@Table(name = "ldsh_wmo_code")
 public class WmoCode implements Serializable {
 
 	private static final long serialVersionUID = 1L;

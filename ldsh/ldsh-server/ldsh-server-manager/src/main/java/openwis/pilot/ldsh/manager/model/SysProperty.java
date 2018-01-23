@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sys_properties")
+@Table(name = "ldsh_sys_properties")
 public class SysProperty implements Serializable {
 
 	/**

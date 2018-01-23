@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dataset")
+@Table(name = "ldsh_dataset")
 public class Dataset implements Serializable {
 
 	private static final long serialVersionUID = 1L;

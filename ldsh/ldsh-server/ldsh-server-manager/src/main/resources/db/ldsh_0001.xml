@@ -5,224 +5,181 @@
 	<changeSet author="OpenWIS" id="ldsh_0001">
 		<sql>
 
-		--
-			-- Table structure for table country
-			--
+			DROP TABLE IF EXISTS  ldsh_country;
 
-			DROP TABLE IF EXISTS country;
-
-			CREATE TABLE country (
-			country_id bigint(20) NOT NULL AUTO_INCREMENT,
-			code varchar(255) DEFAULT NULL,
-			name varchar(255) DEFAULT NULL,
-			PRIMARY KEY (country_id)
+			CREATE TABLE  ldsh_country (
+			  country_id bigint(20) NOT NULL AUTO_INCREMENT,
+			  code varchar(255) DEFAULT NULL,
+			  name varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (country_id)
 			) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
-			--
-			-- Data for table country
-			--
 
-			-- LOCK TABLES country WRITE;
-			INSERT INTO country VALUES (1,'GR','Greece'),(2,'GB','United
-			Kingdom'),(3,'US','United States of
-			America'),(4,'FR','France'),(5,'AU','Australia'),(6,'FI','Finland'),(7,'DE','Germany'),(8,'JP','Japan'),(9,'IN','India'),(10,'CU','Cuba'),(11,'ES','Spain');
-			-- UNLOCK TABLES;
+			LOCK TABLES  ldsh_country WRITE;
+
+			INSERT INTO  ldsh_country VALUES (1,'GR','Greece'),(2,'GB','United Kingdom'),(3,'US','United States of America'),(4,'FR','France'),(5,'AU','Australia'),(6,'FI','Finland'),(7,'DE','Germany'),(8,'JP','Japan'),(9,'IN','India'),(10,'CU','Cuba'),(11,'ES','Spain');
+			UNLOCK TABLES;
 
 			--
 			-- Table structure for table data_format
 			--
 
-			DROP TABLE IF EXISTS data_format;
+			DROP TABLE IF EXISTS  ldsh_data_format;
 
 
-			CREATE TABLE data_format (
-			data_format_id bigint(20) NOT NULL AUTO_INCREMENT,
-			description varchar(255) DEFAULT NULL,
-			name varchar(255) DEFAULT NULL,
-			PRIMARY KEY (data_format_id)
-			) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+			CREATE TABLE ldsh_data_format (
+			  data_format_id bigint(20) NOT NULL AUTO_INCREMENT,
+			  description varchar(255) DEFAULT NULL,
+			  name varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (data_format_id)
+			) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 
 			--
 			-- Dumping data for table data_format
 			--
 
-			-- LOCK TABLES data_format WRITE;
-
-			INSERT INTO data_format VALUES
-			(1,'csv','csv'),(2,'xml','xml'),(3,'text','Text'),(4,'excel','Excel');
-			-- UNLOCK TABLES;
+			LOCK TABLES ldsh_data_format WRITE;
+			INSERT INTO ldsh_data_format VALUES (1,'csv','csv'),(2,'xml','xml'),(3,'text','Text'),(4,'excel','Excel');
+			UNLOCK TABLES;
 
 			--
 			-- Table structure for table dataset
 			--
 
-			DROP TABLE IF EXISTS dataset;
+			DROP TABLE IF EXISTS ldsh_dataset;
 
-			CREATE TABLE dataset (
-			id bigint(20) NOT NULL AUTO_INCREMENT,
-			city varchar(255) DEFAULT NULL,
-			country varchar(255) DEFAULT NULL,
-			data_format varchar(255) DEFAULT NULL,
-			description varchar(255) DEFAULT NULL,
-			downloadUrl varchar(255) DEFAULT NULL,
-			elevation varchar(255) DEFAULT NULL,
-			filenameprefix varchar(255) DEFAULT NULL,
-			imageurl varchar(255) DEFAULT NULL,
-			jsonld varchar(255) DEFAULT NULL,
-			latitude varchar(255) DEFAULT NULL,
-			license varchar(255) DEFAULT NULL,
-			longitude varchar(255) DEFAULT NULL,
-			measurementunit varchar(255) DEFAULT NULL,
-			name varchar(255) DEFAULT NULL,
-			periodfrom datetime DEFAULT NULL,
-			periodto datetime DEFAULT NULL,
-			rdshdissenabled bit(1) DEFAULT NULL,
-			relativeurl varchar(255) DEFAULT NULL,
-			state varchar(255) DEFAULT NULL,
-			subscriptionuri varchar(255) DEFAULT NULL,
-			data_format_id bigint(20) DEFAULT NULL,
-			country_id bigint(20) DEFAULT NULL,
-			PRIMARY KEY (id),
-			KEY id (id),
-			KEY FK_data_format (data_format_id),
-			KEY FK_country (country_id)
-			) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+			CREATE TABLE ldsh_dataset (
+			  id bigint(20) NOT NULL AUTO_INCREMENT,
+			  city varchar(255) DEFAULT NULL,
+			  country varchar(255) DEFAULT NULL,
+			  data_format varchar(255) DEFAULT NULL,
+			  description varchar(255) DEFAULT NULL,
+			  downloadUrl varchar(255) DEFAULT NULL,
+			  elevation varchar(255) DEFAULT NULL,
+			  filenameprefix varchar(255) DEFAULT NULL,
+			  imageurl varchar(255) DEFAULT NULL,
+			  jsonld varchar(255) DEFAULT NULL,
+			  latitude varchar(255) DEFAULT NULL,
+			  license varchar(255) DEFAULT NULL,
+			  longitude varchar(255) DEFAULT NULL,
+			  measurementunit varchar(255) DEFAULT NULL,
+			  name varchar(255) DEFAULT NULL,
+			  periodfrom datetime DEFAULT NULL,
+			  periodto datetime DEFAULT NULL,
+			  rdshdissenabled bit(1) DEFAULT NULL,
+			  relativeurl varchar(255) DEFAULT NULL,
+			  state varchar(255) DEFAULT NULL,
+			  subscriptionuri varchar(255) DEFAULT NULL,
+			  data_format_id bigint(20) DEFAULT NULL,
+			  country_id bigint(20) DEFAULT NULL,
+			  PRIMARY KEY (id),
+			  KEY id (id),
+			  KEY FK_data_format (data_format_id),
+			  KEY FK_country (country_id)
+			) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 			--
 			-- Dumping data for table dataset
 			--
 
-			-- LOCK TABLES dataset WRITE;
+			LOCK TABLES ldsh_dataset WRITE;
 
-			-- ----------------------------------------------
-			
-				INSERT INTO dataset VALUES (10,'Athens','gr','txt','Rain volume in
-			Athens',NULL,'54','ath','Athe_imageurl.com','jsonld	sample!!','34324322','
-			https://creativecommons.org/licenses/by/4.0/','32141235','Day','Athens','2012-02-08 00:00:00','2018-01-04 17:26:28','','AthQ','attica',NULL,1,1),(11,'Iraklio','gr','','Sun
-			strength in Iraklion2',NULL,'','iraklion','','','','','','','Iraklio sun',NULL,NULL,'\0','','',NULL,NULL,NULL),(12,'Thesaloniki','gr',NULL,'Wind
-			power in Thesaloniki',NULL,'','Thesx','','','','','','','Thesaloniki wind',NULL,NULL,'\0','','',NULL,3,3),(13,'','','','dsad',NULL,'','','','','','dsad','','','sd',NULL,NULL,'\0','','',NULL,2,10),(14,'',NULL,NULL,'ar',NULL,'','','','','','','','','karam',NULL,NULL,'\0','','',NULL,NULL,11),(15,'havana',NULL,NULL,'jvri',NULL,'1111','jv','d','dimi','44','sd','4444','Hour','jv',NULL,
-			'2017-10-07	00:00:00','','','havana',NULL,2,10);
-			
-			
-			-- UNLOCK TABLES;
-			
-			DROP TABLE IF EXISTS wmo_code;
-			CREATE TABLE wmo_code (
-			code varchar(255) DEFAULT NULL,
-			continent varchar(255) DEFAULT NULL,
-			name varchar(255) DEFAULT NULL,
-			uri varchar(255) DEFAULT NULL,
-			wmo_code_id bigint(20) NOT NULL AUTO_INCREMENT,
-			PRIMARY KEY (wmo_code_id)
-			) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
-			
-		
-			
+			INSERT INTO ldsh_dataset VALUES (10,'Athens','gr','txt','Rain volume in Athens',NULL,'54','ath','Athe_imageurl.com','jsonld	sample!!','34324322','https://creativecommons.org/licenses/by/4.0/','32141235','Day','Athens','2012-02-08 00:00:00','2012-02-08 00:00:00','\0','AthQ','attica',NULL,1,1),(11,'Iraklio','gr','','Sun strength in Iraklion2',NULL,'','iraklion','','','','','','','Iraklio sun',NULL,NULL,'\0','','',NULL,NULL,NULL),(12,'Thesaloniki','gr',NULL,'Wind power in Thesaloniki',NULL,'','Thesx','','','','','','','Thesaloniki wind',NULL,NULL,'\0','','',NULL,3,3),(14,'',NULL,NULL,'ar',NULL,'','','','','','','','','karam',NULL,NULL,'\0','','',NULL,NULL,11),(15,'havana',NULL,NULL,'jvri',NULL,'1111','jv','d','dimi','44','sd','4444','Hour','jv',NULL,'2017-10-07 00:00:00','\0','','havana',NULL,2,10);
+
+			UNLOCK TABLES;
+
 			--
 			-- Table structure for table dataset_wmo_code
 			--
 
-			DROP TABLE IF EXISTS dataset_wmo_code;
+			DROP TABLE IF EXISTS ldsh_dataset_wmo_code;
 
-			CREATE TABLE dataset_wmo_code (
-			id bigint(20) NOT NULL,
-			wmo_code_id bigint(20) NOT NULL,
-			PRIMARY KEY (id,wmo_code_id),
-			KEY FK_wmo_code (wmo_code_id),
-			CONSTRAINT FK_wmo_code FOREIGN KEY (wmo_code_id)
-			REFERENCES wmo_code (wmo_code_id),
-			CONSTRAINT FK_dataset FOREIGN KEY (id) REFERENCES
-			dataset (id)
+			CREATE TABLE ldsh_dataset_wmo_code (
+			  id bigint(20) NOT NULL,
+			  wmo_code_id bigint(20) NOT NULL,
+			  PRIMARY KEY (id,wmo_code_id),
+			  KEY FK_wmo_code (wmo_code_id),
+			  CONSTRAINT FK_dataset FOREIGN KEY (id) REFERENCES dataset (id),
+			  CONSTRAINT FK_wmo_code FOREIGN KEY (wmo_code_id) REFERENCES wmo_code (wmo_code_id)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-			
-
-			INSERT INTO wmo_code VALUES ('grib2/codeflag/4.2/3-1-19',NULL,'Wind
-			speed',NULL,1),('grib2/codeflag/4.2/0-0-13',NULL,'Wind chill
-			factor',NULL,2),('bufr4/codeflag/0-08-001/4',NULL,'Maximum wind
-			level',NULL,3),('bufr4/codeflag/0-08-086/4',NULL,'Maximum wind
-			level',NULL,4),('bufr4/codeflag/0-20-004/16',NULL,'Rain',NULL,5),('bufr4/codeflag/0-20-004/6',NULL,'Rain',NULL,6),('bufr4/codeflag/0-20-005/6',NULL,'Rain',NULL,7),('306/4678/RA',NULL,'Precipitation
-			of rain',NULL,8),('bufr4/codeflag/0-20-003/280',NULL,'Precipitation
-			of rain',NULL,9),('grib2/codeflag/4.2/0-1-34',NULL,'Categorical
-			freezing
-			rain',NULL,10),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of
-			rain',NULL,11),('grib2/codeflag/4.2/0-0-21',NULL,'Apparent
-			temperature',NULL,12),('bufr4/b/12/024',NULL,'Dewpoint
-			temperature',NULL,13),('grib2/codeflag/4.2/0-0-6',NULL,'Dewpoint
-			temperature',NULL,14),('bufr4/b/12/152',NULL,'Highest daily mean
-			temperature',NULL,15),('grib2/codeflag/4.2/0-0-5',NULL,'Minimum
-			temperature',NULL,16),('bufr4/codeflag/0-08-050/8',NULL,'Minimum
-			temperature',NULL,17),('grib2/codeflag/4.2/0-2-0',NULL,'Wind
-			direction (from which
-			blowing)',NULL,18),('bufr4/b/12/103',NULL,'Dewpoint
-			temperature',NULL,19),('grib2/codeflag/4.2/3-1-19',NULL,'Wind
-			speed',NULL,20),('bufr4/codeflag/0-08-001/4',NULL,'Maximum wind
-			level',NULL,21),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of
-			rain',NULL,22),('grib2/codeflag/4.2/3-1-19',NULL,'Wind
-			speed',NULL,23),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of
-			rain',NULL,24),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of
-			rain',NULL,25),('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from
-			which
-			blowing)',NULL,26),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity
-			of rain',NULL,27),('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction
-			(from which blowing)',NULL,28),('grib2/codeflag/4.2/3-1-19','','Wind
-			speed','',29),('bufr4/b/12/024','','Dewpoint
-			temperature','',30),('bufr4/codeflag/0-20-004/16','','Rain','',31);
-
-			
-	
 			--
 			-- Dumping data for table dataset_wmo_code
 			--
-			-- LOCK TABLES dataset_wmo_code WRITE;
-			INSERT INTO dataset_wmo_code VALUES	(10,27),(10,28),(10,29),(12,30),(11,31);
 
-			-- UNLOCK TABLES;
+			LOCK TABLES ldsh_dataset_wmo_code WRITE;
+			INSERT INTO ldsh_dataset_wmo_code VALUES (12,30),(11,31),(10,33),(10,34),(10,35);
+			UNLOCK TABLES;
 
 			--
 			-- Table structure for table remote_system
 			--
 
+			DROP TABLE IF EXISTS ldsh_remote_system;
 
-			DROP TABLE IF EXISTS remote_system;
-
-			CREATE TABLE remote_system (
-			id bigint(20) NOT NULL AUTO_INCREMENT,
-			name varchar(255) DEFAULT NULL,
-			status bit(1) DEFAULT NULL,
-			token varchar(255) DEFAULT NULL,
-			type int(11) DEFAULT NULL,
-			url varchar(255) DEFAULT NULL,
-			PRIMARY KEY (id)
+			CREATE TABLE ldsh_remote_system (
+			  id bigint(20) NOT NULL AUTO_INCREMENT,
+			  name varchar(255) DEFAULT NULL,
+			  status bit(1) DEFAULT NULL,
+			  token varchar(255) DEFAULT NULL,
+			  type int(11) DEFAULT NULL,
+			  url varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (id)
 			) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
 			--
 			-- Dumping data for table remote_system
 			--
 
-			-- LOCK TABLES remote_system WRITE;
-			INSERT INTO remote_system VALUES
-			(1,'ddrdsHUb','\0','687tyjhgkh',1,'rdshub/fg.gr'),(2,'dimisAwisc','\0','asjkladsjklfasdjdjerkljjls',0,'dimsAwisc/demo.com');
-
-			-- UNLOCK TABLES;
+			LOCK TABLES ldsh_remote_system WRITE;
+			INSERT INTO ldsh_remote_system VALUES (1,'rdsHub','\0','687tyjhgkh',1,'rdshub/fg.gr'),(2,'dimisAwisc','\0','asjkladsjklfasdjdjerkljjls',0,'dimsAwisc/demo.com');
+			UNLOCK TABLES;
 
 			--
 			-- Table structure for table sys_properties
 			--
-			DROP TABLE IF EXISTS sys_properties;
 
-			CREATE TABLE sys_properties (
-			sysPorp_id bigint(20) NOT NULL AUTO_INCREMENT,
-			name varchar(255) DEFAULT NULL,
-			value varchar(255) DEFAULT NULL,
-			PRIMARY KEY (sysPorp_id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+			DROP TABLE IF EXISTS ldsh_sys_properties;
+
+			CREATE TABLE ldsh_sys_properties (
+			  sysPorp_id bigint(20) NOT NULL AUTO_INCREMENT,
+			  name varchar(255) DEFAULT NULL,
+			  value varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (sysPorp_id),
+			  UNIQUE KEY name (name)
+			) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+			--
+			-- Dumping data for table sys_properties
+			--
+
+			LOCK TABLES ldsh_sys_properties WRITE;
+			INSERT INTO ldsh_sys_properties VALUES (1,'title','Athens Local Data Sharing Hub'),(2,'systemid','ath-ldsh'),(6,'email','email'),(7,'copyright','copy'),(8,'footerTxt','© 2017 - 2018 OpenWIS (Ath)'),(9,'homeTxt','Home page of Athens Local Data Sharing Hub'),(10,'ftpPassword','ftp pass'),(11,'ftpUrl','ftp url'),(12,'ftpUsername','ftp user name');
+			UNLOCK TABLES;
+
+			--
+			-- Table structure for table wmo_code
+			--
+
+			DROP TABLE IF EXISTS ldsh_wmo_code;
+
+			CREATE TABLE ldsh_wmo_code (
+			  code varchar(255) DEFAULT NULL,
+			  continent varchar(255) DEFAULT NULL,
+			  name varchar(255) DEFAULT NULL,
+			  uri varchar(255) DEFAULT NULL,
+			  wmo_code_id bigint(20) NOT NULL AUTO_INCREMENT,
+			  PRIMARY KEY (wmo_code_id)
+			) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 
-			-- Dump completed.
+			--
+			-- Dumping data for table wmo_code
+			--
 
+			LOCK TABLES ldsh_wmo_code WRITE;
+			INSERT INTO ldsh_wmo_code VALUES ('grib2/codeflag/4.2/3-1-19',NULL,'Wind speed',NULL,1),('grib2/codeflag/4.2/0-0-13',NULL,'Wind chill factor',NULL,2),('bufr4/codeflag/0-08-001/4',NULL,'Maximum wind level',NULL,3),('bufr4/codeflag/0-08-086/4',NULL,'Maximum wind level',NULL,4),('bufr4/codeflag/0-20-004/16',NULL,'Rain',NULL,5),('bufr4/codeflag/0-20-004/6',NULL,'Rain',NULL,6),('bufr4/codeflag/0-20-005/6',NULL,'Rain',NULL,7),('306/4678/RA',NULL,'Precipitation of rain',NULL,8),('bufr4/codeflag/0-20-003/280',NULL,'Precipitation of rain',NULL,9),('grib2/codeflag/4.2/0-1-34',NULL,'Categorical freezing rain',NULL,10),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,11),('grib2/codeflag/4.2/0-0-21',NULL,'Apparent temperature',NULL,12),('bufr4/b/12/024',NULL,'Dewpoint temperature',NULL,13),('grib2/codeflag/4.2/0-0-6',NULL,'Dewpoint temperature',NULL,14),('bufr4/b/12/152',NULL,'Highest daily mean temperature',NULL,15),('grib2/codeflag/4.2/0-0-5',NULL,'Minimum temperature',NULL,16),('bufr4/codeflag/0-08-050/8',NULL,'Minimum temperature',NULL,17),('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from which blowing)',NULL,18),('bufr4/b/12/103',NULL,'Dewpoint temperature',NULL,19),('grib2/codeflag/4.2/3-1-19',NULL,'Wind speed',NULL,20),('bufr4/codeflag/0-08-001/4',NULL,'Maximum wind level',NULL,21),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,22),('grib2/codeflag/4.2/3-1-19',NULL,'Wind speed',NULL,23),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,24),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,25),('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from which blowing)',NULL,26),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,27),('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from which blowing)',NULL,28),('grib2/codeflag/4.2/3-1-19','','Wind speed','',29),('bufr4/b/12/024','','Dewpoint temperature','',30),('bufr4/codeflag/0-20-004/16','','Rain','',31),('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,33),('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from which blowing)',NULL,34),('grib2/codeflag/4.2/3-1-19','','Wind speed','',35);
+			UNLOCK TABLES;
 
 		</sql>
 	</changeSet>

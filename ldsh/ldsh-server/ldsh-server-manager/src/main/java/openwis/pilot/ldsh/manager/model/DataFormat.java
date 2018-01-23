@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "data_format")
+@Table(name = "ldsh_data_format")
 public class DataFormat implements Serializable {
 	
 

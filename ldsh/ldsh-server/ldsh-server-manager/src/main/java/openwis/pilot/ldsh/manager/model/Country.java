@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "country")
+@Table(name = "ldsh_country")
 public class Country implements Serializable {
 	
 	/**
