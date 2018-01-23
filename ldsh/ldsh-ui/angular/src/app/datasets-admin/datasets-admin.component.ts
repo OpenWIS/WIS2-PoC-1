@@ -56,8 +56,21 @@ export class DatasetsAdminComponent implements OnInit {
     this.router.navigate(['/view'], { queryParams: { "id": id } });
   }
   addNewDataset() {
-    // TODO add new mock new id 100;
-    this.router.navigate(['/submit'], { queryParams: { "id": 100 } });
+    this.router.navigate(['/submit'], { queryParams: {} });
+
+  }
+
+
+  deleteDataset(id: string) {
+console.log(id);
+    this.dataService.getCall("/cxf/api/deleteDataset/id=" + id).then(result => {
+      
+      console.log("After delete..");
+
+      console.log(result);
+
+      this.ngOnInit();
+    })
 
   }
 

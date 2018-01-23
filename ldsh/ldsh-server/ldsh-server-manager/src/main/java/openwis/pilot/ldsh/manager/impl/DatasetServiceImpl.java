@@ -27,8 +27,10 @@ import openwis.pilot.ldsh.manager.service.DatasetService;
 
 
 
+
 //import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+
 
 
 
@@ -50,8 +52,10 @@ public class DatasetServiceImpl implements DatasetService {
 
 
 	@Override
-	public DatasetDTO getDataSet(long id) {
+	public DatasetDTO getDataSet(Long id) {
+		
 		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
+
 		if (dataset == null) {
 			System.out.println("NO Datset found.");
 			return null;
@@ -60,15 +64,13 @@ public class DatasetServiceImpl implements DatasetService {
 	}
 
 
-	@Transactional
 	@Override
+	@Transactional
 	public DatasetDTO saveDataset(DatasetDTO datasetDto) {
 		
 		try {
-			
-			final Dataset ds = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(datasetDto.getId())).fetchOne();
-			
-			if (ds != null) {
+			if (datasetDto.getId()!= null){
+				//final Dataset ds = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(datasetDto.getId())).fetchOne();
 				em.merge(new DatasetMapperImpl().toDataset(datasetDto));
 			} else {
 				em.persist(new DatasetMapperImpl().toDataset(datasetDto));
@@ -116,6 +118,28 @@ public class DatasetServiceImpl implements DatasetService {
 			countrytList.add(new CountryMapperImpl().toCountryDTO(c));
 		}
 		return countrytList;
+	}
+
+
+	@Override
+	@Transactional
+	public Boolean deleteDataset(Long id) {
+		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
+		
+		try {
+			if (dataset != null) {
+				logger.log(Level.INFO, "*** Deleting ... "+dataset.getName());	
+				em.remove(dataset);
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error", e);
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
 	}
 
 }

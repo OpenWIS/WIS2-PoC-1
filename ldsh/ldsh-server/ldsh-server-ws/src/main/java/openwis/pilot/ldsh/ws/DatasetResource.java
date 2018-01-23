@@ -64,8 +64,7 @@ public class DatasetResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response userVerification(DatasetDTO dataset) {
     	logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
-System.out.println("NEW "+ dataset.toString());
-//		pollingService.poll();
+
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
@@ -75,6 +74,21 @@ System.out.println("NEW "+ dataset.toString());
                 .build();
     }
     
+    
+    
+    @GET
+    @Path("/deleteDataset/id={id}")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteDataset(@PathParam("id") long id) {
+        return Response.ok(datasetService.deleteDataset(id))
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+        .build();
+    }
+
     
     
 
@@ -92,7 +106,6 @@ System.out.println("NEW "+ dataset.toString());
     }
 
     
-//    getCountries() 
     @GET
     @Path("/getAllCountries")
     @CrossOriginResourceSharing(allowAllOrigins = true)
@@ -107,8 +120,6 @@ System.out.println("NEW "+ dataset.toString());
     }
     
     
-//    getDataFormats()
-
     @GET
     @Path("/getAllDataFormats")
     @CrossOriginResourceSharing(allowAllOrigins = true)
