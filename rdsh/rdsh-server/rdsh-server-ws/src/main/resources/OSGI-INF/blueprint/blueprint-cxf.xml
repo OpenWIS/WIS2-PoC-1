@@ -2,8 +2,7 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
     <jaxrs:server address="/rdsh-api" id="rdshServer">
         <jaxrs:serviceBeans>
-            <ref component-id="login" />
-            <ref component-id="helloWorldResource" />
+            <ref component-id="lDSHResource" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>

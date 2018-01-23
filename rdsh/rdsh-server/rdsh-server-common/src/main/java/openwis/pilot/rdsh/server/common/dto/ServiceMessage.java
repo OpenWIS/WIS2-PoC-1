@@ -7,30 +7,27 @@ import java.io.Serializable;
 
 public class ServiceMessage implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8429010260399049889L;
+  private static final long serialVersionUID = 8429010260399049889L;
 
-	private MessageCode code;
-	private MessageType type;
+  private MessageCode code;
+  private MessageType type;
 
-	public MessageCode getCode() {
-		return code;
-	}
+  public MessageCode getCode() {
+    return code;
+  }
 
-	public ServiceMessage setCode(MessageCode code) {
-		this.code = code;
-		return this;
-	}
+  public ServiceMessage setCode(MessageCode code) {
+    this.code = code;
+    return this;
+  }
 
-	public MessageType getType() {
-		return type;
-	}
+  public MessageType getType() {
+    return type;
+  }
 
-	public ServiceMessage setType(MessageType type) {
-		this.type = type;
-		return this;
-	}
+  public ServiceMessage setType(MessageType type) {
+    this.type = type;
+    return this;
+  }
 
 }

@@ -1,12 +1,12 @@
 ## Installation
  
 ### Configure the managed datasource
-config:edit org.ops4j.datasource-ldsh
+config:edit org.ops4j.datasource-openwis
 config:property-set user root
 config:property-set password root
-config:property-set url jdbc:mysql://localhost:3306/rdsh?autoReconnect=true&createDatabaseIfNotExist=true
-config:property-set databaseName rdsh
-config:property-set dataSourceName rdshDS
+config:property-set url jdbc:mysql://localhost:3306/openwis?autoReconnect=true&createDatabaseIfNotExist=true
+config:property-set databaseName openwis
+config:property-set dataSourceName openwisDS
 config:property-set osgi.jdbc.driver.name mysql
 config:property-set osgi.jpa.properties.hibernate.dialect org.hibernate.dialect.MySQL5InnoDBDialect
 config:property-set pool dbcp2
@@ -19,7 +19,7 @@ config:update
  
 ### Configure Liquibase to use the RDSH datasource
 config:edit com.eurodyn.qlack2.util.liquibase
-config:property-set datasource rdshDS
+config:property-set datasource openwisDS
 config:update
  
 ### Install RDSH Karaf features repository

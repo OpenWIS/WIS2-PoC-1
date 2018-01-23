@@ -121,6 +121,16 @@
       <artifactId>pax-cdi-api</artifactId>
       <version>${pax.cdi.version}</version>
     </dependency>
+    <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>javax.transaction-api</artifactId>
+      <version>${javax.transaction.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
   </dependencies>
 </project>
 

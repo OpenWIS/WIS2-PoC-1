@@ -5,32 +5,16 @@ import {
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule
   , MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule
   , MatTabsModule, MatTableModule, MatCheckboxModule, MatRadioModule, MatAutocompleteModule,
-   MatChipsModule, MatTooltipModule,
+  MatChipsModule, MatTooltipModule, MatSnackBar, MatSnackBarModule, MatDialogModule,
 
 } from '@angular/material';
-
-// , MatCardModule, MatIconModule,
-// MatMenuModule, 
-//  MatSlideToggleModule, ,
-//  , MatSnackBarModule, 
-//    MatSliderModule, , MatButtonToggleModule
-
-
 
 const MATERIAL_MODULES: any[] = [
   MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatInputModule,
   MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule,
   MatTabsModule, MatTableModule,MatCheckboxModule, MatRadioModule, MatAutocompleteModule,
-  MatChipsModule, MatTooltipModule,
+  MatChipsModule, MatTooltipModule, MatSnackBarModule, MatDialogModule
 ];
-
-// , MatCardModule, MatIconModule,
-// MatListModule, MatMenuModule, 
-// MatSlideToggleModule, , ,
-// MatToolbarModule, MatSnackBarModule, MatSidenavModule,
-// MatButtonToggleModule, , , MatSliderModule,
-
-
 
 @NgModule({
   imports: [

@@ -1,21 +1,18 @@
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-
-// component list:
 import { SettingsComponent } from "./settings/settings.component";
-import { LdshsAdminComponent } from "./ldshs-admin/ldshs-admin.component";
 import { QueueAdminComponent } from "./queue-admin/queue-admin.component";
-import { LdshsMainComponent } from "./ldshs-main/ldshs-main.component";
-import { LdshsEditComponent } from "./ldshs-edit/ldshs-edit.component";
 import { QueueEditComponent } from "./queue-edit/queue-edit.component";
 import { QueueMonitorComponent } from "./queue-monitor/queue-monitor.component";
-import { LdshsViewComponent } from "./ldshs-view/ldshs-view.component";
 import { QueueViewComponent } from "./queue-view/queue-view.component";
+import {LdshsAdminComponent} from "./ldsh/ldshs-admin/ldshs-admin.component";
+import {HomeComponent} from "./home/home.component";
+import {LdshsEditComponent} from "./ldsh/ldshs-edit/ldshs-edit.component";
 
 export const routerConfig: Routes = [
   {
     path: "home",
-    component: LdshsMainComponent
+    component: HomeComponent
   },
   {
     path: "ldshs",
@@ -30,10 +27,13 @@ export const routerConfig: Routes = [
     component: SettingsComponent
   },
   {
-    path: "ldshEdit",
+    path: "ldsh-edit/:ldshId",
     component: LdshsEditComponent
   },
-
+  {
+    path: "ldsh-edit",
+    component: LdshsEditComponent
+  },
   {
     path: "queueEdit",
     component: QueueEditComponent
@@ -41,10 +41,6 @@ export const routerConfig: Routes = [
   {
     path: "monitor",
     component: QueueMonitorComponent
-  },
-  {
-    path: "ldshView",
-    component: LdshsViewComponent
   },
   {
     path: "queueView",
