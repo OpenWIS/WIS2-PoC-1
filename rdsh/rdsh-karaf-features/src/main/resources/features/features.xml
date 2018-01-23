@@ -7,6 +7,7 @@
   <repository>mvn:com.eurodyn.qlack2.util/qlack2-util-karaf-features/${qlack2.version}/xml/features</repository>
   <repository>mvn:com.eurodyn.qlack2.util/qlack2-util-repack-karaf-features/${qlack2.version}/xml/features</repository>
   <repository>mvn:com.eurodyn.qlack2.common/qlack2-common-karaf-features/${qlack2.version}/xml/features</repository>
+  <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
 
   <feature name="rdsh" version="${project.version}">
   	<feature>rdsh-deps</feature>
@@ -22,6 +23,9 @@
     <feature>qlack2-util-repack-jackson-rs</feature>
     <feature>qlack2-util-rest</feature>
     <feature>qlack2-common-util</feature>
+    <feature>camel-blueprint</feature>
+    <feature>camel-cdi</feature>
+    <feature>camel-mqtt</feature>
     <bundle>mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
     <bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>

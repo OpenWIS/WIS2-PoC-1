@@ -21,6 +21,13 @@ config:update
 config:edit com.eurodyn.qlack2.util.liquibase
 config:property-set datasource openwisDS
 config:update
+
+### Configure Config Admin properties
+config:edit openwis.rdsh
+config:property-set mqtt_host tcp://localhost:1883
+config:property-set mqtt_username admin
+config:property-set mqtt_password admin
+config:update
  
 ### Install RDSH Karaf features repository
 feature:repo-add mvn:openwis.pilot.rdsh/rdsh-karaf-features/LATEST/xml/features

@@ -30,6 +30,7 @@ public class LDSHServiceImpl implements LDSHService {
   private static QUser qUser = QUser.user;
   private static QLdsh qLdsh = QLdsh.ldsh;
 
+  // Entity Manager ref.
   @PersistenceContext(unitName = "rdsh-pu")
   private EntityManager em;
 

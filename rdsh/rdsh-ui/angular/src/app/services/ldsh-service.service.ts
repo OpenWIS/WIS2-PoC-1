@@ -20,7 +20,7 @@ export class LdshService {
 
   // Save or create an LDSH.
   save(ldshDTO: LDSHDTO): any {
-    return this.http.post(environment.CONSTANTS.API_ROOT + "/ldsh/", JSON.stringify(ldshDTO),
+    return this.http.post(environment.CONSTANTS.API_ROOT + "/ldsh", JSON.stringify(ldshDTO),
       {headers:{'Content-Type': 'application/json'}});
   }
 

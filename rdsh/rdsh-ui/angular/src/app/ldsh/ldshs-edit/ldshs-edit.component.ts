@@ -56,7 +56,7 @@ export class LdshsEditComponent implements OnInit {
   }
 
   // Save LDSH handler.
-  onSubmit({ value, valid }: { value: LDSHDTO, valid: boolean }) {
+  onSubmit({ value }: { value: LDSHDTO }) {
     this.ldshService.save(value).subscribe(
       onNext => {
         this.snackBar.open('LDSH was saved successfully.', null, {

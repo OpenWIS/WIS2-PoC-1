@@ -3,6 +3,7 @@
     <jaxrs:server address="/rdsh-api" id="rdshServer">
         <jaxrs:serviceBeans>
             <ref component-id="lDSHResource" />
+            <ref component-id="settingsResource" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>

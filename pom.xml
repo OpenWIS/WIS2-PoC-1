@@ -36,10 +36,9 @@
     <mapstruct.version>1.1.0.Final</mapstruct.version>
     <querydsl.version>4.0.7</querydsl.version>
     <apt-maven-plugin.version>1.1.3</apt-maven-plugin.version>
-	  <camel.version>2.18.2</camel.version>
     <javax.transaction.version>1.2</javax.transaction.version>
     <commons-lang3.version>3.6</commons-lang3.version>
-	
+    <camel.version>2.18.2</camel.version>
   </properties>
 
   <build>

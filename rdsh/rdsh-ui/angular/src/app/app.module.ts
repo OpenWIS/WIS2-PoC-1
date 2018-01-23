@@ -16,6 +16,7 @@ import {HomeComponent} from "./home/home.component";
 import {LdshsEditComponent} from "./ldsh/ldshs-edit/ldshs-edit.component";
 import {LdshService} from "./services/ldsh-service.service";
 import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
+import {SettingsService} from "./services/settings-service.service";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
     HttpClientModule
   ],
   providers: [
-    LdshService
+    LdshService, SettingsService
   ],
   entryComponents: [OkCancelDialogComponent],
   bootstrap: [AppComponent]
