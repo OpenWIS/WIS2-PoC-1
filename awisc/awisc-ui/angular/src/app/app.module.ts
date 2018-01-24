@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { routing } from './app.routes';
@@ -14,7 +14,9 @@ import { LdshsAdminComponent } from './ldshs-admin/ldshs-admin.component';
 import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
 import { LdshsViewComponent } from './ldshs-view/ldshs-view.component';
 import {HttpClientModule} from "@angular/common/http";
-
+import { HttpModule, Http } from '@angular/http';
+import { RestClient } from './_services/rest.client';
+import { MatSnackBarModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -32,13 +34,16 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule,
     routing,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule,
+    MatSnackBarModule
   ],
   
   
-  providers: [],
+  providers: [RestClient],
    bootstrap: [AppComponent]
 })
 

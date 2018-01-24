@@ -8,17 +8,14 @@ public class Constants {
 
 	}
 
-	public static interface MessageCode {
 
-	}
-
-	public static enum ResponseCode implements MessageCode {
+	public static enum MessageCode {
 
 		LOGIN_SUCCESS, LOGOUT_SUCCESS
 
 	}
 
-	public static enum ErrorCode implements MessageCode {
+	public static enum ErrorCode {
 
 		UNEXPECTED_ERROR, UNAUTHORIZED, FORBIDDEN, LOGIN_FAILURE, LOGOUT_FAILURE
 

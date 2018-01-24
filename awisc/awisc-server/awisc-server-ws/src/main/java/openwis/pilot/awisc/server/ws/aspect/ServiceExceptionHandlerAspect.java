@@ -1,15 +1,15 @@
 package openwis.pilot.awisc.server.ws.aspect;
 
-import openwis.pilot.awisc.server.common.dto.ServiceMessage;
-import openwis.pilot.awisc.server.common.exception.ServiceException;
-import openwis.pilot.awisc.server.common.util.Constants;
-import openwis.pilot.awisc.server.ws.util.WebUtil;
+import java.util.logging.Logger;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
-import java.util.logging.Logger;
+import openwis.pilot.awisc.server.common.dto.ServiceError;
+import openwis.pilot.awisc.server.common.exception.ServiceException;
+import openwis.pilot.awisc.server.ws.util.WebUtil;
 
 @Aspect
 public class ServiceExceptionHandlerAspect {
@@ -32,10 +32,9 @@ public class ServiceExceptionHandlerAspect {
 		}
 		catch (Throwable t) {
 			ServiceException se = ServiceException.wrap(t);
-			ServiceMessage sm = new ServiceMessage().setType(Constants.MessageType.ERROR)
-					.setCode(se.getErrorCode());
+			ServiceError ser = new ServiceError(se.getErrorCode());
 
-			return WebUtil.buildResponse(sm);
+			return WebUtil.buildResponse(ser);
 		}
 
 	}

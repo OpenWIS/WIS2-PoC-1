@@ -9,11 +9,10 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 
+import openwis.pilot.awisc.server.common.dto.ServiceError;
 import openwis.pilot.awisc.server.common.dto.ServiceMessage;
 import openwis.pilot.awisc.server.common.exception.ServiceException;
-import openwis.pilot.awisc.server.common.util.Constants;
 import openwis.pilot.awisc.server.common.util.Constants.ErrorCode;
-import openwis.pilot.awisc.server.common.util.Constants.MessageType;
 
 public class WebUtil {
 
@@ -46,29 +45,29 @@ public class WebUtil {
 	}
 	
 	public static ResponseBuilder getResponseBuilder(ServiceMessage sm) {
+		Status status = Status.ACCEPTED;
+		ResponseBuilder builder = Response.ok(sm);
+		return builder.status(status);
+		//return appendCorsHeaders(builder.status(status));
+	}
+	
+	public static Response buildResponse(ServiceError se) {
+		return getResponseBuilder(se).build();
+	}
+	
+	public static ResponseBuilder getResponseBuilder(ServiceError se) {
 		Status status = null;
-		ResponseBuilder builder = null;
-		if(MessageType.INFORMATION.equals(sm.getType())) {
-			status = Status.ACCEPTED;
-			builder = Response.ok(sm);
-		}
-		else if(ErrorCode.FORBIDDEN.equals(sm.getCode())) {
+		ResponseBuilder builder = Response.serverError();
+		if(ErrorCode.FORBIDDEN.equals(se.getCode())) {
 			status = Status.FORBIDDEN;
-			builder = Response.serverError();
 		}
-		else if(ErrorCode.UNAUTHORIZED.equals(sm.getCode())) {
+		else if(ErrorCode.UNAUTHORIZED.equals(se.getCode())) {
 			status = Status.UNAUTHORIZED;
-			builder = Response.serverError();
 		}
 		else {
-			status = Status.ACCEPTED;
-			builder = Response.ok(sm);
+			status = Status.INTERNAL_SERVER_ERROR;
 		}
-		
-		return appendCorsHeaders(builder.status(status));
+		return appendCorsHeaders(Response.status(status).entity(se));
 	}
-
-	ServiceMessage sm = new ServiceMessage().setType(Constants.MessageType.ERROR)
-			.setCode(Constants.ErrorCode.UNAUTHORIZED);
 
 }

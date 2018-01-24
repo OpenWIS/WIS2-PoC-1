@@ -5,7 +5,7 @@
 ### Configure the managed datasource
 config:edit org.ops4j.datasource-awisc
 config:property-set user root
-config:property-set password ____PASSWORD____
+config:property-set password jijikos
 config:property-set url jdbc:mysql://localhost:3306/awisc?autoReconnect=true&createDatabaseIfNotExist=true
 config:property-set dataSourceName awiscDS
 config:property-set osgi.jdbc.driver.name mysql
@@ -37,7 +37,3 @@ feature:install awisc-deps
  
 ### Install the server feature
 feature:install awisc-server
-502 file changes in working directory
-View changes
-commit:90046d
-Updated installation instructions
