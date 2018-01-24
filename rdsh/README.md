@@ -27,6 +27,7 @@ config:edit openwis.rdsh
 config:property-set mqtt_host tcp://localhost:1883
 config:property-set mqtt_username admin
 config:property-set mqtt_password admin
+config:property-set jwt_secret 7fa6c11b-b8d4-1adb-c60d-1f6efbeec457
 config:update
  
 ### Install RDSH Karaf features repository

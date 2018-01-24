@@ -17,6 +17,11 @@ import {LdshsEditComponent} from "./ldsh/ldshs-edit/ldshs-edit.component";
 import {LdshService} from "./services/ldsh-service.service";
 import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
 import {SettingsService} from "./services/settings-service.service";
+import {AuthGuard} from "./guards/auth.guard";
+import { LoginComponent } from './auth/login.component';
+import {AuthService} from "./services/auth.service";
+import {JwtModule} from "@auth0/angular-jwt";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -30,6 +35,7 @@ import {SettingsService} from "./services/settings-service.service";
     QueueMonitorComponent,
     QueueViewComponent,
     OkCancelDialogComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,10 +43,17 @@ import {SettingsService} from "./services/settings-service.service";
     MaterialModule,
     ReactiveFormsModule,
     routing,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+        }
+      }
+    })
   ],
   providers: [
-    LdshService, SettingsService
+    LdshService, SettingsService, AuthGuard, AuthService
   ],
   entryComponents: [OkCancelDialogComponent],
   bootstrap: [AppComponent]

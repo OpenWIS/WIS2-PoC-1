@@ -6,7 +6,6 @@ import {LdshService} from "../../services/ldsh-service.service";
 import {MatSnackBar} from "@angular/material";
 import {LDSHDTO} from "../../dto/LDSH.dto";
 
-
 @Component({
   selector: 'app-ldshs-edit',
   templateUrl: './ldshs-edit.component.html',

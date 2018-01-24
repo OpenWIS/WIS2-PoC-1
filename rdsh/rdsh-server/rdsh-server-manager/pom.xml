@@ -92,6 +92,21 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>openwis.pilot</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.eurodyn.qlack2.fuse</groupId>
+      <artifactId>qlack2-fuse-crypto-api</artifactId>
+      <version>${qlack2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.eurodyn.qlack2.util</groupId>
+      <artifactId>qlack2-util-jwt</artifactId>
+      <version>${qlack2.version}</version>
+    </dependency>
+    <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
       <version>${jjwt.version}</version>

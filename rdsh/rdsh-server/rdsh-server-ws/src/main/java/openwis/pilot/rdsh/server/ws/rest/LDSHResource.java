@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import openwis.pilot.common.security.JWTNeeded;
 import openwis.pilot.rdsh.server.common.dto.LDSHDTO;
 import openwis.pilot.rdsh.server.manager.service.LDSHService;
 import org.ops4j.pax.cdi.api.OsgiService;
@@ -43,6 +44,7 @@ public class LDSHResource {
    * or an empty reply.
    */
   @GET
+  @JWTNeeded
   @Path("{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getLDSH(@PathParam("id") String ldshId) {
@@ -55,6 +57,7 @@ public class LDSHResource {
    * @return The Id of the newly created or saved LDSH.
    */
   @POST
+  @JWTNeeded
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public Response saveLDSH(LDSHDTO ldshDTO) {
@@ -66,6 +69,7 @@ public class LDSHResource {
    * @param ldshId The Id of the LDSH to delete.
    */
   @DELETE
+  @JWTNeeded
   @Path("{id}")
   public Response deleteLDSH(@PathParam("id") String ldshId) {
     ldshService.deleteLDSH(ldshId);

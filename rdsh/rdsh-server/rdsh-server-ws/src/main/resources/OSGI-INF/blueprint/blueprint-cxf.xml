@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+  xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+  xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+
+  <cm:property-placeholder persistent-id="openwis.rdsh" update-strategy="reload"/>
+
+    <bean id="authFilter" class="openwis.pilot.common.security.JWTNeededFilter">
+      <property name="secret" value="${jwt_secret}"/>
+    </bean>
+
     <jaxrs:server address="/rdsh-api" id="rdshServer">
         <jaxrs:serviceBeans>
             <ref component-id="lDSHResource" />
             <ref component-id="settingsResource" />
+            <ref component-id="jWTResource" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
+            <ref component-id="authFilter"/>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
             <bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
             <bean

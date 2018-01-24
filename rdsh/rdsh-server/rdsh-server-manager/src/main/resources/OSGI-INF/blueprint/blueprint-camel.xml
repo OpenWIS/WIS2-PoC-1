@@ -29,7 +29,7 @@
 
     <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="camelRDSH" trace="true">
       <route customId="true" id="mqttTows">
-        <from uri="mqtt:IoT?host={{mqtt.host}}&amp;subscribeTopicName=iot-mqtt&amp;userName={{mqtt.username}}&amp;password={{mqtt.password}}"/>
+        <from uri="mqtt:IoT?host={{mqtt_host}}&amp;subscribeTopicName=iot-mqtt&amp;userName={{mqtt_username}}&amp;password={{mqtt_password}}"/>
         <log message="Message: ${body}" loggingLevel="INFO" customId="true" id="iot_log"/>
       </route>
         <!--&lt;!&ndash; Post to index1 &ndash;&gt;-->
