@@ -4,7 +4,7 @@ public class WebConstants {
 	
 	public static class Headers{
 		
-		public static final String X_AUTHORIZATION = "X-Authorization";
+		public static final String AUTHORIZATION = "Authorization";
 		
 	}
 

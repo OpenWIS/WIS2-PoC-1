@@ -17,7 +17,7 @@ import openwis.pilot.awisc.server.common.util.Constants.ErrorCode;
 public class WebUtil {
 
 	public static String getXAuthorizationToken(HttpHeaders httpHeaders) throws ServiceException {
-		List<String> header = httpHeaders.getRequestHeader(WebConstants.Headers.X_AUTHORIZATION);
+		List<String> header = httpHeaders.getRequestHeader(WebConstants.Headers.AUTHORIZATION);
 		if (header.size() == 0) {
 			throw new ServiceException(ErrorCode.UNAUTHORIZED);
 		}

@@ -16,7 +16,10 @@ import { LdshsViewComponent } from './ldshs-view/ldshs-view.component';
 import {HttpClientModule} from "@angular/common/http";
 import { HttpModule, Http } from '@angular/http';
 import { RestClient } from './_services/rest.client';
+import { ErrorUtil } from './_services/error.util';
+import { SuccessUtil } from './_services/success.util';
 import { MatSnackBarModule } from "@angular/material";
+import { AuthModule} from './_modules/auth.module';
 
 @NgModule({
   declarations: [
@@ -39,11 +42,12 @@ import { MatSnackBarModule } from "@angular/material";
     routing,
     HttpClientModule,
     HttpModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AuthModule
   ],
   
   
-  providers: [RestClient],
+  providers: [RestClient, ErrorUtil, SuccessUtil],
    bootstrap: [AppComponent]
 })
 

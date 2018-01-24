@@ -49,7 +49,7 @@ public class Login implements HasHttpHeaders {
 	public Response login(UserDTO user) throws ServiceException {
 		UserDTO fromDb = loginService.login(user);
 		return WebUtil.getResponseBuilder(new ServiceMessage(MessageCode.LOGIN_SUCCESS))
-				.header(WebConstants.Headers.X_AUTHORIZATION, JwtUtil.createJWT(fromDb.getId())).build();
+				.header(WebConstants.Headers.AUTHORIZATION, JwtUtil.createJWT(fromDb.getId())).build();
 				
 	}
 

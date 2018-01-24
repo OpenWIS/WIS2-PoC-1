@@ -95,6 +95,18 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
+					
+					 <!-- It will execute command install angular2-jwt -->
+					<execution>
+						<id>npm install angular2-jwt</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save hammerjs</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
 
                     <!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>

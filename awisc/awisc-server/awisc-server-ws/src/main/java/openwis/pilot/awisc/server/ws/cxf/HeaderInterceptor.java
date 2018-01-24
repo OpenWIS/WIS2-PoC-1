@@ -20,7 +20,8 @@ public class HeaderInterceptor extends AbstractPhaseInterceptor<Message>{
 	@Override
 	public void handleMessage(Message message) throws Fault {
 		HttpServletResponse response = (HttpServletResponse) message.get(AbstractHTTPDestination.HTTP_RESPONSE);
-		response.addHeader(CorsHeaderConstants.HEADER_AC_EXPOSE_HEADERS, WebConstants.Headers.X_AUTHORIZATION);
+		response.addHeader(CorsHeaderConstants.HEADER_AC_EXPOSE_HEADERS, WebConstants.Headers.AUTHORIZATION);
+		response.addHeader(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, WebConstants.Headers.AUTHORIZATION);
 	}
 
 }

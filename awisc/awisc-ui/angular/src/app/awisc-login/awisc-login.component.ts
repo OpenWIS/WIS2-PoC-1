@@ -50,29 +50,37 @@ export class AwiscLoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.user);
     this.restClient
-      .post("/login", null, this.user)
-      .subscribe(this.onLoginSuccess, this.onLoginError);
+      .postUnauthorized("/login", null, this.user, this.onLoginSuccess, null)
+      .subscribe();
   }
 
-  onLoginSuccess = response => {
-    console.log(response);
-    console.log(response.json());
-    var token = response.headers.get("X-Authorization");
-    alert(token);
-    // this.storage.set('token', token).then(() => {
-    //   this.crudService.getToken().then(() => this.sendHeaderMessage('mainComponent', 'home', 'Home', 'homePageNavBar'));
-    // });
+  logout() {
+    this.restClient
+      .post("/logout", null, null, null, null)
+      .subscribe();
+  }
+
+  onLogoutSuccess = response => {
+    localStorage.removeItem('jwtToken');
   };
 
-  onLoginError = errorObservable => {
-    this.user.username = null;
-    this.user.password = null;
-    var errorObject = JSON.parse(errorObservable.error);
-    this.snackBar.open(errorObject.code, "Close", {
-      duration: 10000,
-      verticalPosition: "top"
-    });
+  // onLogoutError = errorObservable => {
+  //   this.user.username = null;
+  //   this.user.password = null;
+  //   var errorObject = JSON.parse(errorObservable.error);
+  //   this.snackBar.open(errorObject.code, "Close", {
+  //     duration: 10000,
+  //     verticalPosition: "top"
+  //   });
+  // };
+
+  onLoginSuccess = response => {
+    var token = response.headers.get("Authorization");
+    localStorage.setItem('jwtToken', token.substring('Bearer '.length));
   };
+
+  // onLoginError = errorObservable => {
+  //   alert('lalala');
+  // };
 }
