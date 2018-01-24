@@ -5,42 +5,99 @@
   </mat-toolbar>
 
   <div style="padding:2em;">
-    <form novalidate [formGroup]="metadataForm" class="field-full-width">
-      <div>
-        <mat-form-field class="mat-form">
-          <input matInput placeholder="System Title" formControlName="title">
-        </mat-form-field>
-        <div class="error" *ngIf="metadataForm.get('title').touched && metadataForm.get('title').hasError('required')">
-            System Title is required
-        </div>
-      </div>
+    <form novalidate *ngIf="metadataForm" [formGroup]="metadataForm" class="field-full-width">
+      <mat-tab-group>
 
-      <div>
-          <mat-form-field class="mat-form">
-            <input matInput placeholder="System ID" formControlName="title">
-          </mat-form-field>
-          <div class="error" *ngIf="metadataForm.get('systemId').touched && metadataForm.get('systemId').hasError('required')">
+
+        <mat-tab label="System configuration">
+          <div style="height: 1.2em;"></div>
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="System Title" formControlName="title">
+            </mat-form-field>
+            <div class="error" *ngIf="metadataForm.get('title').touched && metadataForm.get('title').hasError('required')">
+              System Title is required
+            </div>
+
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="System ID" formControlName="systemid">
+            </mat-form-field>
+            <div class="error" *ngIf="metadataForm.get('systemid').touched && metadataForm.get('systemid').hasError('required')">
               System ID is required
+            </div>
           </div>
-        </div>
 
-      <div>
-        <mat-form-field class="mat-form">
-          <input matInput placeholder="Contact Email" formControlName="email">
-        </mat-form-field>
-        <div class="error" *ngIf="metadataForm.get('email').touched && metadataForm.get('email').hasError('required')">
-          URL is required
-        </div>
-      </div>
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Contact Email" formControlName="email">
+            </mat-form-field>
+            <div class="error" *ngIf="metadataForm.get('email').touched && metadataForm.get('email').hasError('required')">
+              URL is required
+            </div>
 
-      <div>
-        <mat-form-field class="mat-form">
-          <input matInput placeholder="Copyright" formControlName="copyright">
-        </mat-form-field>
-      </div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Copyright" formControlName="copyright">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Footer Text" formControlName="footerTxt">
+            </mat-form-field>
+            <div class="error" *ngIf="metadataForm.get('email').touched && metadataForm.get('email').hasError('required')">
+              URL is required
+            </div>
+          </div>
+          <div>
+            <mat-form-field class="field-full-width" style="width:60%;">
+              <textarea matInput placeholder="Home page wellcome text" formControlName="homeTxt" matTextareaAutosize matAutosizeMinRows="5"
+                matAutosizeMaxRows="20" class="field-full-width" rows="5"></textarea>
+            </mat-form-field>
+          </div>
+
+
+        </mat-tab>
+
+        <mat-tab label="Polling Service">
+          <!-- Start Stop Polling mechanism -->
+          <div>
+            <br>
+            <div>
+              Status: {{pollingServiceStatus}}
+            </div>
+            <br>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Ftp server base url" formControlName="ftpUrl">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="FTP user name" formControlName="ftpUsername">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="FTP password" formControlName="ftpPassword">
+            </mat-form-field>
+          </div>
+          <!-- Start Stop Polling mechanism set up polling meg -->
+
+          <div style="padding:2em;">
+            <button mat-button (click)="startPolling()">Start</button>
+            <button mat-button (click)="stopPolling()">Stop</button>
+          </div>
+
+        </mat-tab>
+
+
+      </mat-tab-group>
 
       <div>
         <button mat-button (click)="onSubmit()">Save</button>
-        <button mat-button class="cancel-button">Cancel</button>
+        <button mat-button class="cancel-button" (click)="clear()">Cancel</button>
       </div>
+
+
     </form>

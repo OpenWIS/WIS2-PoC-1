@@ -4,12 +4,15 @@
   <mat-toolbar-row class="header">
     <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
 
-    <p>Local Data Sharing Hub</p>
+    <a class="nav-link" style="text-decoration: none !important;" routerLink="home">
+      <p> {{SystemTitleText}}</p>
+    </a>
+
     <span class="ui-spacer"></span>
     <button mat-icon-button class="transparent" (click)="navigateToMenu()">
-        <mat-icon class="ui-icon" aria-label="Menu">build</mat-icon>
+      <mat-icon class="ui-icon" aria-label="Menu">build</mat-icon>
     </button>
-    
+
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -51,7 +54,8 @@
 
 <footer class="footer">
   <div layout="row" layout-align="center center">
-    <div class="footer-message">&copy; 2017 - 2018 OpenWIS</div>
+    <!-- &copy; 2017 - 2018 OpenWIS -->
+    <div class="footer-message">{{footerTex}}</div>
 
   </div>
 

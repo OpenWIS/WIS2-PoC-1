@@ -14,10 +14,14 @@ export class DatasetsMainComponent implements OnInit {
   displayedColumns = ['name', 'description', 'url'];
   dataSource = new MatTableDataSource<Element>(datasetList);
 
+  homePageText :String = "Not defined";
+
+
   constructor(private dataService: DataService, private router: Router) { }
 
 
   ngOnInit() {
+    this.loadProperties();
     this.loadDatasets();
   }
 
@@ -27,8 +31,14 @@ export class DatasetsMainComponent implements OnInit {
   }
 
   loadDatasets() {
-    this.dataService.getCall("/cxf/api/getAllDatasets").then(result => {
+    this.dataService.getCall("getAllDatasets").then(result => {
       this.loadDatasetsTable(result);
+    })
+  }
+
+  loadProperties(){
+    this.dataService.getCall("getSettings").then(result => {
+      this.homePageText = result.homeTxt;
     })
   }
 

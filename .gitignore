@@ -58,7 +58,8 @@ awisc/awisc-karaf-features/target
 ldsh/ldsh-server/ldsh-server-dto/target
 ldsh/ldsh-server/ldsh-server-manager/target
 ldsh/ldsh-server/ldsh-server-ws/target
-/.metadata/
+.metadata
+target
 
 awisc/awisc-karaf-features/\.project
 

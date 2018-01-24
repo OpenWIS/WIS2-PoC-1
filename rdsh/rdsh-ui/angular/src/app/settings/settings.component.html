@@ -1,0 +1,62 @@
+<div class="box">
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>System Settings</p>
+    <span class="ui-spacer"></span>
+  </mat-toolbar>
+
+  <div style="padding:2em;">
+    <form novalidate [formGroup]="settingsForm" (ngSubmit)="onSubmit()" class="field-full-width">
+      <mat-tab-group>
+        <mat-tab label="Identification">
+          <div style="padding-top: 2em;">
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="System Title" formControlName="title">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Intro header" formControlName="header">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Contact Email" formControlName="email">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="Copyright notice" formControlName="copyright">
+            </mat-form-field>
+          </div>
+        </mat-tab>
+        <mat-tab label="Message broker">
+          <div style="padding-top: 2em;">
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="MQTT host" formControlName="mqtt_host">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="MQTT username" formControlName="mqtt_username">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="MQTT password" formControlName="mqtt_password">
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <div>
+        <button mat-button type="submit" [disabled]="settingsForm.invalid">Save</button>
+        <button mat-button type="button" class="cancel-button">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+
+</div>

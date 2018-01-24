@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+    <jaxrs:server address="/rdsh-api" id="rdshServer">
+        <jaxrs:serviceBeans>
+            <ref component-id="lDSHResource" />
+            <ref component-id="settingsResource" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+            <bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
+            <bean
+                class="org.apache.cxf.jaxrs.provider.json.JSONProvider" id="jsonProvider">
+                <property name="dropRootElement" value="true"/>
+                <property name="dropCollectionWrapperElement" value="true"/>
+                <property name="serializeAsArray" value="true"/>
+                <property name="supportUnwrapped" value="true"/>
+            </bean>
+
+          <!-- Map generic exceptions to provide an appropriate Response code -->
+          <bean id="GenericExceptionMapper"
+            class="com.eurodyn.qlack2.util.rest.mapper.GenericExceptionMapper"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+</blueprint>

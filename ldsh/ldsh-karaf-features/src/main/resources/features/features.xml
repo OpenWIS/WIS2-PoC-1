@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @formatter:off -->
+
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0"	name="ldsh">
+	<!-- External repositories needed for this features set -->
+	<repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
+	<repository>mvn:com.eurodyn.qlack2.util/qlack2-util-karaf-features/${qlack2.version}/xml/features</repository>
+	<repository>mvn:com.eurodyn.qlack2.util/qlack2-util-repack-karaf-features/${qlack2.version}/xml/features</repository>
+	<repository>mvn:com.eurodyn.qlack2.common/qlack2-common-karaf-features/${qlack2.version}/xml/features</repository>
+	<repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
+
+	<feature name="ldsh" version="${project.version}">
+		<feature>ldsh-deps</feature>
+		<feature>ldsh-database</feature>
+		<feature>ldsh-server</feature>
+		<feature>ldsh-ui</feature>
+	</feature>
+
+	<feature name="ldsh-deps" version="${project.version}">
+		<feature>cxf-jaxrs</feature>
+		<feature>cxf-rs-security-cors</feature>
+		<feature>pax-cdi</feature>
+		<feature>eventadmin</feature>
+		<feature>qlack2-util-repack-jackson-rs</feature>
+		<feature>qlack2-util-rest</feature>
+		<feature>qlack2-common-util</feature>
+		<feature>ldsh-camel</feature>
+		<bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>
+		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
+		<bundle>mvn:org.mapstruct/mapstruct-jdk8/1.1.0.Final</bundle>
+		<feature>qlack2-util-repack-querydsl</feature>\
+	</feature>
+
+	<feature name="ldsh-camel" version="${project.version}">
+		<feature>camel-cdi</feature>
+		<feature>camel-servlet</feature>
+		<feature>camel-ftp</feature>
+	</feature>
+
+	<feature name="ldsh-database" version="${project.version}">
+		<feature>qlack2-util-liquibase</feature>
+		<feature>qlack2-util-repack-jpadb</feature>
+		<feature>pax-jdbc-mysql</feature>
+		<bundle>wrap:mvn:mysql/mysql-connector-java/${mysql-connector-java.version}
+		</bundle>
+	</feature>
+
+	<feature name="ldsh-server" version="${project.version}">
+		<bundle>mvn:openwis.pilot.ldsh/ldsh-server-common/${project.version}
+		</bundle>
+		<bundle>mvn:openwis.pilot.ldsh/ldsh-server-manager/${project.version}
+		</bundle>
+		<bundle>mvn:openwis.pilot.ldsh/ldsh-server-ws/${project.version}
+		</bundle>
+	</feature>
+
+	<feature name="ldsh-ui" version="${project.version}">
+		<bundle>mvn:openwis.pilot.ldsh/ldsh-ui/${project.version}</bundle>
+	</feature>
+
+</features>

@@ -7,123 +7,151 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
-import openwis.pilot.ldsh.db.dao.GenericDao;
-import openwis.pilot.ldsh.db.dao.IDaoFactory;
-import openwis.pilot.ldsh.db.model.Country;
-import openwis.pilot.ldsh.db.model.DataFormat;
-import openwis.pilot.ldsh.db.model.Dataset;
-import openwis.pilot.ldsh.dto.CountryDTO;
-import openwis.pilot.ldsh.dto.DataFormatDTO;
-import openwis.pilot.ldsh.dto.DatasetDTO;
+import openwis.pilot.ldsh.common.dto.CountryDTO;
+import openwis.pilot.ldsh.common.dto.DataFormatDTO;
+import openwis.pilot.ldsh.common.dto.DatasetDTO;
+import openwis.pilot.ldsh.common.dto.WmoCodeDTO;
+import openwis.pilot.ldsh.manager.model.Country;
+import openwis.pilot.ldsh.manager.model.QCountry;
+import openwis.pilot.ldsh.manager.model.DataFormat;
+import openwis.pilot.ldsh.manager.model.QDataFormat;
+import openwis.pilot.ldsh.manager.model.Dataset;
+import openwis.pilot.ldsh.manager.model.QDataset;
+import openwis.pilot.ldsh.manager.model.WmoCode;
+import openwis.pilot.ldsh.manager.model.QWmoCode;
+import openwis.pilot.ldsh.manager.mappers.DatasetMapperImpl;
+import openwis.pilot.ldsh.manager.mappers.DataFormatMapperImpl;
+import openwis.pilot.ldsh.manager.mappers.CountryMapperImpl;
+import openwis.pilot.ldsh.manager.mappers.WmoCodeMapperImpl;
 import openwis.pilot.ldsh.manager.service.DatasetService;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
-import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Singleton
 @OsgiServiceProvider(classes = { DatasetService.class })
 public class DatasetServiceImpl implements DatasetService {
+	
+	private static final Logger logger = Logger.getLogger(DatasetServiceImpl.class.getName());
+	
+	private static QDataset qDataset = QDataset.dataset;
+	private static QDataFormat qDataFormat = QDataFormat.dataFormat;
+	private static QCountry qCountry = QCountry.country;
+	private static QWmoCode qWmoCode = QWmoCode.wmoCode;
+	
+		
+	  @PersistenceContext(unitName = "ldshPU")
+	  private EntityManager em;
 
-	@OsgiService
-	@Inject
-	private IDaoFactory iDaoFactory;
 
-	private GenericDao<Dataset> datasetDAO;
-	private GenericDao<DataFormat> dataFormatDAO;
-	private GenericDao<Country> countryDAO;
-	private Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+	@Override
+	public DatasetDTO getDataSet(Long id) {
+		
+		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
 
-	private static final Logger logger = Logger
-			.getLogger(DatasetServiceImpl.class.getName());
+		if (dataset == null) {
+			System.out.println("NO Datset found.");
+			return null;
+		}
+		return new DatasetMapperImpl().toDatasetDTO(dataset);
+	}
 
-	public DatasetDTO saveDataset(DatasetDTO datasetDTO) {
-System.out.println("INCOMMING "+ datasetDTO.toString());
-		datasetDAO = iDaoFactory.getDao(Dataset.class);
-		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
-		Dataset dataset = mapper.map(datasetDTO, Dataset.class);
+
+	@Override
+	@Transactional
+	public DatasetDTO saveDataset(DatasetDTO datasetDto) {
 
 		try {
-
-			Dataset ds = datasetDAO.get(dataset.getId());
-			if (ds != null) {
-				System.out.println("UPDATE "+ dataset.toString());
-				datasetDAO.update(dataset);
+			if (datasetDto.getId() != null) {
+				em.merge(new DatasetMapperImpl().toDataset(datasetDto));
 			} else {
-				System.out.println("SAVE"+ dataset.toString());
-				datasetDAO.create(dataset);
+				em.persist(new DatasetMapperImpl().toDataset(datasetDto));
 			}
-
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error", e);
 			e.printStackTrace();
 		}
-		return datasetDTO;
+		return datasetDto;
 	}
 
-	public DatasetDTO getDataSet(long id) {
-
-		datasetDAO = iDaoFactory.getDao(Dataset.class);
-		Dataset dataset = datasetDAO.get(id);
-		if (dataset == null) {
-			System.out.println("NO DATASET FOUND");
-			return null;
-		}
-		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
-		DatasetDTO datasetDTO = mapper.map(dataset, DatasetDTO.class);
-
-		return datasetDTO;
-	}
-
+	
 	@Override
-	public List<DatasetDTO>  getAllDataSets() {
-		datasetDAO = iDaoFactory.getDao(Dataset.class);
-		ArrayList<Dataset> datasets = (ArrayList<Dataset>) datasetDAO.list();
-System.out.println("DASETS I got " + datasets.size());
+	public List<DatasetDTO> getAllDataSets() {
 
-		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
-		ArrayList<DatasetDTO> datasetList = new ArrayList<DatasetDTO>();
+		ArrayList<DatasetDTO> datasetDtoList = new ArrayList<DatasetDTO>();
+		ArrayList<Dataset> datasets = (ArrayList<Dataset>) new JPAQueryFactory(em).selectFrom(qDataset).fetch();
 
-		for (int i = 0; i < datasets.size(); i++) {
-
-			DatasetDTO datasetDTO = mapper.map(datasets.get(i),DatasetDTO.class);
-			datasetList.add(datasetDTO);
+		for (Dataset ds : datasets) {
+			datasetDtoList.add(new DatasetMapperImpl().toDatasetDTO(ds));
 		}
-		return datasetList;
+		return datasetDtoList;
 	}
+	
 
 	@Override
 	public List<DataFormatDTO> getDataFormats() {
-		dataFormatDAO = iDaoFactory.getDao(DataFormat.class);
-		ArrayList<DataFormat> dataFormats = (ArrayList<DataFormat>) dataFormatDAO.list();
-System.out.println("DATAFORMATS I got " + dataFormats.size());
-//		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+
+		ArrayList<DataFormat> dataFormats = (ArrayList<DataFormat>) new JPAQueryFactory(em).selectFrom(qDataFormat).fetch();
 		ArrayList<DataFormatDTO> dataFormatsList = new ArrayList<DataFormatDTO>();
 
-		for (int i = 0; i < dataFormats.size(); i++) {
-			DataFormatDTO dataformatDTO = mapper.map(dataFormats.get(i),
-					DataFormatDTO.class);
-			dataFormatsList.add(dataformatDTO);
+		for (DataFormat df : dataFormats) {
+			dataFormatsList.add(new DataFormatMapperImpl().toDataFormatDTO(df));
 		}
 		return dataFormatsList;
 	}
 
+
 	@Override
 	public List<CountryDTO> getCountries() {
 
-
-		countryDAO = iDaoFactory.getDao(Country.class);
-		ArrayList<Country> countries = (ArrayList<Country>) countryDAO.list();
-System.out.println("DASETS I got " + countries.size());
-
-//		Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+		ArrayList<Country> countries = (ArrayList<Country>) new JPAQueryFactory(em).selectFrom(qCountry).fetch();
 		ArrayList<CountryDTO> countrytList = new ArrayList<CountryDTO>();
-		for (int i = 0; i < countries.size(); i++) {
-			CountryDTO countryDTO = mapper.map(countries.get(i),CountryDTO.class);
-			countrytList.add(countryDTO);
+		
+		for (Country c : countries) {
+			countrytList.add(new CountryMapperImpl().toCountryDTO(c));
 		}
 		return countrytList;
 	}
+
+
+	@Override
+	@Transactional
+	public Boolean deleteDataset(Long id) {
+		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
+
+		try {
+			if (dataset != null) {
+				logger.log(Level.INFO, "*** Deleting ... " + dataset.getName());
+				em.remove(dataset);
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "error", e);
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+
+	@Override
+	public List<WmoCodeDTO> getWmoCodes() {
+
+		ArrayList<WmoCodeDTO> codesDtoList = new ArrayList<WmoCodeDTO>();
+		ArrayList<WmoCode> codes = (ArrayList<WmoCode>) new JPAQueryFactory(em).selectFrom(qWmoCode).fetch();
+
+		for (WmoCode wc : codes) {
+			codesDtoList.add(new WmoCodeMapperImpl().toWmoCodeDTO(wc));
+		}
+		return codesDtoList;
+
+	}
+
 }

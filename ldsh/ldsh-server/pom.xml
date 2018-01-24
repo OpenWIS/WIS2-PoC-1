@@ -15,10 +15,9 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>ldsh-server-db</module>
-    <module>ldsh-server-dto</module>
+    <module>ldsh-server-common</module>
     <module>ldsh-server-manager</module>
-    <module>ldsh-server-ws</module>
+    <module>ldsh-server-ws</module> 
   </modules>
 
 </project>

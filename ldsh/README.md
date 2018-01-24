@@ -1,70 +1,37 @@
-## OWT-7 Code
+## Installation
+ 
+### Configure the managed datasource
+config:edit org.ops4j.datasource-ldsh
+config:property-set user root
+config:property-set password jijikos
+config:property-set url jdbc:mysql://localhost:3306/ldsh_db?autoReconnect=true&createDatabaseIfNotExist=true
+config:property-set databaseName  ldsh_db 
+config:property-set dataSourceName ldshDataSource 
+config:property-set osgi.jdbc.driver.name mysql
+config:property-set osgi.jpa.properties.hibernate.dialect org.hibernate.dialect.MySQL5InnoDBDialect
+config:property-set pool dbcp2
+config:property-set xa true
+config:property-set jdbc.pool.testOnBorrow true
+config:property-set jdbc.factory.validationQuery 'select 1'
+config:property-set jdbc.pool.testWhileIdle true
+config:property-set jdbc.factory.validationQueryTimeout 15
+config:update
+ 
+### Configure Liquibase to use the Ldsh datasource
+config:edit com.eurodyn.qlack2.util.liquibase
+config:property-set datasource ldshDataSource
+config:update
+ 
+### Install LDSH Karaf features repository
+feature:repo-add mvn:openwis.pilot.ldsh/ldsh-karaf-features/LATEST/xml/features
+ 
+### Install DB connectivity feature and automatic Liquibase update
+feature:install ldsh-database
+ 
+### Install dependencies
+feature:install ldsh-deps
+ 
+### Install the server feature
+feature:install ldsh-server
 
-
-### Requirements
-1. Java 8
-2. Maven 3
-
-### Build Instructions
-
-1. Navigate to the 'bundle-parent' directory
-2. Execute :
-```
-# First time
-    mvn clean install 
-
-# normally
-    mvn clean install -Dskip.npm.deps=true
-
-```
-
-### Deploy Instructions
-```
-karaf.bat clean
-
-
- feature:install pax-cdi 
- install -s wrap:mvn:javax.inject/javax.inject/1
-
-
- repo-add cxf 3.1.8 
- feature:install cxf-jaxrs cxf-jackson 
-
-feature:install war
-
-## JPA related:
-
-feature:install jpa transaction jndi jdbc pax-jdbc pax-jdbc-pool-dbcp2 pax-jdbc-config hibernate
-
-feature:install pax-jdbc-h2
-
-
-config:edit org.ops4j.datasource-OWT7;  
-config:property-set osgi.jdbc.driver.name H2;
-config:property-set databaseName test;
-config:property-set user sa;
-config:property-set dataSourceName owt7-ds;
-config:update 
-
-
-
-
-
-
-
-
-# check db
- jdbc:query owt7-ds SHOW TABLES
-
- jdbc:query owt7-ds select * from messagechat
-
-
-feature:install cxf-commands
-
-
-cxf:list-busses 
-
-cxf:list-endpoints 
-
-
-```
+ #feature:install ldsh

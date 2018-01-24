@@ -5,10 +5,10 @@
   </mat-toolbar>
 
   <div style="padding:2em;">
-    <form novalidate [formGroup]="metadataForm" class="field-full-width">
+    <form *ngIf="metadataForm" novalidate [formGroup]="metadataForm" class="field-full-width">
 
       <div>
-        Status: Registered
+        Status: {{registrationStatus}}
       </div>
       <div>
         <mat-form-field class="mat-form">

@@ -2,33 +2,103 @@ import { Component, OnInit, ElementRef } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { ViewChild } from "@angular/core";
 import { AppComponent } from "../app.component";
+import { DataService } from "../data.service";
+// import { controlNameBinding } from "@angular/forms/src/directives/reactive_directives/form_control_name";
+
 
 @Component({
   selector: "app-rdsh",
   templateUrl: "./rdsh.component.html",
-  styleUrls: ["./rdsh.component.css"]
+  styleUrls: ["./rdsh.component.css"],
+  providers: [DataService]
 })
 export class RDSHComponent implements OnInit {
+
   metadataForm: FormGroup;
+  rdsh_id:number;
 
   @ViewChild("readingTpSel") private readingTpSel: ElementRef;
 
- 
+  registrationStatus: String = "Not registered"
 
-  constructor() {
+
+  constructor(private dataService: DataService ) {
     AppComponent.selectedMenuItem = 'rdsh';
   }
 
   ngOnInit() {
-    this.metadataForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      url: new FormControl('', [Validators.required]),
-      token: new FormControl('', [Validators.required]),
+
+    this.loadRdsh()
+
+  }
+
+
+  loadRdsh() {
+    this.dataService.getCall("getRdsh").then(result => {
+      console.log(result);
+
+  //TODO FIX THIS CALL TO CALL THE RDSH system...
+  //    this.checkRdshStatus(result);
+      this.buldForm(result);
+    })
+  }
+
+
+  checkRdshStatus(rs: RemoteSystem): any {
+
+    console.log("TODO calling " + rs.url);
+    this.dataService.getCall("AmIregistered").then(result => {
+      console.log(result);
+      this.registrationStatus = result;
+    })
+  }
+
+
+
+  buldForm(rs: RemoteSystem) {
+
+    console.log(rs);
+
+    if (rs == null) {
+
+      this.metadataForm = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        url: new FormControl('', [Validators.required]),
+        token: new FormControl('', [Validators.required]),
+      });
+    } else {
+      this.rdsh_id = rs.id;
+      this.metadataForm = new FormGroup({
+        name: new FormControl(rs.name, [Validators.required]),
+        url: new FormControl(rs.url, [Validators.required]),
+        token: new FormControl(rs.token, [Validators.required]),
+      });
+    }
+  }
+
+
+  onSubmit() {
+    console.log("submit rdsh:");
+
+    var messageObject = new Object();
+    let rdsh = this.metadataForm.value;
+    rdsh.type = "RDSH";
+    console.log(rdsh);
+    
+    messageObject['message'];
+    messageObject['name'] = rdsh.name;
+    messageObject['token'] = rdsh.token;
+    messageObject['status'] = rdsh.status;
+    messageObject['type'] = rdsh.type;
+    messageObject['url'] = rdsh.url;
+    messageObject['id'] = this.rdsh_id;
+   
+    this.dataService.create("saveRemote", messageObject).subscribe((result) => {
+      console.log("I RECEIVEEEEEEEE: ");
+      console.log(result);
     });
   }
-  onSubmit() {
-    console.log("submit");
-  }
+ 
 
   getErrorMessage() {
     return this.metadataForm.hasError("required")
@@ -38,9 +108,21 @@ export class RDSHComponent implements OnInit {
         : "not valid Mail";
   }
 
-  ngAfterViewInit(){
-    if(!AppComponent.menuOpen){
+  ngAfterViewInit() {
+    if (!AppComponent.menuOpen) {
       document.getElementById('sitenav').click();
-    }    
+    }
   }
 }
+
+
+export enum sysType { "RDSH", "AWISC" }
+
+export interface RemoteSystem {
+  id: number,
+  name: String,
+  url: String,
+  status: boolean,
+  token: String,
+  type: String
+};

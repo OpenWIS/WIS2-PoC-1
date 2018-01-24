@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+  <changeSet author="OpenWIS" id="rdsh_0001">
+    <sql>
+CREATE TABLE `rdsh_ldsh` (
+  `id` VARCHAR(36) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `system_id` VARCHAR(255) NOT NULL,
+  `contact_email` VARCHAR(255) NOT NULL,
+  `token` VARCHAR(36) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `rdsh_setting` (
+  `setting_key` VARCHAR(64) NOT NULL,
+  `setting_val` VARCHAR(255) NULL,
+PRIMARY KEY (`setting_key`));
+
+INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('title', 'Regional Data Sharing Hub');
+INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('email', 'noreply@test.com');
+INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('copyright', '(c) 2018');
+INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('header', 'This an RDSH.');
+		</sql>
+  </changeSet>
+
+</databaseChangeLog>

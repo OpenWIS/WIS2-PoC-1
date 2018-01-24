@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-  xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+	xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+	<jaxrs:server address="/ldsh-api" id="LDSHRS">
+		<jaxrs:serviceBeans>
+			<ref component-id="datasetResource" />
+			<ref component-id="systemResource" />
 
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+			<bean
+				class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter" />
+			<bean class="org.apache.cxf.jaxrs.provider.json.JSONProvider"
+				id="jsonProvider">
+				<property name="dropRootElement" value="true" />
+				<property name="dropCollectionWrapperElement" value="true" />
+				<property name="serializeAsArray" value="true" />
+				<property name="supportUnwrapped" value="true" />
+			</bean>
 
-  <jaxrs:server id="LDSHRS" address="/api">
-    <jaxrs:serviceBeans>
-      <ref component-id="datasetWS"/>
-    </jaxrs:serviceBeans>
-
-    <jaxrs:providers>
-      <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
-      <bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
-
-      <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
-        <property name="dropRootElement" value="true"/>
-        <property name="dropCollectionWrapperElement" value="true"/>
-        <property name="serializeAsArray" value="true"/>
-        <property name="supportUnwrapped" value="true"/>
-      </bean>
-
-    </jaxrs:providers>
-
-  </jaxrs:server>
-
+			<!-- Map generic exceptions to provide an appropriate Response code -->
+			<bean id="GenericExceptionMapper"
+				class="com.eurodyn.qlack2.util.rest.mapper.GenericExceptionMapper" />
+		</jaxrs:providers>
+	</jaxrs:server>
 </blueprint>

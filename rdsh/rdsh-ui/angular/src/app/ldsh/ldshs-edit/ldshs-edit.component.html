@@ -1,0 +1,40 @@
+<div class="box">
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>LDSH System Settings</p>
+    <span class="ui-spacer"></span>
+  </mat-toolbar>
+
+  <div style="padding:2em;">
+    <form novalidate [formGroup]="ldshForm" (ngSubmit)="onSubmit(ldshForm)" class="field-full-width"
+          ng-if="ldshForm != null">
+      <div>
+        <mat-form-field class="mat-form">
+          <input matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat-form">
+          <input matInput placeholder="System Id" formControlName="systemId">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat-form">
+          <input matInput placeholder="Contact email" formControlName="contactEmail">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat-form">
+          <input matInput placeholder="Security token" formControlName="token">
+        </mat-form-field>
+        <button mat-button (click)="generateToken()" type="button" matTooltip="Generate token">
+          <mat-icon class="ui-icon" aria-label="New">cached</mat-icon>
+        </button>
+      </div>
+      <br>
+      <div>
+        <button mat-button type="submit" [disabled]="ldshForm.invalid">Save</button>
+        <button mat-button type="button" class="cancel-button" [routerLink]="['/ldshs']">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
