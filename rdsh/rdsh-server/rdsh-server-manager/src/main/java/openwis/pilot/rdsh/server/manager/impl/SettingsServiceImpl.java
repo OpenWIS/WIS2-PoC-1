@@ -43,7 +43,7 @@ public class SettingsServiceImpl implements SettingsService {
   // QueryDSL helpers.
   QSetting qSetting = QSetting.setting;
 
-  // List of settings which should are maintained in Config Admin.
+  // List of settings which should be maintained in Config Admin.
   private static final String[] CONFIG_ADMIN_SETTINGS = new String[]{
       "mqtt_host", "mqtt_username", "mqtt_password", "jwt_secret"
   };
