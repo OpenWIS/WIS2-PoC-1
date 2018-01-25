@@ -47,7 +47,8 @@ public abstract class DatasetMapper {
 				 datasetDto.getSubscriptionUri(),
 				 dataFormatMapper.toDataFormat(datasetDto.getDataformat()),
 				 datasetDto.isRdshDissEnabled(), 
-				 datasetDto.getJsonLd());
+				 datasetDto.getJsonLd(),  
+				 datasetDto.isSendData());
 				 
 		 return dataset;
 	 }
@@ -94,7 +95,8 @@ public abstract class DatasetMapper {
 				 dataset.getSubscriptionUri(),
 				 dataFormatMapper.toDataFormatDTO(dataset.getDataformat()),
 				 dataset.isRdshDissEnabled(),
-				 dataset.getJsonLd());
+				 dataset.getJsonLd(),
+				 dataset.isSenddata());
 				 
 		 return datasetDto;
 	 }

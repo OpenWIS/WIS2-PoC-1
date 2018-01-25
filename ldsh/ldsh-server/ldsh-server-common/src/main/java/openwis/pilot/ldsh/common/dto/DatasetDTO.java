@@ -79,10 +79,14 @@ public class DatasetDTO implements Serializable {
 	private DataFormatDTO dataformat; 
 
 	@XmlElement
-	private boolean rdshDissEnabled; // null true false? Notification Only
-										// Notification + Data
+	private boolean rdshDissEnabled; 
+	
 	@XmlElement
 	private String jsonLd;
+
+	@XmlElement
+	private boolean sendData;
+	
 
 	public Long getId() {
 		return id;
@@ -97,7 +101,7 @@ public class DatasetDTO implements Serializable {
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, DataFormatDTO dataformat,
-			boolean rdshDissEnabled, String jsonLd) {
+			boolean rdshDissEnabled, String jsonLd, boolean sendData) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -121,6 +125,7 @@ public class DatasetDTO implements Serializable {
 		this.dataformat = dataformat;
 		this.rdshDissEnabled = rdshDissEnabled;
 		this.jsonLd = jsonLd;
+		this.sendData = sendData;
 	}
 
 	@Override
@@ -135,8 +140,8 @@ public class DatasetDTO implements Serializable {
 				+ relativeUrl + ", filenameprefix=" + filenameprefix
 				+ ", downloadUrl=" + downloadUrl + ", subscriptionUri="
 				+ subscriptionUri + ", dataformat=" + dataformat
-				+ ", rdshDissEnabled=" + rdshDissEnabled + ", jsonLd=" + jsonLd
-				+ "]";
+				+ ", rdshDissEnabled=" + rdshDissEnabled + ", jsonLd=" + jsonLd 
+				+", sendData="+sendData	+ "]";
 	}
 
 	public void setId(Long id) {
@@ -309,6 +314,14 @@ public class DatasetDTO implements Serializable {
 
 	public void setJsonLd(String jsonLd) {
 		this.jsonLd = jsonLd;
+	}
+	
+	public boolean isSendData() {
+		return sendData;
+	}
+
+	public void setSendData(boolean sendData) {
+		this.sendData = sendData;
 	}
 
 }

@@ -229,10 +229,10 @@
             <mat-checkbox #rdshDis formControlName="rdshDissEnabled" (change)="rdshAdjust($event.srcElement)">RDSH Dissemination</mat-checkbox>
 
             <span style="padding:0.5em 1em;display:block;">
-              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked">
-                <mat-radio-button value="1">Notification Only</mat-radio-button>
+              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked"    formControlName=sendData   >
+                <mat-radio-button [checked]='disseminateData === false' value="false">Notification Only</mat-radio-button>
 
-                <mat-radio-button value="2">Notification + Data</mat-radio-button>
+                <mat-radio-button [checked]='disseminateData === true'  value="true">Notification + Data</mat-radio-button>
               </mat-radio-group>
             </span>
           </p>

@@ -22,6 +22,7 @@ export class SubmitFormComponent implements OnInit {
   // private window: Window
   displayFn: any;
   rdshDissEnabled = false;
+  disseminateData = false;
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
@@ -44,14 +45,15 @@ export class SubmitFormComponent implements OnInit {
 
 
 
-  measurementUnits: any = [
-    // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
-    { wmocode: "http://codes.wmo.int/common/unit/mon", name: "Month" },
-    { wmocode: "http://codes.wmo.int/common/unit/d", name: "Day" },
-    { wmocode: "http://codes.wmo.int/common/unit/h", name: "Hour" },
-    { wmocode: "http://codes.wmo.int/common/unit/min", name: "Minute (time)" },
-  ];
+  // measurementUnits: any = [
+  //   // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
+  //   { wmocode: "http://codes.wmo.int/common/unit/mon", name: "Month" },
+  //   { wmocode: "http://codes.wmo.int/common/unit/d", name: "Day" },
+  //   { wmocode: "http://codes.wmo.int/common/unit/h", name: "Hour" },
+  //   { wmocode: "http://codes.wmo.int/common/unit/min", name: "Minute (time)" },
+  // ];
 
+  measurementUnits: MeasurementUnit[];
   wmoCodes: WmoCode[];
   countries: Country[];
   dataformats: DataFormat[];
@@ -85,27 +87,28 @@ export class SubmitFormComponent implements OnInit {
   }
 
 
-  add(event: MatChipInputEvent): void {
-    let input = event.input;
-    let value = event.value;
+  // add(event: MatChipInputEvent): void {
+  //   let input = event.input;
+  //   let value = event.value;
 
-    // Add code
-    if ((value || "").trim()) {
-      this.wmoCodes.push({ name: value.trim() });
-    }
-    // Reset 
-    if (input) {
-      input.value = "";
-    }
-  }
+  //   // Add code
+  //   if ((value || "").trim()) {
+  //     debugger
+  //     this.wmoCodes.push({ name: value.trim() });
+  //   }
+  //   // Reset 
+  //   if (input) {
+  //     input.value = "";
+  //   }
+  // }
 
-  remove(measurement: any): void {
-    let index = this.wmoCodes.indexOf(measurement);
+  // remove(measurement: any): void {
+  //   let index = this.wmoCodes.indexOf(measurement);
 
-    if (index >= 0) {
-      this.wmoCodes.splice(index, 1);
-    }
-  }
+  //   if (index >= 0) {
+  //     this.wmoCodes.splice(index, 1);
+  //   }
+  // }
 
 
 
@@ -152,7 +155,7 @@ export class SubmitFormComponent implements OnInit {
     let dataset_id = this.paramsObj["params"]["id"];
     this.featchFormData(dataset_id);
 
-    this.pageUrl = " http://"+this.document.location.hostname; // .origin (with port)
+    this.pageUrl = " http://" + this.document.location.hostname; // .origin (with port)
 
   }
 
@@ -161,7 +164,7 @@ export class SubmitFormComponent implements OnInit {
 
 
   private buildForm(dataset: DataSet, id) {
-console.log(dataset);
+
     if (dataset == null) {
       // create new
       this.metadataForm = new FormGroup({
@@ -188,6 +191,7 @@ console.log(dataset);
         downloadLink: new FormControl("", []),
         awsQueue: new FormControl("", []),
         rdshDissEnabled: new FormControl(false, []),
+        sendData: new FormControl(false, []),
         periodFrom: new FormControl("", [
           Validators.required,
           Validators.minLength(2)
@@ -208,7 +212,6 @@ console.log(dataset);
 
     } else {
 
-
       let countrId = null;
       if (dataset.country) {
         countrId = dataset.country.id;
@@ -218,6 +221,8 @@ console.log(dataset);
         dataformatId = dataset.dataformat.id;
       }
 
+      this.disseminateData = dataset.sendData;
+
       this.metadataForm = new FormGroup({
         datasetName: new FormControl(dataset.name, [
           Validators.required,
@@ -226,8 +231,6 @@ console.log(dataset);
         measurementUnit: new FormControl(dataset.measurementUnit),
         countryCB: new FormControl(countrId),
 
-
-        // climate: new FormControl(dataset.climate),
         state: new FormControl(dataset.state, [Validators.required]),
         city: new FormControl(dataset.city),
         latitude: new FormControl(dataset.latitude, [Validators.required]),
@@ -261,10 +264,10 @@ console.log(dataset);
           Validators.required,
           Validators.minLength(2)
         ]),
-        rdshDissEnabled: new FormControl(dataset.rdshDissEnabled, [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
+        rdshDissEnabled: new FormControl(dataset.rdshDissEnabled, []),
+
+        sendData: new FormControl(dataset.sendData, []),
+
         dataformat: new FormControl(dataformatId),
 
         periodFrom: new FormControl(new Date(dataset.periodFrom), [
@@ -279,9 +282,6 @@ console.log(dataset);
         wmoSelectedCodes: new FormControl("")
       });
       this.stateCtrl = new FormControl();
-
-      // console.log("wmo codes I got:");
-      // console.log(dataset.wmoCodes);
 
       if (dataset.wmoCodes instanceof Array) {
         this.selectedCodes = (dataset.wmoCodes).slice();
@@ -313,11 +313,14 @@ console.log(dataset);
     this.dataService.getCall("getAllDataFormats").then(result => {
       this.dataformats = result;
       this.dataService.getCall("getAllWmoCodes").then(result => {
-        
+
         this.wmoCodes = result;
         this.dataService.getCall("getAllCountries").then(result => {
           this.countries = result;
-          this.fetchDataset(id);
+          this.dataService.getCall("getMeasurementUnits").then(result => {
+            this.measurementUnits = result;
+            this.fetchDataset(id);
+          })
         })
       })
     })
@@ -351,13 +354,14 @@ console.log(dataset);
     messageObject['country'] = this.countries.find(i => i.id === dataset.countryCB);
     messageObject['name'] = dataset.datasetName;
     messageObject['measurementUnit'] = dataset.measurementUnit;
+    messageObject['sendData'] = dataset.sendData;
     messageObject['imageUrl'] = dataset.datasetImage;
     messageObject['wmoCodes'] = this.selectedCodes;
-    
+
     // Download URL   -- downloadUrl
-    messageObject['downloadUrl'] = this.pageUrl+ "/" + dataset.relativeUrl+ "/" + dataset.filenameprefix;
-    messageObject['subscriptionUri'] =  this.pageUrl+ ":" + dataset.relativeUrl+ ":" + dataset.filenameprefix;
-    
+    messageObject['downloadUrl'] = this.pageUrl + "/" + dataset.relativeUrl + "/" + dataset.filenameprefix;
+    messageObject['subscriptionUri'] = this.pageUrl + ":" + dataset.relativeUrl + ":" + dataset.filenameprefix;
+
     this.dataService.create("saveDataset", messageObject).subscribe((result) => {
       console.log(result);
       // todo TOAST an ola ok kai back alliws TOAST to error
@@ -365,7 +369,7 @@ console.log(dataset);
     });
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/datasets'], { queryParams: {} });
   }
 
@@ -387,6 +391,7 @@ console.log(dataset);
 export interface WmoCode { id: number, name: String, code: String, continent: String, uri: String };
 export interface DataFormat { id: number, name: String, description: String };
 export interface Country { id: number, name: String, code: String };
+export interface MeasurementUnit { id: number, name: String, code: String };
 
 export interface DataSet {
   id: number,
@@ -406,11 +411,12 @@ export interface DataSet {
   jsonLd: String,
   imageUrl: String,
   downloadLink: String,
-  subscriptionUri:String;
+  subscriptionUri: String;
   awsQueue: String
   rdshDissEnabled: String,
   measurementUnit: String,
   periodFrom: Date,
   periodTo: Date,
   wmoCodes: WmoCode[]
+  sendData: boolean;
 };

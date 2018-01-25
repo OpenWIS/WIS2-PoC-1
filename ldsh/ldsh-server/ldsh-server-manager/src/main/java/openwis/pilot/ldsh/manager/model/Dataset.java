@@ -99,8 +99,10 @@ public class Dataset implements Serializable {
 	private DataFormat dataformat;
 
 	@Column(name = "rdshdissenabled")
-	private boolean rdshDissEnabled; // null true false? Notification Only
-										// Notification + Data
+	private boolean rdshDissEnabled; 
+
+	@Column(name = "send_data")
+	private boolean senddata;
 
 	// Search Engine Metadata
 	@Column(name = "jsonld")
@@ -116,7 +118,7 @@ public class Dataset implements Serializable {
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, DataFormat dataformat,
-			boolean rdshDissEnabled, String jsonLd) {
+			boolean rdshDissEnabled, String jsonLd ,boolean sendData) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -140,6 +142,7 @@ public class Dataset implements Serializable {
 		this.dataformat = dataformat;
 		this.rdshDissEnabled = rdshDissEnabled;
 		this.jsonLd = jsonLd;
+		this.senddata = sendData;
 	}
 
 	public Set<WmoCode> getWmoCodes() {
@@ -316,6 +319,14 @@ public class Dataset implements Serializable {
 
 	public void setJsonLd(String jsonLd) {
 		this.jsonLd = jsonLd;
+	}
+	
+	public boolean isSenddata() {
+		return senddata;
+	}
+
+	public void setSenddata(boolean senddata) {
+		this.senddata = senddata;
 	}
 
 }

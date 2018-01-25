@@ -129,6 +129,23 @@ System.out.println("Saving ....: "+ dataset.toString() );
     }
     
     
+         
+    @GET
+    @Path("/getMeasurementUnits")
+    @CrossOriginResourceSharing(allowAllOrigins = true)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response fetchMeasurementUnits() {
+        return Response.ok( datasetService.getMeasurementUnits())
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+        .build();
+    }
+    
+    
+    
+    
     @GET
     @Path("/getAllDataFormats")
     @CrossOriginResourceSharing(allowAllOrigins = true)

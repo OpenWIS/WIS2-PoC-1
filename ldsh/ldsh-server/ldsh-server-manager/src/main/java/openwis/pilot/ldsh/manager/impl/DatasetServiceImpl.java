@@ -13,9 +13,12 @@ import javax.transaction.Transactional;
 import openwis.pilot.ldsh.common.dto.CountryDTO;
 import openwis.pilot.ldsh.common.dto.DataFormatDTO;
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
+import openwis.pilot.ldsh.common.dto.MeasurementUnitDTO;
 import openwis.pilot.ldsh.common.dto.WmoCodeDTO;
 import openwis.pilot.ldsh.manager.model.Country;
 import openwis.pilot.ldsh.manager.model.QCountry;
+import openwis.pilot.ldsh.manager.model.MeasurementUnit;
+import openwis.pilot.ldsh.manager.model.QMeasurementUnit;
 import openwis.pilot.ldsh.manager.model.DataFormat;
 import openwis.pilot.ldsh.manager.model.QDataFormat;
 import openwis.pilot.ldsh.manager.model.Dataset;
@@ -26,6 +29,7 @@ import openwis.pilot.ldsh.manager.mappers.DatasetMapperImpl;
 import openwis.pilot.ldsh.manager.mappers.DataFormatMapperImpl;
 import openwis.pilot.ldsh.manager.mappers.CountryMapperImpl;
 import openwis.pilot.ldsh.manager.mappers.WmoCodeMapperImpl;
+import openwis.pilot.ldsh.manager.mappers.MeasurementUnitMapperImpl;
 import openwis.pilot.ldsh.manager.service.DatasetService;
 
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
@@ -42,6 +46,7 @@ public class DatasetServiceImpl implements DatasetService {
 	private static QDataFormat qDataFormat = QDataFormat.dataFormat;
 	private static QCountry qCountry = QCountry.country;
 	private static QWmoCode qWmoCode = QWmoCode.wmoCode;
+	private static QMeasurementUnit qMeasurementUnit = QMeasurementUnit.measurementUnit;
 	
 		
 	  @PersistenceContext(unitName = "ldshPU")
@@ -57,7 +62,6 @@ public class DatasetServiceImpl implements DatasetService {
 			System.out.println("NO Datset found.");
 			return null;
 		}
-System.out.println("feacthing..."+(new DatasetMapperImpl().toDatasetDTO(dataset)).toString());
 		return new DatasetMapperImpl().toDatasetDTO(dataset);
 	}
 
@@ -149,7 +153,18 @@ System.out.println("feacthing..."+(new DatasetMapperImpl().toDatasetDTO(dataset)
 			codesDtoList.add(new WmoCodeMapperImpl().toWmoCodeDTO(wc));
 		}
 		return codesDtoList;
+	}
 
+
+	@Override
+	public List<MeasurementUnitDTO> getMeasurementUnits() {
+		
+		ArrayList<MeasurementUnitDTO> muDtoList = new ArrayList<MeasurementUnitDTO>();
+		ArrayList<MeasurementUnit> mesurments = (ArrayList<MeasurementUnit>) new JPAQueryFactory(em).selectFrom(qMeasurementUnit).fetch();
+		for (MeasurementUnit mu : mesurments) {
+			muDtoList.add(new MeasurementUnitMapperImpl().toMeasurementUnitDTO(mu));
+		}
+		return muDtoList;
 	}
 
 }
