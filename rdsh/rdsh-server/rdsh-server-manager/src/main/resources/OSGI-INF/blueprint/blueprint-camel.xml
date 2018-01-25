@@ -5,9 +5,10 @@
   <cm:property-placeholder persistent-id="openwis.rdsh" update-strategy="reload"/>
 
     <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="camelRDSH" trace="true">
-      <route customId="true" id="mqttTows">
-        <from uri="mqtt:IoT?host={{mqtt_host}}&amp;subscribeTopicName=iot-mqtt&amp;userName={{mqtt_username}}&amp;password={{mqtt_password}}"/>
-        <log message="Message: ${body}" loggingLevel="INFO" customId="true" id="iot_log"/>
+      <route id="publish">
+        <from uri="direct:publish"/>
+        <log message="topic= ${headers.topic}" loggingLevel="INFO"/>
+        <to uri="mqtt:rdsh?host={{mqtt_host}}&amp;userName={{mqtt_username}}&amp;password={{mqtt_password}}"/>
       </route>
     </camelContext>
 

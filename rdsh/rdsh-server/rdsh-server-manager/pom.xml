@@ -146,6 +146,11 @@
       <artifactId>commons-lang3</artifactId>
       <version>${commons-lang3.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
   </dependencies>
 </project>
 
