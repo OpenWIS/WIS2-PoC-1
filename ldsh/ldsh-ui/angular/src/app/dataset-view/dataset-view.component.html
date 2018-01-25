@@ -1,90 +1,74 @@
-<div class="box">
+<head>
+    <script type="application/ld+json">
+// user defined jssonld
+      {
+        {{dataSet.jsonLd}}
+      }{
 
+      }
+  </script>
+</head>
+
+<div class="box" *ngIf="dataSet">
   <mat-toolbar #componentToolbar class="header-small">
-    <p>{{dataSet.name}}</p>
+      <p> Geo-location dataset<p>
+   
     <span class="ui-spacer"></span>
   </mat-toolbar>
 
-  <div style="padding:2em;">
-    <div>
-      <!-- class="box-content-row; width:100%" -->
-      <h4>Dataset Information</h4>
+ <!-- <div class="header-title">Geo-location dataset</div> -->
+ <div class="content">
+	<div class="box">
+		<div class="box-title">{{dataSet.name}}</div>
+		<div class="box-content">
+			<div class="box-content-left">
+				<div class="box-subtitle">Location Information</div>
+				<div class="box-content-cell" style="margin-right:20px;">
+					<img *ngIf="dataSet?.imageUrl" style="vertical-align:middle;height:150px;margin-bottom:1em;" aria-hidden src="{{dataSet.imageUrl}}"/>
+				</div>
+				<div class="box-content-cell">
+					<div class="box-content-row">
+						<span>Country:</span> {{dataSet.country?.name}}</div>
+					<div class="box-content-row">
+						<span>State/Region:</span> {{dataSet.state}}</div>
+					<div class="box-content-row"> 
+						<span>City:</span> {{dataSet.city}}</div>
+				</div>
+				</div>
+				<div class="box-content-divider"></div>
+				<div class="box-content-right">
+					<div class="box-subtitle">Dataset Information</div>
+					<div class="box-content-cell">
+						<!-- <div class="box-content-row">
+							<span>Name:</span> {{dataSet.name}}</div> -->
+						<div class="box-content-row">
+							<span>Description:</span> {{dataSet.description}}</div>
+						<div class="box-content-row">
+							<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - {{dataSet.periodTo | date:'medium'}} </div>
+						<div class="box-content-row">
+							<span>License:</span>
+							<a href>{{dataSet.license}}</a>
+						</div>
+						<div class="box-content-row">
+							<span>Measurments:</span> ----</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-content">
+				<div class="box-subtitle">Distribution Information</div>
+				<div class="box-content-cell">
+					<div class="box-content-row">
+						<span>Data Format:</span> {{dataSet.dataformat?.name}}</div>
+					<div class="box-content-row">
+						<span>Download Link:</span>
+						<a href={{dataSet.downloadLink}}>{{dataSet.downloadUrl}}</a>
+					</div>
+					<div class="box-content-row">
+						<span>Subscription URI:</span> {{dataSet.subscriptionUri}}</div> 
+				</div> 
+			</div>
 
-      <dl>
-        <dt>Dataset name:</dt>
-        <dd>{{dataSet.name}}</dd>
-        <dt>Description:</dt>
-        <dd>{{dataSet.description}}</dd>
-
-        <dt>Period From :</dt>
-        <dd>{{dataSet.periodFrom}}</dd>
-        <dt>Period To:</dt>
-        <dd>{{dataSet.periodTo}}</dd>
-        <dt>License:</dt>
-        <dd>{{dataSet.license}}</dd>
-        <dt>Measurment:</dt>
-        <dd>{{dataSet.measurement}}</dd>
-        <dt>Dataset Update Frequency:</dt>
-        <dd>{{dataSet.measurementUnit}}</dd>
-        
-      </dl>
-      <!-- <dd>{{dataSet.measurment}}</dd> -->
-
-    </div>
-
-    <div style='clear:both;'></div>
-
-
-    <div>
-
-      <h4>Location Information</h4>
-
-      <img style="vertical-align:middle;height:150px;margin-bottom:1em;" aria-hidden src="{{dataSet.map}}" />
-
-
-      <dl>
-
-        <dt>Country:</dt>
-        <dd>{{dataSet.country}}</dd>
-        <dt>State/Region:</dt>
-        <dd>{{dataSet.state}}</dd>
-        <dt>City:</dt>
-        <dd>{{dataSet.divisions}}</dd>
-        <dt>Latitude:</dt>
-        <dd>{{dataSet.latitude}}</dd>
-        <dt>Longitude:</dt>
-        <dd>{{dataSet.longitude}}</dd>
-        <dt>Elevation:</dt>
-        <dd>{{dataSet.elevation}}</dd>
-
-        <!-- <dt>Area Codes:</dt>
-        <dd>{{dataSet.areaCodes}}</dd> -->
-        <!-- <dt>Climate:</dt>
-        <dd>{{dataSet.climate}}</dd> -->
-        <!-- <dt>References:</dt>
-        <dd>{{dataSet.references}}</dd> -->
-      </dl>
-    </div>
-
-    <div style='clear:both;'></div>
-
-    <div>
-
-      <h4>Dissemination Information </h4>
-      <dl>
-
-        <dt>Data Format:</dt>
-        <dd>{{dataSet.dataformat}}</dd>
-        <dt>Download URL:</dt>
-        <dd>
-          <a href={{dataSet.downloadLink}}>{{dataSet.downloadLink}}</a>
-        </dd>
-        <dt>Subscription URL:</dt>
-        <dd>{{dataSet.awsQueue}}</dd>
-      </dl>
-    </div>
-
-    <div style='clear:both;'></div>
-
-  </div>
-</div>
+		</div>
+	</div> 
+<!-- </div> -->
+<!-- </div> -->

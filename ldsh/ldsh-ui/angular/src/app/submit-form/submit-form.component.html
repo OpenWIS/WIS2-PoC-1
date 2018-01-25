@@ -207,12 +207,12 @@
 
           <p>
             Download URL: 
-          <span style="color:#62757f;" >http://localhost/</span><span style="color:#2196F3;">{{relativeUrl.value}}</span>/<span style="color:#1976D2;">{{filenameprefix.value}}</span>
+          <span style="color:#62757f;" >{{pageUrl}}</span><span style="color:#2196F3;">{{relativeUrl.value}}</span>/<span style="color:#1976D2;">{{filenameprefix.value}}</span>
 
           </p>
           <br>
           <p>
-            Subscription URI: <span style="color:#62757f;">arn:aws:sns:</span><span style="color:#2196F3;" [innerHTML]="replaceSlash(relativeUrl.value)"></span>:<span style="color:#1976D2;">{{filenameprefix.value}}</span>
+            Subscription URI: <span style="color:#62757f;">{{pageUrl}}:</span><span style="color:#2196F3;" [innerHTML]="replaceSlash(relativeUrl.value)"></span>:<span style="color:#1976D2;">{{filenameprefix.value}}</span>
           </p>
           <!--  Data Format: //drop down -->
           <p>
@@ -262,7 +262,7 @@
 <div   *ngIf="metadataForm" class="box" style="margin-top:1em;">
   <div style="padding:2em;">
       <button mat-button (click)="onSubmit()">Save</button>
-    <button mat-button class="cancel-button">Cancel</button>
+    <button mat-button class="cancel-button"  (click)="goBack()" >Cancel</button>
   </div>
 </div>
 

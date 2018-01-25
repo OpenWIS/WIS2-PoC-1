@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Input } from "@angular/core";
+import { Component, OnInit, ElementRef, Input, Inject } from "@angular/core";
 import { FormControl, Validators, FormGroup, FormArray } from "@angular/forms";
 import { ViewChild } from "@angular/core";
 import { MatInput, MatRadioGroup, MatChipInputEvent } from "@angular/material";
@@ -9,6 +9,7 @@ import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/map";
 import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import { DataService } from "../data.service";
+import { DOCUMENT } from "@angular/platform-browser";
 
 @Component({
   selector: "app-submit-form",
@@ -17,10 +18,13 @@ import { DataService } from "../data.service";
   providers: [DataService]
 })
 export class SubmitFormComponent implements OnInit {
+
+  // private window: Window
   displayFn: any;
   rdshDissEnabled = false;
   metadataForm: FormGroup;
   paramsObj: Object;
+  pageUrl: String;
   //autocomplete
   stateCtrl: FormControl;
 
@@ -48,7 +52,7 @@ export class SubmitFormComponent implements OnInit {
     { wmocode: "http://codes.wmo.int/common/unit/min", name: "Minute (time)" },
   ];
 
-  wmoCodes: any[];
+  wmoCodes: WmoCode[];
   countries: Country[];
   dataformats: DataFormat[];
   selectedCodes: WmoCode[];
@@ -138,24 +142,26 @@ export class SubmitFormComponent implements OnInit {
   }
 
 
-  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router,
+    @Inject(DOCUMENT) private document: any) { }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(params => {
       this.paramsObj = { ...params.keys, ...params };
     });
-
     let dataset_id = this.paramsObj["params"]["id"];
     this.featchFormData(dataset_id);
+
+    this.pageUrl = " http://"+this.document.location.hostname; // .origin (with port)
+
   }
 
   rdshAdjust(srcElement: HTMLInputElement) {
-    // console.log("CBval   " + this.rdshCb.checked);
   }
 
 
   private buildForm(dataset: DataSet, id) {
-
+console.log(dataset);
     if (dataset == null) {
       // create new
       this.metadataForm = new FormGroup({
@@ -307,8 +313,8 @@ export class SubmitFormComponent implements OnInit {
     this.dataService.getCall("getAllDataFormats").then(result => {
       this.dataformats = result;
       this.dataService.getCall("getAllWmoCodes").then(result => {
+        
         this.wmoCodes = result;
-        // console.log(this.wmoCodes);
         this.dataService.getCall("getAllCountries").then(result => {
           this.countries = result;
           this.fetchDataset(id);
@@ -347,12 +353,21 @@ export class SubmitFormComponent implements OnInit {
     messageObject['measurementUnit'] = dataset.measurementUnit;
     messageObject['imageUrl'] = dataset.datasetImage;
     messageObject['wmoCodes'] = this.selectedCodes;
+    
+    // Download URL   -- downloadUrl
+    messageObject['downloadUrl'] = this.pageUrl+ "/" + dataset.relativeUrl+ "/" + dataset.filenameprefix;
+    messageObject['subscriptionUri'] =  this.pageUrl+ ":" + dataset.relativeUrl+ ":" + dataset.filenameprefix;
+    
     this.dataService.create("saveDataset", messageObject).subscribe((result) => {
       console.log(result);
-      // todo TOAST 
+      // todo TOAST an ola ok kai back alliws TOAST to error
+      this.router.navigate(['/datasets'], { queryParams: {} });
     });
   }
 
+  goBack(){
+    this.router.navigate(['/datasets'], { queryParams: {} });
+  }
 
   replaceSlash(s: string) {
     return s && s.replace('/', ':');
@@ -391,6 +406,7 @@ export interface DataSet {
   jsonLd: String,
   imageUrl: String,
   downloadLink: String,
+  subscriptionUri:String;
   awsQueue: String
   rdshDissEnabled: String,
   measurementUnit: String,
