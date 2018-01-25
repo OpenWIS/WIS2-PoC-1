@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   // Save LDSH handler.
   onSubmit({ value }: { value: AuthDTO }) {
-    console.log(value);
     this.authService.login(value).subscribe(
       onNext => {
         // Save the JWT to be used in future requests.
