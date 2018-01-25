@@ -1,8 +1,8 @@
 package openwis.pilot.ldsh.manager.mappers;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
 import openwis.pilot.ldsh.common.dto.WmoCodeDTO;
@@ -30,7 +30,7 @@ public abstract class DatasetMapper {
 				 datasetDto.getName(),
 				 datasetDto.getDescription(),
 				 datasetDto.getPeriodFrom(),
-				 datasetDto.getPeriodFrom(),
+				 datasetDto.getPeriodTo(),
 				 datasetDto.getLicense(),
 				 datasetDto.getImageUrl(),
 				 datasetDto.getMeasurementUnit(),
@@ -52,18 +52,18 @@ public abstract class DatasetMapper {
 		 return dataset;
 	 }
 	
-	private List<WmoCode> getWmoCodes(List<WmoCodeDTO> codesList) {
+	private Set<WmoCode> getWmoCodes(Set<WmoCodeDTO> codesList) {
 		
 		if (codesList == null) {
-			return Collections.emptyList();
+			return Collections.emptySet();
 		}
 
-		List<WmoCode> list = new ArrayList<WmoCode>();
+		Set<WmoCode> set = new LinkedHashSet<WmoCode>();
 		for (WmoCodeDTO wmocode : codesList) {
-			list.add(wmoCodeMapper.toWmoCode(wmocode));
+			set.add(wmoCodeMapper.toWmoCode(wmocode));
 		}
 
-		return list;
+		return set;
 	}
 	
 		
@@ -77,7 +77,7 @@ public abstract class DatasetMapper {
 				 dataset.getName(),
 				 dataset.getDescription(),
 				 dataset.getPeriodFrom(),
-				 dataset.getPeriodFrom(),
+				 dataset.getPeriodTo(),
 				 dataset.getLicense(),
 				 dataset.getImageUrl(),
 				 dataset.getMeasurementUnit(),
@@ -99,18 +99,18 @@ public abstract class DatasetMapper {
 		 return datasetDto;
 	 }
 	
-	private List<WmoCodeDTO> getWmoCodesDTO(List<WmoCode> codesList) {
+	private Set<WmoCodeDTO> getWmoCodesDTO(Set<WmoCode> codesList) {
 		
 		if (codesList == null) {
-			return Collections.emptyList();
+			return Collections.emptySet();
 		}
 		
-		List<WmoCodeDTO> list = new ArrayList<WmoCodeDTO>();
+		Set<WmoCodeDTO> set = new LinkedHashSet<WmoCodeDTO>();
 		for (WmoCode wmocode :codesList){
-			list.add(wmoCodeMapper.toWmoCodeDTO(wmocode));
+			set.add(wmoCodeMapper.toWmoCodeDTO(wmocode));
 		}
 	
-		return list;
+		return set;
 	}
 	
 }

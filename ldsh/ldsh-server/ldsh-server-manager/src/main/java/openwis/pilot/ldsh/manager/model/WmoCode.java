@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -39,7 +42,9 @@ public class WmoCode implements Serializable {
 	@Column(name = "continent")
 	private String continent;
 
-	@ManyToMany(mappedBy = "wmoCodes")
+
+	@ManyToMany (mappedBy = "wmoCodes")
+//	@JoinTable(name = "ldsh_dataset_wmo_code", joinColumns = { @JoinColumn(name = "wmocode_id", referencedColumnName = "wmo_code_id") },inverseJoinColumns = { @JoinColumn(name = "id", referencedColumnName = "id") })
 	private Set<Dataset> datasets = new HashSet<>();
 
 	@Column(name = "uri")

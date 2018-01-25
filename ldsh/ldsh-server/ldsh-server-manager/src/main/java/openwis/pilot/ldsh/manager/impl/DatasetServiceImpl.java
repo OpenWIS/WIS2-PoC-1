@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -58,6 +57,7 @@ public class DatasetServiceImpl implements DatasetService {
 			System.out.println("NO Datset found.");
 			return null;
 		}
+System.out.println("feacthing..."+(new DatasetMapperImpl().toDatasetDTO(dataset)).toString());
 		return new DatasetMapperImpl().toDatasetDTO(dataset);
 	}
 
@@ -78,7 +78,6 @@ public class DatasetServiceImpl implements DatasetService {
 		}
 		return datasetDto;
 	}
-
 	
 	@Override
 	public List<DatasetDTO> getAllDataSets() {
@@ -146,7 +145,6 @@ public class DatasetServiceImpl implements DatasetService {
 
 		ArrayList<WmoCodeDTO> codesDtoList = new ArrayList<WmoCodeDTO>();
 		ArrayList<WmoCode> codes = (ArrayList<WmoCode>) new JPAQueryFactory(em).selectFrom(qWmoCode).fetch();
-
 		for (WmoCode wc : codes) {
 			codesDtoList.add(new WmoCodeMapperImpl().toWmoCodeDTO(wc));
 		}

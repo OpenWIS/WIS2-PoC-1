@@ -2,7 +2,7 @@ package openwis.pilot.ldsh.manager.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,9 +57,9 @@ public class Dataset implements Serializable {
 	@Column(name = "measurementunit")
 	private String measurementUnit;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = { CascadeType.MERGE })
 	@JoinTable(name = "ldsh_dataset_wmo_code", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmo_code_id") })
-	private List<WmoCode> wmoCodes;
+	private Set<WmoCode> wmoCodes;
 
 	// Location Information
 	@ManyToOne(cascade = { CascadeType.REFRESH })
@@ -112,7 +112,7 @@ public class Dataset implements Serializable {
 
 	public Dataset(Long id, String name, String description, Date periodFrom,
 			Date periodTo, String license, String imageUrl,
-			String measurementUnit, List<WmoCode> wmoCodes, Country country,
+			String measurementUnit, Set<WmoCode> wmoCodes, Country country,
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, DataFormat dataformat,
@@ -142,11 +142,11 @@ public class Dataset implements Serializable {
 		this.jsonLd = jsonLd;
 	}
 
-	public List<WmoCode> getWmoCodes() {
+	public Set<WmoCode> getWmoCodes() {
 		return wmoCodes;
 	}
 
-	public void setWmoCodes(List<WmoCode> wmoCodes) {
+	public void setWmoCodes(Set<WmoCode> wmoCodes) {
 		this.wmoCodes = wmoCodes;
 	}
 

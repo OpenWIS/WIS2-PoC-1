@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,17 +15,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-// import javax.ws.rs.core.Request;
-
 
 
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
 import openwis.pilot.ldsh.manager.service.DatasetService;
-import openwis.pilot.ldsh.manager.service.PollingService;
 
 import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
-import org.apache.cxf.rs.security.cors.LocalPreflight;
 import org.ops4j.pax.cdi.api.OsgiService;
 
 
@@ -63,8 +58,8 @@ public class DatasetResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response userVerification(DatasetDTO dataset) {
-    	logger.log(Level.INFO, "Saving ....: "+ dataset.getName());
-
+    	logger.log(Level.INFO, "Saving ....: "+ dataset.toString() );
+System.out.println("Saving ....: "+ dataset.toString() );
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")

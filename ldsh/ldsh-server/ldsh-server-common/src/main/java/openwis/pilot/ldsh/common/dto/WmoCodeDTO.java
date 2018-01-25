@@ -17,7 +17,7 @@ public class WmoCodeDTO implements Serializable {
 	private static final long serialVersionUID = -1152760499500586253L;
 
 	@XmlElement
-	private long id;
+	private long wmocode_id;
 
 	@XmlElement
 	private String code;
@@ -38,7 +38,7 @@ public class WmoCodeDTO implements Serializable {
 	public WmoCodeDTO(long id, String code, String name, String continent,
 			String uri) {
 		super();
-		this.id = id;
+		this.wmocode_id = id;
 		this.code = code;
 		this.name = name;
 		this.continent = continent;
@@ -47,18 +47,18 @@ public class WmoCodeDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "WmoCodeDTO [id=" + id + ", code=" + code + ", name=" + name
+		return "WmoCodeDTO [id=" + wmocode_id + ", code=" + code + ", name=" + name
 				+ ", continent=" + continent + ", uri=" + uri + "]";
 	}
 
-	public long getId() {
-		return id;
+	public long getWmocode_id() {
+		return wmocode_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setWmocode_id(long wmocode_id) {
+		this.wmocode_id = wmocode_id;
 	}
-
+	
 	public String getCode() {
 		return code;
 	}

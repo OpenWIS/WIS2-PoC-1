@@ -2,7 +2,6 @@ package openwis.pilot.ldsh.common.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,7 +43,7 @@ public class DatasetDTO implements Serializable {
 	private String measurementUnit;
 
 	@XmlElement
-	private List<WmoCodeDTO> wmoCodes;
+	private Set<WmoCodeDTO> wmoCodes;
 
 	@XmlElement
 	private CountryDTO country;
@@ -94,7 +93,7 @@ public class DatasetDTO implements Serializable {
 
 	public DatasetDTO(long id, String name, String description,
 			Date periodFrom, Date periodTo, String license, String imageUrl,
-			String measurementUnit, List<WmoCodeDTO> wmoCodes, CountryDTO country,
+			String measurementUnit, Set<WmoCodeDTO> wmoCodes, CountryDTO country,
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, DataFormatDTO dataformat,
@@ -200,11 +199,11 @@ public class DatasetDTO implements Serializable {
 		this.measurementUnit = measurementUnit;
 	}
 
-	public List<WmoCodeDTO> getWmoCodes() {
+	public Set<WmoCodeDTO> getWmoCodes() {
 		return wmoCodes;
 	}
 
-	public void setWmoCodes(List<WmoCodeDTO> wmoCodes) {
+	public void setWmoCodes(Set<WmoCodeDTO> wmoCodes) {
 		this.wmoCodes = wmoCodes;
 	}
 
