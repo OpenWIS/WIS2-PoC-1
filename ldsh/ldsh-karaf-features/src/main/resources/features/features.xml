@@ -28,7 +28,7 @@
 		<bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>
 		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
 		<bundle>mvn:org.mapstruct/mapstruct-jdk8/1.1.0.Final</bundle>
-		<feature>qlack2-util-repack-querydsl</feature>\
+		<feature>qlack2-util-repack-querydsl</feature>
 	</feature>
 
 	<feature name="ldsh-camel" version="${project.version}">
