@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import openwis.pilot.common.security.JWTNeeded;
 import openwis.pilot.rdsh.server.common.dto.SettingDTO;
 import openwis.pilot.rdsh.server.manager.service.SettingsService;
 import org.ops4j.pax.cdi.api.OsgiService;
@@ -40,6 +41,7 @@ public class SettingsResource {
    * @param settings The list of settings to save.
    */
   @POST
+  @JWTNeeded
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public Response saveSettings(List<SettingDTO> settings) {

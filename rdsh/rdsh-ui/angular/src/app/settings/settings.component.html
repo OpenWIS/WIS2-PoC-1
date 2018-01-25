@@ -50,6 +50,13 @@
             </mat-form-field>
           </div>
         </mat-tab>
+        <mat-tab label="Authentication">
+          <div style="padding-top: 2em;">
+            <mat-form-field class="mat-form">
+              <input matInput placeholder="JWT secret" formControlName="jwtSecret">
+            </mat-form-field>
+          </div>
+        </mat-tab>
       </mat-tab-group>
       <div>
         <button mat-button type="submit" [disabled]="settingsForm.invalid">Save</button>

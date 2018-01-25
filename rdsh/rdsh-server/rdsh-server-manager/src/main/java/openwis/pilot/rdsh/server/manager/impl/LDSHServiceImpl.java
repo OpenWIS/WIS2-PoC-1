@@ -9,7 +9,6 @@ import openwis.pilot.rdsh.server.common.dto.LDSHDTO;
 import openwis.pilot.rdsh.server.manager.mappers.LDSHMapperImpl;
 import openwis.pilot.rdsh.server.manager.model.Ldsh;
 import openwis.pilot.rdsh.server.manager.model.QLdsh;
-import openwis.pilot.rdsh.server.manager.model.QUser;
 import openwis.pilot.rdsh.server.manager.service.LDSHService;
 import org.apache.commons.lang3.StringUtils;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
@@ -24,10 +23,9 @@ import java.util.logging.Logger;
 public class LDSHServiceImpl implements LDSHService {
 
   // Logger reference.
-  private static final Logger logger = Logger.getLogger(LDSHServiceImpl.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(LDSHServiceImpl.class.getName());
 
   // QuerydDSL helpers.
-  private static QUser qUser = QUser.user;
   private static QLdsh qLdsh = QLdsh.ldsh;
 
   // Entity Manager ref.

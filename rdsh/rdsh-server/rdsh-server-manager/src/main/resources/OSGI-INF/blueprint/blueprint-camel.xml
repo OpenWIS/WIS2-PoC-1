@@ -4,70 +4,12 @@
 
   <cm:property-placeholder persistent-id="openwis.rdsh" update-strategy="reload"/>
 
-    <!--<bean id="Index1Processor" class="com.openwis.poc.processors.Index1Processor"/>-->
-    <!--<bean id="Index2Processor" class="com.openwis.poc.processors.Index2Processor"/>-->
-
-    <!--&lt;!&ndash; Setup ActiveMQ connection pool &ndash;&gt;-->
-    <!--<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">-->
-        <!--<property name="brokerURL" value="tcp://activemq:61616" />-->
-    <!--</bean>-->
-
-    <!--<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"-->
-          <!--init-method="start" destroy-method="stop">-->
-        <!--<property name="maxConnections" value="100" />-->
-        <!--<property name="connectionFactory" ref="jmsConnectionFactory" />-->
-    <!--</bean>-->
-
-    <!--<bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">-->
-        <!--<property name="connectionFactory" ref="pooledConnectionFactory" />-->
-        <!--<property name="concurrentConsumers" value="25" />-->
-    <!--</bean>-->
-
-    <!--<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">-->
-        <!--<property name="configuration" ref="jmsConfig" />-->
-    <!--</bean>-->
-
     <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="camelRDSH" trace="true">
-      <route customId="true" id="mqttTows">
-        <from uri="mqtt:IoT?host={{mqtt.host}}&amp;subscribeTopicName=iot-mqtt&amp;userName={{mqtt.username}}&amp;password={{mqtt.password}}"/>
-        <log message="Message: ${body}" loggingLevel="INFO" customId="true" id="iot_log"/>
+      <route id="publish">
+        <from uri="direct:publish"/>
+        <log message="topic= ${headers.topic}" loggingLevel="INFO"/>
+        <to uri="mqtt:rdsh?host={{mqtt_host}}&amp;userName={{mqtt_username}}&amp;password={{mqtt_password}}"/>
       </route>
-        <!--&lt;!&ndash; Post to index1 &ndash;&gt;-->
-        <!--<route id="index1.post">-->
-            <!--<from uri="direct:index1.post"/>-->
-            <!--<to uri="activemq:queue:index1" />-->
-        <!--</route>-->
-
-        <!--&lt;!&ndash; Listen on index1 &ndash;&gt;-->
-        <!--<route id="index1.listen">-->
-            <!--<from uri="activemq:queue:index1" />-->
-            <!--<bean ref="Index1Processor" />-->
-        <!--</route>-->
-
-        <!--&lt;!&ndash; Post to index2 &ndash;&gt;-->
-        <!--<route id="index2.post">-->
-            <!--<from uri="direct:index2.post"/>-->
-            <!--<to uri="activemq:queue:index2" />-->
-        <!--</route>-->
-
-        <!--&lt;!&ndash; Listen on index2 &ndash;&gt;-->
-        <!--<route id="index2.listen">-->
-            <!--<from uri="activemq:queue:index2" />-->
-            <!--<bean ref="Index2Processor" />-->
-        <!--</route>-->
-
-        <!--&lt;!&ndash; Post to index3 &ndash;&gt;-->
-        <!--<route id="index3.post">-->
-            <!--<from uri="direct:index3.post"/>-->
-            <!--<to uri="activemq:queue:index3" />-->
-        <!--</route>-->
-
-        <!--&lt;!&ndash; Listen on index3 &ndash;&gt;-->
-        <!--<route id="index3.listen">-->
-            <!--<from uri="activemq:queue:index3" />-->
-            <!--<bean ref="index3Processor" />-->
-        <!--</route>-->
-
     </camelContext>
 
 </blueprint>

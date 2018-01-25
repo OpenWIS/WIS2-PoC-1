@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import openwis.pilot.awisc.server.common.dto.UserDTO;
+import openwis.pilot.awisc.server.common.exception.ServiceException;
 import openwis.pilot.awisc.server.manager.service.LoginService;
 import org.ops4j.pax.cdi.api.OsgiService;
 
@@ -38,7 +39,13 @@ public class HelloWorldResource {
   @Path("/hello-world-qdsl")
   @Produces(MediaType.APPLICATION_JSON)
   public UserDTO hw3() {
-    return loginService.login(new UserDTO("user1", "pass1"));
+    try {
+		return loginService.login(new UserDTO("user1", "pass1"));
+	} catch (ServiceException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    return null;
   }
 
 }

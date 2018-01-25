@@ -2,14 +2,12 @@ package openwis.pilot.awisc.server.ws.aspect;
 
 import java.util.logging.Logger;
 
-import javax.ws.rs.core.Response;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
-import openwis.pilot.awisc.server.common.dto.ServiceMessage;
+import openwis.pilot.awisc.server.common.dto.ServiceError;
 import openwis.pilot.awisc.server.common.exception.ServiceException;
 import openwis.pilot.awisc.server.common.util.Constants;
 import openwis.pilot.awisc.server.common.util.Constants.ErrorCode;
@@ -38,18 +36,16 @@ public class RestServiceWrapperAspect {
 				token = WebUtil.getXAuthorizationToken(hhh.getHttpHeaders());
 			} catch (ServiceException se) {
 				if (ErrorCode.UNAUTHORIZED.equals(se.getErrorCode())) {
-					ServiceMessage sm = new ServiceMessage().setType(Constants.MessageType.ERROR)
-							.setCode(Constants.ErrorCode.UNAUTHORIZED);
-					return WebUtil.buildResponse(sm);
+					ServiceError em = new ServiceError(Constants.ErrorCode.UNAUTHORIZED);
+					return WebUtil.buildResponse(em);
 				}
 
 				throw se;
 			}
 
 			if (!JwtUtil.istokenValid(token)) {
-				ServiceMessage sm = new ServiceMessage().setType(Constants.MessageType.ERROR)
-						.setCode(Constants.ErrorCode.FORBIDDEN);
-				return WebUtil.buildResponse(sm);
+				ServiceError em = new ServiceError(Constants.ErrorCode.FORBIDDEN);
+				return WebUtil.buildResponse(em);
 			}
 
 			// Run the actual code
@@ -58,10 +54,9 @@ public class RestServiceWrapperAspect {
 			return WebUtil.buildResponse(o);
 
 		} catch (Throwable t) {
-			ServiceMessage sm = new ServiceMessage().setType(Constants.MessageType.ERROR)
-					.setCode(Constants.ErrorCode.UNEXPECTED_ERROR);
+			ServiceError em = new ServiceError(Constants.ErrorCode.UNEXPECTED_ERROR);
 
-			return WebUtil.buildResponse(sm);
+			return WebUtil.buildResponse(em);
 		}
 
 	}

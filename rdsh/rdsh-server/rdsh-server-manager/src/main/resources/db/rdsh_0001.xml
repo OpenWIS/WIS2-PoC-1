@@ -15,12 +15,21 @@ CREATE TABLE `rdsh_ldsh` (
 CREATE TABLE `rdsh_setting` (
   `setting_key` VARCHAR(64) NOT NULL,
   `setting_val` VARCHAR(255) NULL,
-PRIMARY KEY (`setting_key`));
+  PRIMARY KEY (`setting_key`));
 
 INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('title', 'Regional Data Sharing Hub');
 INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('email', 'noreply@test.com');
 INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('copyright', '(c) 2018');
 INSERT INTO `rdsh_setting` (`setting_key`, `setting_val`) VALUES ('header', 'This an RDSH.');
+
+CREATE TABLE `rdsh_user` (
+  `user_name` VARCHAR(255) NOT NULL,
+  `user_password` VARCHAR(255) NOT NULL,
+  `salt` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`user_name`));
+
+-- Default password: openwis
+INSERT INTO `rdsh_user` (`user_name`, `user_password`, `salt`) VALUES ('rdsh', 'FDF2F5114D7E2C714F0228E0B45EDB26', '680c5855-ed27-499d-8463-cbf0b6d1b6c9');
 		</sql>
   </changeSet>
 

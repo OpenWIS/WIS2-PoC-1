@@ -20,6 +20,7 @@ import org.osgi.service.cm.ConfigurationAdmin;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +33,7 @@ public class SettingsServiceImpl implements SettingsService {
   private EntityManager em;
 
   // Logger reference.
-  private static final Logger logger = Logger.getLogger(SettingsServiceImpl.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(SettingsServiceImpl.class.getName());
 
   // Reference to OSGi Config Admin service.
   @OsgiService
@@ -42,9 +43,9 @@ public class SettingsServiceImpl implements SettingsService {
   // QueryDSL helpers.
   QSetting qSetting = QSetting.setting;
 
-  // List of settings which should are maintained in Config Admin.
+  // List of settings which should be maintained in Config Admin.
   private static final String[] CONFIG_ADMIN_SETTINGS = new String[]{
-      "mqtt_host", "mqtt_username", "mqtt_password"
+      "mqtt_host", "mqtt_username", "mqtt_password", "jwt_secret"
   };
 
   // The PID under which configuration is kept in Config Admin for this bundle.
@@ -68,7 +69,7 @@ public class SettingsServiceImpl implements SettingsService {
         retVal.add(new SettingDTO(key, (String)props.get(key)));
       }
     } catch (IOException e) {
-      logger.log(Level.SEVERE, "Could not parse PID.", e);
+      LOGGER.log(Level.SEVERE, "Could not parse PID.", e);
     }
 
     return retVal;
@@ -86,7 +87,7 @@ public class SettingsServiceImpl implements SettingsService {
           props.put(setting.getSettingKey(), setting.getSettingVal());
           conf.update(props);
         } catch (IOException e) {
-          logger.log(Level.SEVERE, "Could not parse PID.", e);
+          LOGGER.log(Level.SEVERE, "Could not parse PID.", e);
         }
       } else { // Update in database.
         new JPAQueryFactory(em)
@@ -96,5 +97,10 @@ public class SettingsServiceImpl implements SettingsService {
             .execute();
       }
     }
+  }
+
+  @Override
+  public Optional<SettingDTO> getSetting(String settingKey) {
+    return getSettings().stream().filter(o -> o.getSettingKey().equals(settingKey)).findFirst();
   }
 }
