@@ -3,6 +3,8 @@ import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { ViewChild } from "@angular/core";
 import { AppComponent } from "../app.component";
 import { DataService } from "../data.service";
+import { MatSnackBar } from "@angular/material";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -20,7 +22,7 @@ export class AWISCComponent implements OnInit {
   registrationStatus: String = "Not registered"
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, public snackBar: MatSnackBar, private router: Router) {
     AppComponent.selectedMenuItem = 'awisc';
   }
 
@@ -30,14 +32,13 @@ export class AWISCComponent implements OnInit {
 
   }
 
-  
+
 
   loadAwisc() {
     this.dataService.getCall("getAwisc").then(result => {
-      console.log(result);
 
       //TODO FIX THIS CALL TO CALL THE RDSH system...
-      //    this.checkRdshStatus(result);
+      this.checkAwiscStatus(result);
       this.buldForm(result);
     })
   }
@@ -67,12 +68,17 @@ export class AWISCComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("submit AWISC");
+
+    this.loadAwisc();
+
+  }
+
+
+  onSave() {
 
     var messageObject = new Object();
     let rdsh = this.metadataForm.value;
     rdsh.type = "AWISC";
-    console.log(rdsh);
 
     messageObject['message'];
     messageObject['name'] = rdsh.name;
@@ -82,22 +88,56 @@ export class AWISCComponent implements OnInit {
     messageObject['url'] = rdsh.url;
     messageObject['id'] = this.awisc_id;
 
-    this.dataService.create("saveRemote", messageObject).subscribe((result) => {
-      console.log("I RECEIVEEEEEEEE: ");
-      console.log(result);
+    this.dataService.create("saveRemote", messageObject).subscribe(onNext => {
+      this.snackBar.open('AWISC was saved successfully.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+      this.router.navigate(['/datasets']);
+    }, onError => {
+      console.log(onError);
+      this.snackBar.open('There was a problem saving the AWISC.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
     });
+
+  }
+
+  onCancel() {
+    this.router.navigate(['/datasets']);
+  }
+
+  checkAwiscStatus(rs: RemoteSystem): any {
+
+    console.log("TODO calling " + rs.url);
+    this.dataService.getCall("AmIregistered").then(replay => {
+      this.registrationStatus = replay;
+      this.snackBar.open('LDSH was registered to AWISC successfully.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+      this.router.navigate(['/datasets']);
+    }, onError => {
+      console.log(onError);
+      this.registrationStatus = onError.statusText;
+      this.snackBar.open('There was a problem registering to the AWISC: ' + onError.message, null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+    });
+
   }
 
 
 
-  checkRdshStatus(rs: RemoteSystem): any {
 
-   console.log("TODO calling " + rs.url);
-    this.dataService.getCall("/AmIregistered").then(result => {
-      console.log(result);
-      this.registrationStatus = result;
-    })
-  }
+
+
+
+
+
+
 
 
   getErrorMessage() {

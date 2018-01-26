@@ -37,7 +37,7 @@ import { DatasetViewComponent } from './dataset-view/dataset-view.component';
     SubmitFormModule,
     ReactiveFormsModule,
     routing,
-    HttpClientModule
+    HttpClientModule,
   ],
   
   

@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, Input, Inject } from "@angular/core";
 import { FormControl, Validators, FormGroup, FormArray } from "@angular/forms";
 import { ViewChild } from "@angular/core";
 import { MatInput, MatRadioGroup, MatChipInputEvent } from "@angular/material";
-import { MatCheckbox } from "@angular/material";
+import { MatCheckbox, MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/startWith";
@@ -44,14 +44,9 @@ export class SubmitFormComponent implements OnInit {
   @ViewChild("rdshOptions") private rdshOptions: MatRadioGroup;
 
 
-
-  // measurementUnits: any = [
-  //   // { wmocode: "http://codes.wmo.int/common/unit/a", label: "year" },
-  //   { wmocode: "http://codes.wmo.int/common/unit/mon", name: "Month" },
-  //   { wmocode: "http://codes.wmo.int/common/unit/d", name: "Day" },
-  //   { wmocode: "http://codes.wmo.int/common/unit/h", name: "Hour" },
-  //   { wmocode: "http://codes.wmo.int/common/unit/min", name: "Minute (time)" },
-  // ];
+  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute,
+    private router: Router, public snackBar: MatSnackBar, @Inject(DOCUMENT) private document: any) {
+  }
 
   measurementUnits: MeasurementUnit[];
   wmoCodes: WmoCode[];
@@ -144,9 +139,6 @@ export class SubmitFormComponent implements OnInit {
       );
   }
 
-
-  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router,
-    @Inject(DOCUMENT) private document: any) { }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(params => {
@@ -362,28 +354,42 @@ export class SubmitFormComponent implements OnInit {
     messageObject['downloadUrl'] = this.pageUrl + "/" + dataset.relativeUrl + "/" + dataset.filenameprefix;
     messageObject['subscriptionUri'] = this.pageUrl + ":" + dataset.relativeUrl + ":" + dataset.filenameprefix;
 
-    this.dataService.create("saveDataset", messageObject).subscribe((result) => {
-      console.log(result);
-      // todo TOAST an ola ok kai back alliws TOAST to error
-      this.router.navigate(['/datasets'], { queryParams: {} });
+    this.dataService.create("saveDataset", messageObject).subscribe(onNext => {
+      this.snackBar.open('Dataset was saved successfully.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+      this.router.navigate(['/datasets']);
+    }, onError => {
+      console.log(onError);
+      this.snackBar.open('There was a problem saving the Dataset.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
     });
+
   }
 
-  goBack() {
-    this.router.navigate(['/datasets'], { queryParams: {} });
-  }
+//   console.log(result);
+//   this.router.navigate(['/datasets'], { queryParams: {} });
+// });
 
-  replaceSlash(s: string) {
-    return s && s.replace('/', ':');
-  }
 
-  getErrorMessage() {
-    return this.metadataForm.hasError("required")
-      ? "You must enter a value"
-      : this.metadataForm.hasError("email")
-        ? "Not a valid email"
-        : "not valid Mail";
-  }
+goBack() {
+  this.router.navigate(['/datasets'], { queryParams: {} });
+}
+
+replaceSlash(s: string) {
+  return s && s.replace('/', ':');
+}
+
+getErrorMessage() {
+  return this.metadataForm.hasError("required")
+    ? "You must enter a value"
+    : this.metadataForm.hasError("email")
+      ? "Not a valid email"
+      : "not valid Mail";
+}
 }
 
 

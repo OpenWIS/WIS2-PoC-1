@@ -4,7 +4,19 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  CONSTANTS: {
+    // The context root of the back-end API.
+    API_ROOT: '/cxf/ldsh-api/',
+
+     LDSH_SERVER: 'http://localhost:8181',
+
+    
+    // The name under which the JWT is kept.
+    JWT_STORAGE_NAME: 'ldshJWT'
+  }
+
 };
 
 

@@ -4,6 +4,7 @@ import { ViewChild } from "@angular/core";
 import { AppComponent } from "../app.component";
 import { Router } from "@angular/router";
 import { DataService } from "../data.service";
+import { MatSnackBar } from "@angular/material";
 
 
 @Component({
@@ -21,15 +22,13 @@ export class SettingsComponent implements OnInit {
   sysprops: SystemPropery;
 
 
-  constructor(private dataService: DataService, private router: Router) {
+  constructor(private dataService: DataService, private router: Router,  public snackBar: MatSnackBar,) {
     AppComponent.selectedMenuItem = 'settings';
   }
 
   ngOnInit() {
 
     this.dataService.getCall("getSettings").then(result => {
-      console.log("I GOTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ");
-      console.log(result);
 
       this.checkPollingStatus();
       if (result == null) {
@@ -85,20 +84,12 @@ export class SettingsComponent implements OnInit {
 
   onSubmit() {
 
-    //TODO  id??????????????????
-    // let id = this.selectedDataSetId;
     var messageObject = new Object();
     var syspr: SystemPropery;
 
     syspr = this.metadataForm.value;
-    console.log(syspr);
-    console.log(syspr.systemid);
-
 
     messageObject['message'];
-
-    // todo object to send...
-    // messageObject['id'] = id;
     messageObject['title'] = syspr.title;
     // messageObject['systemid'] = syspr.systemid;
     messageObject['systemid'] = syspr.systemid;
@@ -111,10 +102,20 @@ export class SettingsComponent implements OnInit {
     messageObject['ftpUsername'] = syspr.ftpUsername;
     messageObject['ftpPassword'] = syspr.ftpPassword;
 
-    this.dataService.create("saveSettings", messageObject).subscribe((result) => {
-      console.log("I RECEIVEEEEEEEE: ");
-      console.log(result);
+    this.dataService.create("saveSettings", messageObject).subscribe(onNext => {
+      this.snackBar.open('Settings were saved successfully.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+      this.router.navigate(['/datasets']);
+    }, onError => {
+      console.log(onError);
+      this.snackBar.open('There was a problem saving Settings.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
     });
+
 
   }
   /*  
@@ -133,8 +134,8 @@ export class SettingsComponent implements OnInit {
 
 
 
-  clear() {
-    this.router.navigate(['/settings']);
+  cancel() {
+    this.router.navigate(['/datasets']);
   }
 
   getErrorMessage() {
