@@ -3,11 +3,8 @@
 
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="openwis-common">
   <!-- External repositories needed for this features set -->
-  <!--<repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>-->
   <repository>mvn:com.eurodyn.qlack2.util/qlack2-util-karaf-features/${qlack2.version}/xml/features</repository>
   <repository>mvn:com.eurodyn.qlack2.util/qlack2-util-repack-karaf-features/${qlack2.version}/xml/features</repository>
-  <!--<repository>mvn:com.eurodyn.qlack2.common/qlack2-common-karaf-features/${qlack2.version}/xml/features</repository>-->
-  <!--<repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>-->
 
   <feature name="openwis-common" version="${project.version}">
     <feature>qlack2-util-jwt</feature>
