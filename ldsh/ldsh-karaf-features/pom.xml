@@ -12,8 +12,8 @@
 
 	<build>
 		<plugins>
-			<!-- The resources phase is not executed with pom packaging so we need 
-				to bind the resources plugin to the package phase in order to filter the 
+			<!-- The resources phase is not executed with pom packaging so we need
+				to bind the resources plugin to the package phase in order to filter the
 				features.xml file before installing it in the repo -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
