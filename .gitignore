@@ -82,3 +82,6 @@ awisc/awisc-ui/\.classpath
 awisc/awisc-ui/\.project
 
 awisc/\.project
+awisc/awisc-ui/angular/dist
+ldsh/ldsh-ui/temp
+rdsh/rdsh-ui/temp
