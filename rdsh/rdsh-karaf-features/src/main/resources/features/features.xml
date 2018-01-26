@@ -9,10 +9,11 @@
   <repository>mvn:com.eurodyn.qlack2.util/qlack2-util-repack-karaf-features/${qlack2.version}/xml/features</repository>
   <repository>mvn:com.eurodyn.qlack2.common/qlack2-common-karaf-features/${qlack2.version}/xml/features</repository>
   <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
+  <repository>mvn:openwis.pilot/common/${project.version}/xml/features</repository>
 
   <feature name="rdsh" version="${project.version}">
-  	<feature>rdsh-deps</feature>
-  	<feature>rdsh-database</feature>
+    <feature>rdsh-deps</feature>
+    <feature>rdsh-database</feature>
     <feature>rdsh-server</feature>
   </feature>
   
@@ -29,11 +30,9 @@
     <feature>camel-blueprint</feature>
     <feature>camel-cdi</feature>
     <feature>camel-mqtt</feature>
-    <bundle>mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
-    <bundle>mvn:openwis.pilot/common/${project.version}</bundle>
-    <bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>
-    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
+    <feature>openwis-common</feature>
     <feature>qlack2-util-repack-querydsl</feature>
+    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
   </feature>
 
   <feature name="rdsh-database" version="${project.version}">
@@ -52,8 +51,4 @@
   <feature name="rdsh-ui" version="${project.version}">
     <bundle>mvn:openwis.pilot.rdsh/rdsh-ui/${project.version}</bundle>
   </feature>
-
-
-  
-
 </features>
