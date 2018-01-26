@@ -26,6 +26,7 @@
 		<feature>qlack2-common-util</feature>
 		<feature>ldsh-camel</feature>
 		<bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>
+		<bundle>mvn:openwis.pilot/common/${project.version}</bundle>
 		<bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
 		<bundle>mvn:org.mapstruct/mapstruct-jdk8/1.1.0.Final</bundle>
 		<feature>qlack2-util-repack-querydsl</feature>
