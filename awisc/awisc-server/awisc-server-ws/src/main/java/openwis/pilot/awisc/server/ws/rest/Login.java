@@ -15,8 +15,6 @@ import javax.ws.rs.core.Response;
 
 import org.ops4j.pax.cdi.api.OsgiService;
 
-import openwis.pilot.awisc.server.common.annotation.RestServiceWrapper;
-import openwis.pilot.awisc.server.common.annotation.ServiceExceptionWrapper;
 import openwis.pilot.awisc.server.common.dto.ServiceMessage;
 import openwis.pilot.awisc.server.common.dto.UserDTO;
 import openwis.pilot.awisc.server.common.exception.ServiceException;
@@ -28,6 +26,7 @@ import openwis.pilot.awisc.server.manager.util.JwtUtil;
 import openwis.pilot.awisc.server.ws.util.HasHttpHeaders;
 import openwis.pilot.awisc.server.ws.util.WebConstants;
 import openwis.pilot.awisc.server.ws.util.WebUtil;
+import openwis.pilot.common.security.JWTNeeded;
 
 @Singleton
 public class Login implements HasHttpHeaders {
@@ -41,7 +40,6 @@ public class Login implements HasHttpHeaders {
 	@OsgiService
 	private LoginService loginService;
 
-	@ServiceExceptionWrapper
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -53,7 +51,7 @@ public class Login implements HasHttpHeaders {
 				
 	}
 
-	@RestServiceWrapper
+	@JWTNeeded
 	@POST
 	@Path("/logout")
 	@Produces(MediaType.APPLICATION_JSON)

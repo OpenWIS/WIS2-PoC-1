@@ -19,7 +19,8 @@ import { RestClient } from './_services/rest.client';
 import { ErrorUtil } from './_services/error.util';
 import { SuccessUtil } from './_services/success.util';
 import { MatSnackBarModule } from "@angular/material";
-import { AuthModule} from './_modules/auth.module';
+import {JwtModule} from "@auth0/angular-jwt";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,13 @@ import { AuthModule} from './_modules/auth.module';
     HttpClientModule,
     HttpModule,
     MatSnackBarModule,
-    AuthModule
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+        }
+      }
+    })
   ],
   
   

@@ -10,6 +10,7 @@ import { MatChipInputEvent } from "@angular/material";
 import { User } from "./user.model";
 import { RestClient } from "../../app/_services/rest.client";
 import { MatSnackBar } from "@angular/material";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: "app-awisc-login",
@@ -77,7 +78,8 @@ export class AwiscLoginComponent implements OnInit {
 
   onLoginSuccess = response => {
     var token = response.headers.get("Authorization");
-    localStorage.setItem('jwtToken', token.substring('Bearer '.length));
+    //localStorage.setItem('jwtToken', token.substring('Bearer '.length));
+    sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token);
   };
 
   // onLoginError = errorObservable => {

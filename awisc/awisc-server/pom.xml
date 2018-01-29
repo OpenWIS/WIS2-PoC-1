@@ -10,7 +10,6 @@
     <relativePath>../</relativePath>
   </parent>
 
-  <groupId>openwis.pilot.awisc</groupId>
   <artifactId>awisc-server</artifactId>
   <packaging>pom</packaging>
 
