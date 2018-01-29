@@ -6,7 +6,7 @@ config:property-set user root
 config:property-set password jijikos
 config:property-set url jdbc:mysql://localhost:3306/ldsh_db?autoReconnect=true&createDatabaseIfNotExist=true
 config:property-set databaseName  ldsh_db 
-config:property-set dataSourceName ldshDataSource 
+config:property-set dataSourceName openwisDS 
 config:property-set osgi.jdbc.driver.name mysql
 config:property-set osgi.jpa.properties.hibernate.dialect org.hibernate.dialect.MySQL5InnoDBDialect
 config:property-set pool dbcp2
@@ -19,12 +19,13 @@ config:update
  
 ### Configure Liquibase to use the Ldsh datasource
 config:edit com.eurodyn.qlack2.util.liquibase
-config:property-set datasource ldshDataSource
+config:property-set datasource openwisDS
 config:update
  
 ### Install LDSH Karaf features repository
 feature:repo-add mvn:openwis.pilot.ldsh/ldsh-karaf-features/LATEST/xml/features
  
+
 ### Install DB connectivity feature and automatic Liquibase update
 feature:install ldsh-database
  
@@ -35,3 +36,4 @@ feature:install ldsh-deps
 feature:install ldsh-server
 
  #feature:install ldsh
+ 
