@@ -33,6 +33,7 @@ public class JWTNeededFilter implements ContainerRequestFilter {
   }
 
   public void setSecret(String secret) {
+    LOGGER.log(Level.FINEST, "Setting secret to: {0}", secret);
     this.secret = secret;
   }
 

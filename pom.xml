@@ -21,7 +21,6 @@
     <aspectj-maven-plugin.version>1.10</aspectj-maven-plugin.version>
     <aspectj.servicemix.version>1.8.5_1</aspectj.servicemix.version>
     <aspectj.version>1.8.5</aspectj.version>
-    <aspectj.version>1.8.10</aspectj.version>
     <blueprint-maven-plugin.version>1.7.0</blueprint-maven-plugin.version>
     <camel.version>2.18.2</camel.version>
     <commons-lang3.version>3.6</commons-lang3.version>
