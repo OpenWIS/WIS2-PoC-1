@@ -3,11 +3,12 @@
 ## Installation
  
 ### Configure the managed datasource
-config:edit org.ops4j.datasource-awisc
+config:edit org.ops4j.datasource-openwis
 config:property-set user root
-config:property-set password root
-config:property-set url jdbc:mysql://localhost:3306/awisc?autoReconnect=true&createDatabaseIfNotExist=true
-config:property-set dataSourceName awiscDS
+config:property-set password jijikos
+config:property-set url jdbc:mysql://localhost:3306/openwis?autoReconnect=true&createDatabaseIfNotExist=true
+config:property-set databaseName openwis
+config:property-set dataSourceName openwisDS
 config:property-set osgi.jdbc.driver.name mysql
 config:property-set osgi.jpa.properties.hibernate.dialect org.hibernate.dialect.MySQL5InnoDBDialect
 config:property-set pool dbcp2
@@ -20,8 +21,14 @@ config:update
  
 ### Configure Liquibase to use the AWISC datasource
 config:edit com.eurodyn.qlack2.util.liquibase
-config:property-set datasource awiscDS
+config:property-set datasource openwisDS
 config:update
+
+### Configure Config Admin properties
+config:edit openwis.awisc
+config:property-set jwt_secret 7fa6c11b-b8d4-1adb-c60d-1f6efbeec457
+config:update
+
  
 ### Install AWISC Karaf features repository
 feature:repo-add mvn:openwis.pilot.awisc/awisc-karaf-features/LATEST/xml/features

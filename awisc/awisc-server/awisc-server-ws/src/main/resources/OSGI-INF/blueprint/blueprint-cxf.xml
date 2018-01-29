@@ -5,7 +5,6 @@
     <jaxrs:server address="/awisc-api" id="awiscServer">
         <jaxrs:serviceBeans>
             <ref component-id="login"/>
-            <ref component-id="helloWorldResource"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
