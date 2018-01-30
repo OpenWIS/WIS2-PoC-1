@@ -96,9 +96,9 @@
 						</configuration>
 					</execution>
 					
-					 <!-- It will execute command install angular2-jwt -->
+					 <!-- It will execute command install @auth0/angular-jwt -->
 					<execution>
-						<id>npm install angular2-jwt</id>
+						<id>npm install @auth0/angular-jwt</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>

@@ -9,6 +9,7 @@ import { AwiscSearchComponent } from "./awisc-search/awisc-search.component";
 import { LdshsAdminComponent } from "./ldshs-admin/ldshs-admin.component";
 import { LdshsEditComponent } from "./ldshs-edit/ldshs-edit.component";
 import { LdshsViewComponent } from "./ldshs-view/ldshs-view.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 
 export const routerConfig: Routes = [
@@ -26,15 +27,18 @@ export const routerConfig: Routes = [
   },
   {
     path: "settings",
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "ldshs",
-    component: LdshsAdminComponent
+    component: LdshsAdminComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "ldshEdit",
-    component: LdshsEditComponent
+    component: LdshsEditComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "ldshView",

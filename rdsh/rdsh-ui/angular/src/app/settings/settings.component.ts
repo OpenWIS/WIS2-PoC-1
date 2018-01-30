@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
       mqtt_username: ['', [Validators.required]],
       mqtt_password: ['', [Validators.required]],
 
-      jwtSecret: ['', [Validators.required]]
+      jwt_secret: ['', [Validators.required]]
     });
   }
 

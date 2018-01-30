@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, RequestMethod, Request, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ErrorUtil } from './error.util';
 import { SuccessUtil } from './success.util';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class RestClient {
 
-    private baseURL = "http://localhost:8181/cxf/api";
-
-    constructor(public http: Http, public authHttp: AuthHttp, private errorUtil: ErrorUtil, private successUtil: SuccessUtil) {
+    constructor(public http: Http, private errorUtil: ErrorUtil, private successUtil: SuccessUtil) {
     }
 
     postUnauthorized(url: string, h: Headers, data: Object, successCallback: Function, errorCallback: Function): Observable<any> {
@@ -25,7 +23,7 @@ export class RestClient {
 
         console.log(requestOptions);
 
-        return this.http.post(this.baseURL + url, data, requestOptions)
+        return this.http.post(environment.CONSTANTS.API_ROOT + url, data, requestOptions)
             .map((response: Response) => {
                 if (response) {
                     if(successCallback){
@@ -60,7 +58,7 @@ export class RestClient {
 
         console.log(requestOptions);
 
-        return this.authHttp.post(this.baseURL + url, data, requestOptions)
+        return this.http.post(environment.CONSTANTS.API_ROOT + url, data, requestOptions)
             .map((response: Response) => {
                 if (response) {
                     if(successCallback){

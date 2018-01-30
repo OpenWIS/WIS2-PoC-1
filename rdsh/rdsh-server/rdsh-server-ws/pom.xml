@@ -53,11 +53,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${javax.ws.rs-api.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-rs-security-cors</artifactId>
       <version>${cxf.version}</version>

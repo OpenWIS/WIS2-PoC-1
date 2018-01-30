@@ -10,7 +10,6 @@
     <feature>qlack2-util-jwt</feature>
     <bundle>mvn:com.fasterxml.jackson.core/jackson-core/${jackson2.version}</bundle>
     <bundle>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson2.version}</bundle>
-    <bundle>mvn:javax.ws.rs/javax.ws.rs-api/${javax.ws.rs-api.version}</bundle>
     <bundle>mvn:javax.annotation/javax.annotation-api/${javax.annotation-api.version}</bundle>
     <bundle>mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
     <bundle>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson2.version}</bundle>
