@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Dataset")
+@Table(name = "awisc_dataset")
 public class Dataset implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,26 +44,26 @@ public class Dataset implements Serializable {
 	private String elevation;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "update_frequency_id", foreignKey = @ForeignKey(name="FK_Dataset_Update_Frequency"))
+	@JoinColumn(name = "update_frequency_id", foreignKey = @ForeignKey(name="FK_awisc_dataset_update_frequency"))
 	private UpdateFrequency updateFrequency;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "data_format_id", foreignKey = @ForeignKey(name="FK_Dataset_Data_Format"))
+	@JoinColumn(name = "data_format_id", foreignKey = @ForeignKey(name="FK_awisc_dataset_data_format"))
 	private DataFormat dataFormat;
 
 	@Column(name = "last_update")
 	private Date lastUpdate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ldsh_id", foreignKey = @ForeignKey(name="FK_Dataset_LDSH"))
+	@JoinColumn(name = "ldsh_id", foreignKey = @ForeignKey(name="FK_awisc_dataset_ldsh"))
 	private Ldsh ldsh;
 
 	@ManyToMany
-	@JoinTable(name = "Dataset_Codes", 
+	@JoinTable(name = "dataset_codes", 
 	joinColumns = @JoinColumn(name = "dataset_id", 
 	referencedColumnName = "id"), 
-	inverseJoinColumns = @JoinColumn(name = "wmo_code_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="FK_WmoCode_Dataset_Codes")),
-	foreignKey = @ForeignKey(name="FK_Dataset_Dataset_Codes"))
+	inverseJoinColumns = @JoinColumn(name = "wmo_code_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="FK_awisc_wmo_code_dataset_codes")),
+	foreignKey = @ForeignKey(name="FK_awisc_dataset_dataset_codes"))
 	private List<WmoCode> wmoCodes;
 
 	public Long getId() {

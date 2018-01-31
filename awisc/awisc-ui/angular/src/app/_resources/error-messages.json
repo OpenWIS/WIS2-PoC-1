@@ -2,7 +2,8 @@
     "UNEXPECTED_ERROR": "An unexpected error has occurred.",
     "UNAUTHORIZED": "Missing authorization.",
     "FORBIDDEN": "You do not have permission for this action.",
-    "LOGIN_FAILURE": "Incorrect credentials.",
-    "LOGOUT_FAILURE": "User not found."
+    "LOGIN_ERROR": "Incorrect credentials.",
+    "LOGOUT_ERROR": "User not found.",
+    "SETTINGS_SAVE_ERROR": "There was a problem saving the settings."
 }
 

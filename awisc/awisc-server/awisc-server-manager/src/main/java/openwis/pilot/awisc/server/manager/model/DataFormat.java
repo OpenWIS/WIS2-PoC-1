@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Update_Frequency")
+@Table(name = "awisc_data_format")
 public class DataFormat implements Serializable {
 
 	private static final long serialVersionUID = 1L;

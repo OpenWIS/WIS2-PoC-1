@@ -65,7 +65,7 @@ public class Login implements HasHttpHeaders {
 			return new ServiceMessage(Constants.MessageCode.LOGOUT_SUCCESS);
 		}
 
-		throw new ServiceException(ErrorCode.LOGOUT_FAILURE);
+		throw new ServiceException(ErrorCode.LOGOUT_ERROR);
 
 	}
 

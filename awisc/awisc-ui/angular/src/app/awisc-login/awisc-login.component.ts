@@ -7,8 +7,9 @@ import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/map";
 import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import { MatChipInputEvent } from "@angular/material";
-import { User } from "./user.model";
-import { RestClient } from "../../app/_services/rest.client";
+import { User } from "../_dto/User.dto";
+import { LoginService } from "../../app/_services/rest/login.service";
+import { RestClient } from "../../app/_services/rest/rest-client.service";
 import { MatSnackBar } from "@angular/material";
 import {environment} from "../../environments/environment";
 
@@ -37,6 +38,7 @@ export class AwiscLoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private loginService: LoginService,
     private restClient: RestClient,
     public snackBar: MatSnackBar
   ) {
@@ -51,38 +53,24 @@ export class AwiscLoginComponent implements OnInit {
   }
 
   login() {
-    this.restClient
-      .postUnauthorized("/login", null, this.user, this.onLoginSuccess, null)
-      .subscribe();
+    this.loginService.login(this.user, this.onLoginSuccess, null);
+    
   }
 
   logout() {
-    this.restClient
-      .post("/logout", null, null, null, null)
-      .subscribe();
+    this.loginService.logout(this.onLogoutSuccess, null);
   }
 
-  onLogoutSuccess = response => {
-    localStorage.removeItem('jwtToken');
+  onLogoutSuccess = (response) => {
+    sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
   };
 
-  // onLogoutError = errorObservable => {
-  //   this.user.username = null;
-  //   this.user.password = null;
-  //   var errorObject = JSON.parse(errorObservable.error);
-  //   this.snackBar.open(errorObject.code, "Close", {
-  //     duration: 10000,
-  //     verticalPosition: "top"
-  //   });
-  // };
-
-  onLoginSuccess = response => {
+  onLoginSuccess = (response) => {
     var token = response.headers.get("Authorization");
-    //localStorage.setItem('jwtToken', token.substring('Bearer '.length));
     sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token);
   };
 
   // onLoginError = errorObservable => {
-  //   alert('lalala');
+  //   do stuff
   // };
 }

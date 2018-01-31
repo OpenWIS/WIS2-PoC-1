@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from "@angular/material";
-import * as errorMessages from './error-messages.json';
+import * as errorMessages from '../_resources/error-messages.json';
 
 
 @Injectable()

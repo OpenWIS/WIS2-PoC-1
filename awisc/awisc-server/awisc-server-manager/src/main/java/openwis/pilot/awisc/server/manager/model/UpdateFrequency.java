@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Update_Frequency")
+@Table(name = "awisc_update_frequency")
 public class UpdateFrequency implements Serializable {
 
 	private static final long serialVersionUID = 1L;

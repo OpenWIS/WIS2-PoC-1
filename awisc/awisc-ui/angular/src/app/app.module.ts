@@ -15,12 +15,15 @@ import { LdshsEditComponent } from './ldshs-edit/ldshs-edit.component';
 import { LdshsViewComponent } from './ldshs-view/ldshs-view.component';
 import {HttpClientModule} from "@angular/common/http";
 import { HttpModule, Http } from '@angular/http';
-import { RestClient } from './_services/rest.client';
+import { RestClient } from './_services/rest/rest-client.service';
+import { LoginService } from './_services/rest/login.service';
+import { SettingsService } from './_services/rest/settings.service';
 import { ErrorUtil } from './_services/error.util';
 import { SuccessUtil } from './_services/success.util';
 import { MatSnackBarModule } from "@angular/material";
 import {JwtModule} from "@auth0/angular-jwt";
 import {environment} from "../environments/environment";
+import {AuthGuard} from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -54,7 +57,7 @@ import {environment} from "../environments/environment";
   ],
   
   
-  providers: [RestClient, ErrorUtil, SuccessUtil],
+  providers: [AuthGuard, RestClient, LoginService, SettingsService, ErrorUtil, SuccessUtil],
    bootstrap: [AppComponent]
 })
 

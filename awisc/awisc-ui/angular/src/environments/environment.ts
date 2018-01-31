@@ -11,6 +11,6 @@ export const environment = {
     API_ROOT: '/cxf/awisc-api',
 
     // The name under which the JWT is kept.
-    JWT_STORAGE_NAME: 'rdshJWT'
+    JWT_STORAGE_NAME: 'awiscJWT'
   }
 };
