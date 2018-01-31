@@ -1,6 +1,9 @@
 {
+    "SUCCESS": "Success",
     "LOGIN_SUCCESS": "Successfully logged-in.",
     "LOGOUT_SUCCESS": "Successfully logged-out.",
-    "SETTINGS_SAVE_SUCCESS": "Successfully saved settings."
+    "SETTINGS_SAVE_SUCCESS": "Successfully saved settings.",
+    "LDSH_DELETE_SUCCESS": "Successfully deleted LDSH.",
+    "LDSH_SAVE_SUCCESS": "Successfully saved LDSH."
 }
 

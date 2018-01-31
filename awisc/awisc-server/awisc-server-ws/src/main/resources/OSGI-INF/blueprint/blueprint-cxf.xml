@@ -9,6 +9,7 @@
         <jaxrs:serviceBeans>
             <ref component-id="login"/>
             <ref component-id="settings"/>
+            <ref component-id="ldsh"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>

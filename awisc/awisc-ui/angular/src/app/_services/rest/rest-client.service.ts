@@ -81,6 +81,40 @@ export class RestClient {
                 throw Observable.throw(error['_body']);
             });
     }
+
+    delete(url: string, h: Headers, successCallback: Function, errorCallback: Function): Observable<any> {
+
+        var cpheaders = new Headers({ 'Content-Type': 'application/json' });
+
+        var requestOptions = new RequestOptions({
+            headers: cpheaders
+        });
+
+        return this.http.delete(url, requestOptions)
+            .map((response: Response) => {
+                if (response) {
+                    if(successCallback){
+                        successCallback(response);
+                    }
+                    else{
+                        this.successUtil.showMessage(response.json().code);
+                    }
+                    return response;
+                }
+            })
+            .catch((error: any) => {
+                console.log(error);
+                var errorObject = JSON.parse(error['_body']);
+                if(errorCallback){
+                    errorCallback(error);
+                }
+                else{
+                    this.errorUtil.showError(errorObject.code);
+                }
+
+                throw Observable.throw(error['_body']);
+            });
+    }
 }
 
 
