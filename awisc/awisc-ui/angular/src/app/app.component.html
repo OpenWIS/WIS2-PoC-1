@@ -2,7 +2,8 @@
   <mat-toolbar-row class="header">
     <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
 
-    <p>Authoritative WIS Catalogue</p>
+    <p #titleText></p>
+    <!--Authoritative WIS Catalogue -->
     <span class="ui-spacer"></span>
     <button mat-icon-button class="transparent" (click)="navigateToLogin()">
         <mat-icon class="ui-icon" aria-label="Menu">build</mat-icon>
@@ -39,7 +40,10 @@
 
 <footer class="footer">
   <div layout="row" layout-align="center center">
-    <div class="footer-message">&copy; 2017 - 2018 OpenWIS</div>
+    <div class="footer-message">
+      <span #copyright style="margin:0 1em;"></span> |
+      <span #email style="margin:0 1em;"></span>
+    </div>
 
   </div>
 

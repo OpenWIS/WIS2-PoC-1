@@ -3,9 +3,6 @@ import { Router } from "@angular/router";
 import { AppComponent } from "../app.component";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/startWith";
-import "rxjs/add/operator/map";
-import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import { MatChipInputEvent } from "@angular/material";
 import { User } from "../_dto/User.dto";
 import { LoginService } from "../../app/_services/rest/login.service";
@@ -42,7 +39,7 @@ export class AwiscLoginComponent implements OnInit {
     private restClient: RestClient,
     public snackBar: MatSnackBar
   ) {
-    AppComponent.selectedMenuItem = "awiscSearch";
+    AppComponent.selectedMenuItem = "login";
   }
 
   ngOnInit() {
@@ -68,6 +65,7 @@ export class AwiscLoginComponent implements OnInit {
   onLoginSuccess = (response) => {
     var token = response.headers.get("Authorization");
     sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token);
+    this.router.navigateByUrl('/ldshs');
   };
 
   // onLoginError = errorObservable => {

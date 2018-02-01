@@ -1,15 +1,13 @@
-<h2 class="main-header">
-  Welcome to the Authoritative WIS Catalogue
-</h2>
+<h2 #introHeader class="main-header"></h2>
 
-<p>
-  <i>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc lectus, mollis a convallis in, convallis in enim. Sed
-    dignissim vulputate dolor. Quisque porttitor sagittis felis id blandit. In convallis sollicitudin lectus, quis vulputate
-    nisl cursus id. Donec vehicula dolor eu accumsan tristique. Maecenas non lacus arcu. Integer purus enim, blandit commodo
-    bibendum quis, pharetra sit amet ipsum. Nullam viverra posuere neque, vel malesuada nunc elementum id. Etiam sed interdum
-    ante. Duis a ex enim.
-  </i>
+<p style="padding:2em 0;">
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nunc lectus, mollis a convallis in, convallis in enim. Sed
+  dignissim vulputate dolor. Quisque porttitor sagittis felis id blandit. In convallis sollicitudin lectus, quis vulputate
+  nisl cursus id. Donec vehicula dolor eu accumsan tristique. Maecenas non lacus arcu. Integer purus enim, blandit commodo
+  bibendum quis, pharetra sit amet ipsum. Nullam viverra posuere neque, vel malesuada nunc elementum id. Etiam sed interdum
+  ante. Duis a ex enim.
+
 </p>
 
 <div class="box">
@@ -25,11 +23,13 @@
 
     <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
 
-      <mat-form-field class="mat-form" style="width :80%">
-        <input matInput placeholder="Search datasets" formControlName="datasetSearch">
-      </mat-form-field>
+      <div style="text-align:center;">
+        <mat-form-field class="mat-form" style="width: 60%;margin-right:2em;">
+          <input matInput placeholder="Search datasets" formControlName="datasetSearch">
+        </mat-form-field>
+        <button mat-button type="button" (click)="search()" style="display:inline-block;">Search</button>
+      </div>
 
-      <button mat-button type="button" (click)="search()">Search</button>
     </form>
     <div *ngIf="searchResults">
       <search-results></search-results>

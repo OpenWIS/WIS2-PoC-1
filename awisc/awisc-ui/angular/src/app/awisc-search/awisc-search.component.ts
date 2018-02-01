@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/startWith";
 import "rxjs/add/operator/map";
 import { ENTER, COMMA } from "@angular/cdk/keycodes";
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent } from '@angular/material'
+import { SettingsService } from "../_services/rest/settings.service";;
 
 
 @Component({
@@ -25,7 +26,7 @@ export class AwiscSearchComponent implements OnInit {
   addOnBlur: any;
   displayFn: any;
   separatorKeysCodes: any;
-  
+  @ViewChild("introHeader") private introHeader: ElementRef;
   
   onSubmit(){
     
@@ -34,9 +35,22 @@ export class AwiscSearchComponent implements OnInit {
   stateCtrl: FormControl;
   searchForm: FormGroup;
 
-  constructor(private router: Router) {
-    AppComponent.selectedMenuItem = 'awiscSearch';
+  constructor(private router: Router, private settingsService: SettingsService) {
+    
   }
+
+  getSettingValue(data, settingKey) {
+    for (let setting of data) {
+      if (setting.settingKey === settingKey) {
+        return setting.settingVal;
+      }
+    }
+  }
+
+  listSettingsCallback = response => {
+    var data = JSON.parse(response["_body"]);
+    this.introHeader.nativeElement.innerHTML = this.getSettingValue(data, "header");
+  };
 
   ngOnInit() {
 
@@ -47,6 +61,7 @@ export class AwiscSearchComponent implements OnInit {
     });
 
     this.refreshAutoCompleteList();
+    this.settingsService.list(this.listSettingsCallback, null);
   }
 
 

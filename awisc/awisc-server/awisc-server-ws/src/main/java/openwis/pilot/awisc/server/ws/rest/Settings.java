@@ -35,7 +35,7 @@ public class Settings {
    * {@link openwis.pilot.rdsh.server.common.dto.SettingDTO}.
    */
   @GET
-  @JWTNeeded
+  //@JWTNeeded
   @Produces(MediaType.APPLICATION_JSON)
   public Response getAllSettings() {
     return Response.ok(settingsService.getSettings()).build();
