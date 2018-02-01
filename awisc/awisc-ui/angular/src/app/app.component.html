@@ -2,7 +2,9 @@
   <mat-toolbar-row class="header">
     <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
 
-    <p #titleText></p>
+    <a class="nav-link" style="text-decoration: none !important;" routerLink="home">
+      <p #titleText></p>
+    </a>
     <!--Authoritative WIS Catalogue -->
     <span class="ui-spacer"></span>
     <button mat-icon-button class="transparent" (click)="navigateToLogin()">
