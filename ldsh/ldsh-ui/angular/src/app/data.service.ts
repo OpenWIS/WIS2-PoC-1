@@ -30,6 +30,13 @@ export class DataService {
     }
 
 
+    public remoteCall<T>(url: string): Promise<any> {
+        
+                return this.httpClient.get<T>( url).toPromise();
+            }
+        
+
+
     public create(url: string, datasetDTO: any): Observable<any> {
 
         console.log(datasetDTO);

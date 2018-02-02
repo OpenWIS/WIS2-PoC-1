@@ -17,6 +17,7 @@ export class RDSHComponent implements OnInit {
 
   metadataForm: FormGroup;
   rdsh_id: number;
+  
 
   @ViewChild("readingTpSel") private readingTpSel: ElementRef;
 
@@ -45,14 +46,12 @@ export class RDSHComponent implements OnInit {
 
   checkRdshStatus(rs: RemoteSystem): any {
 
-    console.log("TODO calling " + rs.url);
-    this.dataService.getCall("AmIregistered").then(replay => {
-      this.registrationStatus = replay;
+    this.dataService.remoteCall(rs.url+"/cxf/rdsh-api/ldsh/token/"+rs.token).then(replay => {
+      this.registrationStatus = "OK";
       this.snackBar.open('RDSH was registered successfully.', null, {
         duration: 5000,
         verticalPosition: 'top'
       });
-      this.router.navigate(['/datasets']);
     }, onError => {
       console.log(onError);
       this.registrationStatus = onError.statusText;
@@ -64,9 +63,7 @@ export class RDSHComponent implements OnInit {
 
   }
 
-
-
-
+  
   buldForm(rs: RemoteSystem) {
 
     console.log(rs);
@@ -125,9 +122,6 @@ export class RDSHComponent implements OnInit {
     });
 
   }
-
-
-
 
 
   getErrorMessage() {
