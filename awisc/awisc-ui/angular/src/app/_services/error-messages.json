@@ -1,8 +1,0 @@
-{
-    "UNEXPECTED_ERROR": "An unexpected error has occurred.",
-    "UNAUTHORIZED": "Missing authorization.",
-    "FORBIDDEN": "You do not have permission for this action.",
-    "LOGIN_FAILURE": "Incorrect credentials.",
-    "LOGOUT_FAILURE": "User not found."
-}
-

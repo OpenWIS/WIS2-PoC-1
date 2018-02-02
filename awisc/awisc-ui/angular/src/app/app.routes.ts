@@ -6,9 +6,9 @@ import { SettingsComponent } from "./settings/settings.component";
 import { AwiscMainComponent } from "./awisc-main/awisc-main.component";
 import { AwiscLoginComponent } from "./awisc-login/awisc-login.component";
 import { AwiscSearchComponent } from "./awisc-search/awisc-search.component";
-import { LdshsAdminComponent } from "./ldshs-admin/ldshs-admin.component";
-import { LdshsEditComponent } from "./ldshs-edit/ldshs-edit.component";
-import { LdshsViewComponent } from "./ldshs-view/ldshs-view.component";
+
+import {LdshsAdminComponent} from "./ldsh/ldshs-admin/ldshs-admin.component";
+import {LdshsEditComponent} from "./ldsh/ldshs-edit/ldshs-edit.component";
 import {AuthGuard} from "./guards/auth.guard";
 
 
@@ -36,13 +36,14 @@ export const routerConfig: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "ldshEdit",
+    path: "ldsh-edit/:ldshId",
     component: LdshsEditComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "ldshView",
-    component: LdshsViewComponent
+    path: "ldsh-edit",
+    component: LdshsEditComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "",

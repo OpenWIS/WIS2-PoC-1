@@ -1,0 +1,44 @@
+<div class="box">
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Registered Local Data Sharing Hubs </p>
+    <span class="ui-spacer"></span>
+    <button mat-icon-button class="transparent" matTooltip="Add new LDSH"
+            [routerLink]="['/ldsh-edit']">
+      <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
+    </button>
+
+  </mat-toolbar>
+
+  <div style="padding:2em;">
+
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="systemId">
+        <mat-header-cell *matHeaderCellDef> System Id</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.systemId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="contactEmail">
+        <mat-header-cell *matHeaderCellDef> Contact</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.contactEmail}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button class="transparent" matTooltip="Edit LDSH"
+                  [routerLink]="['/ldsh-edit', element.id]">
+            <mat-icon class="ui-icon dark" aria-label="Edit">edit</mat-icon>
+          </button>
+          <button mat-icon-button class="transparent" matTooltip="Delete LDSH" (click)="delete (element.id)">
+            <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

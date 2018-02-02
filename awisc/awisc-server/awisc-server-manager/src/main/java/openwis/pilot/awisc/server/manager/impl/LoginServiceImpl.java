@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
         .fetchOne();
     
     if(user == null) {
-    	throw new ServiceException(Constants.ErrorCode.LOGIN_FAILURE);
+    	throw new ServiceException(Constants.ErrorCode.LOGIN_ERROR);
     }
 
     return new UserMapperImpl().toUserDTO(user);
