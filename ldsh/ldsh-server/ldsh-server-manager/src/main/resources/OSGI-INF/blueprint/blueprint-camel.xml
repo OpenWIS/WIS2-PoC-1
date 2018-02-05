@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+
+	<cm:property-placeholder persistent-id="openwis.ldsh"	update-strategy="reload" />
+<!-- 
+	<bean id="RestProcessor" class="openwis.pilot.ldsh.manager.processors.RestProcessor" />
+	<camelContext xmlns="http://camel.apache.org/schema/blueprint" 	id="camelLDSH" trace="true">
+		<route id="gather">
+			<from uri="{{ftp_server}}" />
+			<to uri="bean:beanFileProcess" />
+			<to uri="direct:rest.prep" />
+		</route>
+
+		<route id="disseminate">
+			<from uri="direct:rest.prep" />
+			<setHeader headerName="CamelHttpMethod">
+				<constant>POST</constant>
+			</setHeader>
+			<setHeader headerName="Content-Type">
+				<constant>application/json</constant>
+			</setHeader>
+			<marshal>
+				<json library="Jackson" />
+			</marshal>
+			<log message="topic= ${headers.topic}" loggingLevel="INFO" />
+			
+			<to uri="http4:localhost:8181/cxf/rdsh-api/publish" />
+			<to uri="log:response" />
+		</route>
+	</camelContext> -->
+
+</blueprint>

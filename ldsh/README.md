@@ -22,18 +22,26 @@ config:edit com.eurodyn.qlack2.util.liquibase
 config:property-set datasource openwisDS
 config:update
  
+
+config:edit openwis.ldsh
+config:property-set ftp_server ftp://localhost/?delay=5s&delete=true&passiveMode=true&password=openwis&username=openwis
+config:property-set trg_file  target/download
+config:update
+
+
 ### Install LDSH Karaf features repository
 feature:repo-add mvn:openwis.pilot.ldsh/ldsh-karaf-features/LATEST/xml/features
  
+ feature:install ldsh
 
 ### Install DB connectivity feature and automatic Liquibase update
-feature:install ldsh-database
+#feature:install ldsh-database
  
 ### Install dependencies
-feature:install ldsh-deps
+#feature:install ldsh-deps
  
 ### Install the server feature
-feature:install ldsh-server
+#feature:install ldsh-server
 
- #feature:install ldsh
+ 
  
