@@ -5,6 +5,7 @@
 		<jaxrs:serviceBeans>
 			<ref component-id="datasetResource" />
 			<ref component-id="systemResource" />
+			<ref component-id="awiscIndexResource" />			
 
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>

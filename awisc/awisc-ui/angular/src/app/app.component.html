@@ -1,16 +1,20 @@
 <mat-toolbar #toolbar class="header">
   <mat-toolbar-row class="header">
-    <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
+    <i class="fa fa-bars mat-icon menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()"></i>
 
     <a class="nav-link" style="text-decoration: none !important;" routerLink="home">
       <p #titleText></p>
     </a>
     <!--Authoritative WIS Catalogue -->
     <span class="ui-spacer"></span>
-    <button mat-icon-button class="transparent" (click)="navigateToLogin()">
-        <mat-icon class="ui-icon" aria-label="Menu">build</mat-icon>
-    </button>
     
+    <button mat-icon-button class="transparent" (click)="navigateToLogin()" matTooltip="Sign-in" *ngIf="!isLoggedIn">
+      <i class="fa fa-sign-in mat-icon menu-icon"></i>
+    </button>
+    <button mat-icon-button class="transparent" (click)="logout()" matTooltip="Sign-out" *ngIf="isLoggedIn">
+      <i class="fa fa-sign-out mat-icon menu-icon"></i>
+    </button>
+
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -21,13 +25,13 @@
 
       <li class="nav-item">
         <a class="nav-link" routerLink="ldshs" [ngClass]="{ 'active': selectedMenuItem == 'ldshs' }" (click)="clicked('ldshs')">
-          <mat-icon class="ui-icon">insert_drive_file</mat-icon>LDSHs
+          <i class="fa fa-window-restore mat-icon" style="margin:0 1em;"></i>LDSHs
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" routerLink="settings" [ngClass]="{ 'active': selectedMenuItem == 'settings' }" (click)="clicked('settings')">
-          <mat-icon class="ui-icon">settings</mat-icon>Settings
+          <i class="fa fa-cog mat-icon" style="margin:0 1em;"></i>Settings
         </a>
       </li>
     </ul>

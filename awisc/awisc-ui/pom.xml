@@ -108,6 +108,18 @@
 						</configuration>
 					</execution>
 
+					 <!-- It will execute install font-awesome -->
+					<execution>
+						<id>npm install @auth0/angular-jwt</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save font-awesome</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
+
                     <!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>
 						<id>npm install</id>

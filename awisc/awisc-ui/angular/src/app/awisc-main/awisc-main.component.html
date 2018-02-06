@@ -13,10 +13,10 @@
 <div class="box">
 
   <mat-toolbar #componentToolbar class="header-small">
-    <p>Search</p>
+    <p>Simple Search</p>
     <span class="ui-spacer"></span>
-    <button mat-icon-button class="transparent" (click)="navigateToMenu()">
-      <mat-icon class="ui-icon" aria-label="Menu">zoom_in</mat-icon>
+    <button mat-icon-button class="transparent" (click)="navigateToMenu()" mat>
+        <i class="fa fa-search-plus mat-icon" matTooltip="Advanced Search"></i>
     </button>
   </mat-toolbar>
   <div style="padding:2em;">

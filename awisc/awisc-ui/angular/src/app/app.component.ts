@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RouterModule, Routes, Router } from "@angular/router";
 import { SettingsService } from "./_services/rest/settings.service";
-import { MatSidenav } from "@angular/material";
+import { MatSidenav, MatIconRegistry } from "@angular/material";
+import { LoginService } from "../app/_services/rest/login.service";
+import { RestClient } from "../app/_services/rest/rest-client.service";
+import { environment } from "../environments/environment";
 
 @Component({
   selector: "app-root",
@@ -17,11 +20,23 @@ export class AppComponent implements OnInit {
   currentUrl: string;
   static selectedMenuItem: any;
   static menuOpen: boolean = true;
+  static isLoggedIn: boolean = false;
+
+  showhideCondrols: boolean = false;
 
   constructor(
     private router: Router,
-    private settingsService: SettingsService
-  ) {}
+    private settingsService: SettingsService,
+    public matIconRegistry: MatIconRegistry,
+    private loginService: LoginService,
+    private restClient: RestClient
+  ) {
+    matIconRegistry.registerFontClassAlias("fa");
+  }
+
+  get isLoggedIn() {
+    return AppComponent.isLoggedIn;
+  }
 
   onOpenedChange() {
     AppComponent.menuOpen = this.sidenav.opened;
@@ -37,8 +52,14 @@ export class AppComponent implements OnInit {
 
   listSettingsCallback = response => {
     var data = JSON.parse(response["_body"]);
-    this.titleText.nativeElement.innerHTML = this.getSettingValue(data, "title");
-    this.copyright.nativeElement.innerHTML = this.getSettingValue(data, "copyright");
+    this.titleText.nativeElement.innerHTML = this.getSettingValue(
+      data,
+      "title"
+    );
+    this.copyright.nativeElement.innerHTML = this.getSettingValue(
+      data,
+      "copyright"
+    );
     this.email.nativeElement.innerHTML = this.getSettingValue(data, "email");
   };
 
@@ -46,13 +67,19 @@ export class AppComponent implements OnInit {
     let currentUrl = this.router.url;
     this.settingsService.list(this.listSettingsCallback, null);
   }
-  title = "app";
-  showhideCondrols: boolean = false;
+
+  logout() {
+    this.loginService.logout(this.onLogoutSuccess, null);
+  }
+
+  onLogoutSuccess = response => {
+    sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+  };
 
   hideShowControls(): boolean {
     let currentUrl = this.router.url;
 
-    if (this.router.url === "/home" || this.router.url === '/awiscSearch') {
+    if (this.router.url === "/home" || this.router.url === "/awiscSearch") {
       this.showhideCondrols = false;
       this.sidenav.close();
     } else {

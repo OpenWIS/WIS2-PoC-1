@@ -21,7 +21,7 @@
 				<configuration>
 					<instructions>
 						<Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
-						<DynamicImport-Package>org.hibernate,org.hibernate.proxy,javassist.util.proxy,javax.persistence</DynamicImport-Package>
+						<DynamicImport-Package>org.hibernate,org.hibernate.proxy,javassist.util.proxy,javax.persistence,openwis.pilot.ldsh.manager.service</DynamicImport-Package>
 						<Q-Liquibase-ChangeLog>db/ldsh.liquibase.changelog.xml</Q-Liquibase-ChangeLog>
 						<Q-Liquibase-Priority>110</Q-Liquibase-Priority>
 					</instructions>
@@ -87,6 +87,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>openwis.pilot</groupId>
+			<artifactId>common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
