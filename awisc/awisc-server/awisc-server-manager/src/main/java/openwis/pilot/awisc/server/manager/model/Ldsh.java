@@ -1,6 +1,7 @@
 package openwis.pilot.awisc.server.manager.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,6 +37,9 @@ public class Ldsh implements Serializable {
 
 	@Column(name = "copyright")
 	private String copyright;
+	
+	@Column(name = "registration_date")
+	private Date registrationDate;
 
 	@OneToMany(mappedBy = "ldsh")
 	private List<Dataset> datasets;
@@ -94,6 +98,14 @@ public class Ldsh implements Serializable {
 
 	public void setSystemId(String systemId) {
 		this.systemId = systemId;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 }

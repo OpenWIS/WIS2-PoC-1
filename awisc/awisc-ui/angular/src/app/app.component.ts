@@ -74,6 +74,7 @@ export class AppComponent implements OnInit {
 
   onLogoutSuccess = response => {
     sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+    AppComponent.isLoggedIn = false;
   };
 
   hideShowControls(): boolean {
