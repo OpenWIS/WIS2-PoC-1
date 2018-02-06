@@ -7,7 +7,6 @@ import { MatChipInputEvent } from "@angular/material";
 import { User } from "../_dto/User.dto";
 import { LoginService } from "../../app/_services/rest/login.service";
 import { RestClient } from "../../app/_services/rest/rest-client.service";
-import { MatSnackBar } from "@angular/material";
 import {environment} from "../../environments/environment";
 
 @Component({
@@ -36,8 +35,7 @@ export class AwiscLoginComponent implements OnInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private restClient: RestClient,
-    public snackBar: MatSnackBar
+    private restClient: RestClient
   ) {
     AppComponent.selectedMenuItem = "login";
   }
@@ -54,18 +52,11 @@ export class AwiscLoginComponent implements OnInit {
     
   }
 
-  logout() {
-    this.loginService.logout(this.onLogoutSuccess, null);
-  }
-
-  onLogoutSuccess = (response) => {
-    sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
-  };
-
   onLoginSuccess = (response) => {
     var token = response.headers.get("Authorization");
     sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token);
     this.router.navigateByUrl('/ldshs');
+    AppComponent.isLoggedIn = true;
   };
 
   // onLoginError = errorObservable => {

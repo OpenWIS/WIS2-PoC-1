@@ -1,7 +1,7 @@
 package openwis.pilot.awisc.server.manager.impl;
 
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.inject.Singleton;
@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -73,6 +72,12 @@ public class LdshServiceImpl implements LdshService {
 
 	@Override
 	public boolean validateLdshToken(String ldshToken) {
-		return new JPAQueryFactory(em).selectFrom(qLdsh).where(qLdsh.token.eq(ldshToken)).fetchOne() != null;
+		JPAQueryFactory f = new JPAQueryFactory(em);
+		boolean found = f.selectFrom(qLdsh).where(qLdsh.token.eq(ldshToken)).fetchOne() != null;
+		if(found) {
+			f.update(qLdsh).where(qLdsh.token.eq(ldshToken)).set(qLdsh.registrationDate, new Date());
+			return true;
+		}
+		return false;
 	}
 }

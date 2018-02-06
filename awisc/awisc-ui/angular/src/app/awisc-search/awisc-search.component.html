@@ -17,7 +17,7 @@
     <span class="ui-spacer"></span>
 
     <button mat-icon-button class="transparent" (click)="navigateToHome()">
-      <mat-icon class="ui-icon" aria-label="Menu">search</mat-icon>
+      <i class="fa fa-search mat-icon" matTooltip="Simple Search"></i>
     </button>
   </mat-toolbar>
   <div style="padding:2em;">
@@ -46,12 +46,12 @@
         <!-- chip  -->
         <h5 matSubheader>Selected Measurement Types:</h5>
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let wmos of selectedCodes" [selectable]="selectable" [removable]="removable" (remove)="deSelect(wmos)">
+          <mat-chip *ngFor="let wmos of selectedCodes" [selectable]="selectable" [removable]="removable" (remove)="deSelect(wmos)" style="margin-bottom: 8px;">
             {{wmos.label}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            <i class="fa fa-times-circle mat-icon menu-icon" matTooltip="Remove" *ngIf="removable" style="margin-left:0.5em; font-size:18px;"></i>
           </mat-chip>
-          <input placeholder="Add Code..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)" />
+          <!-- <input placeholder="Add Code..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" /> -->
         </mat-chip-list>
       </div>
 

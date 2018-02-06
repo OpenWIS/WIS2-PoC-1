@@ -4,7 +4,7 @@
     <span class="ui-spacer"></span>
     <button mat-icon-button class="transparent" matTooltip="Add new LDSH"
             [routerLink]="['/ldsh-edit']">
-      <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
+      <i class="fa fa-plus-circle mat-icon menu-icon"></i>
     </button>
 
   </mat-toolbar>
@@ -30,10 +30,10 @@
         <mat-cell *matCellDef="let element">
           <button mat-icon-button class="transparent" matTooltip="Edit LDSH"
                   [routerLink]="['/ldsh-edit', element.id]">
-            <mat-icon class="ui-icon dark" aria-label="Edit">edit</mat-icon>
+            <i class="fa fa-pencil-square-o mat-icon menu-icon ui-icon dark"></i>
           </button>
           <button mat-icon-button class="transparent" matTooltip="Delete LDSH" (click)="delete (element.id)">
-            <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>
+              <i class="fa fa-trash-o mat-icon menu-icon ui-icon dark"></i>
           </button>
         </mat-cell>
       </ng-container>

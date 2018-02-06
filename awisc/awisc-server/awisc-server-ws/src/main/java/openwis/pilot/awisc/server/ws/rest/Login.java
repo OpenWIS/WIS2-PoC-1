@@ -58,7 +58,7 @@ public class Login implements HasHttpHeaders {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ServiceMessage logout(String logoutMessage) throws ServiceException {
 
-		String token = WebUtil.getXAuthorizationToken(httpHeaders);
+		String token = WebUtil.getAuthorizationToken(httpHeaders);
 		boolean deleted = JwtUtil.deleteToken(token);
 
 		if (deleted) {
