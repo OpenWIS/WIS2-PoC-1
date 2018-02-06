@@ -17,14 +17,11 @@ import javax.ws.rs.core.Response;
 
 import openwis.pilot.ldsh.common.dto.RemoteSystemDTO;
 import openwis.pilot.ldsh.common.dto.SysPropertyDTO;
-import openwis.pilot.ldsh.manager.service.PollingService;
 import openwis.pilot.ldsh.manager.service.SystemService;
 
 import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.ops4j.pax.cdi.api.OsgiService;
-
-//import com.google.gson.Gson;
 
 
 
@@ -32,18 +29,12 @@ import org.ops4j.pax.cdi.api.OsgiService;
 public class SystemResource {
     private static final Logger logger = Logger.getLogger(SystemResource.class.getName());
 
-
 	   @Context
 	    private HttpHeaders headers;
 
 	    @Inject
 	    @OsgiService
 	    private SystemService systemService;
-	    
-	    
-	    @Inject
-	    @OsgiService
-	    private PollingService polingService;
 	    
 	    
 	    @POST
@@ -61,26 +52,7 @@ public class SystemResource {
 	                        "Access-Control-Allow-Headers, origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
 	                .build();
 	    }
-	    
-	    
-//	    @POST
-//	    @Path("/getSettings")
-//	    @CrossOriginResourceSharing(allowAllOrigins = true)
-//	    @Produces(MediaType.APPLICATION_JSON)
-//	    @Consumes(MediaType.APPLICATION_JSON)
-//	    public Response fetchSettings() {
-//	    	
-////	    	logger.log(Level.INFO, "Saving ....: "+ sysProperty.getName());
-//
-//	    	return Response.ok(systemService.getAllSystemProperties())
-//	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-//	                .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-//	                .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-//	                .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS,
-//	                        "Access-Control-Allow-Headers, origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-//	                .build();
-//	    }
-	    
+    
 		  @GET
 		    @Path("/getSettings")
 		    @CrossOriginResourceSharing(allowAllOrigins = true)
@@ -94,49 +66,7 @@ public class SystemResource {
 		        .build();
 		    }
 		  
-		  
-		  @GET
-		  @Path("/startPolling")
-		  @CrossOriginResourceSharing(allowAllOrigins = true)
-		  @Produces(MediaType.APPLICATION_JSON)
-		  public Response startPolling() {
-		      return Response.ok( polingService.startPolling())
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-		      .build();
-		  }
-		  
-		  
-		  @GET
-		  @Path("/stopPolling") 
-		  @CrossOriginResourceSharing(allowAllOrigins = true)
-		  @Produces(MediaType.APPLICATION_JSON)
-		  public Response stopPolling() {
-		      return Response.ok( polingService.stopPolling())
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-		      .build();
-		  }
-		  
-		  
-		  @GET
-		  @Path("/getPollingStatus")
-		  @CrossOriginResourceSharing(allowAllOrigins = true)
-		  @Produces(MediaType.APPLICATION_JSON)
-		  public Response getPollingStatus() {
-		      return Response.ok( "\"" + polingService.getPollingStatus()+"\"")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-		      .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-		      .build();
-		  }
-	    
-	    
+  
 	    @POST
 	    @Path("/saveRemote")
 	    @CrossOriginResourceSharing(allowAllOrigins = true)
@@ -182,6 +112,5 @@ public class SystemResource {
 	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
 	        .build();
 	    }
-	    
 	    
 }

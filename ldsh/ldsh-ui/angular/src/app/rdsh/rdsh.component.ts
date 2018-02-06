@@ -46,7 +46,7 @@ export class RDSHComponent implements OnInit {
 
   checkRdshStatus(rs: RemoteSystem): any {
 
-    this.dataService.remoteCall(rs.url+"/cxf/rdsh-api/ldsh/token/"+rs.token).then(replay => {
+    this.dataService.remoteCall("http://"+rs.url+"/cxf/rdsh-api/ldsh/token/"+rs.token).then(replay => {
       this.registrationStatus = "OK";
       this.snackBar.open('RDSH was registered successfully.', null, {
         duration: 5000,

@@ -2,10 +2,12 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
 	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
 
-	<cm:property-placeholder persistent-id="openwis.ldsh"	update-strategy="reload" />
-<!-- 
+	<cm:property-placeholder persistent-id="openwis.ldsh" update-strategy="reload" />
+
 	<bean id="RestProcessor" class="openwis.pilot.ldsh.manager.processors.RestProcessor" />
-	<camelContext xmlns="http://camel.apache.org/schema/blueprint" 	id="camelLDSH" trace="true">
+	
+	<camelContext xmlns="http://camel.apache.org/schema/blueprint" id="camelLDSH" trace="true">
+	
 		<route id="gather">
 			<from uri="{{ftp_server}}" />
 			<to uri="bean:beanFileProcess" />
@@ -14,6 +16,7 @@
 
 		<route id="disseminate">
 			<from uri="direct:rest.prep" />
+			<log message="topic= ${headers}" loggingLevel="INFO" />
 			<setHeader headerName="CamelHttpMethod">
 				<constant>POST</constant>
 			</setHeader>
@@ -23,11 +26,22 @@
 			<marshal>
 				<json library="Jackson" />
 			</marshal>
-			<log message="topic= ${headers.topic}" loggingLevel="INFO" />
-			
-			<to uri="http4:localhost:8181/cxf/rdsh-api/publish" />
-			<to uri="log:response" />
+			<choice>
+				<when>
+					<simple>$simple{in.headers.ValidLdshMessage}</simple>
+					<recipientList>
+						<simple>http4://${in.headers.destinationUrl}</simple>
+					</recipientList>
+					<log message="Message sent to $simple{in.headers.destinationUrl}" loggingLevel="INFO" />
+					<to uri="log:response" />
+				</when>
+				<otherwise>
+					<log message="Message discarded." loggingLevel="INFO" />
+					<stop/>
+				</otherwise>
+			</choice>
 		</route>
-	</camelContext> -->
+		
+	</camelContext>
 
 </blueprint>
