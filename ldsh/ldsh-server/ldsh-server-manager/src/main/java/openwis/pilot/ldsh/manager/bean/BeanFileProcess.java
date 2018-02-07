@@ -42,7 +42,6 @@ public class BeanFileProcess<T> {
 
 			if (file.getFileName().startsWith(dataset.getFilenameprefix())&& !dataset.getFilenameprefix().isEmpty()  ) {
 				logger.log(Level.INFO,"*** Start processing " + file.getFileName());
-
 				if (dataset.isRdshDissEnabled()){
 					datasetMQTTPublishDTO = new DatasetMQTTPublishDTO();
 
@@ -60,6 +59,7 @@ public class BeanFileProcess<T> {
 					exchange.getOut().setHeader("destinationUrl", systemService.getRdsh().getUrl()+"/cxf/rdsh-api/publish");
 					exchange.getOut().setHeader("ValidLdshMessage", true);
 					
+					datasetService.updateDatasetLastUpdate(dataset.getId());
 	                break;
 				} else {
 					exchange.getOut().setHeader("ValidLdshMessage", false);
@@ -73,7 +73,6 @@ public class BeanFileProcess<T> {
 			exchange.getOut().setHeader("ValidLdshMessage", false);
 			return null;
 		} 
-		
 		logger.log(Level.INFO, "*** Sending to RDSH ", datasetMQTTPublishDTO.getMessage());
 		return datasetMQTTPublishDTO;
 	}

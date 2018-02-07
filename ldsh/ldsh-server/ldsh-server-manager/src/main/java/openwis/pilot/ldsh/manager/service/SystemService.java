@@ -18,4 +18,5 @@ public interface SystemService {
 	public String getSystemPropertyValue(String systemPropertyname);
 	
 	public SysPropertyDTO getAllSystemProperties();
+
 }

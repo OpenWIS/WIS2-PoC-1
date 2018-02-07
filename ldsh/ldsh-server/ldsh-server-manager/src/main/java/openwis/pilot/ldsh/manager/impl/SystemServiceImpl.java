@@ -125,6 +125,5 @@ public class SystemServiceImpl implements SystemService {
 		return sp.getValue();
 	}
 
-	
 
 }

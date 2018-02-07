@@ -37,20 +37,6 @@ public class DatasetResource {
     @OsgiService
     private DatasetService datasetService;
     
-//    @Inject
-//    @OsgiService
-//    private PollingService pollingService;
-
-   // Demo OK response.
-    @GET
-    @Path("/hello-world")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response hw1() {
-      return Response.ok("{\"message\": \"test-plain-json\"}").build();
-    }
-
-    
-    
 
     @POST
     @Path("/saveDataset")
@@ -59,7 +45,6 @@ public class DatasetResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response userVerification(DatasetDTO dataset) {
     	logger.log(Level.INFO, "Saving ....: "+ dataset.toString() );
-System.out.println("Saving ....: "+ dataset.toString() );
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")

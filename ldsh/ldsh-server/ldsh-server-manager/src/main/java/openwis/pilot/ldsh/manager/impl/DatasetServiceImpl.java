@@ -1,6 +1,7 @@
 package openwis.pilot.ldsh.manager.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +63,8 @@ public class DatasetServiceImpl implements DatasetService {
 			System.out.println("NO Datset found.");
 			return null;
 		}
+System.out.println(dataset.toString());		
+System.out.println("LAst update "+dataset.getLastUpdate());
 		return new DatasetMapperImpl().toDatasetDTO(dataset);
 	}
 
@@ -165,6 +168,22 @@ public class DatasetServiceImpl implements DatasetService {
 			muDtoList.add(new MeasurementUnitMapperImpl().toMeasurementUnitDTO(mu));
 		}
 		return muDtoList;
+	}
+
+
+	@Transactional
+	@Override
+	public void updateDatasetLastUpdate(Long id) {
+
+		try {
+			final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
+			dataset.setLastUpdate(new Date());
+			em.merge(dataset);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+		}		
+		
 	}
 
 }

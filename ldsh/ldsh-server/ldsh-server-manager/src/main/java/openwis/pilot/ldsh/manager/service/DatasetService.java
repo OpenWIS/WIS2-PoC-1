@@ -20,6 +20,7 @@ public interface DatasetService {
 	public List<CountryDTO> getCountries();
 	public List<WmoCodeDTO> getWmoCodes();
 	public List<FrequencyUnitDTO> getMeasurementUnits();
+	public void updateDatasetLastUpdate(Long id);
 	
 
 }
