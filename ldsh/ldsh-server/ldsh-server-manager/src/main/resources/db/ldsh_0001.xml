@@ -216,6 +216,17 @@
 			(4,'Hour','http://codes.wmo.int/common/unit/h'),
 			(5,'Minute (time)','http://codes.wmo.int/common/unit/min');
 			UNLOCK TABLES;
+			
+			
+			
+			CREATE TABLE ldsh_user (
+		  	user_name VARCHAR(255) NOT NULL,
+		  	user_password VARCHAR(255) NOT NULL,
+		  	salt VARCHAR(255) NOT NULL,
+		  	PRIMARY KEY (user_name));
+
+			-- Default password: openwis
+			INSERT INTO ldsh_user VALUES ('ldsh', 'FDF2F5114D7E2C714F0228E0B45EDB26', '680c5855-ed27-499d-8463-cbf0b6d1b6c9');
 
 		</sql>
 	</changeSet>

@@ -1,11 +1,14 @@
 package openwis.pilot.ldsh.manager.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +25,10 @@ import openwis.pilot.ldsh.manager.service.SystemService;
 import openwis.pilot.ldsh.manager.mappers.SysPropertyMapperImpl;
 import openwis.pilot.ldsh.manager.mappers.RemoteSystemMapperImpl;
 
+import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -33,27 +39,41 @@ public class SystemServiceImpl implements SystemService {
 	@PersistenceContext(unitName = "ldshPU")
 	private EntityManager em;
 	
+	// Reference to OSGi Config Admin service.
+	@OsgiService
+	@Inject
+	private ConfigurationAdmin configAdmin;
+
 	private static final Logger logger = Logger.getLogger(SystemServiceImpl.class.getName());
+	
+	private static final String CONFIG_ADMIN_PID = "openwis.ldsh";
+	
+	// List of settings which should be maintained in Config Admin.
+	private static final String[] CONFIG_ADMIN_SETTINGS = new String[] { "jwt_secret" };
 
 	private static QRemoteSystem qRemoteSystem = QRemoteSystem.remoteSystem;
-	
 	private static QSysProperty qSysProperty = QSysProperty.sysProperty;
-	
-	
+
 	@Override
 	public RemoteSystemDTO getAwisc() {
 
-		final RemoteSystem awisc = new JPAQueryFactory(em).selectFrom(qRemoteSystem).where(qRemoteSystem.type.eq(RemoteSystem.SystemType.AWISC)).fetchOne();
-				if (awisc == null){
-					System.out.println("No AWISC found");
-					return null;
-				}
-		return new  RemoteSystemMapperImpl().toRemoteSystemDTO(awisc);
+		final RemoteSystem awisc = new JPAQueryFactory(em)
+				.selectFrom(qRemoteSystem)
+				.where(qRemoteSystem.type.eq(RemoteSystem.SystemType.AWISC))
+				.fetchOne();
+		if (awisc == null) {
+			System.out.println("No AWISC found");
+			return null;
+		}
+		return new RemoteSystemMapperImpl().toRemoteSystemDTO(awisc);
 	}
 
 	@Override
 	public RemoteSystemDTO getRdsh() {
-		final RemoteSystem rdsh = new JPAQueryFactory(em).selectFrom(qRemoteSystem).where(qRemoteSystem.type.eq(RemoteSystem.SystemType.RDSH)).fetchOne();
+		final RemoteSystem rdsh = new JPAQueryFactory(em)
+				.selectFrom(qRemoteSystem)
+				.where(qRemoteSystem.type.eq(RemoteSystem.SystemType.RDSH))
+				.fetchOne();
 		if (rdsh == null) {
 			System.out.println("No RDSH found");
 			return null;
@@ -66,7 +86,10 @@ public class SystemServiceImpl implements SystemService {
 	@Transactional
 	public RemoteSystemDTO saveSystem(RemoteSystemDTO remoteSystemDto) {
 		try {
-			final RemoteSystem rs = new JPAQueryFactory(em).selectFrom(qRemoteSystem).where(qRemoteSystem.id.eq(remoteSystemDto.getId())).fetchOne();
+			final RemoteSystem rs = new JPAQueryFactory(em)
+					.selectFrom(qRemoteSystem)
+					.where(qRemoteSystem.id.eq(remoteSystemDto.getId()))
+					.fetchOne();
 
 			if (rs != null) {
 				em.merge(new RemoteSystemMapperImpl().toRemoteSystem(remoteSystemDto));
@@ -90,15 +113,16 @@ public class SystemServiceImpl implements SystemService {
 
 		for (SysProperty systemPropery : sysproperties) {
 			try {
-				final SysProperty sp  =  new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq(systemPropery.getName())).fetchOne();
-					if (sp != null){
+				final SysProperty sp = new JPAQueryFactory(em)
+						.selectFrom(qSysProperty).where(qSysProperty.name.eq(systemPropery.getName())).fetchOne();
+				if (sp != null) {
 					systemPropery.setId(sp.getId());
 					em.merge(systemPropery);
 				} else {
-					System.out.println("saving.." + systemPropery.getName() + " - " + systemPropery.getValue());
+					System.out.println("saving.." + systemPropery.getName()+ " - " + systemPropery.getValue());
 					em.persist(systemPropery);
 				}
-	
+
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, "error", e);
 				e.printStackTrace();
@@ -108,22 +132,39 @@ public class SystemServiceImpl implements SystemService {
 		return sysPropertyDTO;
 	}
 
-
 	@Override
 	public SysPropertyDTO getAllSystemProperties() {
 
-		ArrayList<SysProperty> sps = (ArrayList<SysProperty>) new JPAQueryFactory(em).selectFrom(qSysProperty).fetch();
-		
+		ArrayList<SysProperty> sps = (ArrayList<SysProperty>) new JPAQueryFactory(
+				em).selectFrom(qSysProperty).fetch();
+
 		return (new SysPropertyMapperImpl()).toSysPropertyDTO(sps);
 	}
 
 	@Override
 	public String getSystemPropertyValue(String systemPropertyname) {
-		
-		final SysProperty sp  =  new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq(systemPropertyname)).fetchOne();
-		
+
+		final SysProperty sp = new JPAQueryFactory(em).selectFrom(qSysProperty).where(qSysProperty.name.eq(systemPropertyname)).fetchOne();
+
 		return sp.getValue();
 	}
 
+	@Override
+	public String getSystemConfigurationValue(String systemPropertyKey) {
+		// Fetch settings from Config Admin.
+		try {
+			Configuration conf = configAdmin.getConfiguration(CONFIG_ADMIN_PID);
+			@SuppressWarnings("unchecked")
+			Dictionary<String, Object> props = conf.getProperties();
+			for (String key : CONFIG_ADMIN_SETTINGS) {
+				if (systemPropertyKey.equals(key)){
+					return (String) props.get(key);
+				}
+			}
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Could not parse PID.", e);
+		}
+		return "";
+	}
 
 }

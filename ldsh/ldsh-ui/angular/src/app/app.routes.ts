@@ -9,6 +9,8 @@ import { AWISCComponent } from "./awisc/awisc.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { DatasetsMainComponent } from "./datasets-main/datasets-main.component";
 import { DatasetViewComponent } from "./dataset-view/dataset-view.component";
+import { LoginComponent } from "./login/login.component";
+import { AuthGuard } from "./guards/auth.guard";
 
 export const routerConfig: Routes = [
   {
@@ -16,20 +18,29 @@ export const routerConfig: Routes = [
     component: DatasetsMainComponent
   },
   {
+    path: "login",
+    component: LoginComponent
+  },
+
+  {
     path: "datasets",
-    component: DatasetsAdminComponent
+    component: DatasetsAdminComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "rdsh",
-    component: RDSHComponent
+    component: RDSHComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "awisc",
-    component: AWISCComponent
+    component: AWISCComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "settings",
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "view",
@@ -38,11 +49,13 @@ export const routerConfig: Routes = [
   // edit mode
   {
     path: "submit",
-    component: SubmitFormComponent
+    component: SubmitFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "about",
-    component: SubmitFormComponent
+    component: SubmitFormComponent,
+    canActivate: [AuthGuard]   
   },
   {
     path: "",
