@@ -54,8 +54,8 @@ public class Dataset implements Serializable {
 	@Column(name = "imageurl")
 	private String imageUrl;
 
-	@Column(name = "measurementunit")
-	private String measurementUnit;
+	@Column(name = "frequencyunit")
+	private String frequencyUnit;
 
 	@ManyToMany(cascade = { CascadeType.MERGE })
 	@JoinTable(name = "ldsh_dataset_wmo_code", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "wmo_code_id") })
@@ -107,6 +107,10 @@ public class Dataset implements Serializable {
 	// Search Engine Metadata
 	@Column(name = "jsonld")
 	private String jsonLd;
+	
+	@Column(name = "lastupdate")
+	private Date lastUpdate;
+	
 
 	public Dataset() {
 
@@ -118,7 +122,7 @@ public class Dataset implements Serializable {
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, DataFormat dataformat,
-			boolean rdshDissEnabled, String jsonLd ,boolean sendData) {
+			boolean rdshDissEnabled, String jsonLd ,boolean sendData, Date lastupdate) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -127,7 +131,7 @@ public class Dataset implements Serializable {
 		this.periodTo = periodTo;
 		this.license = license;
 		this.imageUrl = imageUrl;
-		this.measurementUnit = measurementUnit;
+		this.frequencyUnit = measurementUnit;
 		this.wmoCodes = wmoCodes;
 		this.country = country;
 		this.state = state;
@@ -143,6 +147,7 @@ public class Dataset implements Serializable {
 		this.rdshDissEnabled = rdshDissEnabled;
 		this.jsonLd = jsonLd;
 		this.senddata = sendData;
+		this.lastUpdate = lastupdate;
 	}
 
 	public Set<WmoCode> getWmoCodes() {
@@ -209,12 +214,12 @@ public class Dataset implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getMeasurementUnit() {
-		return measurementUnit;
+	public String getFrequencyUnit() {
+		return frequencyUnit;
 	}
 
-	public void setMeasurementUnit(String measurementUnit) {
-		this.measurementUnit = measurementUnit;
+	public void setFrequencyUnit(String measurementUnit) {
+		this.frequencyUnit = measurementUnit;
 	}
 
 	public Country getCountry() {
@@ -327,6 +332,14 @@ public class Dataset implements Serializable {
 
 	public void setSenddata(boolean senddata) {
 		this.senddata = senddata;
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 }

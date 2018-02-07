@@ -48,7 +48,9 @@ public abstract class DatasetMapper {
 				 dataFormatMapper.toDataFormat(datasetDto.getDataformat()),
 				 datasetDto.isRdshDissEnabled(), 
 				 datasetDto.getJsonLd(),  
-				 datasetDto.isSendData());
+				 datasetDto.isSendData(),
+				 datasetDto.getLastUpdate()
+				 );
 				 
 		 return dataset;
 	 }
@@ -81,7 +83,7 @@ public abstract class DatasetMapper {
 				 dataset.getPeriodTo(),
 				 dataset.getLicense(),
 				 dataset.getImageUrl(),
-				 dataset.getMeasurementUnit(),
+				 dataset.getFrequencyUnit(),
 				 getWmoCodesDTO( dataset.getWmoCodes()), // List<WmoCodeDTO> wmoCodes handle below.
 				 countryMapper.toCountryDTO(dataset.getCountry()), 
 				 dataset.getState(),
@@ -96,7 +98,9 @@ public abstract class DatasetMapper {
 				 dataFormatMapper.toDataFormatDTO(dataset.getDataformat()),
 				 dataset.isRdshDissEnabled(),
 				 dataset.getJsonLd(),
-				 dataset.isSenddata());
+				 dataset.isSenddata(),
+				 dataset.getLastUpdate()
+				 );
 				 
 		 return datasetDto;
 	 }

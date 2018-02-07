@@ -77,7 +77,7 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 			diDto.setSubscriptionUri(dataset.getSubscriptionUri());			
 
 			diDto.setLicense(dataset.getLicense());
-			diDto.setUpdateFrequency(dataset.getMeasurementUnit());
+			diDto.setUpdateFrequency(dataset.getFrequencyUnit());
 			
 			for(WmoCode wc: dataset.getWmoCodes()) {
 				diDto.getWmoCodes().add(wc.getCode());

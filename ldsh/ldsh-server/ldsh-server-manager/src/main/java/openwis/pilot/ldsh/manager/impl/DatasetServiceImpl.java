@@ -13,12 +13,12 @@ import javax.transaction.Transactional;
 import openwis.pilot.ldsh.common.dto.CountryDTO;
 import openwis.pilot.ldsh.common.dto.DataFormatDTO;
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
-import openwis.pilot.ldsh.common.dto.MeasurementUnitDTO;
+import openwis.pilot.ldsh.common.dto.FrequencyUnitDTO;
 import openwis.pilot.ldsh.common.dto.WmoCodeDTO;
 import openwis.pilot.ldsh.manager.model.Country;
 import openwis.pilot.ldsh.manager.model.QCountry;
-import openwis.pilot.ldsh.manager.model.MeasurementUnit;
-import openwis.pilot.ldsh.manager.model.QMeasurementUnit;
+import openwis.pilot.ldsh.manager.model.FrequencyUnit;
+import openwis.pilot.ldsh.manager.model.QFrequencyUnit;
 import openwis.pilot.ldsh.manager.model.DataFormat;
 import openwis.pilot.ldsh.manager.model.QDataFormat;
 import openwis.pilot.ldsh.manager.model.Dataset;
@@ -46,7 +46,7 @@ public class DatasetServiceImpl implements DatasetService {
 	private static QDataFormat qDataFormat = QDataFormat.dataFormat;
 	private static QCountry qCountry = QCountry.country;
 	private static QWmoCode qWmoCode = QWmoCode.wmoCode;
-	private static QMeasurementUnit qMeasurementUnit = QMeasurementUnit.measurementUnit;
+	private static QFrequencyUnit qMeasurementUnit = QFrequencyUnit.frequencyUnit;
 	
 		
 	  @PersistenceContext(unitName = "ldshPU")
@@ -157,11 +157,11 @@ public class DatasetServiceImpl implements DatasetService {
 
 
 	@Override
-	public List<MeasurementUnitDTO> getMeasurementUnits() {
+	public List<FrequencyUnitDTO> getMeasurementUnits() {
 		
-		ArrayList<MeasurementUnitDTO> muDtoList = new ArrayList<MeasurementUnitDTO>();
-		ArrayList<MeasurementUnit> mesurments = (ArrayList<MeasurementUnit>) new JPAQueryFactory(em).selectFrom(qMeasurementUnit).fetch();
-		for (MeasurementUnit mu : mesurments) {
+		ArrayList<FrequencyUnitDTO> muDtoList = new ArrayList<FrequencyUnitDTO>();
+		ArrayList<FrequencyUnit> mesurments = (ArrayList<FrequencyUnit>) new JPAQueryFactory(em).selectFrom(qMeasurementUnit).fetch();
+		for (FrequencyUnit mu : mesurments) {
 			muDtoList.add(new MeasurementUnitMapperImpl().toMeasurementUnitDTO(mu));
 		}
 		return muDtoList;
