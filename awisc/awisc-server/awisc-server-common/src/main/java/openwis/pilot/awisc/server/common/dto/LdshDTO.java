@@ -1,5 +1,7 @@
 package openwis.pilot.awisc.server.common.dto;
 
+import java.util.Date;
+
 public class LdshDTO {
 
 	private Long id;
@@ -8,6 +10,7 @@ public class LdshDTO {
 	private String token;
 	private String contactEmail;
 	private String copyright;
+	private Date registrationDate;
 
 	public Long getId() {
 		return id;
@@ -55,6 +58,14 @@ public class LdshDTO {
 
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 }

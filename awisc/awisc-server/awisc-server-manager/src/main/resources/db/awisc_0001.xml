@@ -33,6 +33,7 @@
         contact_email varchar(255),
         copyright varchar(255),
         name varchar(255),
+        registration_date datetime,
         system_id varchar(255),
         token varchar(255),
         primary key (id)
