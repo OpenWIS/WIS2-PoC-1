@@ -16,6 +16,10 @@ public interface SystemService {
 //	public SysPropertyDTO getSystemProperty(String name);
 	
 	public String getSystemPropertyValue(String systemPropertyname);
+
+	public String getSystemConfigurationValue(String systemPropertyKey);
 	
 	public SysPropertyDTO getAllSystemProperties();
+	
+
 }

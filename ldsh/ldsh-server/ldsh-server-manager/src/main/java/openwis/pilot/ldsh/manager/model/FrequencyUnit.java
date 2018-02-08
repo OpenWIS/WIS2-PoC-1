@@ -11,8 +11,8 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "ldsh_measurement_unit")
-public class MeasurementUnit implements Serializable {
+@Table(name = "ldsh_frequency_unit")
+public class FrequencyUnit implements Serializable {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class MeasurementUnit implements Serializable {
 	private static final long serialVersionUID = 4365261104590886710L;
 
 	@Id
-	@Column(name = "measurement_unit_id", updatable = false, nullable = false)
+	@Column(name = "frequency_unit_id", updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long measurementUnitId;
 

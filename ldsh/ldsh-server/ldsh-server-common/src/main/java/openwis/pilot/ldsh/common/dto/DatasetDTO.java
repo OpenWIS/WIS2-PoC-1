@@ -87,6 +87,9 @@ public class DatasetDTO implements Serializable {
 	@XmlElement
 	private boolean sendData;
 	
+	@XmlElement
+	private Date lastUpdate;
+	
 
 	public Long getId() {
 		return id;
@@ -101,7 +104,7 @@ public class DatasetDTO implements Serializable {
 			String state, String city, String latitude, String longitude,
 			String elevation, String relativeUrl, String filenameprefix,
 			String downloadUrl, String subscriptionUri, DataFormatDTO dataformat,
-			boolean rdshDissEnabled, String jsonLd, boolean sendData) {
+			boolean rdshDissEnabled, String jsonLd, boolean sendData,  Date lastUpdate ) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -126,6 +129,7 @@ public class DatasetDTO implements Serializable {
 		this.rdshDissEnabled = rdshDissEnabled;
 		this.jsonLd = jsonLd;
 		this.sendData = sendData;
+		this.lastUpdate = lastUpdate;
 	}
 
 	@Override
@@ -322,6 +326,14 @@ public class DatasetDTO implements Serializable {
 
 	public void setSendData(boolean sendData) {
 		this.sendData = sendData;
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 }

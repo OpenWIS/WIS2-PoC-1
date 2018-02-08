@@ -1,0 +1,25 @@
+<div class="box">
+  <mat-toolbar #componentToolbar class="header-small">
+    <p>Login</p>
+    <span class="ui-spacer"></span>
+  </mat-toolbar>
+
+  <div style="padding:2em;">
+    <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)" class="field-full-width">
+      <div>
+        <mat-form-field class="mat-form">
+          <input matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat-form">
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </div>
+      <br>
+      <div>
+        <button mat-button type="submit" [disabled]="loginForm.invalid">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

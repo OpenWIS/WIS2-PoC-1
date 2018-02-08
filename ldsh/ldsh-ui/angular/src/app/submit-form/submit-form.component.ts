@@ -26,6 +26,8 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
+  lastUpdate: Date;
+  
   //autocomplete
   stateCtrl: FormControl;
 
@@ -212,7 +214,7 @@ export class SubmitFormComponent implements OnInit {
       if (dataset.dataformat) {
         dataformatId = dataset.dataformat.id;
       }
-
+      this.lastUpdate = dataset.lastUpdate;
       this.disseminateData = dataset.sendData;
 
       this.metadataForm = new FormGroup({
@@ -425,4 +427,5 @@ export interface DataSet {
   periodTo: Date,
   wmoCodes: WmoCode[]
   sendData: boolean;
+  lastUpdate:Date;
 };

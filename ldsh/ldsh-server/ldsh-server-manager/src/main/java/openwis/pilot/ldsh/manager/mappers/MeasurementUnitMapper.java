@@ -1,15 +1,15 @@
 package openwis.pilot.ldsh.manager.mappers;
 
-import openwis.pilot.ldsh.common.dto.MeasurementUnitDTO;
-import openwis.pilot.ldsh.manager.model.MeasurementUnit;
+import openwis.pilot.ldsh.common.dto.FrequencyUnitDTO;
+import openwis.pilot.ldsh.manager.model.FrequencyUnit;
 
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface MeasurementUnitMapper {
 
-	MeasurementUnitDTO toMeasurementUnitDTO(MeasurementUnit mu);
+	FrequencyUnitDTO toMeasurementUnitDTO(FrequencyUnit mu);
 
-	MeasurementUnit toMeasurementUnit(MeasurementUnitDTO mu);
+	FrequencyUnit toMeasurementUnit(FrequencyUnitDTO mu);
 
 }

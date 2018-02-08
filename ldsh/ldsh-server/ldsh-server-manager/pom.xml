@@ -27,7 +27,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.aries.blueprint</groupId>
 				<artifactId>blueprint-maven-plugin</artifactId>
@@ -35,7 +34,8 @@
 				<configuration>
 					<scanPaths>
 						<scanPath>openwis.pilot.ldsh.manager.impl</scanPath>
-						<!-- <scanPath>openwis.pilot.ldsh.manager.service</scanPath> -->
+						<scanPath>openwis.pilot.ldsh.manager.bean</scanPath>
+						<scanPath>openwis.pilot.ldsh.manager.processors</scanPath>
 					</scanPaths>
 				</configuration>
 				<executions>
@@ -98,9 +98,19 @@
 			<version>${javax.ws.rs-api.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.eurodyn.qlack2.fuse</groupId>
+			<artifactId>qlack2-fuse-crypto-api</artifactId>
+			<version>${qlack2.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>openwis.pilot.ldsh</groupId>
 			<artifactId>ldsh-server-common</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>openwis.pilot</groupId>
+			<artifactId>common</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -139,7 +149,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core-osgi</artifactId>
+			<artifactId>camel-core</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
@@ -151,6 +161,12 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-ftp</artifactId>
 			<version>${camel.version}</version>
+		</dependency>
+		<!-- dimitest -->
+		<dependency>
+			<groupId>com.eurodyn.qlack2.util</groupId>
+			<artifactId>qlack2-util-jwt</artifactId>
+			<version>${qlack2.version}</version>
 		</dependency>
 	</dependencies>
 </project>

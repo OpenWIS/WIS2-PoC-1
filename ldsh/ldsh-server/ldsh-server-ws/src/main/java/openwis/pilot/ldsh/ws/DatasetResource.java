@@ -16,9 +16,9 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
 import openwis.pilot.ldsh.manager.service.DatasetService;
+import openwis.pilot.common.security.JWTNeeded;
 
 import org.apache.cxf.rs.security.cors.CorsHeaderConstants;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
@@ -37,29 +37,15 @@ public class DatasetResource {
     @OsgiService
     private DatasetService datasetService;
     
-//    @Inject
-//    @OsgiService
-//    private PollingService pollingService;
-
-   // Demo OK response.
-    @GET
-    @Path("/hello-world")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response hw1() {
-      return Response.ok("{\"message\": \"test-plain-json\"}").build();
-    }
-
-    
-    
 
     @POST
+    @JWTNeeded
     @Path("/saveDataset")
     @CrossOriginResourceSharing(allowAllOrigins = true)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response userVerification(DatasetDTO dataset) {
+    public Response storeDataset(DatasetDTO dataset) {
     	logger.log(Level.INFO, "Saving ....: "+ dataset.toString() );
-System.out.println("Saving ....: "+ dataset.toString() );
         return Response.ok(datasetService.saveDataset(dataset))
         .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
                 .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
@@ -72,6 +58,7 @@ System.out.println("Saving ....: "+ dataset.toString() );
     
     
     @GET
+    @JWTNeeded
     @Path("/deleteDataset/id={id}")
     @CrossOriginResourceSharing(allowAllOrigins = true)
     @Produces(MediaType.APPLICATION_JSON)
@@ -162,6 +149,7 @@ System.out.println("Saving ....: "+ dataset.toString() );
   
     
     @GET
+    @JWTNeeded
     @Path("/getDataset/id={id}")
     @CrossOriginResourceSharing(allowAllOrigins = true)
     @Produces(MediaType.APPLICATION_JSON)
@@ -180,6 +168,7 @@ System.out.println("Saving ....: "+ dataset.toString() );
 
 
     @POST
+    @JWTNeeded
     @Path("/register")
     @CrossOriginResourceSharing(allowAllOrigins = true, allowCredentials = true, maxAge = 1, allowHeaders = {
             "X-custom-1", "X-custom-2" }, exposeHeaders = { "X-custom-3", "X-custom-4" })
@@ -195,35 +184,5 @@ System.out.println("Saving ....: "+ dataset.toString() );
                         "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
                 .build();
     }
-
-    
-    
-    //     @POST
-    //     @Path("/testPost")
-    //     @Produces(MediaType.APPLICATION_JSON)
-    //     @Consumes(MediaType.APPLICATION_JSON)
-    //     public DatasetDTO testpost(DatasetDTO dataset) {
-    
-    //         System.out.println("testpost \n " + dataset.toString());
-    // logger.log(Level.SEVERE, "I got At WS: \n " + dataset.toString());
-    //         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //         return dataset;
-    //     }
-
-
-    // @OPTIONS
-    // @Path("{path : .*}")
-    // @CrossOriginResourceSharing(allowAllOrigins = true)
-    // @LocalPreflight
-    // public Response options() {
-    //     String origin = headers.getRequestHeader("Origin").get(0);
-
-    //         return Response.ok()
-    //                        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "DELETE PUT POST")
-    //                        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-    //                        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-    //                     //    .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-    //                        .build();
-    //     }
 
 }

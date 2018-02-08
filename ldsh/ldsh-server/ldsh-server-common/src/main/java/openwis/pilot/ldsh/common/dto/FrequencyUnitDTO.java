@@ -9,18 +9,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MeasurementUnitDTO implements Serializable {
+public class FrequencyUnitDTO implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8103205596013370598L;
 
-	public MeasurementUnitDTO() {
+	public FrequencyUnitDTO() {
 		
 	}
 	
-	public MeasurementUnitDTO(long measurementUnitId, String code, String name) {
+	public FrequencyUnitDTO(long measurementUnitId, String code, String name) {
 		super();
 		this.measurementUnitId = measurementUnitId;
 		this.code = code;

@@ -23,8 +23,7 @@ import org.apache.camel.component.file.GenericFile;
 @Singleton
 public class BeanFileProcess<T> {
 
-	private static final Logger logger = Logger.getLogger(BeanFileProcess.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(BeanFileProcess.class.getName());
 
 	@Inject
 	private SystemService systemService;
@@ -33,56 +32,53 @@ public class BeanFileProcess<T> {
 	private DatasetService datasetService;
 	
 	
-	public DatasetMQTTPublishDTO fileParser(GenericFile<T> file,
-			Exchange exchange) {
+	public DatasetMQTTPublishDTO fileParser(GenericFile<T> file, Exchange exchange) {
 
 		String bodyText = exchange.getIn().getBody(String.class);
-		DatasetMQTTPublishDTO datasetMQTTPublishDTO = new DatasetMQTTPublishDTO();
+		DatasetMQTTPublishDTO datasetMQTTPublishDTO = null;
 
 		ArrayList<DatasetDTO> datasets = (ArrayList<DatasetDTO>) datasetService.getAllDataSets();
-
 		for (DatasetDTO dataset : datasets) {
 
-			if (file.getFileName().startsWith(dataset.getFilenameprefix())) {
+			if (file.getFileName().startsWith(dataset.getFilenameprefix())&& !dataset.getFilenameprefix().isEmpty()  ) {
 				logger.log(Level.INFO,"*** Start processing " + file.getFileName());
-				
 				if (dataset.isRdshDissEnabled()){
-				
+					datasetMQTTPublishDTO = new DatasetMQTTPublishDTO();
+
 					if (dataset.isSendData()) {
 						datasetMQTTPublishDTO.setBinaryContentBase64(encodeToBase64(bodyText));
 					}
 				
-					datasetMQTTPublishDTO.setTopic("DIMI:TEST_TOPIC"); // systemId/ldsh-dataset-prefix
+					String sysId = systemService.getAllSystemProperties().getSystemId();
+					String topic = sysId + "/"+dataset.getFilenameprefix();
+					datasetMQTTPublishDTO.setTopic(topic); 
 					datasetMQTTPublishDTO.setDownloadURL(dataset.getDownloadUrl());
 					datasetMQTTPublishDTO.setToken(systemService.getRdsh().getToken());
-					datasetMQTTPublishDTO.setMessage("TODO MSG");
-					// new data available from `System  name`..@ topic
+					datasetMQTTPublishDTO.setMessage("New data available from "+systemService.getAllSystemProperties().getTitle() +" @"+topic);
+
+					exchange.getOut().setHeader("destinationUrl", systemService.getRdsh().getUrl()+"/cxf/rdsh-api/publish");
+					exchange.getOut().setHeader("ValidLdshMessage", true);
+					
+					datasetService.updateDatasetLastUpdate(dataset.getId());
+	                break;
 				} else {
-					logger.log(Level.INFO,"*** RDSH Dissemination is off for " + dataset.getName());
-				} 
+					exchange.getOut().setHeader("ValidLdshMessage", false);
+					logger.log(Level.WARNING,"*** RDSH Dissemination is off for " + dataset.getName());
+					return null;
+				}
 			}
 		}
-
-		// datasetMQTTPublishDTO.setDownloadURL(downloadURL);
-		// Asto pros to paron san ftp url
-
-		// file name
-		// + query sta active datasets kai na parw ta prefixes tous, kai koitaw
-		// an einai tou onomatos..
-
-		// topic name..
-		// - 3/ De xreiazetai na ftiaxnetai kapoio topic, ayto tha ginetai
-		// dynamika thn ora toy publishing.
-		// Subscription URI px: mqtt://myldshserverip/topicname
-		logger.log(Level.INFO, "SENDING to RDSH", datasetMQTTPublishDTO);
-
+		if (datasetMQTTPublishDTO == null){
+			logger.log(Level.INFO,"*** No matching Dataset found for " + file.getFileName());
+			exchange.getOut().setHeader("ValidLdshMessage", false);
+			return null;
+		} 
+		logger.log(Level.INFO, "*** Sending to RDSH ", datasetMQTTPublishDTO.getMessage());
 		return datasetMQTTPublishDTO;
 	}
 
 	private String encodeToBase64(String text) {
-		// TODO ???
-		String s = new String(Base64.getEncoder().encode(text.getBytes()),
-				StandardCharsets.UTF_8);
+		String s = new String(Base64.getEncoder().encode(text.getBytes()), StandardCharsets.UTF_8);
 		return s;
 	}
 
