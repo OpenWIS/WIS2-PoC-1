@@ -15,6 +15,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import openwis.pilot.common.security.JWTNeeded;
 import openwis.pilot.ldsh.common.dto.RemoteSystemDTO;
 import openwis.pilot.ldsh.common.dto.SysPropertyDTO;
 import openwis.pilot.ldsh.manager.service.SystemService;
@@ -38,6 +39,7 @@ public class SystemResource {
 	    
 	    
 	    @POST
+	    @JWTNeeded
 	    @Path("/saveSettings")
 	    @CrossOriginResourceSharing(allowAllOrigins = true)
 	    @Produces(MediaType.APPLICATION_JSON)
@@ -53,29 +55,28 @@ public class SystemResource {
 	                .build();
 	    }
     
-		  @GET
-		    @Path("/getSettings")
-		    @CrossOriginResourceSharing(allowAllOrigins = true)
-		    @Produces(MediaType.APPLICATION_JSON)
-		    public Response fetchSettings() {
-		        return Response.ok( systemService.getAllSystemProperties())
-		        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
-		        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
-		        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
-		        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
-		        .build();
-		    }
+	    @GET
+	    @Path("/getSettings")
+	    @CrossOriginResourceSharing(allowAllOrigins = true)
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response fetchSettings() {
+	        return Response.ok( systemService.getAllSystemProperties())
+	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
+	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")
+	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_CREDENTIALS, "true")
+	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_HEADERS, "origin, content-type, accept, authorization, Origin, Content-type, Accept, Authorization")
+	        .build();
+	    }
 		  
   
 	    @POST
 	    @Path("/saveRemote")
+	    @JWTNeeded
 	    @CrossOriginResourceSharing(allowAllOrigins = true)
 	    @Produces(MediaType.APPLICATION_JSON)
 	    @Consumes(MediaType.APPLICATION_JSON)
 	    public Response userVerification(RemoteSystemDTO remoteSystem) {
-
 	    	logger.log(Level.INFO, "Saving ....: "+ remoteSystem.getName());
-	    	
 	        return Response.ok(systemService.saveSystem(remoteSystem))
 	        .header(CorsHeaderConstants.HEADER_AC_ALLOW_ORIGIN, "*")
 	                .header(CorsHeaderConstants.HEADER_AC_ALLOW_METHODS, "GET,HEAD,OPTIONS,POST,PUT")

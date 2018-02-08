@@ -44,14 +44,12 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 		String ldshcontact = systemService.getSystemPropertyValue("email");
 		String ldshSystemId = systemService.getSystemPropertyValue("systemid");
 		
-		ArrayList<Dataset> datasets = (ArrayList<Dataset>) new JPAQueryFactory(em).selectFrom(qDataset)
-				.where(qDataset.rdshDissEnabled.eq(true)).fetch();
+		ArrayList<Dataset> datasets = (ArrayList<Dataset>) new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.rdshDissEnabled.eq(true)).fetch();
 		
 		LdshIndexDTO dto = new LdshIndexDTO();
 		dto.setContact(ldshcontact);
 		dto.setName(ldshName);;
 		dto.setSystemId(ldshSystemId);
-		
 		
 		
 		for(Dataset dataset: datasets) {
@@ -83,15 +81,7 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 				diDto.getWmoCodes().add(wc.getCode());
 			}
 			
-			/*
-			 * TODO: Add a lastUpdate in Dataset. It should be updated when new data is disseminated.
-			 * diDto.setLastUpdate(dataset.get());
-			 *  
-			 * 
-			 */
-			
-			
-			
+			diDto.setLastUpdate(dataset.getLastUpdate().toString());
 			
 			dto.getDatasets().add(diDto);
 		}
