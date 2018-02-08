@@ -80,7 +80,9 @@ public class JWTServiceImpl implements JWTService {
         LOGGER.log(Level.SEVERE, "Could not check password.", e);
         throw new AuthenticationException();
       }
-    }
+    } else { // Username not found. 
+			throw new AuthenticationException();
+		}
 
     return jwt;
   }
