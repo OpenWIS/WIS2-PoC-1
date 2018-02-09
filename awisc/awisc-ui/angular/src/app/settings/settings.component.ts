@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
   }
 
   listSettingsCallback = (response) => {
-    var data = JSON.parse(response['_body']);
+    var data = response.body;
     for (let setting of data) {
       this.settingsForm.controls[setting["settingKey"]].setValue(setting["settingVal"]);
     }

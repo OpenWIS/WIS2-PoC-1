@@ -16,6 +16,7 @@ export class ErrorUtil {
 
 
     showError(errorCode){
+        console.log("******************** errorCode: " + errorCode);
         this.snackBar.open(errorMessages[errorCode], "Close", {
             duration: 10000,
             verticalPosition: "top"

@@ -1,6 +1,6 @@
 <mat-toolbar #toolbar class="header">
   <mat-toolbar-row class="header">
-    <i class="fa fa-bars mat-icon menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()"></i>
+    <i id="sitenav" class="fa fa-bars mat-icon menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()"></i>
 
     <a class="nav-link" style="text-decoration: none !important;" routerLink="home">
       <p #titleText></p>

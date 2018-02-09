@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, RequestMethod, Request, Response } from '@angular/http';
+import { Headers, RequestOptions, RequestMethod, Request, Response } from '@angular/http';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -9,42 +10,40 @@ import { SuccessUtil } from '../success.util';
 @Injectable()
 export class RestClient {
 
-    constructor(public http: Http, private errorUtil: ErrorUtil, private successUtil: SuccessUtil) {
+    constructor(public http: HttpClient, private errorUtil: ErrorUtil, private successUtil: SuccessUtil) {
     }
 
     get(url: string, h: Headers, successCallback: Function, errorCallback: Function): Observable<any> {
 
-        var cpheaders = new Headers({ 'Content-Type': 'application/json' });
+        
+        //var ctHeaders = new HttpHeaders().set('Content-Type', "application/json")
 
-        var requestOptions = new RequestOptions({
-            headers: cpheaders
-        });
 
-        console.log(requestOptions);
-
-        return this.http.get(url, requestOptions)
-            .map((response: Response) => {
+        return this.http.get(url, {
+            headers: new HttpHeaders().set('Content-Type', "application/json"),
+            observe: 'response'
+        })
+            .map((response) => {
                 if (response) {
                     if(successCallback){
                         successCallback(response);
                     }
                     else{
-                        this.successUtil.showMessage(response.json().code);
+                        this.successUtil.showMessage(response.body["code"]);
                     }
                     return response;
                 }
             })
             .catch((error: any) => {
                 console.log(error);
-                var errorObject = JSON.parse(error['_body']);
                 if(errorCallback){
-                    errorCallback(error);
+                    errorCallback(error.error);
                 }
                 else{
-                    this.errorUtil.showError(errorObject.code);
+                    this.errorUtil.showError(error.error.code);
                 }
                 
-                throw Observable.throw(error['_body']);
+                throw Observable.throw(error.error);
             });
     }
 
@@ -56,29 +55,32 @@ export class RestClient {
             headers: cpheaders
         });
 
-        return this.http.post(url, data, requestOptions)
-            .map((response: Response) => {
+        return this.http.post(url, data, {
+            headers: new HttpHeaders().set('Content-Type', "application/json"),
+            observe: 'response'
+        })
+            .map((response) => {
+                console.log(response);
                 if (response) {
                     if(successCallback){
                         successCallback(response);
                     }
                     else{
-                        this.successUtil.showMessage(response.json().code);
+                        this.successUtil.showMessage(response.body["code"]);
                     }
                     return response;
                 }
             })
             .catch((error: any) => {
                 console.log(error);
-                var errorObject = JSON.parse(error['_body']);
                 if(errorCallback){
-                    errorCallback(error);
+                    errorCallback(error.error);
                 }
                 else{
-                    this.errorUtil.showError(errorObject.code);
+                    this.errorUtil.showError(error.error.code);
                 }
 
-                throw Observable.throw(error['_body']);
+                throw Observable.throw(error.error);
             });
     }
 
@@ -90,29 +92,31 @@ export class RestClient {
             headers: cpheaders
         });
 
-        return this.http.delete(url, requestOptions)
-            .map((response: Response) => {
+        return this.http.delete(url, {
+            headers: new HttpHeaders().set('Content-Type', "application/json"),
+            observe: 'response'
+        })
+            .map((response) => {
                 if (response) {
                     if(successCallback){
                         successCallback(response);
                     }
                     else{
-                        this.successUtil.showMessage(response.json().code);
+                        this.successUtil.showMessage(response.body["code"]);
                     }
                     return response;
                 }
             })
             .catch((error: any) => {
                 console.log(error);
-                var errorObject = JSON.parse(error['_body']);
                 if(errorCallback){
                     errorCallback(error);
                 }
                 else{
-                    this.errorUtil.showError(errorObject.code);
+                    this.errorUtil.showError(error.error.code);
                 }
 
-                throw Observable.throw(error['_body']);
+                throw Observable.throw(error.error);
             });
     }
 }

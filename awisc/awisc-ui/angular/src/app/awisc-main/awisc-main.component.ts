@@ -31,7 +31,8 @@ export class AwiscMainComponent implements OnInit {
   }
 
   listSettingsCallback = response => {
-    var data = JSON.parse(response["_body"]);
+    console.log(response);
+    var data = response.body;
     this.introHeader.nativeElement.innerHTML = this.getSettingValue(data, "header");
   };
 

@@ -25,6 +25,7 @@
     <feature>qlack2-util-rest</feature>
     <feature>qlack2-util-jwt</feature>
     <feature>qlack2-fuse-crypto</feature>
+    <feature>qlack2-fuse-search</feature>
     <feature>qlack2-common-util</feature>
     <feature>openwis-common</feature>
     <bundle>wrap:mvn:io.jsonwebtoken/jjwt/${jjwt.version}</bundle>

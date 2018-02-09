@@ -19,7 +19,6 @@ import { LdshsAdminComponent } from "./ldsh/ldshs-admin/ldshs-admin.component";
 import { LdshsEditComponent } from "./ldsh/ldshs-edit/ldshs-edit.component";
 import { LdshService } from "./_services/rest/ldsh.service";
 import { HttpClientModule } from "@angular/common/http";
-import { HttpModule, Http } from "@angular/http";
 import { RestClient } from "./_services/rest/rest-client.service";
 import { LoginService } from "./_services/rest/login.service";
 import { SettingsService } from "./_services/rest/settings.service";
@@ -51,7 +50,6 @@ import { OkCancelDialogComponent } from "./_shared/ok-cancel-dialog.component";
     ReactiveFormsModule,
     routing,
     HttpClientModule,
-    HttpModule,
     MatSnackBarModule,
     JwtModule.forRoot({
       config: {

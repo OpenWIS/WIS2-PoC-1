@@ -51,7 +51,8 @@ export class AppComponent implements OnInit {
   }
 
   listSettingsCallback = response => {
-    var data = JSON.parse(response["_body"]);
+    
+    var data = response.body;
     this.titleText.nativeElement.innerHTML = this.getSettingValue(
       data,
       "title"

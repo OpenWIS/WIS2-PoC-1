@@ -54,7 +54,7 @@ export class AwiscLoginComponent implements OnInit {
 
   onLoginSuccess = (response) => {
     var token = response.headers.get("Authorization");
-    sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token);
+    sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token.substring("Bearer ".length));
     this.router.navigateByUrl('/ldshs');
     AppComponent.isLoggedIn = true;
   };

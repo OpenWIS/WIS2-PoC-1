@@ -168,6 +168,11 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.eurodyn.qlack2.fuse</groupId>
+			<artifactId>qlack2-fuse-search-api</artifactId>
+			<version>${qlack2.version}</version>
+		</dependency>
 	</dependencies>
 </project>
 

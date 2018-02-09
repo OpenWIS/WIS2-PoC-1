@@ -27,7 +27,7 @@ export class LdshsEditComponent implements OnInit {
   }
 
   onLdshGetSuccess = (response) => {
-    var data = JSON.parse(response['_body']);
+    var data = response.body;
     this.ldshForm.controls["id"].setValue(data["id"]);
     this.ldshForm.controls["name"].setValue(data["name"]);
     this.ldshForm.controls["systemId"].setValue(data["systemId"]);

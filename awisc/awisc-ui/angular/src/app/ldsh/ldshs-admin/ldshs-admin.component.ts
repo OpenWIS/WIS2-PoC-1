@@ -25,7 +25,7 @@ export class LdshsAdminComponent implements OnInit {
   }
 
   onLdshListSuccess = (response) => {
-    var data = JSON.parse(response['_body']);
+    var data = response.body;
     this.dataSource = new MatTableDataSource<LdshDTO>(data);
   };
 
