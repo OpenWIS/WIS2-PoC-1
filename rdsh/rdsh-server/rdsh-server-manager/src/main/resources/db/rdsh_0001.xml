@@ -30,6 +30,20 @@ CREATE TABLE `rdsh_user` (
 
 -- Default password: openwis
 INSERT INTO `rdsh_user` (`user_name`, `user_password`, `salt`) VALUES ('rdsh', 'FDF2F5114D7E2C714F0228E0B45EDB26', '680c5855-ed27-499d-8463-cbf0b6d1b6c9');
+		
+  CREATE TABLE `rdsh_channel` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `channel_name` VARCHAR(255) NOT NULL,
+  `channel_uri` VARCHAR(255) NOT NULL,
+  `msessages_sent` VARCHAR(255) NOT NULL,
+  `bytes_sent` bigint(20) NOT NULL,
+  `failed_connections` bigint(20) NOT NULL,
+  `system_id` VARCHAR(255) NOT NULL,
+  KEY FK_ldsh_sys (system_id),
+  PRIMARY KEY (`id`)
+  )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;			
+		
+		
 		</sql>
   </changeSet>
 

@@ -54,6 +54,7 @@ public class BeanFileProcess<T> {
 					datasetMQTTPublishDTO.setTopic(topic); 
 					datasetMQTTPublishDTO.setDownloadURL(dataset.getDownloadUrl());
 					datasetMQTTPublishDTO.setToken(systemService.getRdsh().getToken());
+					datasetMQTTPublishDTO.setDatasetName(dataset.getName());
 					datasetMQTTPublishDTO.setMessage("New data available from "+systemService.getAllSystemProperties().getTitle() +" @"+topic);
 
 					exchange.getOut().setHeader("destinationUrl", systemService.getRdsh().getUrl()+"/cxf/rdsh-api/publish");

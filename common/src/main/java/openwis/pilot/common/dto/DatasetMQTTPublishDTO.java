@@ -9,9 +9,12 @@ public class DatasetMQTTPublishDTO {
 
   // The topic on which publishing takes place.
   private String topic;
-
+  
   // The message to publish.
   private String message;
+
+  // The message's Dataset name.
+  private String datasetName;
 
   // The URL from which data can be download on the LDSH.
   private String downloadURL;
@@ -42,6 +45,16 @@ public class DatasetMQTTPublishDTO {
   public void setMessage(String message) {
     this.message = message;
   }
+
+
+  public String getDatasetName() {
+    return datasetName;
+  }
+
+  public void setDatasetName(String datasetName) {
+    this.datasetName = datasetName;
+  }
+
 
   public String getDownloadURL() {
     return downloadURL;

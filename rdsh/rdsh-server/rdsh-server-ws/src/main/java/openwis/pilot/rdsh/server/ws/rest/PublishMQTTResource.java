@@ -30,12 +30,13 @@ public class PublishMQTTResource {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response publish(DatasetMQTTPublishDTO datasetMQTTPublishDTO) {
     ResponseBuilder responseBuilder;
-
+System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ RDHSH");
     // Check that the caller is using a valid token before allowing publication.
     if (!ldshService.validateLDSHToken(datasetMQTTPublishDTO.getToken())) {
       responseBuilder = Response.status(Status.UNAUTHORIZED);
     } else {
       // Proceed to publication.
+System.out.println("RDSH :I GOT "+ datasetMQTTPublishDTO);
       mqttService.publish(datasetMQTTPublishDTO);
       responseBuilder = Response.ok();
     }

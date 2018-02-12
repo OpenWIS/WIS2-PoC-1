@@ -38,4 +38,12 @@ public interface LDSHService {
    * @return Returns true if the token exists, false otherwise.
    */
   boolean validateLDSHToken(String ldshToken);
+  
+  /**
+   * Finds a specific LDSH by token.
+   * @param token The token of the LDSH to fetch.
+   * @return Returns the requested LDSDH or null.
+   */
+  LDSHDTO getLDSHbyToken(String ldshToken);
+  
 }
