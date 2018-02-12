@@ -1,0 +1,91 @@
+Introducing the PoC Cast
+
+Narrator:  Jeremy Tandy
+
+Mouktar:  Mark Oberfield
+Mouktar’s job is to run a Local Data Sharing Hub
+
+Omar:  Dimitris Papadeas (??)
+Omar’s job is to run a Regional Data Sharing hub
+
+Vicky: Giorgos Triantafyllidis (??)
+Vicky’s job is to run the Authoritative WIS catalogue
+ 
+Mohamed: Jeremy Tandy (??)
+Mohamed’s job is to search for information
+ 
+David: Paul Rogers (??)
+David’s job is to search for information
+ 
+Mariam: Jeremy Tandy
+Mariam’s job is to obtain real-time access to data
+
+The Narrative
+
+Narrator
+ 
+Opening remarks
+Introduction of video clip
+Video Clip dialogue
+ 
+Hi and welcome to OpenWIS Association's proof of concept. Let's walk you through some work we have been doing over the last couple of months.
+
+So, here is the current OpenWIS 1.0 concept we all know and love.
+People are searching for weather products all over the world. Data producers are producing data, and GISCs harvest and index data.
+but... real-time access to data is limited.  And for that matter, so is the ability to discover this data publicly
+
+So we asked ourselves... how can we make it better for WIS 2.0?
+
+Let’s start with some goals of this Proof of Concept study and how they could fulfill WIS 2.0 objectives.  The first goal is to ……
+Now let's introduce the players and their roles!
+First, there’s Mouktar who runs a small server in a remote location.
+He's not a computer expert, so he installs a Local Data Sharing Hub, using a fully automated procedure that only takes a few minutes.  Think of a Local Data Sharing Hub as …..
+
+Say hello to Omar.
+Omar is pretty good with computers and wants to distribute Mouktar's data.
+Omar installs a Regional Data Sharing Hub using a fully automated procedure that only takes a few minutes.  A Regional Data Sharing Hub differs from a Local Data Sharing Hub in that ….
+
+Now say hello to Vicky!
+Vicky works for a large association and wants to provide a comprehensive, curated list of weather-related products and data.
+Vicky install an AWISC - An Authoritative WIS Catalogue.  An Authoritative WIS Catalogue is designed to ….. 
+
+Next, meet Mohamed and Dave.
+Mohamed is working outdoors and wants to google today's weather conditions.  It just so happens ….
+Dave is a seasoned meteorologist.  David wants access to ….
+ 
+Oh, it seems we forgot Mariam! Mariam is working on a weather prediction model for which she needs real-time access to Mouktar's data.
+
+So, these are our heroes.
+Mouktar, running the Local Data Sharing Hub.
+Omar, running the Regional Data Sharing hub.
+Vicky, running the Authoritative WIS catalogue.
+Mohamed and Dave searching for information
+and Mariam wanting real-time access to data.
+
+So here's how the PoC system works:
+ 
+Mouktar has (FILL IN THE BLANK) data and wants to make it publically available for all to use.  [ACTION #1:  Mouktar pushes his data to http://openwis-opp6-1.eurodyn.com/ldsh. Mouktar registers his data by providing dataset information, location information, dissemination information and search engine information.  The search engine information is expressed as a json-ld input, not as an ISO 19115 document ].  As soon as Mouktar pushes data to its local system, it is automatically transmitted in real-time to Omar's system. (Need to explain how this happens. It wouldn’t be clear how the LDSH ties to a RDSH, or for that matter an AWISC.  There are so many possibility including that Omar was already aware of Mouktar’s data, or perhaps that Mouktar was aware of Omars Regional Data Sharing Hub).  Also, is the transaction between the LDSH and RDSH a push or pull mechanism?
+ 
+[Action #2: Vicky's system is indexing Mouktar's data too, to update its local list of curated entries.]  (Also, how would Vicky’s system be aware of Mouktar’s data ahead of time?  Is she aware of Omar’s Regional Data Sharing Hub?  I assume so, but probably need to specify that up front)  
+[Action #3: Google search engine crawls and is therefore also indexing Mouktar's data.] (What Hub is google doing its search engine crawl on?).
+ 
+Question:  Can we show screen captures prior to search engine crawl that indicate data is not available, and then a subsequent screen capture after crawl is aware of data and makes it publicly available to search engine requests?
+
+ 
+When Mohamed is looking for data, he can use google like he is used to.
+Dave, wants and expert search interface, one that google cant' provide, so he is using AWISC.  What the AWISC provides that google cannot provide today include …..
+Mariam can subscribe to the RDSH to get notifications as soon as new data is available.
+ 
+
+
+Basic Data Flows for PoC
+
+https://github.com/OpenWIS/djibouti/blob/master/docs/HL%20Architecture%20diagram.md
+
+The Live Demonstration
+
+
+Summarization of PoC
+
+Add content here!
+
