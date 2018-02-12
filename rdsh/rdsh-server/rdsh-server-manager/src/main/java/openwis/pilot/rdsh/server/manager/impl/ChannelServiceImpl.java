@@ -67,6 +67,7 @@ public class ChannelServiceImpl implements ChannelService {
 
 		ArrayList<Channel> channelsList =(ArrayList<Channel>) new JPAQueryFactory(em).selectFrom(qChannel).fetch();
 		ArrayList<ChannelDTO> channels = new ArrayList<ChannelDTO>();
+		
 		for (Channel c :channelsList) {
 			channels.add(new ChannelMapperImpl().toChannelDTO(c));
 		}		
@@ -77,8 +78,14 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public ChannelDTO purgeChannel(Long id) {
 		
-		// TODO Auto-generated method stub
-		return null;
+		final  Channel channel =  new JPAQueryFactory(em).selectFrom(qChannel).where(qChannel.id.eq(id)).fetchOne();
+		if (channel != null){
+			channel.setBytesSent(0);
+			channel.setFailedConnections(0);
+			channel.setMsessagesSent(0);
+			em.merge(channel);
+		}
+		return new ChannelMapperImpl().toChannelDTO(channel);
 	}
 
 

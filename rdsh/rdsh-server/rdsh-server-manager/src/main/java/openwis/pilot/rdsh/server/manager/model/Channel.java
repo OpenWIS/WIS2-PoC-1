@@ -37,7 +37,7 @@ public class Channel implements Serializable {
 	private long msessagesSent;
 
 	@Column(name = "bytes_sent")
-	private long bytessSent;
+	private long bytesSent;
 
 	@Column(name = "failed_connections")
 	private long failedConnections;
@@ -82,12 +82,12 @@ public class Channel implements Serializable {
 		this.msessagesSent = msessagesSent;
 	}
 
-	public long getBytessSent() {
-		return bytessSent;
+	public long getBytesSent() {
+		return bytesSent;
 	}
 
-	public void setBytessSent(long bytessSent) {
-		this.bytessSent = bytessSent;
+	public void setBytesSent(long bytessSent) {
+		this.bytesSent = bytessSent;
 	}
 
 	public long getFailedConnections() {

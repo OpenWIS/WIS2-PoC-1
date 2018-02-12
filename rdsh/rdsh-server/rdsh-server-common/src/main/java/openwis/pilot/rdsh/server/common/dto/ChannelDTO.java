@@ -8,7 +8,7 @@ public class ChannelDTO {
 	private String channelUri;
 	private LDSHDTO ldshDto;
 	private long msessagesSent;
-	private long bytessSent;
+	private long bytesSent;
 	private long failedConnections;
 	
 	public Long getId() {
@@ -41,11 +41,11 @@ public class ChannelDTO {
 	public void setMsessagesSent(long msessagesSent) {
 		this.msessagesSent = msessagesSent;
 	}
-	public long getBytessSent() {
-		return bytessSent;
+	public long getBytesSent() {
+		return bytesSent;
 	}
-	public void setBytessSent(long bytessSent) {
-		this.bytessSent = bytessSent;
+	public void setBytesSent(long bytessSent) {
+		this.bytesSent = bytessSent;
 	}
 	public long getFailedConnections() {
 		return failedConnections;

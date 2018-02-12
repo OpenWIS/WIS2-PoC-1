@@ -24,7 +24,7 @@ public abstract class ChannelMapper {
 	        channel.setChannelName( channelDTO.getChannelName() );
 	        channel.setChannelUri( channelDTO.getChannelUri() );
 	        channel.setMsessagesSent( channelDTO.getMsessagesSent() );
-	        channel.setBytessSent( channelDTO.getBytessSent() );
+	        channel.setBytesSent( channelDTO.getBytesSent() );
 	        channel.setFailedConnections( channelDTO.getFailedConnections() );
 	        channel.setLdsh(ldshMapper.toLDSH(channelDTO.getLdshDto()));
 
@@ -33,7 +33,6 @@ public abstract class ChannelMapper {
 	
 	
 	//ChannelDTO toChannelDTO(Channel channel);
-
 	  public ChannelDTO toChannelDTO(Channel channel) {
 	        if ( channel == null ) {
 	            return null;
@@ -44,8 +43,8 @@ public abstract class ChannelMapper {
 	        channelDTO.setId( channel.getId() );
 	        channelDTO.setChannelName( channel.getChannelName() );
 	        channelDTO.setChannelUri( channel.getChannelUri() );
+	        channelDTO.setBytesSent( channel.getBytesSent() );
 	        channelDTO.setMsessagesSent( channel.getMsessagesSent() );
-	        channelDTO.setBytessSent( channel.getBytessSent() );
 	        channelDTO.setFailedConnections( channel.getFailedConnections() );
 	        channelDTO.setLdshDto(ldshMapper.toLDSHDTO(channel.getLdsh()));
 

@@ -74,10 +74,10 @@ public class MqttServiceImpl implements MQTTService {
 				channelDTO = new ChannelDTO();
 				channelDTO.setChannelName(datasetMQTTPublishDTO.getDatasetName());
 				channelDTO.setChannelUri(datasetMQTTPublishDTO.getDownloadURL());
-				channelDTO.setBytessSent(datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
+				channelDTO.setBytesSent(datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
 				channelDTO.setMsessagesSent(1);
 			} else {
-				channelDTO.setBytessSent(channelDTO.getBytessSent()+ datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
+				channelDTO.setBytesSent(channelDTO.getBytesSent()+ datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
 				channelDTO.setMsessagesSent(channelDTO.getMsessagesSent() + 1);
 			}
 			LDSHDTO  ldsh = lDSHService.getLDSHbyToken(datasetMQTTPublishDTO.getToken());

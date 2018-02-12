@@ -15,6 +15,7 @@
             <ref component-id="settingsResource" />
             <ref component-id="jWTResource" />
             <ref component-id="publishMQTTResource" />
+            <ref component-id="channelResource" />
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref component-id="authFilter"/>
