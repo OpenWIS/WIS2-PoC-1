@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit {
 
     this.dataService.getCall("getSettings").then(result => {
 
-      this.checkPollingStatus();
+      // this.checkPollingStatus();
       if (result == null) {
         this.buildForm(null);
       } else {
@@ -39,12 +39,7 @@ export class SettingsComponent implements OnInit {
 
     })
   }
-  // } else {
-  //   this.buildForm(null);
-  // }
-
-  // array: any[]
-  // res:SystemPropery []
+ 
   buildForm(rs: SystemPropery) {
 
     if (rs == null) {
@@ -118,21 +113,6 @@ export class SettingsComponent implements OnInit {
 
 
   }
-  /*  
-  getSettings
-
-  title: "Stitle",
-  systemId: "sid"
-  email:"email"
-  copyright: "copy"
-  footerTxt:"footer"
-  homeTxt:"Homepage welcome text"
-  ftpPassword:"ftppass"
-  ftpUrl:"ftpurl"
-  ftpUsername:"ftpusername"
-  */
-
-
 
   cancel() {
     this.router.navigate(['/datasets']);
@@ -153,33 +133,26 @@ export class SettingsComponent implements OnInit {
   }
 
 
-  startPolling() {
+  // startPolling() {
+  //   this.dataService.getCall("startPolling").then(result => {
+  //     console.log(result);
+  //     this.checkPollingStatus();
+  //   })
+  // }
 
-    this.dataService.getCall("startPolling").then(result => {
-      console.log(result);
-      this.checkPollingStatus();
-    })
-  }
+  // stopPolling() {
+  //   this.dataService.getCall("stopPolling").then(result => {
+  //     console.log(result);
+  //     this.checkPollingStatus();
+  //   })
+  // }
 
-
-  
-  stopPolling() {
-
-     console.log("STOPPING");
-    this.dataService.getCall("stopPolling").then(result => {
-      console.log(result);
-      this.checkPollingStatus();
-    })
-
-  }
-
-  checkPollingStatus() {
- 
-    this.dataService.getCall("getPollingStatus").then(result => {
-      console.log(result);
-      this.pollingServiceStatus = result;
-    })
-  }
+  // checkPollingStatus() {
+  //   this.dataService.getCall("getPollingStatus").then(result => {
+  //     console.log(result);
+  //     this.pollingServiceStatus = result;
+  //   })
+  // }
 
 
 }
