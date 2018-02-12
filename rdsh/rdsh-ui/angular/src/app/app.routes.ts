@@ -26,7 +26,7 @@ export const routerConfig: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "queues",
+    path: "channels",
     component: QueueAdminComponent
   },
   {

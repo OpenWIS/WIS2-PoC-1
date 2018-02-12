@@ -1,16 +1,11 @@
 <div class="box">
   <mat-toolbar #componentToolbar class="header-small">
-    <p>LDSH Queues </p>
+    <p>LDSH Channels </p>
     <span class="ui-spacer"></span>
 
     <button mat-icon-button class="transparent" (click)="monitor()" matTooltip="Monitor all">
       <mat-icon class="ui-icon" aria-label="monitor">desktop_windows </mat-icon>
     </button>
-
-    <button mat-icon-button class="transparent" (click)="addQueue()" matTooltip="Add New">
-      <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
-    </button>
-
 
   </mat-toolbar>
 
@@ -21,13 +16,13 @@
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.channelName}} </mat-cell>
       </ng-container>
 
       <!-- uri Column -->
       <ng-container matColumnDef="uri">
         <mat-header-cell *matHeaderCellDef> Uri </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.uri}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.channelUri}} </mat-cell>
       </ng-container>
 
       <!-- Action Column -->
@@ -36,16 +31,14 @@
 
         <mat-cell *matCellDef="let element">
 
-          <button mat-icon-button class="transparent" matTooltip="Edit">
+          <!-- <button mat-icon-button class="transparent" matTooltip="Edit">
             <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditQueue(element.id)">edit</mat-icon>
-          </button>
+          </button> -->
           <button mat-icon-button class="transparent" matTooltip="View">
             <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewQueue(element.id)">pageview</mat-icon>
           </button>
-
-
           <button mat-icon-button class="transparent" matTooltip="Delete">
-            <mat-icon class="ui-icon dark" aria-label="Delete">delete</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="Delete" (click)=deleteChannel(element.id) >delete</mat-icon>
           </button>
         </mat-cell>
 

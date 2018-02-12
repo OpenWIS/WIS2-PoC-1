@@ -22,6 +22,7 @@ import { LoginComponent } from './auth/login.component';
 import {AuthService} from "./services/auth.service";
 import {JwtModule} from "@auth0/angular-jwt";
 import {environment} from "../environments/environment";
+import { ChannelService } from './services/channel.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import {environment} from "../environments/environment";
     })
   ],
   providers: [
-    LdshService, SettingsService, AuthGuard, AuthService
+    LdshService, SettingsService, AuthGuard, AuthService, ChannelService
   ],
   entryComponents: [OkCancelDialogComponent],
   bootstrap: [AppComponent]

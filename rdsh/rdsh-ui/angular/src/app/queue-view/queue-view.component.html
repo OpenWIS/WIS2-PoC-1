@@ -1,18 +1,17 @@
 <div class="box">
 
   <mat-toolbar #componentToolbar class="header-small">
-    <p>Local Data Sharing Hub Queue</p>
+    <p>Local Data Sharing Hub Dataset Channel</p>
     <span class="ui-spacer"></span>
   </mat-toolbar>
-  <div style="padding:2em;">
+  <div  *ngIf="channel"  style="padding:2em;">
     <div>
-      <h4>LDSH Queue Information</h4>
+      <h4>Dataset Channel Information</h4>
       <dl>
         <dt>Queue Name:</dt>
-        <dd>{{queue.name}}</dd>
-
-        <dt>System Id:</dt>
-        <dd>{{queue.uri}}</dd>
+        <dd>{{channel.channelName}}</dd>
+        <dt>Uri:</dt>
+        <dd>{{channel.channelUri}}</dd>
       </dl>
     </div>
     <br>

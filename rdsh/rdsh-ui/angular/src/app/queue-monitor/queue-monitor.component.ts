@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from "@angular/material";
+import { MatTableDataSource, MatSnackBar } from "@angular/material";
 import { RouterModule, Routes, Router } from "@angular/router";
+import { ChannelService } from '../services/channel.service';
+import { MqttTopic } from '../dto/MqttTopic.dto';
 
 
 @Component({
@@ -9,41 +11,55 @@ import { RouterModule, Routes, Router } from "@angular/router";
   styleUrls: ['./queue-monitor.component.css']
 })
 export class QueueMonitorComponent implements OnInit {
-    displayedColumns = [ "name" , "openConnections","closedConnections", "messagesSent", "bytesSent" , "failedConnections", "Actions"];
+  displayedColumns = ["name", "messagesSent", "bytesSent", "failedConnections", "Actions"];
 
-  dataSource = new MatTableDataSource<Element>(queueList);
-  
-  constructor(private router: Router) {}
-    
+  dataSource = null;
+
+  constructor(private channelService: ChannelService, private router: Router, public snackBar: MatSnackBar) { }
+
   ngOnInit() {
+    this.getAllChannels();
   }
 
+  private getAllChannels() {
 
-  gotoQueue(id: string){
+    this.channelService.list().subscribe(
+      onNext => {
+        this.dataSource = new MatTableDataSource<MqttTopic>(onNext);
+      }, onError => {
+        console.error(onError);
+        this.snackBar.open('There was a problem fetching the list of Channels.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
+  }
+
+  gotoQueue(id: string) {
     this.router.navigate(['/queueView'], { queryParams: { "id": id } });
   }
 
-  purge(id: string){}
 
+  refresh() {
+    this.getAllChannels();
+  }
+
+  purge(id: string) {
+    this.channelService.purge(id).subscribe(onNext => {
+
+      this.snackBar.open('Channel data cleared.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+
+      this.refresh();
+
+    }, onError => {
+      console.error(onError);
+      this.snackBar.open('There was a problem fetching the list of Channels.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+    });
+  }
 }
-
-
-
-export interface Element {
-  name: string;
-  // check mqtt statistics
-  openConnections: string;
-  closedConnections: string;
-  messagesSent: string;
-  bytesSent: string;
-  failedConnections: string;
-  id: string;
-}
-
-
-
-const queueList: Element[] = [
-  { name: 'AthQ', openConnections: "21", closedConnections: "3", messagesSent: "32143", bytesSent: "54326", failedConnections: "3", id: "23" },
-  { name: 'ThesQ', openConnections: "26", closedConnections: "5", messagesSent: "7411", bytesSent: "423121", failedConnections: "6", id: "24" },
-  { name: "HerkQ", openConnections: "32", closedConnections: "2", messagesSent: "527", bytesSent: "4366", failedConnections: "7", id: "25" },
-];

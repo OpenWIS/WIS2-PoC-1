@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChannelService } from '../services/channel.service';
+import { MatTableDataSource } from '@angular/material';
+import { MqttTopic } from '../dto/MqttTopic.dto';
 
 @Component({
   selector: 'app-queue-view',
@@ -7,42 +10,40 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./queue-view.component.css']
 })
 export class QueueViewComponent implements OnInit {
-
+  snackBar: any;
+  channel: MqttTopic = null;
   paramsObj: Object;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
-
+  constructor(private channelService: ChannelService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.fullImagePath = '../../assets/aGrafph.png'
-    
-   }
+  }
 
   fullImagePath: string;
-  
-  queue = {
-    name: "",
-    uri: "",
-    id: "",
-  };
 
-
-  queueList = [
-    { name: 'AthQ', uri: "arn:aws:sns:us-ATH-1:11784:SEDataQueue ", id: "23" },
-    { name: 'ThesQ', uri: "arn:aws:sns:us-THES-1:753424:SEDataQueue", id: "24" },
-    { name: "HerkQ", uri: "arn:aws:sns:us-Her-1:23284:SEDataQueue ", id: "25" },
-  ];
 
   ngOnInit() {
 
     this.activatedRoute.queryParamMap.subscribe(params => {
       this.paramsObj = { ...params.keys, ...params };
+      let id = this.paramsObj['params']['id'];
+      this.getChannel(id);
     });
-    let id = this.paramsObj['params']['id'];
-    let queue = this.queueList.find(i => i.id === id);
-    this.queue = queue;
 
   }
+
+  private getChannel(channelId) {
+
+    this.channelService.get(channelId).subscribe(onNext => {
+      this.channel = onNext;
+    }, onError => {
+      console.error(onError);
+      this.snackBar.open('There was a problem fetching the Channel data.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+    });
+  }
+
 }
-
-
 
 

@@ -1,7 +1,12 @@
 <div class="box">
   <mat-toolbar #componentToolbar class="header-small">
-    <p>Registered Local Data Sharing Hubs</p>
+    <p>Active Channels</p>
     <span class="ui-spacer"></span>
+
+
+    <button mat-icon-button class="transparent" (click)="refresh()" matTooltip="Refresh">
+      <mat-icon class="ui-icon" aria-label="monitor">autorenew</mat-icon>
+    </button>
   </mat-toolbar>
 
 
@@ -12,23 +17,12 @@
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.channelName}} </mat-cell>
       </ng-container>
-      <!--openConnections -->
-      <ng-container matColumnDef="openConnections">
-        <mat-header-cell *matHeaderCellDef> Open Connections </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.openConnections}} </mat-cell>
-      </ng-container>
-      <!--  closedConnections -->
-
-      <ng-container matColumnDef="closedConnections">
-        <mat-header-cell *matHeaderCellDef> Closed Connections </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.closedConnections}} </mat-cell>
-      </ng-container>
-
+ 
       <ng-container matColumnDef="messagesSent">
         <mat-header-cell *matHeaderCellDef> Messages Sent </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.messagesSent}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.msessagesSent}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="bytesSent">

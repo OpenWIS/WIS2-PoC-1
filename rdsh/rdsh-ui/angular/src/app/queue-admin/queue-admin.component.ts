@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { MatTableDataSource } from "@angular/material";
+import { MatSnackBar, MatTableDataSource } from "@angular/material";
 import { RouterModule, Routes, Router } from "@angular/router";
 import { AppComponent } from "../app.component";
+import { ChannelService } from "../services/channel.service";
+import { MqttTopic } from "../dto/MqttTopic.dto";
 
 @Component({
   selector: "app-queue-admin",
@@ -10,26 +12,51 @@ import { AppComponent } from "../app.component";
 })
 export class QueueAdminComponent implements OnInit {
   displayedColumns = ["name", "uri", "url"];
-  dataSource = new MatTableDataSource<Element>(queueList);
+  dataSource = null;
 
-  constructor(private router: Router) {
-    AppComponent.selectedMenuItem = "queues";
+  constructor(private channelService: ChannelService, private router: Router, public snackBar: MatSnackBar) {
+    AppComponent.selectedMenuItem = "channels";
   }
 
-  ngOnInit() {}
-
-  navigateToEditQueue(id: string) {
-    //TODO FIX
-    this.router.navigate(["/queueEdit"], { queryParams: { id: id } });
+  ngOnInit() {
+    this.getAllChannels();
   }
 
-  navigateToViewQueue(id: string){
+  private getAllChannels() {
+
+    this.channelService.list().subscribe(
+      onNext => {
+        this.dataSource = new MatTableDataSource<MqttTopic>(onNext);
+      }, onError => {
+        console.error(onError);
+        this.snackBar.open('There was a problem fetching the list of Channels.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
+  }
+
+
+  deleteChannel(id:string){
+    console.log(id);
+    this.channelService.delete(id).subscribe(
+      onNext => {
+        this.getAllChannels();
+      }, onError => {
+        console.error(onError);
+        this.snackBar.open('There was a problem deleting the Channel.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
+  }
+
+  // navigateToEditQueue(id: string) {
+  //       this.router.navigate(["/queueEdit"], { queryParams: { id: id } });
+  // }
+
+  navigateToViewQueue(id: string) {
     this.router.navigate(['/queueView'], { queryParams: { "id": id } });
-  }
-
-  addQueue() {
-    //mock new id 100;
-    this.router.navigate(["/queueEdit"], { queryParams: { id: 111 } });
   }
 
   monitor() {
@@ -43,14 +70,3 @@ export class QueueAdminComponent implements OnInit {
   }
 }
 
-export interface Element {
-  name: string;
-  uri: string;
-  id: string;
-}
-
-const queueList: Element[] = [
-  { name: "AthQ", uri: "arn:aws:sns:us-ATH-1:11784:SEDataQueue ", id: "23" },
-  { name: "ThesQ", uri: "arn:aws:sns:us-THES-1:753424:SEDataQueue", id: "24" },
-  { name: "HerkQ", uri: "arn:aws:sns:us-Her-1:23284:SEDataQueue ", id: "25" }
-];
