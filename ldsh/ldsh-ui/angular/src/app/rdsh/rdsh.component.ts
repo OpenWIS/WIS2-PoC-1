@@ -6,6 +6,7 @@ import { DataService } from "../data.service";
 import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { RemoteSystem } from "../dto/RemoteSystem.dto";
+import { environment } from "../../environments/environment";
 
 
 @Component({
@@ -49,11 +50,10 @@ export class RDSHComponent implements OnInit {
 
   checkRdshStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.remoteCall("http://" + rs.url + "/cxf/rdsh-api/ldsh/token/" + rs.token).then(replay => {
+    this.dataService.remoteCall("http://" + rs.url +environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
       this.registrationStatus = "Verified";
 
       this.popValidateOk(poptValidation);
-
 
     }, onError => {
       console.log(onError);
