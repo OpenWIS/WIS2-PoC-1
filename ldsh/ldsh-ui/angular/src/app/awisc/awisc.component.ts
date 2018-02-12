@@ -5,6 +5,7 @@ import { AppComponent } from "../app.component";
 import { DataService } from "../data.service";
 import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
+import { RemoteSystem } from "../dto/RemoteSystem.dto";
 
 
 @Component({
@@ -27,18 +28,14 @@ export class AWISCComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.loadAwisc();
-
+    this.loadAwisc(false);
   }
 
 
-
-  loadAwisc() {
+  loadAwisc(poptValidation: boolean) {
     this.dataService.getCall("getAwisc").then(result => {
 
-      //TODO FIX THIS CALL TO CALL THE RDSH system...
-      this.checkAwiscStatus(result);
+      this.checkAwiscStatus(result, poptValidation);
       this.buldForm(result);
     })
   }
@@ -47,7 +44,6 @@ export class AWISCComponent implements OnInit {
 
   buldForm(rs: RemoteSystem) {
 
-    console.log(rs);
 
     if (rs == null) {
 
@@ -69,7 +65,7 @@ export class AWISCComponent implements OnInit {
 
   onSubmit() {
 
-    this.loadAwisc();
+    this.loadAwisc(true);
 
   }
 
@@ -93,7 +89,6 @@ export class AWISCComponent implements OnInit {
         duration: 5000,
         verticalPosition: 'top'
       });
-      this.router.navigate(['/datasets']);
     }, onError => {
       console.log(onError);
       this.snackBar.open('There was a problem saving the AWISC.', null, {
@@ -101,23 +96,18 @@ export class AWISCComponent implements OnInit {
         verticalPosition: 'top'
       });
     });
-
   }
 
   onCancel() {
     this.router.navigate(['/datasets']);
   }
 
-  checkAwiscStatus(rs: RemoteSystem): any {
+  checkAwiscStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    console.log("TODO calling " + rs.url);
-    this.dataService.getCall("AmIregistered").then(replay => {
-      this.registrationStatus = replay;
-      this.snackBar.open('LDSH was registered to AWISC successfully.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
-      });
-      this.router.navigate(['/datasets']);
+    this.dataService.awiscCall("http://" + rs.url, "ldsh/token/" + rs.token).then(replay => {
+
+      this.registrationStatus = "Verified";
+      this.popValidationMsg(poptValidation);
     }, onError => {
       console.log(onError);
       this.registrationStatus = onError.statusText;
@@ -130,13 +120,14 @@ export class AWISCComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
+  private popValidationMsg(poptValidation: boolean) {
+    if (poptValidation) {
+      this.snackBar.open('LDSH was registered to AWISC successfully.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+    }
+  }
 
 
 
@@ -154,12 +145,3 @@ export class AWISCComponent implements OnInit {
     }
   }
 }
-
-export interface RemoteSystem {
-  id: number,
-  name: String,
-  url: String,
-  status: boolean,
-  token: String,
-  type: String
-};

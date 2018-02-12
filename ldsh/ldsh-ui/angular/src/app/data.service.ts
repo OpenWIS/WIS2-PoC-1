@@ -21,20 +21,19 @@ export class DataService {
         this.options = new RequestOptions({ headers: this.headers });
     }
 
-
-
-    // get call
-    public getCall<T>(url: string): Promise<any> {
-
-        return this.httpClient.get<T>("http://localhost:8181/cxf/ldsh-api/" + url).toPromise();
+    public awiscCall<T>(url: string, cmd: string ): Promise<any> {
+        return this.httpClient.get<T>( url +environment.CONSTANTS.AWISC_ROOT + cmd).toPromise();
     }
 
-
     public remoteCall<T>(url: string): Promise<any> {
-        
-                return this.httpClient.get<T>( url).toPromise();
-            }
-        
+
+        return this.httpClient.get<T>(url).toPromise();
+    }
+
+    public getCall<T>(url: string): Promise<any> {
+    
+            return this.httpClient.get<T>("http://localhost:8181/cxf/ldsh-api/" + url).toPromise();
+        }
 
 
     public create(url: string, datasetDTO: any): Observable<any> {

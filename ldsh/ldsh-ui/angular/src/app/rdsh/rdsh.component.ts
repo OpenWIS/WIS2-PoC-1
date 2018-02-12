@@ -5,6 +5,7 @@ import { AppComponent } from "../app.component";
 import { DataService } from "../data.service";
 import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
+import { RemoteSystem } from "../dto/RemoteSystem.dto";
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RDSHComponent implements OnInit {
 
   metadataForm: FormGroup;
   rdsh_id: number;
-  
+
 
   @ViewChild("readingTpSel") private readingTpSel: ElementRef;
 
@@ -30,28 +31,30 @@ export class RDSHComponent implements OnInit {
 
   ngOnInit() {
 
-    this.loadRdsh();
+    this.loadRdsh(false);
 
   }
 
 
-  loadRdsh() {
+  loadRdsh(poptValidation: boolean) {
 
     this.dataService.getCall("getRdsh").then(result => {
-      this.checkRdshStatus(result);
+
+      this.checkRdshStatus(result, poptValidation);
+
       this.buldForm(result);
     })
   }
 
 
-  checkRdshStatus(rs: RemoteSystem): any {
+  checkRdshStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.remoteCall("http://"+rs.url+"/cxf/rdsh-api/ldsh/token/"+rs.token).then(replay => {
-      this.registrationStatus = "OK";
-      this.snackBar.open('RDSH was registered successfully.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
-      });
+    this.dataService.remoteCall("http://" + rs.url + "/cxf/rdsh-api/ldsh/token/" + rs.token).then(replay => {
+      this.registrationStatus = "Verified";
+
+      this.popValidateOk(poptValidation);
+
+
     }, onError => {
       console.log(onError);
       this.registrationStatus = onError.statusText;
@@ -60,98 +63,90 @@ export class RDSHComponent implements OnInit {
         verticalPosition: 'top'
       });
     });
-
   }
 
-  
-  buldForm(rs: RemoteSystem) {
 
-    console.log(rs);
-
-    if (rs == null) {
-
-      this.metadataForm = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        url: new FormControl('', [Validators.required]),
-        token: new FormControl('', [Validators.required]),
-      });
-    } else {
-      this.rdsh_id = rs.id;
-      this.metadataForm = new FormGroup({
-        name: new FormControl(rs.name, [Validators.required]),
-        url: new FormControl(rs.url, [Validators.required]),
-        token: new FormControl(rs.token, [Validators.required]),
+  private popValidateOk(poptValidation: boolean) {
+    if (poptValidation) {
+      this.snackBar.open('RDSH was registered successfully.', null, {
+        duration: 5000,
+        verticalPosition: 'top'
       });
     }
   }
 
 
-  onSubmit() {
+    buldForm(rs: RemoteSystem) {
 
-    this.loadRdsh();
+      if (rs == null) {
 
-  }
+        this.metadataForm = new FormGroup({
+          name: new FormControl('', [Validators.required]),
+          url: new FormControl('', [Validators.required]),
+          token: new FormControl('', [Validators.required]),
+        });
+      } else {
+        this.rdsh_id = rs.id;
+        this.metadataForm = new FormGroup({
+          name: new FormControl(rs.name, [Validators.required]),
+          url: new FormControl(rs.url, [Validators.required]),
+          token: new FormControl(rs.token, [Validators.required]),
+        });
+      }
+    }
 
 
-  onSave() {
+    onSubmit() {
+      this.loadRdsh(true);
+    }
 
-    var messageObject = new Object();
-    let rdsh = this.metadataForm.value;
-    rdsh.type = "RDSH";
 
-    messageObject['message'];
-    messageObject['name'] = rdsh.name;
-    messageObject['token'] = rdsh.token;
-    messageObject['status'] = rdsh.status;
-    messageObject['type'] = rdsh.type;
-    messageObject['url'] = rdsh.url;
-    messageObject['id'] = this.rdsh_id;
+    onSave() {
 
-    this.dataService.create("saveRemote", messageObject).subscribe(onNext => {
-      this.snackBar.open('RDSH was saved successfully.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
+      var messageObject = new Object();
+      let rdsh = this.metadataForm.value;
+      rdsh.type = "RDSH";
+
+      messageObject['message'];
+      messageObject['name'] = rdsh.name;
+      messageObject['token'] = rdsh.token;
+      messageObject['status'] = rdsh.status;
+      messageObject['type'] = rdsh.type;
+      messageObject['url'] = rdsh.url;
+      messageObject['id'] = this.rdsh_id;
+
+      this.dataService.create("saveRemote", messageObject).subscribe(onNext => {
+        this.snackBar.open('RDSH was saved successfully.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+        this.router.navigate(['/datasets']);
+      }, onError => {
+        console.log(onError);
+        this.snackBar.open('There was a problem saving the RDSH.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
       });
+    }
+
+
+    getErrorMessage() {
+      return this.metadataForm.hasError("required")
+        ? "You must enter a value"
+        : this.metadataForm.hasError("email")
+          ? "Not a valid email"
+          : "not valid Mail";
+    }
+
+    onCancel() {
       this.router.navigate(['/datasets']);
-    }, onError => {
-      console.log(onError);
-      this.snackBar.open('There was a problem saving the RDSH.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
-      });
-    });
+    }
 
-  }
-
-
-  getErrorMessage() {
-    return this.metadataForm.hasError("required")
-      ? "You must enter a value"
-      : this.metadataForm.hasError("email")
-        ? "Not a valid email"
-        : "not valid Mail";
-  }
-
-  onCancel() {
-    this.router.navigate(['/datasets']);
-  }
-
-  ngAfterViewInit() {
-    if (!AppComponent.menuOpen) {
-      document.getElementById('sitenav').click();
+    ngAfterViewInit() {
+      if (!AppComponent.menuOpen) {
+        document.getElementById('sitenav').click();
+      }
     }
   }
-}
 
-
-
-export enum sysType { "RDSH", "AWISC" }
-
-export interface RemoteSystem {
-  id: number,
-  name: String,
-  url: String,
-  status: boolean,
-  token: String,
-  type: String
-};
