@@ -1,0 +1,14 @@
+{
+	"wmo-code": {
+		"dynamic": false,
+		"properties": {
+			"name": {
+				"type": "text"
+			},
+			"code": {
+				"type": "keyword",
+				"boost": 1.2
+			}
+		}
+	}
+}

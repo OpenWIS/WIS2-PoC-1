@@ -1,10 +1,11 @@
 package openwis.pilot.awisc.server.manager.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
 
-public interface LdshService {
+public interface LdshService extends Serializable{
 
   /**
    * Obtain the list of all registered Ldshs.

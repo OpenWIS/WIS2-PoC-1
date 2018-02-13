@@ -11,11 +11,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.ops4j.pax.cdi.api.OsgiService;
 
+import openwis.pilot.common.dto.awisc.LdshIndexDTO;
 import openwis.pilot.ldsh.manager.service.LdshIndexService;
 
 @Singleton
@@ -33,11 +32,10 @@ public class AwiscIndexResource {
 
 	@GET
 	@Path("/index")
-	@CrossOriginResourceSharing(allowAllOrigins = true)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response index() {
+	public LdshIndexDTO index() {
 		logger.log(Level.INFO, "Getting Indexing Data....: " );
-		return Response.ok(ldshIndexService.getLdshIndexingInformation()).build();
+		return ldshIndexService.getLdshIndexingInformation();
 	}
 
 	

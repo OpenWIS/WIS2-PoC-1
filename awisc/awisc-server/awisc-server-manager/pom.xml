@@ -173,6 +173,27 @@
 			<artifactId>qlack2-fuse-search-api</artifactId>
 			<version>${qlack2.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.karaf.scheduler/org.apache.karaf.scheduler.core -->
+		<dependency>
+			<groupId>org.apache.karaf.scheduler</groupId>
+			<artifactId>org.apache.karaf.scheduler.core</artifactId>
+			<version>4.0.9</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+
 	</dependencies>
 </project>
 
