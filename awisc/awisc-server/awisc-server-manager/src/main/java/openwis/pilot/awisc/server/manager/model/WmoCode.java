@@ -1,14 +1,12 @@
 package openwis.pilot.awisc.server.manager.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +22,15 @@ public class WmoCode implements Serializable {
 
 	@Column(name = "name")
 	private String name;
-
-	@ManyToMany(mappedBy = "wmoCodes")
-	private List<Dataset> datasets;
+	
+	@Column(name = "code")
+	private String code;
+	
+	@Column(name = "url")
+	private String url;
+	
+	@Column(name = "description")
+	private String description;
 
 	public Long getId() {
 		return id;
@@ -44,12 +48,29 @@ public class WmoCode implements Serializable {
 		this.name = name;
 	}
 
-	public List<Dataset> getDatasets() {
-		return datasets;
+	public String getCode() {
+		return code;
 	}
 
-	public void setDatasets(List<Dataset> datasets) {
-		this.datasets = datasets;
+	public void setCode(String code) {
+		this.code = code;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 
 }

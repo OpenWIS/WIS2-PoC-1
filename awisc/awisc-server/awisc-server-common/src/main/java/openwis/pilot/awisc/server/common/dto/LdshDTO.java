@@ -11,6 +11,7 @@ public class LdshDTO {
 	private String contactEmail;
 	private String copyright;
 	private Date registrationDate;
+	private String indexServiceBaseUrl;
 
 	public Long getId() {
 		return id;
@@ -66,6 +67,14 @@ public class LdshDTO {
 
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+
+	public String getIndexServiceBaseUrl() {
+		return indexServiceBaseUrl;
+	}
+
+	public void setIndexServiceBaseUrl(String indexServiceBaseUrl) {
+		this.indexServiceBaseUrl = indexServiceBaseUrl;
 	}
 
 }

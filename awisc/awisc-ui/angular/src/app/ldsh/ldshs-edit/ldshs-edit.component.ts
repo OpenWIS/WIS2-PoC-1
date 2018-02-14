@@ -22,6 +22,7 @@ export class LdshsEditComponent implements OnInit {
       name: ['', [Validators.required]],
       systemId: ['', [Validators.required]],
       contactEmail: ['', [Validators.required]],
+      indexServiceBaseUrl: ['', [Validators.required]],
       token: ['', [Validators.required]]
     });
   }
@@ -31,6 +32,7 @@ export class LdshsEditComponent implements OnInit {
     this.ldshForm.controls["id"].setValue(data["id"]);
     this.ldshForm.controls["name"].setValue(data["name"]);
     this.ldshForm.controls["systemId"].setValue(data["systemId"]);
+    this.ldshForm.controls["indexServiceBaseUrl"].setValue(data["indexServiceBaseUrl"]);
     this.ldshForm.controls["contactEmail"].setValue(data["contactEmail"]);
     this.ldshForm.controls["token"].setValue(data["token"]);
   };

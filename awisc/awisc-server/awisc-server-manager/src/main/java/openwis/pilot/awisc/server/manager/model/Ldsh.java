@@ -40,6 +40,9 @@ public class Ldsh implements Serializable {
 	
 	@Column(name = "registration_date")
 	private Date registrationDate;
+	
+	@Column(name = "index_service_base_url")
+	private String indexServiceBaseUrl;
 
 	@OneToMany(mappedBy = "ldsh")
 	private List<Dataset> datasets;
@@ -106,6 +109,14 @@ public class Ldsh implements Serializable {
 
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+
+	public String getIndexServiceBaseUrl() {
+		return indexServiceBaseUrl;
+	}
+
+	public void setIndexServiceBaseUrl(String indexServiceBaseUrl) {
+		this.indexServiceBaseUrl = indexServiceBaseUrl;
 	}
 
 }

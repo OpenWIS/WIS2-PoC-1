@@ -1,0 +1,76 @@
+{
+	"ldsh": {
+		"dynamic": false,
+		"properties": {
+			"systemId": {
+				"type": "text",
+				"boost": 1.2
+			},
+			"name": {
+				"type": "keyword"
+			},
+			"contact": {
+				"type": "text"
+			},
+			"dataset": {
+				"properties": {
+					"name": {
+						"type": "text",
+						"boost": 1.2
+					},
+					"description": {
+						"type": "text"
+					},
+					"periodFrom": {
+						"type": "date",
+						"format": "yyyy-MM-dd HH:mm:ss"
+					},
+					"periodTo": {
+						"type": "date",
+						"format": "yyyy-MM-dd HH:mm:ss"
+					},
+					"lastUpdate": {
+						"type": "date",
+						"format": "yyyy-MM-dd HH:mm:ss"
+					},
+					"license": {
+						"type": "text"
+					},
+					"updateFrequency": {
+						"type": "keyword"
+					},
+					"dataFormat": {
+						"type": "keyword"
+					},
+					"country": {
+						"type": "text"
+					},
+					"region": {
+						"type": "text"
+					},
+					"city": {
+						"type": "text"
+					},
+					"latittude": {
+						"type": "geo_point"
+					},
+					"longitude": {
+						"type": "geo_point"
+					},
+					"elevation": {
+						"type": "double"
+					},
+					"downloadUrl": {
+						"type": "text"
+					},
+					"subscriptionUri": {
+						"type": "double"
+					},
+					"dissemitationType": {
+						"type": "keyword"
+					}
+				}
+			}
+		}
+	}
+}

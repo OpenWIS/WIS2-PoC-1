@@ -6,4 +6,5 @@ import openwis.pilot.awisc.server.common.exception.ServiceException;
 public interface LoginService {
 
   UserDTO login(UserDTO userDTO) throws ServiceException;
+  
 }

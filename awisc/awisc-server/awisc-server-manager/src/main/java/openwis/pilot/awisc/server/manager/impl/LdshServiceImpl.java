@@ -24,6 +24,11 @@ import openwis.pilot.awisc.server.manager.service.LdshService;
 @OsgiServiceProvider(classes = { LdshService.class })
 public class LdshServiceImpl implements LdshService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7218869005902567277L;
+
 	// Logger reference.
 	private static final Logger LOGGER = Logger.getLogger(LdshServiceImpl.class.getName());
 
