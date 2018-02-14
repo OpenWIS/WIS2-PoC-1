@@ -11,7 +11,7 @@ import { MqttTopic } from "../dto/MqttTopic.dto";
   styleUrls: ["./queue-admin.component.css"]
 })
 export class QueueAdminComponent implements OnInit {
-  displayedColumns = ["name", "uri", "url"];
+  displayedColumns = ["name","ldshname", "uri", "url"];
   dataSource = null;
 
   constructor(private channelService: ChannelService, private router: Router, public snackBar: MatSnackBar) {
@@ -38,7 +38,6 @@ export class QueueAdminComponent implements OnInit {
 
 
   deleteChannel(id:string){
-    console.log(id);
     this.channelService.delete(id).subscribe(
       onNext => {
         this.getAllChannels();

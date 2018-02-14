@@ -15,10 +15,14 @@
 
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.channelName}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef>Dataset Name </mat-header-cell>
+         <mat-cell *matCellDef="let element"> {{element.channelName}} </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="ldshname">
+        <mat-header-cell *matHeaderCellDef> LDSH </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ldshDto.systemId }} </mat-cell>
+      </ng-container>
       <!-- uri Column -->
       <ng-container matColumnDef="uri">
         <mat-header-cell *matHeaderCellDef> Uri </mat-header-cell>
@@ -38,7 +42,7 @@
             <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewQueue(element.id)">pageview</mat-icon>
           </button>
           <button mat-icon-button class="transparent" matTooltip="Delete">
-            <mat-icon class="ui-icon dark" aria-label="Delete" (click)=deleteChannel(element.id) >delete</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="Delete" (click)=deleteChannel(element.id)>delete</mat-icon>
           </button>
         </mat-cell>
 

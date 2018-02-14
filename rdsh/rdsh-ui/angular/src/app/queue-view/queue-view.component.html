@@ -1,29 +1,54 @@
+<script src="node_modules/chart.js/src/chart.js"></script>
+
 <div class="box">
 
   <mat-toolbar #componentToolbar class="header-small">
     <p>Local Data Sharing Hub Dataset Channel</p>
     <span class="ui-spacer"></span>
   </mat-toolbar>
-  <div  *ngIf="channel"  style="padding:2em;">
-    <div>
-      <h4>Dataset Channel Information</h4>
-      <dl>
-        <dt>Queue Name:</dt>
-        <dd>{{channel.channelName}}</dd>
-        <dt>Uri:</dt>
-        <dd>{{channel.channelUri}}</dd>
-      </dl>
-    </div>
-    <br>
-    <br>
+  <div *ngIf="channel" style="padding:2em;">
+    <h4>Dataset Channel Information</h4>
+
+    <dl style="padding:2em;">
+      <dt>Channel Name:</dt>
+      <dd>{{channel.channelName}}</dd>
+      <dt>Uri:</dt>
+      <dd>{{channel.channelUri}}</dd>
+      <dt>LDSH:</dt>
+      <dd>{{channel.ldshDto.title}} / {{channel.ldshDto.systemId}} </dd>
+    </dl>
     <h4>Queue Statistic Graph</h4>
 
     <div class="row">
-      <div class="col-xs-12">
-        <img [src]="fullImagePath">
+      <!-- style="margin-top: 10px;height: 50%; width:80%"  -->
+      <div class="col-xs-12" style="margin-top: 10px;height:40%; width:80%">
+        <canvas baseChart [datasets]="messagesChartData" 
+        [options]="bytesChartOptions" 
+        [labels]="bytesChartLabels"
+        [colors]="lineChartColors"
+        [legend]="barChartLegend" 
+        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12" style="margin-top: 10px;height:40%; width:80%">
+        <canvas baseChart 
+        [datasets]="bytesChartData" 
+        [labels]="messagesChartLabels" 
+        [colors]="bytesChartColors" 
+        [options]="msgsChartOptions"
+        [legend]="barChartLegend" 
+        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        </canvas>
       </div>
     </div>
 
     <div style='clear:both;'></div>
+
+    <div>
+      <button mat-button type="button" class="cancel-button" (click)="back()">Back</button>
+    </div>
 
   </div>

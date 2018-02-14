@@ -13,13 +13,13 @@
   <div style="padding:2em;">
 
     <mat-table #table [dataSource]="dataSource">
-      
+
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.channelName}} </mat-cell>
       </ng-container>
- 
+
       <ng-container matColumnDef="messagesSent">
         <mat-header-cell *matHeaderCellDef> Messages Sent </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.msessagesSent}} </mat-cell>
@@ -53,6 +53,32 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-
   </div>
-</div>
+
+  <div *ngIf="dataSource">
+    <div class="row">
+      <div style="display: block" style="margin-top: 10px;height: 50%; width:80%">
+        <canvas baseChart 
+        [datasets]="msgChartData" 
+        [labels]="barChartLabels" 
+        [options]="barChartOptions" 
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+      </div>
+
+      <div style="display: block" style="margin-top: 10px;height: 50%; width:80%">
+        <canvas baseChart 
+        [datasets]="bytesChartData" 
+        [labels]="barChartLabels" 
+        [options]="barChartOptions" 
+        [legend]="barChartLegend"
+        [colors]= "lineChartColors"
+        [chartType]="barChartType">
+      </canvas>
+      </div>
+  </div>
+    <div style="padding: 2em;">
+      <button mat-button type="button" class="cancel-button" (click)="back()">Back</button>
+    </div>
+  </div>

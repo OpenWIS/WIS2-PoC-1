@@ -23,6 +23,8 @@ import {AuthService} from "./services/auth.service";
 import {JwtModule} from "@auth0/angular-jwt";
 import {environment} from "../environments/environment";
 import { ChannelService } from './services/channel.service';
+import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +47,9 @@ import { ChannelService } from './services/channel.service';
     ReactiveFormsModule,
     routing,
     HttpClientModule,
+    ChartsModule,
+    // NgxChartsModule,
+    // FusionChartsModule.forRoot(FusionCharts, Charts, Widgets),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
