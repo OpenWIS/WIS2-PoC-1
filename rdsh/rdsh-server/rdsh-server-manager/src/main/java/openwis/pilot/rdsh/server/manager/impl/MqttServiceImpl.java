@@ -57,31 +57,40 @@ public class MqttServiceImpl implements MQTTService {
 			datasetMQTTPublishDTO.setToken(null);
 			datasetMQTTPublishDTO.setTopic(null);
 			// Publish.
-			publishRoute.sendBodyAndHeader(mapper.writeValueAsString(datasetMQTTPublishDTO),CAMEL_MQTT_TOPIC_HEADER_NAME, topic);
-			
+			publishRoute.sendBodyAndHeader(mapper.writeValueAsString(datasetMQTTPublishDTO), CAMEL_MQTT_TOPIC_HEADER_NAME, topic);
+
 		} catch (JsonProcessingException e) {
 			LOGGER.log(Level.SEVERE, "Could not publish to topic.", e);
 			recordFailure(datasetMQTTPublishDTO);
 		}
 	}
+	
 
 	private void monitorTopic(DatasetMQTTPublishDTO datasetMQTTPublishDTO) {
 
-		ChannelDTO channelDTO = channelService.getChannel(datasetMQTTPublishDTO.getDatasetName(), datasetMQTTPublishDTO.getDownloadURL());
+		ChannelDTO channelDTO = channelService.getChannel(datasetMQTTPublishDTO.getDatasetName(),datasetMQTTPublishDTO.getDownloadURL());
 
 		try {
+			// For a new channel:
 			if (channelDTO == null) {
 				channelDTO = new ChannelDTO();
 				channelDTO.setChannelName(datasetMQTTPublishDTO.getDatasetName());
 				channelDTO.setChannelUri(datasetMQTTPublishDTO.getDownloadURL());
-				channelDTO.setBytesSent(datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
 				channelDTO.setMsessagesSent(1);
+
+				if (datasetMQTTPublishDTO.getBinaryContentBase64() != null) {
+					channelDTO.setBytesSent(datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
+				}
+				
 			} else {
-				channelDTO.setBytesSent(channelDTO.getBytesSent()+ datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
 				channelDTO.setMsessagesSent(channelDTO.getMsessagesSent() + 1);
+				
+				if (datasetMQTTPublishDTO.getBinaryContentBase64() != null) {
+					channelDTO.setBytesSent(channelDTO.getBytesSent()+ datasetMQTTPublishDTO.getBinaryContentBase64().getBytes("UTF-8").length);
+				}
 			}
-			LDSHDTO  ldsh = lDSHService.getLDSHbyToken(datasetMQTTPublishDTO.getToken());
-			System.out.println(ldsh.getSystemId());
+			
+			LDSHDTO ldsh = lDSHService.getLDSHbyToken(datasetMQTTPublishDTO.getToken());
 			channelDTO.setLdshDto(lDSHService.getLDSHbyToken(datasetMQTTPublishDTO.getToken()));
 			channelService.saveChannel(channelDTO);
 
@@ -91,10 +100,10 @@ public class MqttServiceImpl implements MQTTService {
 		}
 	}
 
+	
 	private void recordFailure(DatasetMQTTPublishDTO datasetMQTTPublishDTO) {
-		ChannelDTO channelDTO = channelService.getChannel(
-				datasetMQTTPublishDTO.getDatasetName(),
-				datasetMQTTPublishDTO.getDownloadURL());
+		ChannelDTO channelDTO = channelService.getChannel(datasetMQTTPublishDTO.getDatasetName(),datasetMQTTPublishDTO.getDownloadURL());
+		
 		if (channelDTO != null) {
 			channelDTO.setFailedConnections(channelDTO.getFailedConnections() + 1);
 			channelService.saveChannel(channelDTO);

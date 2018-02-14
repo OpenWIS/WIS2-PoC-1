@@ -63,8 +63,6 @@ public class DatasetServiceImpl implements DatasetService {
 			System.out.println("NO Datset found.");
 			return null;
 		}
-System.out.println(dataset.toString());		
-System.out.println("LAst update "+dataset.getLastUpdate());
 		return new DatasetMapperImpl().toDatasetDTO(dataset);
 	}
 
