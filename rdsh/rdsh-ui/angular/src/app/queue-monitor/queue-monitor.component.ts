@@ -71,6 +71,43 @@ export class QueueMonitorComponent implements OnInit {
   public barChartLabels: string[] = [];
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
+
+  public bytesChartOptions: any = {
+
+    scaleShowVerticalLines: false,
+    responsive: true,
+
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Bytes'
+        },
+        ticks: {
+          beginAtZero: true,
+        }
+      }]
+    }
+  };
+
+  public msgsChartOptions: any = {
+
+    scaleShowVerticalLines: false,
+    responsive: true,
+
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Messages'
+        },
+        ticks: {
+          beginAtZero: true,
+        }
+      }]
+    }
+  };
+
   public lineChartColors: Array<any> = [
     {
       backgroundColor: 'rgba(128,130,177,0.8)',
