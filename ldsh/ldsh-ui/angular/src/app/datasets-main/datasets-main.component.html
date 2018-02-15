@@ -34,11 +34,12 @@
 
       <!-- Weight Column -->
       <ng-container matColumnDef="url">
-        <mat-header-cell *matHeaderCellDef> Page </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
 
         <mat-cell *matCellDef="let element">
-
-          <a class="nav-link" routerLink (click)="gotoPage(element.id)">View Datasource</a>
+          <button mat-icon-button class="transparent">
+            <mat-icon class="ui-icon dark" aria-label="View" (click)="gotoPage(element.id)">pageview</mat-icon>
+          </button>
 
         </mat-cell>
 
