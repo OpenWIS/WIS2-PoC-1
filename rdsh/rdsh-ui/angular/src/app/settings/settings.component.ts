@@ -59,25 +59,35 @@ export class SettingsComponent implements OnInit {
 
   // We need to manually parse the value of the form here, since it can not be mapped to an object.
   onSubmit() {
-    let jsonValue = JSON.parse(JSON.stringify(this.settingsForm.getRawValue()));
-    var settings: SettingDTO[] = new Array<SettingDTO>();
-    for (let key in jsonValue) {
-      settings.push(new SettingDTO(key, jsonValue[key]));
+
+    if (this.settingsForm.valid) {
+
+      let jsonValue = JSON.parse(JSON.stringify(this.settingsForm.getRawValue()));
+      var settings: SettingDTO[] = new Array<SettingDTO>();
+      for (let key in jsonValue) {
+        settings.push(new SettingDTO(key, jsonValue[key]));
+      }
+
+      this.settingsService.save(settings).subscribe(
+        onNext => {
+          this.snackBar.open('Settings saved successfully.', null, {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
+          this.router.navigate(['/settings']);
+        }, onError => {
+          console.log(onError);
+          this.snackBar.open('Settings could not be saved.', null, {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
+        });
+    }else {
+      this.snackBar.open('Please enter a correct value to all required fields', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
     }
 
-    this.settingsService.save(settings).subscribe(
-      onNext => {
-        this.snackBar.open('Settings saved successfully.', null, {
-          duration: 5000,
-          verticalPosition: 'top'
-        });
-        this.router.navigate(['/settings']);
-      }, onError => {
-        console.log(onError);
-        this.snackBar.open('Settings could not be saved.', null, {
-          duration: 5000,
-          verticalPosition: 'top'
-        });
-      });
   }
 }

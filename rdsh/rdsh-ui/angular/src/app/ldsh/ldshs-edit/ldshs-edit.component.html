@@ -5,7 +5,7 @@
   </mat-toolbar>
 
   <div style="padding:2em;">
-    <form novalidate [formGroup]="ldshForm" (ngSubmit)="onSubmit(ldshForm)" class="field-full-width"
+    <form novalidate [formGroup]="ldshForm" (click)="onSubmit(ldshForm)" class="field-full-width"
           ng-if="ldshForm != null">
       <div>
         <mat-form-field class="mat-form">

@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { MatTableDataSource } from "@angular/material";
+import { MatTableDataSource, MatDialog } from "@angular/material";
 import { RouterModule, Routes, Router } from "@angular/router";
 import { AppComponent } from "../app.component";
 import { DataService } from "../data.service";
+import { OkCancelDialogComponent } from "../shared/ok-cancel-dialog.component";
 
 @Component({
   selector: "app-datasets-admin",
@@ -15,7 +16,7 @@ export class DatasetsAdminComponent implements OnInit {
   displayedColumns = ["name", "description", "url"];
   dataSource = new MatTableDataSource<Element>(datasetList);
 
-  constructor(private dataService: DataService, private router: Router) {
+  constructor(private dataService: DataService, private router: Router, public dialog: MatDialog) {
     AppComponent.selectedMenuItem = 'datasets';
   }
 
@@ -62,15 +63,21 @@ export class DatasetsAdminComponent implements OnInit {
 
 
   deleteDataset(id: string) {
-console.log(id);
+
+    let dialogRef = this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: 'Delete LDSH',
+        question: 'Are you sure you want to delete this LDSH?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
     this.dataService.getCall("deleteDataset/id=" + id).then(result => {
-      
-      console.log("After delete..");
-
-      console.log(result);
-
-      this.ngOnInit();
+        this.ngOnInit();
     })
+  }
+});
 
   }
 

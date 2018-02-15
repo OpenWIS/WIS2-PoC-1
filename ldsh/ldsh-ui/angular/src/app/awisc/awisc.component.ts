@@ -72,30 +72,38 @@ export class AWISCComponent implements OnInit {
 
   onSave() {
 
-    var messageObject = new Object();
-    let rdsh = this.metadataForm.value;
-    rdsh.type = "AWISC";
+    if (this.metadataForm.valid) {
+      
+      var messageObject = new Object();
+      let rdsh = this.metadataForm.value;
+      rdsh.type = "AWISC";
 
-    messageObject['message'];
-    messageObject['name'] = rdsh.name;
-    messageObject['token'] = rdsh.token;
-    messageObject['status'] = rdsh.status;
-    messageObject['type'] = rdsh.type;
-    messageObject['url'] = rdsh.url;
-    messageObject['id'] = this.awisc_id;
+      messageObject['message'];
+      messageObject['name'] = rdsh.name;
+      messageObject['token'] = rdsh.token;
+      messageObject['status'] = rdsh.status;
+      messageObject['type'] = rdsh.type;
+      messageObject['url'] = rdsh.url;
+      messageObject['id'] = this.awisc_id;
 
-    this.dataService.create("saveRemote", messageObject).subscribe(onNext => {
-      this.snackBar.open('AWISC was saved successfully.', null, {
+      this.dataService.create("saveRemote", messageObject).subscribe(onNext => {
+        this.snackBar.open('AWISC was saved successfully.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      }, onError => {
+        console.log(onError);
+        this.snackBar.open('There was a problem saving the AWISC.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
+    } else {
+      this.snackBar.open('Please enter a correct value to all required fields', null, {
         duration: 5000,
         verticalPosition: 'top'
       });
-    }, onError => {
-      console.log(onError);
-      this.snackBar.open('There was a problem saving the AWISC.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
-      });
-    });
+    }
   }
 
   onCancel() {

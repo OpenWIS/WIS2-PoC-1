@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {JwtModule} from "@auth0/angular-jwt";
 import { AuthService } from './services/auth.service';
+import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
 
 
 
@@ -29,6 +30,7 @@ import { AuthService } from './services/auth.service';
     AWISCComponent,
     SettingsComponent,
     DatasetViewComponent,
+    OkCancelDialogComponent,
     LoginComponent
   ],
   imports: [
@@ -41,6 +43,7 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
   ],
   providers: [AuthGuard, AuthService],
+  entryComponents: [OkCancelDialogComponent],
    bootstrap: [AppComponent]
 })
 

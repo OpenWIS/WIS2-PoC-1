@@ -50,7 +50,7 @@ export class RDSHComponent implements OnInit {
 
   checkRdshStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.remoteCall("http://" + rs.url +environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
+    this.dataService.remoteCall("http://" + rs.url + environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
       this.registrationStatus = "Verified";
 
       this.popValidateOk(poptValidation);
@@ -76,37 +76,39 @@ export class RDSHComponent implements OnInit {
   }
 
 
-    buldForm(rs: RemoteSystem) {
+  buldForm(rs: RemoteSystem) {
 
-      if (rs == null) {
+    if (rs == null) {
 
-        this.metadataForm = new FormGroup({
-          name: new FormControl('', [Validators.required]),
-          url: new FormControl('', [Validators.required]),
-          token: new FormControl('', [Validators.required]),
-        });
-      } else {
-        this.rdsh_id = rs.id;
-        this.metadataForm = new FormGroup({
-          name: new FormControl(rs.name, [Validators.required]),
-          url: new FormControl(rs.url, [Validators.required]),
-          token: new FormControl(rs.token, [Validators.required]),
-        });
-      }
+      this.metadataForm = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        url: new FormControl('', [Validators.required]),
+        token: new FormControl('', [Validators.required]),
+      });
+    } else {
+      this.rdsh_id = rs.id;
+      this.metadataForm = new FormGroup({
+        name: new FormControl(rs.name, [Validators.required]),
+        url: new FormControl(rs.url, [Validators.required]),
+        token: new FormControl(rs.token, [Validators.required]),
+      });
     }
+  }
 
 
-    onSubmit() {
-      this.loadRdsh(true);
-    }
+  onSubmit() {
+    this.loadRdsh(true);
+  }
 
 
-    onSave() {
+  onSave() {
 
-      var messageObject = new Object();
-      let rdsh = this.metadataForm.value;
+    var messageObject = new Object();
+    let rdsh = this.metadataForm.value;
+
+    if (this.metadataForm.valid) {
+
       rdsh.type = "RDSH";
-
       messageObject['message'];
       messageObject['name'] = rdsh.name;
       messageObject['token'] = rdsh.token;
@@ -128,25 +130,31 @@ export class RDSHComponent implements OnInit {
           verticalPosition: 'top'
         });
       });
-    }
-
-
-    getErrorMessage() {
-      return this.metadataForm.hasError("required")
-        ? "You must enter a value"
-        : this.metadataForm.hasError("email")
-          ? "Not a valid email"
-          : "not valid Mail";
-    }
-
-    onCancel() {
-      this.router.navigate(['/datasets']);
-    }
-
-    ngAfterViewInit() {
-      if (!AppComponent.menuOpen) {
-        document.getElementById('sitenav').click();
-      }
+    } else {
+      this.snackBar.open('Please enter a correct value to all required fields', null, {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
     }
   }
+
+
+  getErrorMessage() {
+    return this.metadataForm.hasError("required")
+      ? "You must enter a value"
+      : this.metadataForm.hasError("email")
+        ? "Not a valid email"
+        : "not valid Mail";
+  }
+
+  onCancel() {
+    this.router.navigate(['/datasets']);
+  }
+
+  ngAfterViewInit() {
+    if (!AppComponent.menuOpen) {
+      document.getElementById('sitenav').click();
+    }
+  }
+}
 

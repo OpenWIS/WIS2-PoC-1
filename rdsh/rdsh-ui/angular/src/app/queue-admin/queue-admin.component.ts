@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSnackBar, MatTableDataSource } from "@angular/material";
+import { MatSnackBar, MatTableDataSource, MatDialog } from "@angular/material";
 import { RouterModule, Routes, Router } from "@angular/router";
 import { AppComponent } from "../app.component";
 import { ChannelService } from "../services/channel.service";
 import { MqttTopic } from "../dto/MqttTopic.dto";
+import { OkCancelDialogComponent } from "../shared/ok-cancel-dialog.component";
 
 @Component({
   selector: "app-queue-admin",
@@ -11,10 +12,11 @@ import { MqttTopic } from "../dto/MqttTopic.dto";
   styleUrls: ["./queue-admin.component.css"]
 })
 export class QueueAdminComponent implements OnInit {
-  displayedColumns = ["name","ldshname", "uri", "url"];
+  displayedColumns = ["name", "ldshname", "uri", "url"];
   dataSource = null;
 
-  constructor(private channelService: ChannelService, private router: Router, public snackBar: MatSnackBar) {
+  constructor(private channelService: ChannelService, private router: Router, public dialog: MatDialog,
+    public snackBar: MatSnackBar) {
     AppComponent.selectedMenuItem = "channels";
   }
 
@@ -37,17 +39,28 @@ export class QueueAdminComponent implements OnInit {
   }
 
 
-  deleteChannel(id:string){
-    this.channelService.delete(id).subscribe(
-      onNext => {
-        this.getAllChannels();
-      }, onError => {
-        console.error(onError);
-        this.snackBar.open('There was a problem deleting the Channel.', null, {
-          duration: 5000,
-          verticalPosition: 'top'
-        });
-      });
+  deleteChannel(id: string) {
+
+    let dialogRef = this.dialog.open(OkCancelDialogComponent, {
+      data: {
+        title: 'Delete Channel',
+        question: 'Are you sure you want to delete this Channel?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.channelService.delete(id).subscribe(
+          onNext => {
+            this.getAllChannels();
+          }, onError => {
+            console.error(onError);
+            this.snackBar.open('There was a problem deleting the Channel.', null, {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
+          });
+      }
+    });
   }
 
   // navigateToEditQueue(id: string) {
@@ -55,7 +68,7 @@ export class QueueAdminComponent implements OnInit {
   // }
 
   navigateToViewQueue(id: string) {
-    this.router.navigate(['/queueView'], { queryParams: { "id": id } });
+    this.router.navigate(['/channelView'], { queryParams: { "id": id } });
   }
 
   monitor() {

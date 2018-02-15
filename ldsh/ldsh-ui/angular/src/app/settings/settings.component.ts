@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
   sysprops: SystemPropery;
 
 
-  constructor(private dataService: DataService, private router: Router,  public snackBar: MatSnackBar,) {
+  constructor(private dataService: DataService, private router: Router, public snackBar: MatSnackBar, ) {
     AppComponent.selectedMenuItem = 'settings';
   }
 
@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
 
     })
   }
- 
+
   buildForm(rs: SystemPropery) {
 
     if (rs == null) {
@@ -48,70 +48,64 @@ export class SettingsComponent implements OnInit {
         title: new FormControl("", [Validators.required]),
         systemid: new FormControl("", [Validators.required]),
         email: new FormControl("", [Validators.required]),
-        copyright: new FormControl("", []),
-        footerTxt: new FormControl("", []),
-        homeTxt: new FormControl("", []),
+        copyright: new FormControl("", [Validators.required]),
+        footerTxt: new FormControl("", [Validators.required]),
+        homeTxt: new FormControl("", [Validators.required]),
 
-        ftpUrl: new FormControl("", []),
-        ftpUsername: new FormControl("", []),
-        ftpPassword: new FormControl("", [])
       });
     } else {
-      //TODO fix me
-      this.sysprops = rs;
 
+      this.sysprops = rs;
       this.metadataForm = new FormGroup({
         title: new FormControl(rs.title, [Validators.required]),
         systemid: new FormControl(rs.systemid, [Validators.required]),
         email: new FormControl(rs.email, [Validators.required]),
-        copyright: new FormControl(rs.copyright, []),
-        footerTxt: new FormControl(rs.footerTxt, []),
-        homeTxt: new FormControl(rs.homeTxt, []),
+        copyright: new FormControl(rs.copyright, [Validators.required]),
+        footerTxt: new FormControl(rs.footerTxt, [Validators.required]),
+        homeTxt: new FormControl(rs.homeTxt, [Validators.required]),
 
-        ftpUrl: new FormControl(rs.ftpUrl, []),
-        ftpUsername: new FormControl(rs.ftpUsername, []),
-        ftpPassword: new FormControl(rs.ftpPassword, [])
       });
     }
   }
 
-
-
+  
   onSubmit() {
 
-    var messageObject = new Object();
-    var syspr: SystemPropery;
+    if (this.metadataForm.valid) {
+      var messageObject = new Object();
+      var syspr: SystemPropery;
 
-    syspr = this.metadataForm.value;
+      syspr = this.metadataForm.value;
 
-    messageObject['message'];
-    messageObject['title'] = syspr.title;
-    // messageObject['systemid'] = syspr.systemid;
-    messageObject['systemid'] = syspr.systemid;
-    messageObject['email'] = syspr.email;
-    messageObject['copyright'] = syspr.copyright;
-    messageObject['footerTxt'] = syspr.footerTxt;
-    messageObject['homeTxt'] = syspr.homeTxt;
+      messageObject['message'];
+      messageObject['title'] = syspr.title;
+      messageObject['systemid'] = syspr.systemid;
+      messageObject['email'] = syspr.email;
+      messageObject['copyright'] = syspr.copyright;
+      messageObject['footerTxt'] = syspr.footerTxt;
+      messageObject['homeTxt'] = syspr.homeTxt;
 
-    messageObject['ftpUrl'] = syspr.ftpUrl;
-    messageObject['ftpUsername'] = syspr.ftpUsername;
-    messageObject['ftpPassword'] = syspr.ftpPassword;
 
-    this.dataService.create("saveSettings", messageObject).subscribe(onNext => {
-      this.snackBar.open('Settings were saved successfully.', null, {
+      this.dataService.create("saveSettings", messageObject).subscribe(onNext => {
+        this.snackBar.open('Settings were saved successfully.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+        this.router.navigate(['/datasets']);
+      }, onError => {
+        console.log(onError);
+        this.snackBar.open('There was a problem saving Settings.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
+
+    } else {
+      this.snackBar.open('Please enter a correct value to all required fields', null, {
         duration: 5000,
         verticalPosition: 'top'
       });
-      this.router.navigate(['/datasets']);
-    }, onError => {
-      console.log(onError);
-      this.snackBar.open('There was a problem saving Settings.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
-      });
-    });
-
-
+    }
   }
 
   cancel() {

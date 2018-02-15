@@ -5,7 +5,7 @@
   </mat-toolbar>
 
   <div style="padding:2em;">
-    <form novalidate [formGroup]="settingsForm" (ngSubmit)="onSubmit()" class="field-full-width">
+    <form novalidate [formGroup]="settingsForm" (click)="onSubmit()" class="field-full-width">
       <mat-tab-group>
         <mat-tab label="Identification">
           <div style="padding-top: 2em;">

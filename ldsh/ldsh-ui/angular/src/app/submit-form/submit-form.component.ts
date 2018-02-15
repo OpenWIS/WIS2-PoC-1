@@ -27,7 +27,7 @@ export class SubmitFormComponent implements OnInit {
   paramsObj: Object;
   pageUrl: String;
   lastUpdate: Date;
-  
+
   //autocomplete
   stateCtrl: FormControl;
 
@@ -84,31 +84,6 @@ export class SubmitFormComponent implements OnInit {
   }
 
 
-  // add(event: MatChipInputEvent): void {
-  //   let input = event.input;
-  //   let value = event.value;
-
-  //   // Add code
-  //   if ((value || "").trim()) {
-  //     debugger
-  //     this.wmoCodes.push({ name: value.trim() });
-  //   }
-  //   // Reset 
-  //   if (input) {
-  //     input.value = "";
-  //   }
-  // }
-
-  // remove(measurement: any): void {
-  //   let index = this.wmoCodes.indexOf(measurement);
-
-  //   if (index >= 0) {
-  //     this.wmoCodes.splice(index, 1);
-  //   }
-  // }
-
-
-
   deSelect(code: any): void {
 
     this.removeFromArray(this.selectedCodes, code);
@@ -162,11 +137,11 @@ export class SubmitFormComponent implements OnInit {
     if (dataset == null) {
       // create new
       this.metadataForm = new FormGroup({
-        state: new FormControl("", [Validators.required]),
+        state: new FormControl(""),
         city: new FormControl(""),
-        latitude: new FormControl("", [Validators.required]),
-        longitude: new FormControl("", [Validators.required]),
-        elevation: new FormControl("", [Validators.required]),
+        latitude: new FormControl(""),
+        longitude: new FormControl(""),
+        elevation: new FormControl(""),
         datasetName: new FormControl("", [
           Validators.required,
           Validators.minLength(2)
@@ -180,7 +155,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.minLength(2)
         ]),
         relativeUrl: new FormControl(""),
-        filenameprefix: new FormControl(""),
+        filenameprefix: new FormControl("", [Validators.required]),
         jsonLd: new FormControl(""),
         downloadLink: new FormControl("", []),
         awsQueue: new FormControl("", []),
@@ -190,10 +165,7 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        periodTo: new FormControl("", [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
+        periodTo: new FormControl(""),
         measurementUnit: new FormControl(""),
         countryCB: new FormControl(""),
         climate: new FormControl(""),
@@ -225,11 +197,11 @@ export class SubmitFormComponent implements OnInit {
         measurementUnit: new FormControl(dataset.measurementUnit),
         countryCB: new FormControl(countrId),
 
-        state: new FormControl(dataset.state, [Validators.required]),
+        state: new FormControl(dataset.state),
         city: new FormControl(dataset.city),
-        latitude: new FormControl(dataset.latitude, [Validators.required]),
-        longitude: new FormControl(dataset.longitude, [Validators.required]),
-        elevation: new FormControl(dataset.elevation, [Validators.required]),
+        latitude: new FormControl(dataset.latitude),
+        longitude: new FormControl(dataset.longitude),
+        elevation: new FormControl(dataset.elevation),
         description: new FormControl(dataset.description, [
           Validators.required,
           Validators.minLength(2)
@@ -238,40 +210,24 @@ export class SubmitFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2)
         ]),
-        relativeUrl: new FormControl(dataset.relativeUrl, [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
+        relativeUrl: new FormControl(dataset.relativeUrl),
         filenameprefix: new FormControl(dataset.filenameprefix, [
           Validators.required,
           Validators.minLength(2)
         ]),
-        jsonLd: new FormControl(dataset.jsonLd, [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
-        downloadLink: new FormControl(dataset.downloadLink, [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
-        awsQueue: new FormControl(dataset.awsQueue, [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
+        jsonLd: new FormControl(dataset.jsonLd),
+        downloadLink: new FormControl(dataset.downloadLink),
+        awsQueue: new FormControl(dataset.awsQueue),
         rdshDissEnabled: new FormControl(dataset.rdshDissEnabled, []),
 
         sendData: new FormControl(dataset.sendData, []),
-
         dataformat: new FormControl(dataformatId),
 
         periodFrom: new FormControl(new Date(dataset.periodFrom), [
           Validators.required,
           Validators.minLength(2)
         ]),
-        periodTo: new FormControl(dataset.periodTo, [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
+        periodTo: new FormControl(dataset.periodTo),
         datasetImage: new FormControl(dataset.imageUrl),
         wmoSelectedCodes: new FormControl("")
       });
@@ -323,75 +279,81 @@ export class SubmitFormComponent implements OnInit {
 
   onSubmit() {
 
-    var messageObject = new Object();
+    if (this.metadataForm.valid) {
+      var messageObject = new Object();
 
-    let dataset = this.metadataForm.value;
-    let id = this.selectedDataSetId;
+      let dataset = this.metadataForm.value;
+      let id = this.selectedDataSetId;
 
-    // todo object to send...
-    messageObject['message'];
-    messageObject['id'] = id;
-    messageObject['description'] = dataset.description;
-    messageObject['periodFrom'] = dataset.periodFrom;
-    messageObject['periodTo'] = dataset.periodTo;
-    messageObject['license'] = dataset.license;
-    messageObject['state'] = dataset.state;
-    messageObject['city'] = dataset.city;
-    messageObject['latitude'] = dataset.latitude;
-    messageObject['longitude'] = dataset.longitude;
-    messageObject['elevation'] = dataset.elevation;
-    messageObject['relativeUrl'] = dataset.relativeUrl;
-    messageObject['filenameprefix'] = dataset.filenameprefix;
-    messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
-    messageObject['jsonLd'] = dataset.jsonLd;
-    messageObject['dataformat'] = this.dataformats.find(i => i.id === dataset.dataformat);
-    messageObject['country'] = this.countries.find(i => i.id === dataset.countryCB);
-    messageObject['name'] = dataset.datasetName;
-    messageObject['measurementUnit'] = dataset.measurementUnit;
-    messageObject['sendData'] = dataset.sendData;
-    messageObject['imageUrl'] = dataset.datasetImage;
-    messageObject['wmoCodes'] = this.selectedCodes;
+      // todo object to send...
+      messageObject['message'];
+      messageObject['id'] = id;
+      messageObject['description'] = dataset.description;
+      messageObject['periodFrom'] = dataset.periodFrom;
+      messageObject['periodTo'] = dataset.periodTo;
+      messageObject['license'] = dataset.license;
+      messageObject['state'] = dataset.state;
+      messageObject['city'] = dataset.city;
+      messageObject['latitude'] = dataset.latitude;
+      messageObject['longitude'] = dataset.longitude;
+      messageObject['elevation'] = dataset.elevation;
+      messageObject['relativeUrl'] = dataset.relativeUrl;
+      messageObject['filenameprefix'] = dataset.filenameprefix;
+      messageObject['rdshDissEnabled'] = dataset.rdshDissEnabled;
+      messageObject['jsonLd'] = dataset.jsonLd;
+      messageObject['dataformat'] = this.dataformats.find(i => i.id === dataset.dataformat);
+      messageObject['country'] = this.countries.find(i => i.id === dataset.countryCB);
+      messageObject['name'] = dataset.datasetName;
+      messageObject['measurementUnit'] = dataset.measurementUnit;
+      messageObject['sendData'] = dataset.sendData;
+      messageObject['imageUrl'] = dataset.datasetImage;
+      messageObject['wmoCodes'] = this.selectedCodes;
 
-    // Download URL   -- downloadUrl
-    messageObject['downloadUrl'] = this.pageUrl + "/" + dataset.relativeUrl + "/" + dataset.filenameprefix;
-    messageObject['subscriptionUri'] = this.pageUrl + ":" + dataset.relativeUrl + ":" + dataset.filenameprefix;
+      // Download URL   -- downloadUrl
+      messageObject['downloadUrl'] = this.pageUrl + "/" + dataset.relativeUrl + "/" + dataset.filenameprefix;
+      messageObject['subscriptionUri'] = this.pageUrl + ":" + dataset.relativeUrl + ":" + dataset.filenameprefix;
 
-    this.dataService.create("saveDataset", messageObject).subscribe(onNext => {
-      this.snackBar.open('Dataset was saved successfully.', null, {
+      this.dataService.create("saveDataset", messageObject).subscribe(onNext => {
+        this.snackBar.open('Dataset was saved successfully.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+        this.router.navigate(['/datasets']);
+      }, onError => {
+        console.log(onError);
+        this.snackBar.open('There was a problem saving the Dataset.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
+    } else {
+      this.snackBar.open('Please enter a correct value to all required fields', null, {
         duration: 5000,
         verticalPosition: 'top'
       });
-      this.router.navigate(['/datasets']);
-    }, onError => {
-      console.log(onError);
-      this.snackBar.open('There was a problem saving the Dataset.', null, {
-        duration: 5000,
-        verticalPosition: 'top'
-      });
-    });
-
+    }
   }
 
-//   console.log(result);
-//   this.router.navigate(['/datasets'], { queryParams: {} });
-// });
+  //   console.log(result);
+  //   this.router.navigate(['/datasets'], { queryParams: {} });
+  // });
 
 
-goBack() {
-  this.router.navigate(['/datasets'], { queryParams: {} });
-}
+  goBack() {
+    this.router.navigate(['/datasets'], { queryParams: {} });
+  }
 
-replaceSlash(s: string) {
-  return s && s.replace('/', ':');
-}
+  replaceSlash(s: string) {
+    return s && s.replace('/', ':');
+  }
 
-getErrorMessage() {
-  return this.metadataForm.hasError("required")
-    ? "You must enter a value"
-    : this.metadataForm.hasError("email")
-      ? "Not a valid email"
-      : "not valid Mail";
-}
+  getErrorMessage() {
+    return this.metadataForm.hasError("required")
+      ? "You must enter a value"
+      : this.metadataForm.hasError("email")
+        ? "Not a valid email"
+        : "not valid Mail";
+  }
 }
 
 
@@ -427,5 +389,5 @@ export interface DataSet {
   periodTo: Date,
   wmoCodes: WmoCode[]
   sendData: boolean;
-  lastUpdate:Date;
+  lastUpdate: Date;
 };
