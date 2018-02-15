@@ -31,7 +31,8 @@ export const routerConfig: Routes = [
   },
   {
     path: "settings",
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "ldsh-edit/:ldshId",
@@ -43,26 +44,20 @@ export const routerConfig: Routes = [
     component: LdshsEditComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: "queueEdit",
-    component: QueueEditComponent
-  },
+  // {
+  //   path: "queueEdit",
+  //   component: QueueEditComponent
+  // },
   {
     path: "monitor",
-    component: QueueMonitorComponent
+    component: QueueMonitorComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: "queueView",
-    component: QueueViewComponent
+    path: "channelView",
+    component: QueueViewComponent,
+    canActivate: [AuthGuard]
   },
-  //   {
-  //   path: "submit",
-  //   component: SubmitFormComponent
-  // },
-  // {
-  //   path: "about",
-  //   component: SubmitFormComponent
-  // },
   {
     path: "",
     redirectTo: "/home",

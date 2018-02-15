@@ -70,7 +70,10 @@ public class SettingsServiceImpl implements SettingsService {
       }
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Could not parse PID.", e);
-    }
+    }catch (Exception e) {
+        LOGGER.log(Level.SEVERE, "Error @ getSettings.", e);
+        e.printStackTrace();
+      }
 
     return retVal;
   }
