@@ -2,6 +2,7 @@ package openwis.pilot.ldsh.manager.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -44,7 +45,7 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 		String ldshcontact = systemService.getSystemPropertyValue("email");
 		String ldshSystemId = systemService.getSystemPropertyValue("systemid");
 		
-		ArrayList<Dataset> datasets = (ArrayList<Dataset>) new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.rdshDissEnabled.eq(true)).fetch();
+		List<Dataset> datasets = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.rdshDissEnabled.eq(true)).fetch();
 		
 		LdshIndexDTO dto = new LdshIndexDTO();
 		dto.setContact(ldshcontact);

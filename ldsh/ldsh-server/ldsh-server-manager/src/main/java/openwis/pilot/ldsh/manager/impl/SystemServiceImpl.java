@@ -135,8 +135,7 @@ public class SystemServiceImpl implements SystemService {
 	@Override
 	public SysPropertyDTO getAllSystemProperties() {
 
-		ArrayList<SysProperty> sps = (ArrayList<SysProperty>) new JPAQueryFactory(
-				em).selectFrom(qSysProperty).fetch();
+		List<SysProperty> sps = new JPAQueryFactory(em).selectFrom(qSysProperty).fetch();
 
 		return (new SysPropertyMapperImpl()).toSysPropertyDTO(sps);
 	}

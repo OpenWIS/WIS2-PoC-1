@@ -13,7 +13,7 @@ import org.mapstruct.Mapper;
 @Mapper(uses = { SysPropertyDTO.class })
 public abstract class SysPropertyMapper {
 
-	public SysPropertyDTO toSysPropertyDTO(ArrayList<SysProperty> spList) {
+	public SysPropertyDTO toSysPropertyDTO(List<SysProperty> spList) {
 
 		if (spList == null) {
 			return null;

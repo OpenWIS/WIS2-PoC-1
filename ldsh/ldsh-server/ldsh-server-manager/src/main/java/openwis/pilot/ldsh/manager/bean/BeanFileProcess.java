@@ -4,8 +4,8 @@
 package openwis.pilot.ldsh.manager.bean;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +37,7 @@ public class BeanFileProcess<T> {
 		String bodyText = exchange.getIn().getBody(String.class);
 		DatasetMQTTPublishDTO datasetMQTTPublishDTO = null;
 
-		ArrayList<DatasetDTO> datasets = (ArrayList<DatasetDTO>) datasetService.getAllDataSets();
+		List<DatasetDTO> datasets = datasetService.getAllDataSets();
 		for (DatasetDTO dataset : datasets) {
 
 			if (file.getFileName().startsWith(dataset.getFilenameprefix())&& !dataset.getFilenameprefix().isEmpty()  ) {

@@ -87,9 +87,9 @@ public class DatasetServiceImpl implements DatasetService {
 	@Override
 	public List<DatasetDTO> getAllDataSets() {
 
-		ArrayList<DatasetDTO> datasetDtoList = new ArrayList<DatasetDTO>();
-		ArrayList<Dataset> datasets = (ArrayList<Dataset>) new JPAQueryFactory(em).selectFrom(qDataset).fetch();
-
+		List<DatasetDTO> datasetDtoList = new ArrayList<DatasetDTO>();
+		List<Dataset> datasets = new JPAQueryFactory(em).selectFrom(qDataset).fetch();
+		
 		for (Dataset ds : datasets) {
 			datasetDtoList.add(new DatasetMapperImpl().toDatasetDTO(ds));
 		}
@@ -100,8 +100,8 @@ public class DatasetServiceImpl implements DatasetService {
 	@Override
 	public List<DataFormatDTO> getDataFormats() {
 
-		ArrayList<DataFormat> dataFormats = (ArrayList<DataFormat>) new JPAQueryFactory(em).selectFrom(qDataFormat).fetch();
-		ArrayList<DataFormatDTO> dataFormatsList = new ArrayList<DataFormatDTO>();
+		List<DataFormat> dataFormats = new JPAQueryFactory(em).selectFrom(qDataFormat).fetch();
+		List<DataFormatDTO> dataFormatsList = new ArrayList<DataFormatDTO>();
 
 		for (DataFormat df : dataFormats) {
 			dataFormatsList.add(new DataFormatMapperImpl().toDataFormatDTO(df));
@@ -113,8 +113,8 @@ public class DatasetServiceImpl implements DatasetService {
 	@Override
 	public List<CountryDTO> getCountries() {
 
-		ArrayList<Country> countries = (ArrayList<Country>) new JPAQueryFactory(em).selectFrom(qCountry).fetch();
-		ArrayList<CountryDTO> countrytList = new ArrayList<CountryDTO>();
+		List<Country> countries = new JPAQueryFactory(em).selectFrom(qCountry).fetch();
+		List<CountryDTO> countrytList = new ArrayList<CountryDTO>();
 		
 		for (Country c : countries) {
 			countrytList.add(new CountryMapperImpl().toCountryDTO(c));
@@ -149,7 +149,7 @@ public class DatasetServiceImpl implements DatasetService {
 	public List<WmoCodeDTO> getWmoCodes() {
 
 		ArrayList<WmoCodeDTO> codesDtoList = new ArrayList<WmoCodeDTO>();
-		ArrayList<WmoCode> codes = (ArrayList<WmoCode>) new JPAQueryFactory(em).selectFrom(qWmoCode).fetch();
+		List<WmoCode> codes = new JPAQueryFactory(em).selectFrom(qWmoCode).fetch();
 		for (WmoCode wc : codes) {
 			codesDtoList.add(new WmoCodeMapperImpl().toWmoCodeDTO(wc));
 		}
@@ -161,7 +161,7 @@ public class DatasetServiceImpl implements DatasetService {
 	public List<FrequencyUnitDTO> getMeasurementUnits() {
 		
 		ArrayList<FrequencyUnitDTO> muDtoList = new ArrayList<FrequencyUnitDTO>();
-		ArrayList<FrequencyUnit> mesurments = (ArrayList<FrequencyUnit>) new JPAQueryFactory(em).selectFrom(qMeasurementUnit).fetch();
+		List<FrequencyUnit> mesurments = new JPAQueryFactory(em).selectFrom(qMeasurementUnit).fetch();
 		for (FrequencyUnit mu : mesurments) {
 			muDtoList.add(new MeasurementUnitMapperImpl().toMeasurementUnitDTO(mu));
 		}
