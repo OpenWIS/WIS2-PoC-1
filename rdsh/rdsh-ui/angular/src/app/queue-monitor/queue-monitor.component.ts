@@ -14,11 +14,16 @@ export class QueueMonitorComponent implements OnInit {
   displayedColumns = ["name", "messagesSent", "bytesSent", "failedConnections", "Actions"];
 
   dataSource = null;
+  interval: any;
 
   constructor(private channelService: ChannelService, private router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+
     this.getAllChannels();
+    this.interval = setInterval(() => {
+      this.refresh();
+    }, 5000);
   }
 
   private getAllChannels() {
@@ -45,8 +50,25 @@ export class QueueMonitorComponent implements OnInit {
   }
 
   refresh() {
+    // this.getAllChannels();
+    this.channelService.list().subscribe(
+      onNext => {
 
-    this.getAllChannels();
+        if (onNext.length != this.barChartLabels.length) {
+          // RE-render in case were there is a new Channel.
+          this.buildChart(onNext);
+          this.dataSource = new MatTableDataSource<MqttTopic>(onNext);
+        } else {
+          this.updateChart(onNext);
+        }
+        this.dataSource = new MatTableDataSource<MqttTopic>(onNext);
+      }, onError => {
+        console.error(onError);
+        this.snackBar.open('There was a problem fetching the list of Channels.', null, {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      });
   }
 
   purge(id: string) {
@@ -128,19 +150,38 @@ export class QueueMonitorComponent implements OnInit {
   ];
 
   private buildChart(array: any[]) {
-
     this.barChartLabels = [];
     this.msgChartData[0].data = [];
     this.msgChartData[1].data = [];
     this.bytesChartData[0].data = [];
 
     for (let channel of array) {
-
       this.barChartLabels.push(channel.channelName);
       this.msgChartData[0].data.push(channel.msessagesSent);
       this.msgChartData[1].data.push(channel.failedConnections);
       this.bytesChartData[0].data.push(channel.bytesSent);
-
     }
+
   }
+
+
+  // we use update via temp variables to avoid re-rendering
+  private updateChart(array: any[]) {
+    let msgTmpData: any[] = [
+      { data: [], label: 'Messages Sent' },
+      { data: [], label: 'Failed Connections' }
+    ];
+
+    let bytesTmptData: any[] = [
+      { data: [], label: 'Bytes Sent' }
+    ];
+    for (let channel of array) {
+      msgTmpData[0].data.push(channel.msessagesSent);
+      msgTmpData[1].data.push(channel.failedConnections);
+      bytesTmptData[0].data.push(channel.bytesSent);
+    }
+    this.msgChartData = msgTmpData;
+    this.bytesChartData = bytesTmptData;
+  }
+
 }
