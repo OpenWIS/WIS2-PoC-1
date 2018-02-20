@@ -3,10 +3,13 @@ package openwis.pilot.common.dto.awisc;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * LDSH indexing information for AWISC
  *
  */
+@XmlRootElement()
 public class LdshIndexDTO {
 	
 	/**

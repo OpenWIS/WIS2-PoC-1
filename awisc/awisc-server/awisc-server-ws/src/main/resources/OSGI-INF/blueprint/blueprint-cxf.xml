@@ -12,7 +12,7 @@
             <ref component-id="ldsh"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
             <bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
             <bean
                 class="org.apache.cxf.jaxrs.provider.json.JSONProvider" id="jsonProvider">
@@ -32,5 +32,8 @@
         <cxf:outInterceptors>
             <ref component-id="headerInterceptor"/>
        </cxf:outInterceptors>
+       <cxf:features>
+			<cxf:logging />
+		</cxf:features>
     </cxf:bus>
 </blueprint>
