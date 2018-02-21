@@ -3,10 +3,13 @@ package openwis.pilot.common.dto.awisc;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Dataset indexing information for AWISC
  *
  */
+@XmlRootElement()
 public class DatasetIndexDTO {
 	
 	public static class DissemitationType{

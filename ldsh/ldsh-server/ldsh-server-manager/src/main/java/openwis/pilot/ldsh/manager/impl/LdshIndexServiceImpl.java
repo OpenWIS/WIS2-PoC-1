@@ -82,7 +82,7 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 				diDto.getWmoCodes().add(wc.getCode());
 			}
 			
-			diDto.setLastUpdate(dataset.getLastUpdate().toString());
+			diDto.setLastUpdate(dataset.getLastUpdate()!=null?sdf.format(dataset.getLastUpdate()):null);
 			
 			dto.getDatasets().add(diDto);
 		}

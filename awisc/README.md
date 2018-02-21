@@ -55,3 +55,6 @@ feature:install awisc-deps
 
 ### Install the server feature
 feature:install awisc-server
+
+### Workaround for entity class cast exception
+refresh hibernate-osgi
