@@ -6,6 +6,7 @@ import { MatCheckbox } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { DataSet } from '../submit-form/submit-form.component';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -17,19 +18,13 @@ import { DataSet } from '../submit-form/submit-form.component';
 })
 export class DatasetViewComponent implements OnInit {
 
-  // rdshDissEnabled = false;
-  //viewMode: boolean = true;
   metadataForm: FormGroup;
   paramsObj: Object;
   dataSet: DataSet;
   measurments: String[] = [];
 
   constructor(private dataService: DataService, private activatedRoute: ActivatedRoute,
-    private router: Router) {
-
-    // const fragment = document.createRange().createContextualFragment(this.myscript);
-    // document.getElementsByTagName('head')[0].appendChild(fragment);
-
+    private router: Router, private titleService: Title) {
   }
 
   ngOnInit() {
@@ -47,6 +42,7 @@ export class DatasetViewComponent implements OnInit {
     if (id) {
       this.dataService.getCall("getDataset/id=" + id).then(result => {
         this.dataSet = result;
+        this.titleService.setTitle(this.dataSet.name);
         this.updateMeasurments(this.dataSet);
         if (!this.dataSet.imageUrl){
           this.dataSet.imageUrl ="./assets/no_map.jpg"
