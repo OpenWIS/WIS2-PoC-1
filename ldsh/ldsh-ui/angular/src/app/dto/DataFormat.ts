@@ -1,0 +1,1 @@
+export interface DataFormat { id: number, name: String, description: String };

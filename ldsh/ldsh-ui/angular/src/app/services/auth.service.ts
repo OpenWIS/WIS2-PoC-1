@@ -22,6 +22,4 @@ export class AuthService {
     return this.http.post("", { headers: { 'Content-Type': 'application/json' } });
   }
 
-
-
 }

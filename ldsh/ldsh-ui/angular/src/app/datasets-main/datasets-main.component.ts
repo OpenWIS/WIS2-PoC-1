@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
+import { DataSet } from '../dto/DataSet';
 
 @Component({
   selector: 'app-datasets-main',
@@ -11,14 +12,14 @@ import { DataService } from '../data.service';
 
 })
 export class DatasetsMainComponent implements OnInit {
-  displayedColumns = ['name', 'description', 'url'];
-  dataSource = new MatTableDataSource<Element>(datasetList);
+  displayedColumns = ['name', 'description', 'country', 'region'];
+  dataSource = new MatTableDataSource<DataSet>(datasetList);
 
   homePageText :String = "Not defined";
+  urlPrefix :String = "/view?id=";
 
 
   constructor(private dataService: DataService, private router: Router) { }
-
 
   ngOnInit() {
     this.loadProperties();
@@ -32,6 +33,7 @@ export class DatasetsMainComponent implements OnInit {
 
   loadDatasets() {
     this.dataService.getCall("getAllDatasets").then(result => {
+      console.log(result);
       this.loadDatasetsTable(result);
     })
   }
@@ -43,7 +45,7 @@ export class DatasetsMainComponent implements OnInit {
   }
 
 
-  private loadDatasetsTable(datasets: Element[]) {
+  private loadDatasetsTable(datasets: DataSet[]) {
 
     if (datasets instanceof Array) {
       datasetList = (datasets).slice();
@@ -53,23 +55,10 @@ export class DatasetsMainComponent implements OnInit {
         datasetList.push(datasets);
       }
     }
-    this.dataSource = new MatTableDataSource<Element>(datasetList);
+    this.dataSource = new MatTableDataSource<DataSet>(datasetList);
   }
-
-
 }
 
-export interface Element {
-  name: string;
-  description: string;
-  id: string;
-}
-
-
-//get all datasets..
-var datasetList: Element[] = [];
-  // { name: 'Athens', description: "Temperature/Rainfall in Athens", id: "10" },
-  // { name: 'Thesaloniki', description: "Temperature/Rainfall in Thesaloniki", id: "30" },
-  // { name: "Iraklion", description: "Wind speed/direction in Iraklion" , id: "12" },
+var datasetList: DataSet[] = [];
 
 

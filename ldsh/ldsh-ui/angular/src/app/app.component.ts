@@ -73,8 +73,6 @@ export class AppComponent implements OnInit {
     return AppComponent.selectedMenuItem;
   }
 
-
-
   authenticate() {
 
     if (sessionStorage.getItem((environment.CONSTANTS.JWT_STORAGE_NAME))) {
@@ -86,7 +84,6 @@ export class AppComponent implements OnInit {
       this.LoginStatus = "Log in";
     }
   }
-
 
   navigateToHome() {
     this.router.navigateByUrl("/home");
