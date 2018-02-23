@@ -3,7 +3,7 @@
     <p>Registered Datasets</p>
     <span class="ui-spacer"></span>
     <button mat-icon-button class="transparent" (click)="addNewDataset()">
-      <mat-icon class="ui-icon" aria-label="New">create_new_folder</mat-icon>
+      <mat-icon class="ui-icon" aria-label="New" matTooltip="Create Dataset" >create_new_folder</mat-icon>
     </button>
   </mat-toolbar>
 
@@ -30,13 +30,13 @@
         <mat-cell *matCellDef="let element">
 
           <button mat-icon-button class="transparent">
-            <mat-icon class="ui-icon dark" aria-label="Edit" (click)="navigateToEditDataset(element.id)">edit</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="Edit" matTooltip="Edit Dataset" (click)="navigateToEditDataset(element.id)">edit</mat-icon>
           </button>
           <button mat-icon-button class="transparent">
-            <mat-icon class="ui-icon dark" aria-label="View" (click)="navigateToViewDataset(element.id)">pageview</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="View" matTooltip="View Dataset" (click)="navigateToViewDataset(element.id)">pageview</mat-icon>
           </button>
           <button mat-icon-button class="transparent">
-            <mat-icon class="ui-icon dark" aria-label="Delete" (click)="deleteDataset(element.id)"  >delete</mat-icon>
+            <mat-icon class="ui-icon dark" aria-label="Delete" matTooltip="Delete Dataset" (click)="deleteDataset(element.id)"  >delete</mat-icon>
           </button>
         </mat-cell>
 

@@ -15,4 +15,8 @@ export class AuthService {
       {headers:{'Content-Type': 'application/json'}});
   }
 
+  logout(): Observable<any> {
+    sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+    return this.http.post("", { headers: { 'Content-Type': 'application/json' } });
+  }
 }
