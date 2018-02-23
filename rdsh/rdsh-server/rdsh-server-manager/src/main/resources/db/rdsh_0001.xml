@@ -12,6 +12,8 @@ CREATE TABLE `rdsh_ldsh` (
   `token` VARCHAR(36) NOT NULL,
   PRIMARY KEY (`id`));
 
+  INSERT INTO `rdsh_ldsh` VALUES ('3fb7d435-8ad0-43ea-b0f0-9510d4f7998d','Athens Local Data Sharing Hub','ath-ldsh','a@mail','69a6d47f-9a71-7600-516a-274f94c7dee5');
+
 CREATE TABLE `rdsh_setting` (
   `setting_key` VARCHAR(64) NOT NULL,
   `setting_val` VARCHAR(255) NULL,
