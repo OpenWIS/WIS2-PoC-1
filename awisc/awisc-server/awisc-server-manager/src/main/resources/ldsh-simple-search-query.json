@@ -147,6 +147,7 @@
                       }
                     }
                   }
+                  @WMO_CODE_FRAGMENTS@
                 ]
               }
             }
