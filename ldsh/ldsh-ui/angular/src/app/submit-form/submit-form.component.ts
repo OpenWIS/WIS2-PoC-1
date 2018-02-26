@@ -30,7 +30,6 @@ export class SubmitFormComponent implements OnInit {
 
   //autocomplete
   stateCtrl: FormControl;
-
   filteredStates: Observable<any[]>;
   //Chips
   visible: boolean = true;
@@ -57,6 +56,7 @@ export class SubmitFormComponent implements OnInit {
   selectedCodes: WmoCode[];
   codeSelected: any;
 
+
   addSelected() {
 
     if (this.codeSelected != "") {
@@ -70,18 +70,6 @@ export class SubmitFormComponent implements OnInit {
     }
     this.stateCtrl.setValue("");
   }
-  setSelectedCode($event, wmocode) {
-    this.codeSelected = wmocode;
-  }
-
-
-  filterStates(name: string) {
-    let out = this.wmoCodes.filter(
-      wmoCode =>
-        wmoCode.name.toLowerCase().indexOf(name.toLowerCase()) === 0
-    );
-    return out;
-  }
 
 
   deSelect(code: any): void {
@@ -90,6 +78,21 @@ export class SubmitFormComponent implements OnInit {
     //Add to unselected
     this.addToArray(this.wmoCodes, code);
     this.refreshAutoCompleteList();
+  }
+
+
+  setSelectedCode($event, wmocode) {
+    this.codeSelected = wmocode;
+  }
+
+
+  filterStates(name: string) {
+
+    let out = this.wmoCodes.filter(
+      wmoCode =>
+        wmoCode.name.toLowerCase().indexOf(name.toLowerCase()) === 0
+    );
+    return out;
   }
 
 
@@ -106,16 +109,28 @@ export class SubmitFormComponent implements OnInit {
 
   private refreshAutoCompleteList() {
 
+    this.clearAvailableCodes();
+
+    //set value change listener
     this.filteredStates = this.stateCtrl.valueChanges
       .startWith(null)
       .map(
-      wmoCode =>
-        wmoCode
-          ? this.filterStates(wmoCode)
-          : this.wmoCodes.slice()
+      wmoCode => wmoCode
+        ? this.filterStates(wmoCode)
+        : this.sliceCodes()
       );
   }
 
+  private clearAvailableCodes() {
+
+    for (let wmocode of this.selectedCodes) {
+      this.wmoCodes = this.wmoCodes.filter(item => item.code != wmocode.code);
+    }
+  }
+
+  private sliceCodes() {
+    return this.wmoCodes.slice();
+  }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(params => {
@@ -126,9 +141,6 @@ export class SubmitFormComponent implements OnInit {
 
     this.pageUrl = " http://" + this.document.location.hostname; // .origin (with port)
 
-  }
-
-  rdshAdjust(srcElement: HTMLInputElement) {
   }
 
 
@@ -242,7 +254,6 @@ export class SubmitFormComponent implements OnInit {
         }
       }
     }
-
     this.refreshAutoCompleteList();
   }
 
@@ -278,14 +289,18 @@ export class SubmitFormComponent implements OnInit {
 
 
   onSubmit() {
+    
+    this.metadataForm.controls['periodFrom'].markAsTouched();
+    this.metadataForm.controls['filenameprefix'].markAsTouched();
+    this.metadataForm.controls['description'].markAsTouched();
+    this.metadataForm.controls['license'].markAsTouched();
+    this.metadataForm.controls['datasetName'].markAsTouched();
 
     if (this.metadataForm.valid) {
       var messageObject = new Object();
 
       let dataset = this.metadataForm.value;
       let id = this.selectedDataSetId;
-
-      // todo object to send...
       messageObject['message'];
       messageObject['id'] = id;
       messageObject['description'] = dataset.description;
@@ -310,8 +325,8 @@ export class SubmitFormComponent implements OnInit {
       messageObject['wmoCodes'] = this.selectedCodes;
 
       // Download URL   -- downloadUrl
-      messageObject['downloadUrl'] = this.pageUrl + "/" + dataset.relativeUrl + "/" + dataset.filenameprefix;
-      messageObject['subscriptionUri'] = this.pageUrl + ":" + dataset.relativeUrl + ":" + dataset.filenameprefix;
+      messageObject['downloadUrl'] = this.getDownloadUrl(dataset);
+      messageObject['subscriptionUri'] = this.getSubscrUrl(dataset);
 
       this.dataService.create("saveDataset", messageObject).subscribe(onNext => {
         this.snackBar.open('Dataset was saved successfully.', null, {
@@ -334,10 +349,26 @@ export class SubmitFormComponent implements OnInit {
     }
   }
 
-  //   console.log(result);
-  //   this.router.navigate(['/datasets'], { queryParams: {} });
-  // });
-
+  private getDownloadUrl(dataset: any) {
+    let downloadUrl: String = this.pageUrl;
+    //Optional field
+    if (dataset.relativeUrl) {
+      downloadUrl = downloadUrl + "/" + dataset.relativeUrl;
+    }
+    // mandatory field
+    downloadUrl = downloadUrl + "/" + dataset.filenameprefix;
+    return downloadUrl;
+  }
+  private getSubscrUrl(dataset: any) {
+    let downloadUrl: String = this.pageUrl;
+    //Optional field
+    if (dataset.relativeUrl) {
+      downloadUrl = downloadUrl + ":" + dataset.relativeUrl;
+    }
+    // mandatory field
+    downloadUrl = downloadUrl + ":" + dataset.filenameprefix;
+    return downloadUrl;
+  }
 
   goBack() {
     this.router.navigate(['/datasets'], { queryParams: {} });

@@ -18,35 +18,19 @@ import { DataSet } from '../submit-form/submit-form.component';
 export class DatasetViewComponent implements OnInit {
 
   // rdshDissEnabled = false;
+  //viewMode: boolean = true;
   metadataForm: FormGroup;
   paramsObj: Object;
-  dataSet:DataSet;
-
-
-  // @ViewChild('datasetName') private text1: MatInput;
-  // @ViewChild('rdshDis') private rdshCb: MatCheckbox;
-  // @ViewChild('rdshOptions') private rdshOptions: MatRadioGroup;
-
-
-  myscript:string = '<script type="application/ld+json"> dIMIIIIIIIIIIIIIIIIIIIIIIII</script>';
-  
-
-  viewMode: boolean = true;
+  dataSet: DataSet;
+  measurments: String[] = [];
 
   constructor(private dataService: DataService, private activatedRoute: ActivatedRoute,
-    private router: Router) { 
+    private router: Router) {
 
-      // <script type="application/ld+json">
-      // // user defined jssonld
-      //       {
-      //       }{
-      //       }
-      //   
-      // this.dataSet.jsonLd)
-      const fragment = document.createRange().createContextualFragment(this.myscript) ;
-      document.getElementsByTagName('head')[0] .appendChild(fragment);
+    // const fragment = document.createRange().createContextualFragment(this.myscript);
+    // document.getElementsByTagName('head')[0].appendChild(fragment);
 
-    }
+  }
 
   ngOnInit() {
 
@@ -55,24 +39,29 @@ export class DatasetViewComponent implements OnInit {
     });
     let dataset_id = this.paramsObj['params']['id'];
 
-   this.fetchDataset(dataset_id);
-   
+    this.fetchDataset(dataset_id);
   }
 
   private fetchDataset(id: number) {
 
     if (id) {
-       this.dataService.getCall("getDataset/id=" + id).then(result => {
-      this.dataSet = result;
+      this.dataService.getCall("getDataset/id=" + id).then(result => {
+        this.dataSet = result;
+        this.updateMeasurments(this.dataSet);
+        if (!this.dataSet.imageUrl){
+          this.dataSet.imageUrl ="./assets/no_map.jpg"
+        }
       })
     }
   }
 
- rdshAdjust(srcElement: HTMLInputElement) {
-    // console.log("CBval   " + this.rdshCb.checked);
-  }
-
-  setReadonly() {
+  
+  private updateMeasurments(dataSet: DataSet) {
+    if (dataSet.wmoCodes) {
+      for (let mesurement of dataSet.wmoCodes) {
+        this.measurments.push(mesurement.name);
+      }
+    }
   }
 
 }
