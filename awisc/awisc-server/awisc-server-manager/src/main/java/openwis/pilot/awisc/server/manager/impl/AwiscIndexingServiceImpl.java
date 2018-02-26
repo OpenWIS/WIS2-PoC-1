@@ -79,33 +79,37 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	 * @throws IOException
 	 */
 	private void createIndexes() throws IOException {
+		boolean wmoCodeIndexCreated = false;
+		boolean ldshIndexCreated = false;
+		
 		if (!adminService.indexExists("/" + WMO_CODE_INDEX_NAME + "/_mapping/" + WMO_CODE_INDEX_TYPE)) {
 			if (!adminService.indexExists(WMO_CODE_INDEX_NAME)) {
 				String targetFileStr = Util.readResource(WMO_CODE_INDEX_JSON_PATH, StandardCharsets.UTF_8.name());
 
 				CreateIndexRequest createIndexRequest = new CreateIndexRequest();
+				createIndexRequest.setShards(1);
 				createIndexRequest.setName("/" + WMO_CODE_INDEX_NAME);
 				createIndexRequest.setIndexMapping(targetFileStr);
 				adminService.createIndex(createIndexRequest);
-				logger.info("Index " + WMO_CODE_INDEX_NAME + " created");
+				wmoCodeIndexCreated = true;
 			}
-		} else {
-			logger.info("Index for " + WMO_CODE_INDEX_NAME + " already exist");
-		}
+		} 		
+		logger.info("Index " + WMO_CODE_INDEX_NAME + (wmoCodeIndexCreated?" created":" already exists"));
 
 		if (!adminService.indexExists("/" + LDSH_INDEX_NAME + "/_mapping/" + LDSH_INDEX_TYPE)) {
 			if (!adminService.indexExists(LDSH_INDEX_NAME)) {
 				String targetFileStr = Util.readResource(LDSH_INDEX_JSON_PATH, StandardCharsets.UTF_8.name());
 
 				CreateIndexRequest createIndexRequest = new CreateIndexRequest();
+				createIndexRequest.setShards(1);
 				createIndexRequest.setName(LDSH_INDEX_NAME);
 				createIndexRequest.setIndexMapping(targetFileStr);
 				adminService.createIndex(createIndexRequest);
-				logger.info("Index " + LDSH_INDEX_NAME + " created");
+				ldshIndexCreated = true;
 			}
-		} else {
-			logger.info("Index for " + LDSH_INDEX_NAME + " already exist");
-		}
+		} 
+		logger.info("Index " + LDSH_INDEX_NAME + (ldshIndexCreated?" created":" already exists"));
+		
 	}
 
 	/**
@@ -171,10 +175,8 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	public void index(LdshIndexDTO dto) throws UnsupportedEncodingException {
 		logger.info("Indexing document with id " + dto.getSystemId());
 		String encoded = encodeElasticsearchId(dto.getSystemId());
-		if (!searchService.exists(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, encoded)) {
-			IndexingDTO esDto = new IndexingDTO(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, encoded, dto, false);
-			indexingService.indexDocument(esDto);
-		}
+		IndexingDTO esDto = new IndexingDTO(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, encoded, dto, false);
+		indexingService.indexDocument(esDto);
 
 	}
 

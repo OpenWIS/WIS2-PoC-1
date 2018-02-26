@@ -3,7 +3,6 @@ package openwis.pilot.awisc.server.manager.jobs;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -43,7 +42,6 @@ public class LdshIndexerJob implements Job {
 			jsonProvider.setDropCollectionWrapperElement(true);
 			jsonProvider.setSerializeAsArray(true);
 			jsonProvider.setSupportUnwrapped(true);
-			Map<String, String> map = new HashMap<String, String>();
 			providers.add(jsonProvider);
 
 			LdshAwiscIndexingService ldshAwiscIndexingService = JAXRSClientFactory.create(ldsh.getIndexServiceBaseUrl(),
