@@ -46,7 +46,6 @@ export class QueueEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submit");
   }
 
 }

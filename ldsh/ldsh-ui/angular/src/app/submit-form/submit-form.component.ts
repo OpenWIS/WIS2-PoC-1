@@ -31,6 +31,8 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
+  servicePrefix:string = "/cxf/ldsh-api/download";
+  
   lastUpdate: Date;
 
   //autocomplete
@@ -144,7 +146,7 @@ export class SubmitFormComponent implements OnInit {
     let dataset_id = this.paramsObj["params"]["id"];
     this.featchFormData(dataset_id);
 
-    this.pageUrl = " http://" + this.document.location.hostname; // .origin (with port)
+    this.pageUrl = this.document.location.origin;// (with port)
 
   }
 
@@ -355,12 +357,12 @@ export class SubmitFormComponent implements OnInit {
   }
 
   private getDownloadUrl(dataset: any) {
-    let downloadUrl: String = this.pageUrl;
+    let downloadUrl: String = this.pageUrl + this.servicePrefix;
     //Optional field
     if (dataset.relativeUrl) {
       downloadUrl = downloadUrl + "/" + dataset.relativeUrl;
     }
-    // mandatory field
+    // Mandatory field
     downloadUrl = downloadUrl + "/" + dataset.filenameprefix;
     return downloadUrl;
   }
