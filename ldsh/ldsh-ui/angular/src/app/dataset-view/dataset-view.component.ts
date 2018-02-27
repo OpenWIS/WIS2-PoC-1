@@ -5,8 +5,8 @@ import { MatInput, MatRadioGroup } from '@angular/material';
 import { MatCheckbox } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
-import { DataSet } from '../submit-form/submit-form.component';
 import { Title } from '@angular/platform-browser';
+import { DataSet } from '../dto/DataSet';
 
 
 

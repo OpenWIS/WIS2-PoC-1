@@ -1,1 +1,1 @@
-export interface DataFormat { id: number, name: String, description: String };
+export interface DataFormat { id: number, name: string, description: string };

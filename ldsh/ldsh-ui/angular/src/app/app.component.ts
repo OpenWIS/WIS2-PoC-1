@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { SubmitFormModule } from "./submit-form/submit-form.module";
-import { RouterModule, Routes, Router } from "@angular/router";
+import { RouterModule, Routes, Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { MatSidenav } from "@angular/material";
 import { DataService } from "./data.service";
 import { LoginComponent } from "./login/login.component";
 import { environment } from "../environments/environment";
 import { Observable } from "rxjs/Observable";
 import { AuthService } from "./services/auth.service";
-
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/mergeMap'
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-root",
@@ -17,8 +19,19 @@ import { AuthService } from "./services/auth.service";
 
 })
 export class AppComponent implements OnInit {
-  constructor(private dataService: DataService, private router: Router, private authService: AuthService) {
+  constructor(private dataService: DataService, private router: Router, private authService: AuthService,
+    private activatedRoute: ActivatedRoute, private titleService: Title) {
 
+      this.router.events.filter((event) => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map((route) => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      }) .filter((route) => route.outlet === 'primary')
+      .mergeMap((route) => route.data)
+      .subscribe((event) => {
+        titleService.setTitle(event["title"]);
+      });
   }
 
   @ViewChild("sidenav") private sidenav: MatSidenav;

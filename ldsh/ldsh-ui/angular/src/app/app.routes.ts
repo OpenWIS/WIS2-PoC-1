@@ -15,32 +15,37 @@ import { AuthGuard } from "./guards/auth.guard";
 export const routerConfig: Routes = [
   {
     path: "home",
-    component: DatasetsMainComponent
+    component: DatasetsMainComponent,
+    data:{title:'Local Data Sharing Hub'}
   },
   {
     path: "login",
-    component: LoginComponent
+    component: LoginComponent,
+    data:{title:'Please login'}
   },
-
   {
     path: "datasets",
     component: DatasetsAdminComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data:{title:'Datasets page'}
   },
   {
     path: "rdsh",
     component: RDSHComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data:{title:'RDSH page'}
   },
   {
     path: "awisc",
     component: AWISCComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data:{title:"AWISC page"}
   },
   {
     path: "settings",
     component: SettingsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data:{title:'Settings page'}
   },
   {
     path: "view",
@@ -50,14 +55,10 @@ export const routerConfig: Routes = [
   {
     path: "submit",
     component: SubmitFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data:{title:'Dataset page'}
   },
-  {
-    path: "about",
-    component: SubmitFormComponent,
-    canActivate: [AuthGuard]   
-  },
-  {
+   {
     path: "",
     redirectTo: "/home",
     pathMatch: "full"
