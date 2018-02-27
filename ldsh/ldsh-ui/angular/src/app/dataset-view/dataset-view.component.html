@@ -59,7 +59,7 @@
 				<div class="box-content-cell">
 					<div class="box-content-row">
 						<span>Data Format:</span> {{dataSet.dataformat?.name}}</div>
-					<div class="box-content-row">
+					<div *ngIf="dataSet.lastUpdate" class="box-content-row">
 						<span>Download Link:</span>
 						<a href={{dataSet.downloadLink}}>{{dataSet.downloadUrl}}</a>
 					</div>
@@ -70,5 +70,3 @@
 
 		</div>
 	</div>
-	<!-- </div> -->
-	<!-- </div> -->

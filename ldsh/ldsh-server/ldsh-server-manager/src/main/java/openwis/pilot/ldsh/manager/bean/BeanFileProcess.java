@@ -78,6 +78,7 @@ public class BeanFileProcess<T> {
 		return datasetMQTTPublishDTO;
 	}
 
+
 	private String encodeToBase64(String text) {
 		String s = new String(Base64.getEncoder().encode(text.getBytes()), StandardCharsets.UTF_8);
 		return s;

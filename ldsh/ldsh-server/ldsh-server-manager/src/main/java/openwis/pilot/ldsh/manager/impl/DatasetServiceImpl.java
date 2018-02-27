@@ -60,7 +60,7 @@ public class DatasetServiceImpl implements DatasetService {
 		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
 
 		if (dataset == null) {
-			System.out.println("NO Datset found.");
+			logger.log(Level.SEVERE, "error","No Datset found.");
 			return null;
 		}
 		return new DatasetMapperImpl().toDatasetDTO(dataset);
@@ -172,7 +172,6 @@ public class DatasetServiceImpl implements DatasetService {
 	@Transactional
 	@Override
 	public void updateDatasetLastUpdate(Long id) {
-
 		try {
 			final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.id.eq(id)).fetchOne();
 			dataset.setLastUpdate(new Date());
@@ -184,4 +183,17 @@ public class DatasetServiceImpl implements DatasetService {
 		
 	}
 
+
+	@Override
+	public boolean verifyRelativeUrl(String url) {
+				
+		final Dataset dataset = new JPAQueryFactory(em).selectFrom(qDataset).where(qDataset.relativeUrl.eq(url)).fetchOne();
+		if (dataset != null){
+			return true;
+		}
+
+		return false;
+	}
+
+	
 }
