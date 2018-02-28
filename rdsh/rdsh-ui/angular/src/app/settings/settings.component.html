@@ -5,7 +5,7 @@
   </mat-toolbar>
 
   <div style="padding:2em;">
-    <form novalidate [formGroup]="settingsForm" (click)="onSubmit()" class="field-full-width">
+    <form novalidate [formGroup]="settingsForm"  class="field-full-width">
       <mat-tab-group>
         <mat-tab label="Identification">
           <div style="padding-top: 2em;">
@@ -59,7 +59,7 @@
         </mat-tab>
       </mat-tab-group>
       <div>
-        <button mat-button type="submit" [disabled]="settingsForm.invalid">Save</button>
+        <button mat-button type="submit" (click)="onSubmit()" [disabled]="settingsForm.invalid">Save</button>
         <button mat-button type="button" class="cancel-button">Cancel</button>
       </div>
     </form>
