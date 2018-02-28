@@ -1,0 +1,9 @@
+,
+{
+	"match": {
+		"datasets.wmoCodes.code": {
+			"query": "@WMO_CODE@",
+			"boost": @BOOST@
+		}
+	}
+}

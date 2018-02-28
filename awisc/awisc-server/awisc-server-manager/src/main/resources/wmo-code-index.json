@@ -1,13 +1,21 @@
 {
-	"wmo-code": {
-		"dynamic": false,
+	"wmo-code-dto": {
 		"properties": {
 			"name": {
-				"type": "text"
+				"type": "text",
+				"fields": {
+					"en": {
+						"type": "string",
+						"analyzer": "english"
+					},
+					"simple": {
+						"type": "string",
+						"analyzer": "simple"
+					}
+				}
 			},
 			"code": {
-				"type": "keyword",
-				"boost": 1.2
+				"type": "text"
 			}
 		}
 	}

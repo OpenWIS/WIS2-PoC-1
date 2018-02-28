@@ -1,25 +1,71 @@
 {
-	"ldsh": {
-		"dynamic": false,
+	"ldsh-dto": {
 		"properties": {
 			"systemId": {
 				"type": "text",
-				"boost": 1.2
+				"boost": 2,
+				"fields": {
+					"simple": {
+						"type": "string",
+						"analyzer": "simple"
+					}
+				}
 			},
 			"name": {
-				"type": "keyword"
+				"type": "text",
+				"fields": {
+					"en": {
+						"type": "string",
+						"analyzer": "english"
+					},
+					"simple": {
+						"type": "string",
+						"analyzer": "simple"
+					}
+				}
 			},
 			"contact": {
-				"type": "text"
+				"type": "text",
+				"fields": {
+					"en": {
+						"type": "string",
+						"analyzer": "english"
+					},
+					"simple": {
+						"type": "string",
+						"analyzer": "simple"
+					}
+				}
 			},
-			"dataset": {
+			"datasets": {
+				"type": "nested",
 				"properties": {
 					"name": {
 						"type": "text",
-						"boost": 1.2
+						"fields": {
+							"en": {
+								"type": "string",
+								"analyzer": "english"
+							},
+							"simple": {
+								"type": "string",
+								"analyzer": "simple"
+							}
+						},
+						"boost": 2
 					},
 					"description": {
-						"type": "text"
+						"type": "text",
+						"fields": {
+							"en": {
+								"type": "string",
+								"analyzer": "english"
+							},
+							"simple": {
+								"type": "string",
+								"analyzer": "simple"
+							}
+						}
 					},
 					"periodFrom": {
 						"type": "date",
@@ -34,7 +80,17 @@
 						"format": "yyyy-MM-dd HH:mm:ss"
 					},
 					"license": {
-						"type": "text"
+						"type": "text",
+						"fields": {
+							"en": {
+								"type": "string",
+								"analyzer": "english"
+							},
+							"simple": {
+								"type": "string",
+								"analyzer": "simple"
+							}
+						}
 					},
 					"updateFrequency": {
 						"type": "keyword"
@@ -52,22 +108,30 @@
 						"type": "text"
 					},
 					"latittude": {
-						"type": "geo_point"
+						"type": "text"
 					},
 					"longitude": {
-						"type": "geo_point"
+						"type": "text"
 					},
 					"elevation": {
-						"type": "double"
+						"type": "text"
 					},
 					"downloadUrl": {
 						"type": "text"
 					},
 					"subscriptionUri": {
-						"type": "double"
+						"type": "text"
 					},
 					"dissemitationType": {
 						"type": "keyword"
+					},
+					"wmoCodes": {
+						"properties": {
+							"code": {
+								"type": "keyword",
+								"boost": 2
+							}
+						}
 					}
 				}
 			}

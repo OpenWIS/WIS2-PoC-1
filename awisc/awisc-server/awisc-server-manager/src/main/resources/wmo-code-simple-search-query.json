@@ -1,0 +1,23 @@
+{
+	"query": {
+		"bool": {
+			"should": [
+				{
+					"match": {
+						"name": "@QUERY_STRING@"
+					}
+				},
+				{
+					"match": {
+						"name.simple": "@QUERY_STRING@"
+					}
+				},
+				{
+					"match": {
+						"code": "@QUERY_STRING@"
+					}
+				}
+			]
+		}
+	}
+}

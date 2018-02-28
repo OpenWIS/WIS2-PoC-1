@@ -1,7 +1,6 @@
 package openwis.pilot.ldsh.manager.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,6 +15,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import openwis.pilot.common.dto.awisc.DatasetIndexDTO;
 import openwis.pilot.common.dto.awisc.LdshIndexDTO;
+import openwis.pilot.common.dto.awisc.WmoCodeDTO;
 import openwis.pilot.ldsh.manager.model.Dataset;
 import openwis.pilot.ldsh.manager.model.QDataset;
 import openwis.pilot.ldsh.manager.model.WmoCode;
@@ -79,7 +79,9 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 			diDto.setUpdateFrequency(dataset.getFrequencyUnit());
 			
 			for(WmoCode wc: dataset.getWmoCodes()) {
-				diDto.getWmoCodes().add(wc.getCode());
+				WmoCodeDTO wcDto = new WmoCodeDTO();
+				wcDto.setCode(wc.getCode());
+				diDto.getWmoCodes().add(wcDto);
 			}
 			
 			diDto.setLastUpdate(dataset.getLastUpdate()!=null?sdf.format(dataset.getLastUpdate()):null);

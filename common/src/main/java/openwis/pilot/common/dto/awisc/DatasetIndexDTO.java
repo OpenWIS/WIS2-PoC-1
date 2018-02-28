@@ -105,7 +105,7 @@ public class DatasetIndexDTO {
 	/**
 	 * The dataset WMO codes 
 	 */
-	private List<String> wmoCodes = new ArrayList<String>();
+	private List<WmoCodeDTO> wmoCodes = new ArrayList<WmoCodeDTO>();
 
 	public String getName() {
 		return name;
@@ -235,11 +235,11 @@ public class DatasetIndexDTO {
 		this.dissemitationType = dissemitationType;
 	}
 
-	public List<String> getWmoCodes() {
+	public List<WmoCodeDTO> getWmoCodes() {
 		return wmoCodes;
 	}
 
-	public void setWmoCodes(List<String> wmoCodes) {
+	public void setWmoCodes(List<WmoCodeDTO> wmoCodes) {
 		this.wmoCodes = wmoCodes;
 	}
 

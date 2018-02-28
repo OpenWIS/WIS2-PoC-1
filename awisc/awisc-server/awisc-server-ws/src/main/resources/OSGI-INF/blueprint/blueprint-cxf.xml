@@ -10,6 +10,7 @@
             <ref component-id="login"/>
             <ref component-id="settings"/>
             <ref component-id="ldsh"/>
+            <ref component-id="search"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
@@ -29,9 +30,9 @@
     <bean id="headerInterceptor" class="openwis.pilot.awisc.server.ws.cxf.HeaderInterceptor"/>
     
      <cxf:bus>
-        <cxf:outInterceptors>
+       <!--  <cxf:outInterceptors>
             <ref component-id="headerInterceptor"/>
-       </cxf:outInterceptors>
+       </cxf:outInterceptors> -->
        <cxf:features>
 			<cxf:logging />
 		</cxf:features>
