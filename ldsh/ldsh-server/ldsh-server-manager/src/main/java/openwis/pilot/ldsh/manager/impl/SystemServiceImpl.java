@@ -62,7 +62,7 @@ public class SystemServiceImpl implements SystemService {
 				.where(qRemoteSystem.type.eq(RemoteSystem.SystemType.AWISC))
 				.fetchOne();
 		if (awisc == null) {
-			System.out.println("No AWISC found");
+			logger.log(Level.WARNING, "No AWISC found");
 			return null;
 		}
 		return new RemoteSystemMapperImpl().toRemoteSystemDTO(awisc);
@@ -75,7 +75,7 @@ public class SystemServiceImpl implements SystemService {
 				.where(qRemoteSystem.type.eq(RemoteSystem.SystemType.RDSH))
 				.fetchOne();
 		if (rdsh == null) {
-			System.out.println("No RDSH found");
+			logger.log(Level.WARNING,"No RDSH found");
 			return null;
 		}
 		return new RemoteSystemMapperImpl().toRemoteSystemDTO(rdsh);
@@ -119,7 +119,7 @@ public class SystemServiceImpl implements SystemService {
 					systemPropery.setId(sp.getId());
 					em.merge(systemPropery);
 				} else {
-					System.out.println("saving.." + systemPropery.getName()+ " - " + systemPropery.getValue());
+					logger.log(Level.INFO,"Saving.." + systemPropery.getName()+ " - " + systemPropery.getValue());
 					em.persist(systemPropery);
 				}
 

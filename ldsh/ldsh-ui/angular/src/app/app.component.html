@@ -1,17 +1,16 @@
 <mat-toolbar #toolbar class="header">
-  <!-- <mat-toolbar-row class="header-top">
-  </mat-toolbar-row> -->
   <mat-toolbar-row class="header">
     <mat-icon id="sitenav" class="menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()">menu</mat-icon>
 
-    <a class="nav-link" style="text-decoration: none !important;" routerLink="home">
+    <a class="nav-link" style="text-decoration: none !important;" matTooltip="Go to home page" routerLink="home">
       <p> {{SystemTitleText}}</p>
     </a>
 
     <span class="ui-spacer"></span>
-    <button mat-icon-button class="transparent" (click)="navigateToMenu()">
+    <button mat-icon-button class="transparent" matTooltip="{{LoginStatus}}" (click)="authenticate()">
       <mat-icon class="ui-icon" aria-label="Menu">exit_to_app</mat-icon>
     </button>
+
   </mat-toolbar-row>
 </mat-toolbar>
 

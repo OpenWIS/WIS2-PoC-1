@@ -5,11 +5,13 @@
 	<cm:property-placeholder persistent-id="openwis.ldsh" update-strategy="reload" />
 
 	<bean id="RestProcessor" class="openwis.pilot.ldsh.manager.processors.RestProcessor" />
-	
-	<camelContext xmlns="http://camel.apache.org/schema/blueprint" id="camelLDSH" trace="true">
-	
+
+	<camelContext xmlns="http://camel.apache.org/schema/blueprint"
+		id="camelLDSH" trace="true">
+
 		<route id="gather">
 			<from uri="{{ftp_server}}" />
+			<to uri="file:/{{trg_file}}" />
 			<to uri="bean:beanFileProcess" />
 			<to uri="direct:rest.prep" />
 		</route>
@@ -32,16 +34,17 @@
 					<recipientList>
 						<simple>http4://${in.headers.destinationUrl}</simple>
 					</recipientList>
-					<log message="Message sent to $simple{in.headers.destinationUrl}" loggingLevel="INFO" />
+					<log message="Message sent to $simple{in.headers.destinationUrl}"
+						loggingLevel="INFO" />
 					<to uri="log:response" />
 				</when>
 				<otherwise>
 					<log message="Message discarded." loggingLevel="INFO" />
-					<stop/>
+					<stop />
 				</otherwise>
 			</choice>
 		</route>
-		
+
 	</camelContext>
 
 </blueprint>

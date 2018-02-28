@@ -5,7 +5,7 @@
   </mat-toolbar>
 
   <div style="padding:2em;">
-    <form novalidate [formGroup]="ldshForm" (click)="onSubmit(ldshForm)" class="field-full-width"
+    <form novalidate [formGroup]="ldshForm"  class="field-full-width"
           ng-if="ldshForm != null">
       <div>
         <mat-form-field class="mat-form">
@@ -23,7 +23,7 @@
         </mat-form-field>
       </div>
       <div>
-        <mat-form-field class="mat-form">
+        <mat-form-field class="mat-long">
           <input matInput placeholder="Security token" formControlName="token">
         </mat-form-field>
         <button mat-button (click)="generateToken()" type="button" matTooltip="Generate token">
@@ -32,7 +32,7 @@
       </div>
       <br>
       <div>
-        <button mat-button type="submit" [disabled]="ldshForm.invalid">Save</button>
+        <button mat-button type="submit" (click)="onSubmit(ldshForm)" [disabled]="ldshForm.invalid">Save</button>
         <button mat-button type="button" class="cancel-button" [routerLink]="['/ldshs']">Cancel</button>
       </div>
     </form>

@@ -42,7 +42,7 @@ export class QueueMonitorComponent implements OnInit {
   }
 
   gotoQueue(id: string) {
-    this.router.navigate(['/queueView'], { queryParams: { "id": id } });
+    this.router.navigate(['/channelView'], { queryParams: { "id": id } });
   }
 
   back() {

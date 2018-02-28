@@ -17,15 +17,17 @@
 
 
   <div style="padding:2em;">
-
     <mat-table *ngIf="dataSource" #table [dataSource]="dataSource">
 
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <mat-cell *matCellDef="let element"> 
+        <a [routerLink]="['/view']" [queryParams]="{id: element.id}">
+            {{element.name}}</a>
+          </mat-cell>
       </ng-container>
-
+      
       <!-- Name Column -->
       <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
@@ -33,17 +35,16 @@
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="url">
-        <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
+      <ng-container matColumnDef="country">
+          <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
+              <mat-cell *matCellDef="let element" > {{element.country?.name}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="region">
+            <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
+                <mat-cell *matCellDef="let element" > {{element.state}} </mat-cell>
+          </ng-container>
 
-        <mat-cell *matCellDef="let element">
-          <button mat-icon-button class="transparent">
-            <mat-icon class="ui-icon dark" aria-label="View" (click)="gotoPage(element.id)">pageview</mat-icon>
-          </button>
-
-        </mat-cell>
-
-      </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

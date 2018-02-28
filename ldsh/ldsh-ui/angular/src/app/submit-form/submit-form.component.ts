@@ -10,6 +10,11 @@ import "rxjs/add/operator/map";
 import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import { DataService } from "../data.service";
 import { DOCUMENT } from "@angular/platform-browser";
+import { DataSet } from "../dto/DataSet";
+import { MeasurementUnit } from "../dto/MeasurementUnit";
+import { WmoCode } from "../dto/WmoCode";
+import { DataFormat } from "../dto/DataFormat";
+import { Country } from "../dto/Country";
 
 @Component({
   selector: "app-submit-form",
@@ -26,6 +31,8 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
+  servicePrefix:string = "/cxf/ldsh-api/download";
+  
   lastUpdate: Date;
 
   //autocomplete
@@ -139,7 +146,7 @@ export class SubmitFormComponent implements OnInit {
     let dataset_id = this.paramsObj["params"]["id"];
     this.featchFormData(dataset_id);
 
-    this.pageUrl = " http://" + this.document.location.hostname; // .origin (with port)
+    this.pageUrl = this.document.location.origin;// (with port)
 
   }
 
@@ -350,12 +357,12 @@ export class SubmitFormComponent implements OnInit {
   }
 
   private getDownloadUrl(dataset: any) {
-    let downloadUrl: String = this.pageUrl;
+    let downloadUrl: String = this.pageUrl + this.servicePrefix;
     //Optional field
     if (dataset.relativeUrl) {
       downloadUrl = downloadUrl + "/" + dataset.relativeUrl;
     }
-    // mandatory field
+    // Mandatory field
     downloadUrl = downloadUrl + "/" + dataset.filenameprefix;
     return downloadUrl;
   }
@@ -386,39 +393,3 @@ export class SubmitFormComponent implements OnInit {
         : "not valid Mail";
   }
 }
-
-
-
-export interface WmoCode { id: number, name: String, code: String, continent: String, uri: String };
-export interface DataFormat { id: number, name: String, description: String };
-export interface Country { id: number, name: String, code: String };
-export interface MeasurementUnit { id: number, name: String, code: String };
-
-export interface DataSet {
-  id: number,
-  name: String,
-  description: String,
-  state: String,
-  city: String,
-  country: Country,
-  dataformat: DataFormat,
-  latitude: String,
-  longitude: String,
-  elevation: String,
-  references: String,
-  license: String,
-  relativeUrl: String,
-  filenameprefix: String,
-  jsonLd: String,
-  imageUrl: String,
-  downloadLink: String,
-  subscriptionUri: String;
-  awsQueue: String
-  rdshDissEnabled: String,
-  measurementUnit: String,
-  periodFrom: Date,
-  periodTo: Date,
-  wmoCodes: WmoCode[]
-  sendData: boolean;
-  lastUpdate: Date;
-};

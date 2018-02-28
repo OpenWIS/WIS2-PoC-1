@@ -163,7 +163,7 @@
 			--
 
 			LOCK TABLES ldsh_remote_system WRITE;
-			INSERT INTO ldsh_remote_system VALUES (1,'rdsHub','\0','69a6d47f-9a71-7600-516a-274f94c7dee5',1,'localhost:8181'),(2,'dimisAwisc','\0','asjkladsjklfasdjdjerkljjls',0,'dimsAwisc/demo.com');
+			INSERT INTO ldsh_remote_system VALUES (1,'rdsHub','\0','69a6d47f-9a71-7600-516a-274f94c7dee5',1,'localhost:8181'),(2,'dimisAwisc','\0','6b01585f-b52a-817a-766d-93047de34a99',0,'localhost:8181');
 			UNLOCK TABLES;
 
 			--
