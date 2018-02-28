@@ -16,6 +16,11 @@ public class DatasetIndexDTO {
 		public static String NOTIFICATION_ONLY = "NOTIFICATION_ONLY";
 		public static String NOTIFICATION_AND_DATA = "NOTIFICATION_AND_DATA";
 	}
+	
+	/**
+	 * The dataset prefix
+	 */
+	private String prefix;
 
 	/**
 	 * The dataset name
@@ -249,6 +254,14 @@ public class DatasetIndexDTO {
 
 	public void setDataFormat(String dataFormat) {
 		this.dataFormat = dataFormat;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 
 }

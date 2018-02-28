@@ -2,7 +2,10 @@ package openwis.pilot.awisc.server.manager.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.IOUtils;
 import org.osgi.framework.Bundle;
@@ -24,6 +27,18 @@ public class Util {
 		BundleContext bc = FrameworkUtil.getBundle(Util.class).getBundleContext();
 		ServiceReference<T> sr = bc.getServiceReference(serviceClass);
 		return (T)bc.getService(sr);
+	}
+	
+	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+	    return map.entrySet()
+	              .stream()
+	              .sorted(Map.Entry.comparingByValue(/*Collections.reverseOrder()*/))
+	              .collect(Collectors.toMap(
+	                Map.Entry::getKey, 
+	                Map.Entry::getValue, 
+	                (e1, e2) -> e1, 
+	                LinkedHashMap::new
+	              ));
 	}
 
 }

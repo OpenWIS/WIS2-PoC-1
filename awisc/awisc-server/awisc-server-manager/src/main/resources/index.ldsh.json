@@ -8,6 +8,9 @@
 					"simple": {
 						"type": "string",
 						"analyzer": "simple"
+					},
+					"keyword": {
+						"type": "keyword"
 					}
 				}
 			},

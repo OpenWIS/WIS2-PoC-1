@@ -1,7 +1,5 @@
 package openwis.pilot.awisc.server.manager.service;
 
-import java.io.IOException;
-
 import openwis.pilot.awisc.server.common.dto.SearchResultsDTO;
 
 /**
@@ -11,10 +9,13 @@ import openwis.pilot.awisc.server.common.dto.SearchResultsDTO;
  */
 public interface SearchService {
 	
+	
 	/**
-	 * The simple search
-	 * @param searchString
+	 * The simple search implementation
+	 * @param searchString the search string entered by the end-user
+	 * @return the search results
+	 * @throws Exception declared to be thrown, to be caught and handled by interceptor later on 
 	 */
-	SearchResultsDTO simpleSearch(String searchString) throws IOException;
+	SearchResultsDTO simpleSearch(String searchString) throws Exception;
 
 }
