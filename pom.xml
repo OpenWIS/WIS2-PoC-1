@@ -39,7 +39,7 @@
     <maven.resources.plugin.version>3.0.2</maven.resources.plugin.version>
     <mysql-connector-java.version>5.1.45</mysql-connector-java.version>
     <pax.cdi.version>0.12.0</pax.cdi.version>
-    <qlack2.version>2.3.3-SNAPSHOT</qlack2.version>
+    <qlack2.version>2.3.3</qlack2.version>
     <querydsl.version>4.0.7</querydsl.version>
   </properties>
 
