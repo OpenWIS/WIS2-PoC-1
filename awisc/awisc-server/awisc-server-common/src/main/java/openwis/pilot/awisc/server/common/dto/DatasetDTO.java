@@ -22,14 +22,20 @@ public class DatasetDTO implements Serializable {
 
 	private String elevation;
 
-	private UpdateFrequencyDTO updateFrequency;
+	private String updateFrequency;
 
-	private DataFormatDTO dataFormat;
+	private String dataFormat;
+	
+	private String country;
+	
+	private String region;
+	
+	private String city;
+	
+	private String prefix;
 
 	private Date lastUpdate;
-
-	private LdshDTO ldsh;
-
+	
 	private List<WmoCodeDTO> wmoCodes;
 
 	public Long getId() {
@@ -47,15 +53,7 @@ public class DatasetDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public LdshDTO getLdsh() {
-		return ldsh;
-	}
-
-	public void setLdsh(LdshDTO ldsh) {
-		this.ldsh = ldsh;
-	}
-
+	
 	public String getDescription() {
 		return description;
 	}
@@ -96,14 +94,6 @@ public class DatasetDTO implements Serializable {
 		this.elevation = elevation;
 	}
 
-	public UpdateFrequencyDTO getUpdateFrequency() {
-		return updateFrequency;
-	}
-
-	public void setUpdateFrequency(UpdateFrequencyDTO updateFrequency) {
-		this.updateFrequency = updateFrequency;
-	}
-
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
@@ -111,21 +101,61 @@ public class DatasetDTO implements Serializable {
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-
-	public DataFormatDTO getDataFormat() {
-		return dataFormat;
-	}
-
-	public void setDataFormat(DataFormatDTO dataFormat) {
-		this.dataFormat = dataFormat;
-	}
-
+	
 	public List<WmoCodeDTO> getWmoCodes() {
 		return wmoCodes;
 	}
 
 	public void setWmoCodes(List<WmoCodeDTO> wmoCodes) {
 		this.wmoCodes = wmoCodes;
+	}
+
+	public String getUpdateFrequency() {
+		return updateFrequency;
+	}
+
+	public void setUpdateFrequency(String updateFrequency) {
+		this.updateFrequency = updateFrequency;
+	}
+
+	public String getDataFormat() {
+		return dataFormat;
+	}
+
+	public void setDataFormat(String dataFormat) {
+		this.dataFormat = dataFormat;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 
 }

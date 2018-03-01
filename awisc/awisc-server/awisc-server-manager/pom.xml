@@ -154,11 +154,6 @@
 			<version>${pax.cdi.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-			<version>${javax.persistence.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>javax.transaction-api</artifactId>
 			<version>${javax.transaction.version}</version>

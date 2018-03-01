@@ -66,11 +66,11 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 
 	static String LDSH_INDEX_NAME = "ldsh";
 	static String LDSH_INDEX_TYPE = "ldsh-dto";
-	static String LDSH_INDEX_JSON_PATH = "/ldsh-index.json";
+	static String LDSH_INDEX_JSON_PATH = "/index.ldsh.json";
 
 	static String WMO_CODE_INDEX_NAME = "wmo-code";
 	static String WMO_CODE_INDEX_TYPE = "wmo-code-dto";
-	static String WMO_CODE_INDEX_JSON_PATH = "/wmo-code-index.json";
+	static String WMO_CODE_INDEX_JSON_PATH = "/index.wmo-code.json";
 	
 
 	/**
