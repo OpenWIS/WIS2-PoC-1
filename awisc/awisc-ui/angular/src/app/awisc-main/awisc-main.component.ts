@@ -2,7 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SearchQuery } from "../_dto/SearchQuery.dto";
+import { SearchResults } from "../_dto/SearchResults.dto";
 import { SettingsService } from "../_services/rest/settings.service";
+import { SearchService } from "../_services/rest/search.service";
+import { SearchResultsComponent } from "../search-results/search-results.component";
+
 
 @Component({
   selector: 'app-awisc-main',
@@ -12,14 +17,14 @@ import { SettingsService } from "../_services/rest/settings.service";
 export class AwiscMainComponent implements OnInit {
 
   @ViewChild("introHeader") private introHeader: ElementRef;
-  searchResults: boolean = false;
-  
+  searchResults: SearchResults;
+
   searchForm: FormGroup;
 
-  constructor(private router: Router, private settingsService: SettingsService) {  }
+  constructor(private router: Router, private settingsService: SettingsService, private searchService: SearchService) { }
 
-  onSubmit(){
-    
+  onSubmit() {
+
   }
 
   getSettingValue(data, settingKey) {
@@ -39,33 +44,34 @@ export class AwiscMainComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm = new FormGroup({
-      datasetSearch: new FormControl("")
+      searchText: new FormControl("")
     });
 
     this.settingsService.list(this.listSettingsCallback, null);
-    
+
   }
 
-  ngAfterViewInit(){
-    if(!AppComponent.menuOpen){
+  ngAfterViewInit() {
+    if (!AppComponent.menuOpen) {
       document.getElementById('sitenav').click();
-    }    
+    }
   }
 
 
-  navigateToMenu(){
+  navigateToMenu() {
     this.router.navigateByUrl('/awiscSearch');
   }
 
   search() {
-    // call search service 
-    //...
-    this.showSearchResults();
+    var sq: SearchQuery = new SearchQuery();
+    sq.searchText = this.searchForm.get("searchText").value;
+    this.searchService.simple(sq, this.showSearchResults, null);
   }
 
-
-  showSearchResults() {
-    this.searchResults = true;
+  showSearchResults = (response) => {
+    this.searchResults = <SearchResults> JSON.parse(JSON.stringify(response.body));
+    this.searchResults = (this.searchResults.searchResults.length == 0?null:this.searchResults);
+    console.log(this.searchResults);
   }
 
 }

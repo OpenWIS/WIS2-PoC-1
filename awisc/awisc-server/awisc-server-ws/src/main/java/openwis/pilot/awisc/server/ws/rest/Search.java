@@ -44,7 +44,7 @@ public class Search implements HasHttpHeaders {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public SearchResultsDTO simpleSearch(SearchDTO searchDTO) throws ServiceException {
 		try {
-			SearchResultsDTO results = searchService.simpleSearch(searchDTO.getFreeText());
+			SearchResultsDTO results = searchService.simpleSearch(searchDTO.getSearchText());
 			return results;
 		}
 		catch(Throwable t) {

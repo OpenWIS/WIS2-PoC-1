@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
     for (let key in jsonValue) {
       settings.push(new SettingDTO(key, jsonValue[key]));
     }
-    console.log(settings);
+    //console.log(settings);
     this.settingsService.save(settings, null, null);
   }
 }

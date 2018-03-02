@@ -33,6 +33,11 @@ public class DatasetIndexDTO {
 	private String description;
 	
 	/**
+	 * The dataset  url
+	 */
+	private String url;
+	
+	/**
 	 * The starting date for the dataset contents
 	 */
 	private String periodFrom;
@@ -262,6 +267,14 @@ public class DatasetIndexDTO {
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

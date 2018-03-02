@@ -16,7 +16,7 @@ public class DatasetDTO implements Serializable {
 
 	private String url;
 
-	private String latitude;
+	private String latittude;
 
 	private String longitude;
 
@@ -69,15 +69,7 @@ public class DatasetDTO implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	public String getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
+	
 	public String getLongitude() {
 		return longitude;
 	}
@@ -156,6 +148,14 @@ public class DatasetDTO implements Serializable {
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public String getLatittude() {
+		return latittude;
+	}
+
+	public void setLatittude(String latittude) {
+		this.latittude = latittude;
 	}
 
 }

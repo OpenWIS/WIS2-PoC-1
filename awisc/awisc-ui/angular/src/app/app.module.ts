@@ -22,6 +22,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { RestClient } from "./_services/rest/rest-client.service";
 import { LoginService } from "./_services/rest/login.service";
 import { SettingsService } from "./_services/rest/settings.service";
+import { SearchService } from "./_services/rest/search.service";
 import { ErrorUtil } from "./_services/error.util";
 import { SuccessUtil } from "./_services/success.util";
 import { MatSnackBarModule } from "@angular/material";
@@ -65,6 +66,7 @@ import { OkCancelDialogComponent } from "./_shared/ok-cancel-dialog.component";
     RestClient,
     LoginService,
     SettingsService,
+    SearchService,
     LdshService,
     ErrorUtil,
     SuccessUtil

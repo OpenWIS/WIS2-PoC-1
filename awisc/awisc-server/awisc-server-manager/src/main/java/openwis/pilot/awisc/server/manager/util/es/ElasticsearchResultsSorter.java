@@ -29,12 +29,13 @@ public class ElasticsearchResultsSorter<T, N> {
 	 */
 	public void addHits(ElasticsearchHit<T> mainHit, List<ElasticsearchInnerHit<N>> innerHits)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+		T mainHitObject = mainHit.get_source();
+		mainHitObjects.put(mainHit.get_id(), mainHitObject);
+		
 		for (ElasticsearchInnerHit<N> innerHit : innerHits) {
-			T mainHitObject = mainHit.get_source();
 			N innerHitObject = innerHit.get_source();
 
-			mainHitObjects.put(mainHit.get_id(), mainHitObject);
-			
 			Field innerHitIdfield = innerHitObject.getClass().getDeclaredField(innerHit.getIdProperty());
 			innerHitIdfield.setAccessible(true);
 			String innerHitId = (String) innerHitIdfield.get(innerHitObject);

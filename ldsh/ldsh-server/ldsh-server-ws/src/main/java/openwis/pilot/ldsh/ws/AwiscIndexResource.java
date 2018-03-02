@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,6 +17,7 @@ import org.ops4j.pax.cdi.api.OsgiService;
 
 import openwis.pilot.common.dto.awisc.LdshIndexDTO;
 import openwis.pilot.ldsh.manager.service.LdshIndexService;
+import openwis.pilot.ldsh.ws.util.Util;
 
 @Singleton
 @Path("/awisc")
@@ -25,6 +27,9 @@ public class AwiscIndexResource {
 
 	@Context
 	private HttpHeaders headers;
+	
+	@Context 
+	private HttpServletRequest request;
 
 	@Inject
 	@OsgiService
@@ -35,7 +40,7 @@ public class AwiscIndexResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public LdshIndexDTO index() {
 		logger.log(Level.INFO, "Getting Indexing Data....: " );
-		return ldshIndexService.getLdshIndexingInformation();
+		return ldshIndexService.getLdshIndexingInformation(Util.getBaseUrl(request));
 	}
 
 	

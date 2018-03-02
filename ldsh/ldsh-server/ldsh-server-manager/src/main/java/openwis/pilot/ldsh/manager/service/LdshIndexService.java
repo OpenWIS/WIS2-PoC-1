@@ -4,6 +4,6 @@ import openwis.pilot.common.dto.awisc.LdshIndexDTO;
 
 public interface LdshIndexService {
 	
-	public LdshIndexDTO getLdshIndexingInformation();
+	public LdshIndexDTO getLdshIndexingInformation(String baseUrl);
 
 }

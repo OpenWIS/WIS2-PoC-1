@@ -1,15 +1,26 @@
 package openwis.pilot.awisc.server.common.dto;
 
+import java.util.List;
+
 public class SearchDTO {
 	
-	private String freeText;
+	private String searchText;
+	private List<String> wmoCodes;
 
-	public String getFreeText() {
-		return freeText;
+	public String getSearchText() {
+		return searchText;
 	}
 
-	public void setFreeText(String freeText) {
-		this.freeText = freeText;
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public List<String> getWmoCodes() {
+		return wmoCodes;
+	}
+
+	public void setWmoCodes(List<String> wmoCodes) {
+		this.wmoCodes = wmoCodes;
 	}
 
 }

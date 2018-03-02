@@ -37,7 +37,7 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 	private EntityManager em;
 
 	@Override
-	public LdshIndexDTO getLdshIndexingInformation() {
+	public LdshIndexDTO getLdshIndexingInformation(String baseUrl) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
@@ -59,6 +59,8 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 			diDto.setName(dataset.getName());
 			diDto.setDescription(dataset.getDescription());
 			diDto.setPrefix(dataset.getFilenameprefix());
+			
+			diDto.setUrl(baseUrl + "/view?id=" + dataset.getId());
 			
 			diDto.setPeriodFrom(dataset.getPeriodFrom()!=null?sdf.format(dataset.getPeriodFrom()):null);
 			diDto.setPeriodFrom(dataset.getPeriodTo()!=null?sdf.format(dataset.getPeriodTo()):null);
