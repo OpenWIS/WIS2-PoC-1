@@ -10,7 +10,7 @@ export const environment = {
     // The context root of the back-end API.
     API_ROOT: '/cxf/ldsh-api/',
 
-    LDSH_SERVER: 'http://localhost:8181',
+    //LDSH_SERVER: 'http://localhost:8181',
 
     AWISC_ROOT: '/cxf/awisc-api/',
 
