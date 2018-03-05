@@ -61,6 +61,7 @@
 		</bundle>
 	</feature>
 	<feature name="ldsh-ui" version="${project.version}">
+		<feature>war</feature>
 		<bundle>mvn:openwis.pilot.ldsh/ldsh-ui/${project.version}</bundle>
 	</feature>
 </features>

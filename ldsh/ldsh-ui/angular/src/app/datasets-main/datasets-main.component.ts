@@ -33,7 +33,6 @@ export class DatasetsMainComponent implements OnInit {
 
   loadDatasets() {
     this.dataService.getCall("getAllDatasets").then(result => {
-      console.log(result);
       this.loadDatasetsTable(result);
     })
   }
