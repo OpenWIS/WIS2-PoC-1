@@ -10,13 +10,12 @@ export class ErrorUtil {
     
 
     constructor(public snackBar: MatSnackBar) {
-        console.log("Loading error messages:");
-        console.log(errorMessages);
+        // console.log("Loading error messages:");
+        // console.log(errorMessages);
     }
 
 
     showError(errorCode){
-        console.log("******************** errorCode: " + errorCode);
         this.snackBar.open(errorMessages[errorCode], "Close", {
             duration: 10000,
             verticalPosition: "top"

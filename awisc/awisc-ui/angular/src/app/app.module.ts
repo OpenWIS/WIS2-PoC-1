@@ -23,6 +23,7 @@ import { RestClient } from "./_services/rest/rest-client.service";
 import { LoginService } from "./_services/rest/login.service";
 import { SettingsService } from "./_services/rest/settings.service";
 import { SearchService } from "./_services/rest/search.service";
+import { WmoCodesService } from "./_services/rest/wmo-codes.service";
 import { ErrorUtil } from "./_services/error.util";
 import { SuccessUtil } from "./_services/success.util";
 import { MatSnackBarModule } from "@angular/material";
@@ -30,6 +31,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { environment } from "../environments/environment";
 import { AuthGuard } from "./guards/auth.guard";
 import { OkCancelDialogComponent } from "./_shared/ok-cancel-dialog.component";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -62,11 +64,13 @@ import { OkCancelDialogComponent } from "./_shared/ok-cancel-dialog.component";
   ],
 
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthGuard,
     RestClient,
     LoginService,
     SettingsService,
     SearchService,
+    WmoCodesService,
     LdshService,
     ErrorUtil,
     SuccessUtil

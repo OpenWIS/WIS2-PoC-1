@@ -36,7 +36,6 @@ export class AwiscMainComponent implements OnInit {
   }
 
   listSettingsCallback = response => {
-    console.log(response);
     var data = response.body;
     this.introHeader.nativeElement.innerHTML = this.getSettingValue(data, "header");
   };
@@ -71,7 +70,6 @@ export class AwiscMainComponent implements OnInit {
   showSearchResults = (response) => {
     this.searchResults = <SearchResults> JSON.parse(JSON.stringify(response.body));
     this.searchResults = (this.searchResults.searchResults.length == 0?null:this.searchResults);
-    console.log(this.searchResults);
   }
 
 }

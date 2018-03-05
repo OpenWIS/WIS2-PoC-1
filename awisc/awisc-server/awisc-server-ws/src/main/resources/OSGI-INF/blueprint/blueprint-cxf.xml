@@ -11,6 +11,7 @@
             <ref component-id="settings"/>
             <ref component-id="ldsh"/>
             <ref component-id="search"/>
+            <ref component-id="wmoCodes"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />

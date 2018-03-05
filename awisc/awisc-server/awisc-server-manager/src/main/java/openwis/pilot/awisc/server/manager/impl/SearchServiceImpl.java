@@ -16,6 +16,7 @@ import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 import openwis.pilot.awisc.server.common.dto.DatasetDTO;
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
 import openwis.pilot.awisc.server.common.dto.LdshFullDTO;
+import openwis.pilot.awisc.server.common.dto.SearchDTO;
 import openwis.pilot.awisc.server.common.dto.SearchResultDTO;
 import openwis.pilot.awisc.server.common.dto.SearchResultsDTO;
 import openwis.pilot.awisc.server.common.dto.WmoCodeDTO;
@@ -91,6 +92,27 @@ public class SearchServiceImpl implements SearchService {
 					.readResource(QUERY_SIMPLE_SEARCH_LDSH_WMO_FRAGMENT_JSON_PATH, StandardCharsets.UTF_8.name())
 					.replace(PLACEHOLDER_WMO_CODE, wmoCode.getCode())
 					.replace(PLACEHOLDER_BOOST, String.valueOf(hit.get_score() + 1));
+			wmoCodeFragmentQueryString += wmoCodeFragmentString;
+		}
+
+		return wmoCodeFragmentQueryString;
+	}
+	
+	/**
+	 * Takes as input the wmo codes selected in the advanced search, and returns a string
+	 * that will be part of the query on LDSHs/Datasets
+	 * @param wmoCodes
+	 * @return
+	 * @throws IOException
+	 */
+	private String getWmoCodeFragmentQueryString(List<String> wmoCodes)
+			throws IOException {
+		String wmoCodeFragmentQueryString = "";
+		for (String wmoCode : wmoCodes) {
+			String wmoCodeFragmentString = Util
+					.readResource(QUERY_SIMPLE_SEARCH_LDSH_WMO_FRAGMENT_JSON_PATH, StandardCharsets.UTF_8.name())
+					.replace(PLACEHOLDER_WMO_CODE, wmoCode)
+					.replace(PLACEHOLDER_BOOST, "100");
 			wmoCodeFragmentQueryString += wmoCodeFragmentString;
 		}
 
@@ -200,6 +222,32 @@ public class SearchServiceImpl implements SearchService {
 
 		return results;
 
+	}
+
+	/* (non-Javadoc)
+	 * @see openwis.pilot.awisc.server.manager.service.SearchService#advancedSearch(java.lang.String)
+	 */
+	@Override
+	public SearchResultsDTO advancedSearch(SearchDTO searchDTO) throws Exception {
+		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
+				AwiscElasticsearchService.class, getProviders(), true);
+		
+		String wmoCodeFragmentQueryString = getWmoCodeFragmentQueryString(searchDTO.getWmoCodes());
+		List<ElasticsearchHit<LdshDTO>> ldshHits = getLdshHits(elasticearchService, searchDTO.getSearchText(),
+				wmoCodeFragmentQueryString);
+		
+		List<ElasticseaerchResultEntry<LdshDTO, DatasetDTO>> orderedResults = getOrderedResults(elasticearchService,
+				ldshHits, searchDTO.getSearchText(), wmoCodeFragmentQueryString);
+
+		SearchResultsDTO results = new SearchResultsDTO();
+		for (ElasticseaerchResultEntry<LdshDTO, DatasetDTO> entry : orderedResults) {
+			SearchResultDTO result = new SearchResultDTO();
+			result.setLdsh(entry.getMainObject());
+			result.setDataset(entry.getNestedObject());
+			results.getSearchResults().add(result);
+		}
+
+		return results;
 	}
 
 }

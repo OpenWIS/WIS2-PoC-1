@@ -52,23 +52,22 @@ public class Search implements HasHttpHeaders {
 		}
 		return null;				
 	}
-
+	
 	@POST
-	@Path("/logout")
+	@Path("/advanced")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ServiceMessage logout(String logoutMessage) throws ServiceException {
-
-		String token = WebUtil.getAuthorizationToken(httpHeaders);
-		boolean deleted = JwtUtil.deleteToken(token);
-
-		if (deleted) {
-			return new ServiceMessage(Constants.MessageCode.LOGOUT_SUCCESS);
+	public SearchResultsDTO advancedSearch(SearchDTO searchDTO) throws ServiceException {
+		try {
+			SearchResultsDTO results = searchService.advancedSearch(searchDTO);
+			return results;
 		}
-
-		throw new ServiceException(ErrorCode.LOGOUT_ERROR);
-
+		catch(Throwable t) {
+			ServiceException.rethrow(t);
+		}
+		return null;				
 	}
+
 
 	@Override
 	public HttpHeaders getHttpHeaders() {

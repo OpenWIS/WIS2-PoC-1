@@ -35,7 +35,6 @@ export class RestClient {
                 }
             })
             .catch((error: any) => {
-                console.log(error);
                 if(errorCallback){
                     errorCallback(error.error);
                 }
@@ -60,7 +59,6 @@ export class RestClient {
             observe: 'response'
         })
             .map((response) => {
-                console.log(response);
                 if (response) {
                     if(successCallback){
                         successCallback(response);
@@ -72,7 +70,6 @@ export class RestClient {
                 }
             })
             .catch((error: any) => {
-                console.log(error);
                 if(errorCallback){
                     errorCallback(error.error);
                 }
@@ -108,7 +105,6 @@ export class RestClient {
                 }
             })
             .catch((error: any) => {
-                console.log(error);
                 if(errorCallback){
                     errorCallback(error);
                 }
