@@ -8,19 +8,14 @@ import { RestClient } from './rest-client.service';
 import { Headers } from '@angular/http';
 
 @Injectable()
-export class SettingsService {
+export class WmoCodesService {
 
   constructor(private restClient: RestClient) {
   }
 
   // Return all settings.
   list(successCallback, errorCallback): void {
-    this.restClient.get(environment.CONSTANTS.API_ROOT + '/settings',  null, successCallback, errorCallback).subscribe();
+    this.restClient.get(environment.CONSTANTS.API_ROOT + '/wmo-codes',  null, successCallback, errorCallback).subscribe();
   }
 
-  // Save settings.
-  save(settings: SettingDTO[], successCallback, errorCallback): void {
-      this.restClient.post(environment.CONSTANTS.API_ROOT + '/settings', new Headers({'Content-Type': 'application/json'}),
-      settings, successCallback, errorCallback).subscribe();
-  }
 }

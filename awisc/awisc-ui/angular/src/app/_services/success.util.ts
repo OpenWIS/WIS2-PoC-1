@@ -8,8 +8,8 @@ export class SuccessUtil {
     
 
     constructor(public snackBar: MatSnackBar) {
-        console.log("Loading error messages:");
-        console.log(successMessages);
+        // console.log("Loading error messages:");
+        // console.log(successMessages);
     }
 
 

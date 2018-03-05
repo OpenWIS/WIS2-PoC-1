@@ -13,7 +13,7 @@ export class SearchService {
   };
 
   advanced(searchQuery, successCallback, errorCallback): void {
-    this.restClient.post(environment.CONSTANTS.API_ROOT + '/search/advanced', searchQuery, null, successCallback, errorCallback).subscribe();
+    this.restClient.post(environment.CONSTANTS.API_ROOT + '/search/advanced', null, searchQuery, successCallback, errorCallback).subscribe();
   };
 
 }
