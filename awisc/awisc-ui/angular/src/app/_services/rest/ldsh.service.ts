@@ -58,4 +58,16 @@ export class LdshService {
       .subscribe();
   }
 
+  // Index an LDSH
+  index(ldshId: string, successCallback, errorCallback): void {
+    this.restClient
+      .get(
+        environment.CONSTANTS.API_ROOT + "/ldsh/index/" + ldshId,
+        null,
+        successCallback,
+        errorCallback
+      )
+      .subscribe();
+  }
+
 }

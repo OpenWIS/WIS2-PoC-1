@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 
+import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.apache.cxf.jaxrs.provider.json.JSONProvider;
+import org.apache.karaf.scheduler.ScheduleOptions;
 import org.apache.karaf.scheduler.Scheduler;
 import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
@@ -26,7 +30,9 @@ import com.eurodyn.qlack2.fuse.search.api.SearchService;
 import com.eurodyn.qlack2.fuse.search.api.dto.IndexingDTO;
 import com.eurodyn.qlack2.fuse.search.api.request.CreateIndexRequest;
 
+import openwis.pilot.awisc.server.common.dto.LdshDTO;
 import openwis.pilot.awisc.server.common.dto.WmoCodeDTO;
+import openwis.pilot.awisc.server.manager.cxf.LdshAwiscIndexingService;
 import openwis.pilot.awisc.server.manager.jobs.LdshIndexerJob;
 import openwis.pilot.awisc.server.manager.service.AwiscIndexingService;
 import openwis.pilot.awisc.server.manager.service.LdshService;
@@ -60,7 +66,7 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 
 	@Inject
 	WmoCodeService wmoCodeService;
-	
+
 	@Inject
 	LdshService ldshService;
 
@@ -71,7 +77,6 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	static String WMO_CODE_INDEX_NAME = "wmo-code";
 	static String WMO_CODE_INDEX_TYPE = "wmo-code-dto";
 	static String WMO_CODE_INDEX_JSON_PATH = "/index.wmo-code.json";
-	
 
 	/**
 	 * Creates the ES indexes
@@ -81,7 +86,7 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	private void createIndexes() throws IOException {
 		boolean wmoCodeIndexCreated = false;
 		boolean ldshIndexCreated = false;
-		
+
 		if (!adminService.indexExists("/" + WMO_CODE_INDEX_NAME + "/_mapping/" + WMO_CODE_INDEX_TYPE)) {
 			if (!adminService.indexExists(WMO_CODE_INDEX_NAME)) {
 				String targetFileStr = Util.readResource(WMO_CODE_INDEX_JSON_PATH, StandardCharsets.UTF_8.name());
@@ -93,8 +98,8 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 				adminService.createIndex(createIndexRequest);
 				wmoCodeIndexCreated = true;
 			}
-		} 		
-		logger.info("Index " + WMO_CODE_INDEX_NAME + (wmoCodeIndexCreated?" created":" already exists"));
+		}
+		logger.info("Index " + WMO_CODE_INDEX_NAME + (wmoCodeIndexCreated ? " created" : " already exists"));
 
 		if (!adminService.indexExists("/" + LDSH_INDEX_NAME + "/_mapping/" + LDSH_INDEX_TYPE)) {
 			if (!adminService.indexExists(LDSH_INDEX_NAME)) {
@@ -107,14 +112,15 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 				adminService.createIndex(createIndexRequest);
 				ldshIndexCreated = true;
 			}
-		} 
-		logger.info("Index " + LDSH_INDEX_NAME + (ldshIndexCreated?" created":" already exists"));
-		
+		}
+		logger.info("Index " + LDSH_INDEX_NAME + (ldshIndexCreated ? " created" : " already exists"));
+
 	}
 
 	/**
 	 * Reads WMO codes from the DB and indexes them in ES
-	 * @throws UnsupportedEncodingException 
+	 * 
+	 * @throws UnsupportedEncodingException
 	 */
 	private void indexWmoCodes() throws UnsupportedEncodingException {
 		List<WmoCodeDTO> wmoCodes = wmoCodeService.getWmoCodes();
@@ -132,9 +138,10 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 
 		}
 	}
-	
+
 	/**
 	 * Will encode the input to something safe for ES REST URLs
+	 * 
 	 * @param input
 	 * @return encoded input
 	 * @throws UnsupportedEncodingException
@@ -142,23 +149,25 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	private String encodeElasticsearchId(String input) throws UnsupportedEncodingException {
 		return URLEncoder.encode(input, "UTF-8");
 	}
-	
+
 	/**
 	 * Schedules the job that will fetch LDSH information for indexing
+	 * 
 	 * @throws IllegalArgumentException
 	 * @throws SchedulerException
 	 */
 	private void scheduleLdshJob() throws Exception {
 		Scheduler scheduler = Util.getService(Scheduler.class);
-		Map<String,Serializable> jobConfig = new HashMap<String,Serializable>();
+		Map<String, Serializable> jobConfig = new HashMap<String, Serializable>();
 		jobConfig.put("awiscIndexingService", this);
 		jobConfig.put("ldshService", ldshService);
-		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 * * * * ?").config(jobConfig));
+		scheduler.schedule(new LdshIndexerJob(), scheduler.NOW().config(jobConfig));
+		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */15 * * * ?").config(jobConfig));
 	}
-
 
 	/**
 	 * Deploy-time tasks
+	 * 
 	 * @throws IOException
 	 * @throws IllegalArgumentException
 	 * @throws SchedulerException
@@ -168,9 +177,16 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 		createIndexes();
 		indexWmoCodes();
 		scheduleLdshJob();
-		
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * openwis.pilot.awisc.server.manager.service.AwiscIndexingService#index(openwis
+	 * .pilot.common.dto.awisc.LdshIndexDTO)
+	 */
 	@Override
 	public void index(LdshIndexDTO dto) throws UnsupportedEncodingException {
 		logger.info("Indexing document with id " + dto.getSystemId());
@@ -178,6 +194,27 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 		IndexingDTO esDto = new IndexingDTO(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, encoded, dto, false);
 		indexingService.indexDocument(esDto);
 
+	}
+
+	/* (non-Javadoc)
+	 * @see openwis.pilot.awisc.server.manager.service.AwiscIndexingService#getLdshIndexDTO(openwis.pilot.awisc.server.common.dto.LdshDTO)
+	 */
+	@Override
+	public LdshIndexDTO getLdshIndexDTO(LdshDTO ldsh) {
+		logger.info("Processing LDSH: " + ldsh.getSystemId());
+
+		List<JSONProvider<?>> providers = new ArrayList<JSONProvider<?>>();
+		JSONProvider<?> jsonProvider = new JSONProvider<>();
+		jsonProvider.setDropRootElement(true);
+		jsonProvider.setDropCollectionWrapperElement(true);
+		jsonProvider.setSerializeAsArray(true);
+		jsonProvider.setSupportUnwrapped(true);
+		providers.add(jsonProvider);
+
+		LdshAwiscIndexingService ldshAwiscIndexingService = JAXRSClientFactory.create(ldsh.getIndexServiceBaseUrl(),
+				LdshAwiscIndexingService.class, providers, true);
+
+		return ldshAwiscIndexingService.index();
 	}
 
 }

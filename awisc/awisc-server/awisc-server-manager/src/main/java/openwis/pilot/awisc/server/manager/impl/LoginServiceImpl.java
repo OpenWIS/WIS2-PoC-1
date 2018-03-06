@@ -39,7 +39,4 @@ public class LoginServiceImpl implements LoginService {
 		return new UserMapperImpl().toUserDTO(user);
 	}
 
-	/*public EntityManager getThis() {
-		return em;
-	}*/
 }

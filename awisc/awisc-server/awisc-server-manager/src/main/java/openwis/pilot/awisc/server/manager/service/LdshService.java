@@ -11,7 +11,7 @@ public interface LdshService extends Serializable{
    * Obtain the list of all registered Ldshs.
    * @return Returns the list of all Ldshs registered in the system.
    */
-  List<LdshDTO> getLdsh();
+  List<LdshDTO> getLdshs();
 
   /**
    * Finds a specific Ldsh by Id.

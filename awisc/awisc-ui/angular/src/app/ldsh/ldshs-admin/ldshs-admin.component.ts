@@ -1,9 +1,9 @@
-import {Component, OnInit} from "@angular/core";
-import {MatDialog, MatSnackBar, MatTableDataSource} from "@angular/material";
-import {AppComponent} from "../../app.component";
-import {LdshDTO} from "../../_dto/Ldsh.dto";
-import {LdshService} from "../../_services/rest/ldsh.service";
-import {OkCancelDialogComponent} from "../../_shared/ok-cancel-dialog.component";
+import { Component, OnInit } from "@angular/core";
+import { MatDialog, MatSnackBar, MatTableDataSource } from "@angular/material";
+import { AppComponent } from "../../app.component";
+import { LdshDTO } from "../../_dto/Ldsh.dto";
+import { LdshService } from "../../_services/rest/ldsh.service";
+import { OkCancelDialogComponent } from "../../_shared/ok-cancel-dialog.component";
 
 @Component({
   selector: 'app-ldshs-admin',
@@ -16,7 +16,7 @@ export class LdshsAdminComponent implements OnInit {
   dataSource = null;
 
   constructor(private ldshService: LdshService, public snackBar: MatSnackBar,
-              public dialog: MatDialog) {
+    public dialog: MatDialog) {
     AppComponent.selectedMenuItem = 'ldshs';
   }
 
@@ -55,5 +55,11 @@ export class LdshsAdminComponent implements OnInit {
         this.ldshService.delete(ldshId, null, null);
       }
     });
+  }
+
+
+  //index LDSH
+  private indexLdsh(ldshId: string) {
+    this.ldshService.index(ldshId, null, null);
   }
 }
