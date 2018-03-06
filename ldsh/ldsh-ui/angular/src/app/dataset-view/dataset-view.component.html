@@ -11,16 +11,14 @@
 
 <div class="box" *ngIf="dataSet">
 	<mat-toolbar #componentToolbar class="header-small">
-		<p> Geo-location dataset
-			<p>
-
+		<p>{{dataSet.name}}
 				<span class="ui-spacer"></span>
 	</mat-toolbar>
 
 	<!-- <div class="header-title">Geo-location dataset</div> -->
 	<div class="content">
 		<div class="box">
-			<div class="box-title">{{dataSet.name}}</div>
+			<!-- <div class="box-title"></div> -->
 			<div class="box-content">
 				<div class="box-content-left">
 					<div class="box-subtitle">Location Information</div>
@@ -52,7 +50,7 @@
 							<a>{{dataSet.license}}</a>
 						</div>
 						<div class="box-content-row">
-							<span>Measurements:</span>{{measurements.join(", ")}} </div>
+							<span>Measurements:</span> {{measurements.join(", ")}} </div>
 					</div>
 				</div>
 			</div>
