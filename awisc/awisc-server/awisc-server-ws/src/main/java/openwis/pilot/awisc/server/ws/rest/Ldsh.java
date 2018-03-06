@@ -1,5 +1,7 @@
 package openwis.pilot.awisc.server.ws.rest;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
@@ -18,7 +20,9 @@ import org.ops4j.pax.cdi.api.OsgiService;
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
 import openwis.pilot.awisc.server.common.dto.ServiceMessage;
 import openwis.pilot.awisc.server.common.util.Constants;
+import openwis.pilot.awisc.server.manager.service.AwiscIndexingService;
 import openwis.pilot.awisc.server.manager.service.LdshService;
+import openwis.pilot.common.dto.awisc.LdshIndexDTO;
 import openwis.pilot.common.security.JWTNeeded;
 
 @Singleton
@@ -28,6 +32,10 @@ public class Ldsh {
 	@OsgiService
 	@Inject
 	private LdshService ldshService;
+	
+	@OsgiService
+	@Inject
+	private AwiscIndexingService awiscIndexingService;
 
 	/**
 	 * Get all Ldshs registered in the system.
@@ -38,7 +46,7 @@ public class Ldsh {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllLdsh() {
-		return Response.ok(ldshService.getLdsh()).build();
+		return Response.ok(ldshService.getLdshs()).build();
 	}
 
 	/**
@@ -52,7 +60,7 @@ public class Ldsh {
 	 */
 	@GET
 	@JWTNeeded
-	@Path("{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getLdsh(@PathParam("id") Long ldshId) {
 		return Response.ok(ldshService.getLdsh(ldshId)).build();
@@ -82,7 +90,7 @@ public class Ldsh {
 	 */
 	@DELETE
 	@JWTNeeded
-	@Path("{id}")
+	@Path("/{id}")
 	public ServiceMessage deleteLdsh(@PathParam("id") Long ldshId) {
 		ldshService.deleteLdsh(ldshId);
 		return new ServiceMessage(Constants.MessageCode.LDSH_DELETE_SUCCESS);
@@ -97,13 +105,24 @@ public class Ldsh {
 	 * @return Returns 204 when the token is valid, or 401 otherwise.
 	 */
 	@GET
-	@Path("token/{id}")
+	@Path("/token/{id}")
 	public Response validateToken(@PathParam("id") String ldshToken) {
 		if (ldshService.validateLdshToken(ldshToken)) {
 			return Response.noContent().build();
 		} else {
 			return Response.status(Status.UNAUTHORIZED).build();
 		}
+	}
+	
+	@GET
+	@JWTNeeded
+	@Path("/index/{id}")
+	public ServiceMessage indexLdsh(@PathParam("id") Long ldshId) throws UnsupportedEncodingException {
+		LdshDTO ldsh = ldshService.getLdsh(ldshId);
+		LdshIndexDTO ldshIndexDTO = awiscIndexingService.getLdshIndexDTO(ldsh);
+		awiscIndexingService.index(ldshIndexDTO);
+		return new ServiceMessage(Constants.MessageCode.LDSH_INDEXING_SUCCESS);
+
 	}
 
 }

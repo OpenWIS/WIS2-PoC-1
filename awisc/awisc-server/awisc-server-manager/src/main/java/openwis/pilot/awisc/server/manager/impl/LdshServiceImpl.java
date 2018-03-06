@@ -35,7 +35,6 @@ public class LdshServiceImpl implements LdshService {
 	// QuerydDSL helpers.
 	private static QLdsh qLdsh = QLdsh.ldsh;
 
-	// Entity Manager ref.
 	@PersistenceContext(unitName = "awisc-pu")
 	private EntityManager em;
 
@@ -51,7 +50,7 @@ public class LdshServiceImpl implements LdshService {
 	}
 
 	@Override
-	public List<LdshDTO> getLdsh() {
+	public List<LdshDTO> getLdshs() {
 		final List<Ldsh> ldshList = new JPAQueryFactory(em).selectFrom(qLdsh).orderBy(qLdsh.name.asc()).fetch();
 
 		return new LdshMapperImpl().toLdshDTOList(ldshList);

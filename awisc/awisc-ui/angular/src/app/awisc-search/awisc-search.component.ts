@@ -61,7 +61,6 @@ export class AwiscSearchComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.searchResults = false;
     this.stateCtrl = new FormControl();
     this.searchForm = new FormGroup({
       searchText: new FormControl(""),
