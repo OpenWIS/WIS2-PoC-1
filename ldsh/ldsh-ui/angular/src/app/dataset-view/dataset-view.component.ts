@@ -21,7 +21,7 @@ export class DatasetViewComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   dataSet: DataSet;
-  measurments: String[] = [];
+  measurements: String[] = [];
 
   constructor(private dataService: DataService, private activatedRoute: ActivatedRoute,
     private router: Router, private titleService: Title) {
@@ -55,7 +55,7 @@ export class DatasetViewComponent implements OnInit {
   private updateMeasurments(dataSet: DataSet) {
     if (dataSet.wmoCodes) {
       for (let mesurement of dataSet.wmoCodes) {
-        this.measurments.push(mesurement.name);
+        this.measurements.push(mesurement.name);
       }
     }
   }

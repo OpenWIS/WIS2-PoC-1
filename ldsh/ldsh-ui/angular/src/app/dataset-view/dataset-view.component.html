@@ -43,14 +43,16 @@
 					<div class="box-content-cell">
 						<div class="box-content-row">
 							<span>Description:</span> {{dataSet.description}}</div>
-						<div class="box-content-row">
-							<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - {{dataSet.periodTo | date:'medium'}} </div>
+						<div *ngIf="!dataSet.periodTo" class="box-content-row">
+							<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - Now </div>
+						<div *ngIf="dataSet.periodTo" class="box-content-row">
+								<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - {{dataSet.periodTo | date:'medium'}} </div>
 						<div class="box-content-row">
 							<span>License:</span>
-							<a href>{{dataSet.license}}</a>
+							<a>{{dataSet.license}}</a>
 						</div>
 						<div class="box-content-row">
-							<span>Measurments:</span>{{measurments.join(", ")}} </div>
+							<span>Measurements:</span>{{measurements.join(", ")}} </div>
 					</div>
 				</div>
 			</div>

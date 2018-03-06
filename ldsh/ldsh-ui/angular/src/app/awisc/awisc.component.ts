@@ -118,7 +118,7 @@ export class AWISCComponent implements OnInit {
       this.popValidationMsg(poptValidation);
     }, onError => {
       console.log(onError);
-      this.registrationStatus = onError.statusText;
+      this.registrationStatus = onError.name;
       this.snackBar.open('There was a problem registering to the AWISC: ' + onError.message, null, {
         duration: 5000,
         verticalPosition: 'top'

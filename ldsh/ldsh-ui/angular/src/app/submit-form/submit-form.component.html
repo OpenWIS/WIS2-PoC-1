@@ -57,11 +57,9 @@
               <mat-datepicker #pickerTo></mat-datepicker>
             </mat-form-field>
           </p>
-          <!-- TODO ADD time validation <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" -->
-
           <p></p>
           <!-- License: // free text -->
-          <mat-form-field class="mat-form">
+          <mat-form-field class="mat-long">
             <input matInput placeholder="License" formControlName="license">
           </mat-form-field>
           <div class="error" *ngIf="metadataForm.get('license').touched && metadataForm.get('license').hasError('required')">
@@ -72,7 +70,7 @@
           </div>
 
           <p>
-            <mat-form-field class="mat-form">
+            <mat-form-field class="mat-long">
               <input matInput placeholder="Image URL" formControlName="datasetImage">
             </mat-form-field>
           </p>
@@ -240,7 +238,8 @@
 
           <p>
             Last update: 
-          <span style="color:#62757f;" >{{lastUpdate | date: "medium" }}</span>
+          <span  *ngIf="lastUpdate" style="color:#62757f;" >{{lastUpdate | date: "medium" }}</span>
+          <span *ngIf="!lastUpdate" style="color:#62757f;" >-</span>
           </p>
 
         </mat-tab>
