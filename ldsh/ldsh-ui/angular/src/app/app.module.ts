@@ -18,7 +18,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import {JwtModule} from "@auth0/angular-jwt";
 import { AuthService } from './services/auth.service';
 import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
 
 
@@ -44,6 +44,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     HttpClientModule,
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: APP_BASE_HREF, useValue: '!'},
     AuthGuard, AuthService],
   entryComponents: [OkCancelDialogComponent],
    bootstrap: [AppComponent]

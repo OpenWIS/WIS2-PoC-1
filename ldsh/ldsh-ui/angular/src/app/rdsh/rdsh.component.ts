@@ -57,7 +57,7 @@ export class RDSHComponent implements OnInit {
 
     }, onError => {
       console.log(onError);
-      this.registrationStatus = onError.statusText;
+      this.registrationStatus = onError.name;
       this.snackBar.open('There was a problem registering to the RDSH: ' + onError.message, null, {
         duration: 5000,
         verticalPosition: 'top'

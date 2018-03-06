@@ -24,6 +24,7 @@ import {JwtModule} from "@auth0/angular-jwt";
 import {environment} from "../environments/environment";
 import { ChannelService } from './services/channel.service';
 import { ChartsModule } from 'ng2-charts';
+import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ChartsModule } from 'ng2-charts';
       }
     })
   ],
-  providers: [
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: APP_BASE_HREF, useValue: '!'},
     LdshService, SettingsService, AuthGuard, AuthService, ChannelService
   ],
   entryComponents: [OkCancelDialogComponent],
