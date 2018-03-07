@@ -15,6 +15,9 @@ import { MeasurementUnit } from "../dto/MeasurementUnit";
 import { WmoCode } from "../dto/WmoCode";
 import { DataFormat } from "../dto/DataFormat";
 import { Country } from "../dto/Country";
+import { RemoteSystem } from "../dto/RemoteSystem.dto";
+import { SystemPropery } from "../settings/settings.component";
+
 
 @Component({
   selector: "app-submit-form",
@@ -31,8 +34,11 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
-  servicePrefix:string = "/cxf/ldsh-api/download";
-  
+  servicePrefix: string = "/cxf/ldsh-api/download";
+  rdshUrl: String;
+  sysId: String;
+
+
   lastUpdate: Date;
 
   //autocomplete
@@ -122,9 +128,9 @@ export class SubmitFormComponent implements OnInit {
     this.filteredStates = this.stateCtrl.valueChanges
       .startWith(null)
       .map(
-      wmoCode => wmoCode
-        ? this.filterStates(wmoCode)
-        : this.sliceCodes()
+        wmoCode => wmoCode
+          ? this.filterStates(wmoCode)
+          : this.sliceCodes()
       );
   }
 
@@ -145,8 +151,8 @@ export class SubmitFormComponent implements OnInit {
     });
     let dataset_id = this.paramsObj["params"]["id"];
     this.featchFormData(dataset_id);
-
     this.pageUrl = this.document.location.origin;// (with port)
+    this.fetchSystemData();
 
   }
 
@@ -296,7 +302,7 @@ export class SubmitFormComponent implements OnInit {
 
 
   onSubmit() {
-    
+
     this.metadataForm.controls['periodFrom'].markAsTouched();
     this.metadataForm.controls['filenameprefix'].markAsTouched();
     this.metadataForm.controls['description'].markAsTouched();
@@ -367,15 +373,32 @@ export class SubmitFormComponent implements OnInit {
     return downloadUrl;
   }
   private getSubscrUrl(dataset: any) {
-    let downloadUrl: String = this.pageUrl;
+
+    let subscrUrl: String = this.rdshUrl+"/"+this.sysId;
     //Optional field
     if (dataset.relativeUrl) {
-      downloadUrl = downloadUrl + ":" + dataset.relativeUrl;
+      subscrUrl = subscrUrl + "/" + dataset.relativeUrl;
     }
     // mandatory field
-    downloadUrl = downloadUrl + ":" + dataset.filenameprefix;
-    return downloadUrl;
+    subscrUrl = subscrUrl + "/" + dataset.filenameprefix;
+    return subscrUrl;
   }
+
+  private fetchSystemData(): any {
+    this.dataService.getCall("getRdsh").then(result => {
+
+      let rs: RemoteSystem = result;
+      this.rdshUrl = rs.url;
+
+      this.dataService.getCall("getSettings").then(result => {
+
+        let localSystem: SystemPropery = result;
+        this.sysId = localSystem.systemid;
+      });
+    });
+  }
+
+
 
   goBack() {
     this.router.navigate(['/datasets'], { queryParams: {} });

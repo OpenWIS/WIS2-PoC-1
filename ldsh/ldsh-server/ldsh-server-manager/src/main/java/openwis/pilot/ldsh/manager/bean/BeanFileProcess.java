@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 
 import openwis.pilot.common.dto.DatasetMQTTPublishDTO;
 import openwis.pilot.ldsh.common.dto.DatasetDTO;
+import openwis.pilot.ldsh.common.dto.RemoteSystemDTO;
 import openwis.pilot.ldsh.manager.service.DatasetService;
 import openwis.pilot.ldsh.manager.service.SystemService;
 
@@ -50,7 +51,11 @@ public class BeanFileProcess<T> {
 					}
 				
 					String sysId = systemService.getAllSystemProperties().getSystemId();
-					String topic = sysId + "/"+dataset.getFilenameprefix();
+
+					RemoteSystemDTO rdsh = systemService.getRdsh();
+					
+					// {RDSH URL}/{system id}/{relative}/prefix
+					String topic = rdsh.getUrl() + "/" + sysId + "/" +dataset.getRelativeUrl() +  "/" +dataset.getFilenameprefix();
 					datasetMQTTPublishDTO.setTopic(topic); 
 					datasetMQTTPublishDTO.setDownloadURL(dataset.getDownloadUrl());
 					datasetMQTTPublishDTO.setToken(systemService.getRdsh().getToken());
