@@ -15,6 +15,7 @@
     <feature>rdsh-deps</feature>
     <feature>rdsh-database</feature>
     <feature>rdsh-server</feature>
+    <feature>rdsh-ui</feature>
   </feature>
   
   <feature name="rdsh-deps" version="${project.version}">
@@ -32,6 +33,7 @@
     <feature>camel-mqtt</feature>
     <feature>openwis-common</feature>
     <feature>qlack2-util-repack-querydsl</feature>
+ 		<bundle>mvn:org.mapstruct/mapstruct-jdk8/1.1.0.Final</bundle>
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/${aspectj.servicemix.version}</bundle>
   </feature>
 
@@ -50,5 +52,6 @@
 
   <feature name="rdsh-ui" version="${project.version}">
     <bundle>mvn:openwis.pilot.rdsh/rdsh-ui/${project.version}</bundle>
+    		<feature>war</feature>
   </feature>
 </features>

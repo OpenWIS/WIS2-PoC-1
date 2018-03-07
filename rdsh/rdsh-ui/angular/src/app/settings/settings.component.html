@@ -31,7 +31,7 @@
             </mat-form-field>
           </div>
         </mat-tab>
-        <mat-tab label="Message broker">
+        <mat-tab label="Message Broker">
           <div style="padding-top: 2em;">
             <mat-form-field class="mat-form">
               <input matInput placeholder="MQTT host" formControlName="mqtt_host">
@@ -46,14 +46,16 @@
 
           <div>
             <mat-form-field class="mat-form">
-              <input matInput placeholder="MQTT password" formControlName="mqtt_password">
+              <input matInput placeholder="MQTT password" [type]="hide ? 'password' : 'text'" formControlName="mqtt_password">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
             </mat-form-field>
           </div>
         </mat-tab>
         <mat-tab label="Authentication">
           <div style="padding-top: 2em;">
             <mat-form-field class="mat-long">
-              <input matInput placeholder="JWT secret" formControlName="jwt_secret">
+              <input matInput placeholder="JWT secret" [type]="hide ? 'password' : 'text'"  formControlName="jwt_secret">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
             </mat-form-field>
           </div>
         </mat-tab>
