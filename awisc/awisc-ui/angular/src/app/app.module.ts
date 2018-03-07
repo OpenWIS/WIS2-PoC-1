@@ -33,6 +33,10 @@ import { AuthGuard } from "./guards/auth.guard";
 import { OkCancelDialogComponent } from "./_shared/ok-cancel-dialog.component";
 import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF } from '@angular/common';
 
+export function getJwtToken(): string {
+  return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,9 +60,7 @@ import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF } from '@angular/
     MatSnackBarModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
-        }
+        tokenGetter: getJwtToken
       }
     })
   ],

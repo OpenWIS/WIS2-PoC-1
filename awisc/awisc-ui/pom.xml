@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project 
-    xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   	<groupId>openwis.pilot.awisc</groupId>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<groupId>openwis.pilot.awisc</groupId>
 	<artifactId>awisc-ui</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>bundle</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>bundle</packaging>
 	<properties>
 		<skip.npm.deps>false</skip.npm.deps>
 	</properties>
-    <build>
-        <plugins>
-            <!-- Plugin to execute command  "npm install" and "npm run build" inside /angular directory -->
+	<build>
+		<plugins>
+			<!-- Plugin to execute command "npm install" and "npm run build" inside 
+				/angular directory -->
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
@@ -32,7 +33,7 @@
 						<configuration>
 							<nodeVersion>v8.9.4</nodeVersion>
 							<npmVersion>5.6.0</npmVersion>
-							 <skip>${skip.npm.deps}</skip>
+							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
 
@@ -48,7 +49,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install cdk -->
+					<!-- It will execute command install cdk -->
 					<execution>
 						<id>npm install cdk</id>
 						<goals>
@@ -60,7 +61,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install material -->
+					<!-- It will execute command install material -->
 					<execution>
 						<id>npm install material</id>
 						<goals>
@@ -68,11 +69,11 @@
 						</goals>
 						<configuration>
 							<arguments>install --save @angular/material</arguments>
-							 <skip>${skip.npm.deps}</skip>
+							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install animations -->
+					<!-- It will execute command install animations -->
 					<execution>
 						<id>npm install animations</id>
 						<goals>
@@ -84,7 +85,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command install hammerjs -->
+					<!-- It will execute command install hammerjs -->
 					<execution>
 						<id>npm install hammerjs</id>
 						<goals>
@@ -95,22 +96,22 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-					
-					 <!-- It will execute command install @auth0/angular-jwt -->
+
+					<!-- It will execute command install @auth0/angular-jwt -->
 					<execution>
 						<id>npm install @auth0/angular-jwt</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>install --save hammerjs</arguments>
+							<arguments>install --save @auth0/angular-jwt</arguments>
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
 
-					 <!-- It will execute install font-awesome -->
+					<!-- It will execute install font-awesome -->
 					<execution>
-						<id>npm install @auth0/angular-jwt</id>
+						<id>npm install font-awesome</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
@@ -120,7 +121,7 @@
 						</configuration>
 					</execution>
 
-                    <!-- It will execute command "npm install" inside "/angular" directory -->
+					<!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>
 						<id>npm install</id>
 						<goals>
@@ -132,20 +133,50 @@
 						</configuration>
 					</execution>
 
-					<!-- It will execute command "npm build" inside "/angular" directory to clean and create "/dist" directory-->
-					<execution>
+					<!-- It will execute command "npm build" inside "/angular" directory 
+						to clean and create "/dist" directory -->
+					<!-- <execution>
 						<id>npm build</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>run ng build -prod -bh "http://localhost:8181/awisc/"
+								-d "http://localhost:8181/awisc/"</arguments>
 						</configuration>
-					</execution>
+					</execution> -->
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>exec ng build</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>ng</executable>
+					<!-- optional -->
+					<workingDirectory>angular</workingDirectory>
+					<arguments>
+						<argument>build</argument>
+						<argument>-prod</argument>
+						<argument>-bh</argument>
+						<argument>http://localhost:8181/awisc/</argument>
+						<argument>-d</argument>
+						<argument>http://localhost:8181/awisc/</argument>
+					</arguments>
+				</configuration>
+			</plugin>
 
-            <!-- Plugin to copy the content of /angular/dist/ directory to output directory (ie/ /target/transactionManager-1.0/) -->
+			<!-- Plugin to copy the content of /angular/dist/ directory to output 
+				directory (ie/ /target/transactionManager-1.0/) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -169,18 +200,18 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>3.4.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Web-ContextPath>/</Web-ContextPath>
-                        <_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.4.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Web-ContextPath>/awisc</Web-ContextPath>
+						<_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

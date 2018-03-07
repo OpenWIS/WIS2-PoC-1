@@ -62,6 +62,7 @@
 	</feature>
 
 	<feature name="awisc-ui" version="${project.version}">
+		<feature>war</feature>
 		<bundle>mvn:openwis.pilot.awisc/awisc-ui/${project.version}</bundle>
 	</feature>
 
