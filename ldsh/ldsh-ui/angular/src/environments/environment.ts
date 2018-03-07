@@ -13,7 +13,7 @@ export const environment = {
     //LDSH_SERVER: 'http://localhost:8181',
 
     // AWISC_ROOT: '/cxf/awisc-api/',
-    AWISC_ROOT: '/awisc/cxf/api',
+    AWISC_ROOT: '/awisc/cxf/api/',
 
     RDSH_ROOT : '/cxf/rdsh-api/',
     // The name under which the JWT is kept.
