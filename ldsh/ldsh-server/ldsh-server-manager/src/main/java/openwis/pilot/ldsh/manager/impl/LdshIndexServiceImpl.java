@@ -2,6 +2,7 @@ package openwis.pilot.ldsh.manager.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -39,7 +40,8 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 	@Override
 	public LdshIndexDTO getLdshIndexingInformation(String baseUrl) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
 		String ldshName = systemService.getSystemPropertyValue("title");
 		String ldshcontact = systemService.getSystemPropertyValue("email");
