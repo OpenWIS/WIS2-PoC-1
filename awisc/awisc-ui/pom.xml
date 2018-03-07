@@ -36,6 +36,30 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
+					
+					<!-- It will execute command install @angular/cli -->
+					<execution>
+						<id>npm install angular/cli</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save @angular/cli</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
+					
+					<!-- It will execute command install @angular-devkit/core -->
+					<execution>
+						<id>npm install angular-devkit/core</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save @angular-devkit/core</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
 
 					<!-- It will execute command install compiler-cli -->
 					<execution>
