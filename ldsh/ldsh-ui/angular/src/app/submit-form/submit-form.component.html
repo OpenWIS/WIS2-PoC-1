@@ -7,7 +7,7 @@
 
   <div style="padding:2em;">
 
-    <form  *ngIf="metadataForm" [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
+    <form *ngIf="metadataForm" [formGroup]="metadataForm" class="field-full-width" (submit)="onSubmit()">
       <mat-tab-group>
 
 
@@ -32,8 +32,10 @@
           <p> </p>
           <!-- Description:// free text   -->
           <mat-form-field class="mat-form">
-            <input matInput placeholder="Description" formControlName="description">
+            <textarea matInput placeholder="Description" formControlName="description" matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="20"
+              class="field-full-width" rows="3"></textarea>
           </mat-form-field>
+
           <div class="error" *ngIf="metadataForm.get('description').touched && metadataForm.get('description').hasError('required')">
             Description is required
           </div>
@@ -43,7 +45,7 @@
 
           <p>
             <!-- From: //datepicker  -->
-            <mat-form-field>
+            <mat-form-field style="margin-right: 1em;">
               <!-- <input matInput [matDatepickerFrom]="picker" placeholder="From  date:"> -->
               <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :" formControlName="periodFrom">
               <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
@@ -79,13 +81,12 @@
           <!-- selection list of Available Reading Types-->
           <div style="width:100%;float:left; display:block;">
             <!-- autocomplete dropdown -->
-            <div class="field-div3-width">
+            <div class="field-div3-width" >
               <h4 matSubheader>Available Measurement Types:</h4>
-              <mat-form-field floatPlaceholder="never">
+              <mat-form-field floatPlaceholder="never" style="width:17em;" >
                 <input matInput placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                  <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.name"
-                  (onSelectionChange)="setSelectedCode($event, wmo.code)">
+                  <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.name" (onSelectionChange)="setSelectedCode($event, wmo.code)">
                     <span> {{ wmo.name }}</span>
                   </mat-option>
                 </mat-autocomplete>
@@ -106,7 +107,7 @@
             <!-- chip  -->
             <div class="field-div3-width">
               <h4 matSubheader>Selected Measurement Types:</h4>
-              <mat-chip-list #chipList  formControlName="wmoSelectedCodes" >
+              <mat-chip-list #chipList formControlName="wmoSelectedCodes">
                 <mat-chip *ngFor="let measurement of selectedCodes" [selectable]="selectable" [removable]="removable" (remove)="deSelect(measurement)">
                   {{measurement.name}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -117,15 +118,14 @@
             </div>
           </div>
 
-         <!-- UPDATE frequent -->
-         <mat-form-field class="mat-form">
-          <mat-select #countrySelect placeholder="Dataset Update Frequency" formControlName="measurementUnit" [value]="measurementUnit">
-            <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.name" 
-            [class.selected]="section === selectedSection">
-              {{measurementUnit.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+          <!-- UPDATE frequent -->
+          <mat-form-field class="mat-form">
+            <mat-select #countrySelect placeholder="Dataset Update Frequency" formControlName="measurementUnit" [value]="measurementUnit">
+              <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.name" [class.selected]="section === selectedSection">
+                {{measurementUnit.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
         </mat-tab>
 
@@ -204,19 +204,24 @@
           <br>
 
           <p>
-            Download URL: 
-            <span style="color:#62757f;">{{pageUrl}}{{servicePrefix}}</span><span style="color:#2196F3;">/{{relativeUrl.value}}</span>/<span style="color:#1976D2;">{{filenameprefix.value}}</span>
+            Download URL:
+            <span style="color:#62757f;">{{pageUrl}}{{servicePrefix}}</span>
+            <span style="color:#2196F3;">/{{relativeUrl.value}}</span>/
+            <span style="color:#1976D2;">{{filenameprefix.value}}</span>
             <br/>
             <mat-hint>Insted of Prefix, Filename can be used as well. </mat-hint>
-        </p>
+          </p>
           <br>
           <p>
-            Subscription URI: <span style="color:#62757f;">{{pageUrl}}:</span><span style="color:#2196F3;" [innerHTML]="replaceSlash(relativeUrl.value)"></span>:<span style="color:#1976D2;">{{filenameprefix.value}}</span>
+            Subscription URI:
+            <span style="color:#62757f;">{{pageUrl}}:</span>
+            <span style="color:#2196F3;" [innerHTML]="replaceSlash(relativeUrl.value)"></span>:
+            <span style="color:#1976D2;">{{filenameprefix.value}}</span>
           </p>
           <!--  Data Format: //drop down -->
           <p>
             <mat-form-field class="mat-form">
-              <mat-select #climateSelect placeholder="Data format" formControlName="dataformat" [value]="dataformat" >
+              <mat-select #climateSelect placeholder="Data format" formControlName="dataformat" [value]="dataformat">
                 <mat-option *ngFor="let dataformat of dataformats" [value]="dataformat.id" [class.selected]="section === selectedSection">
                   {{dataformat.name}}
                 </mat-option>
@@ -228,18 +233,18 @@
             <mat-checkbox #rdshDis formControlName="rdshDissEnabled" (change)="rdshAdjust($event.srcElement)">RDSH Dissemination</mat-checkbox>
 
             <span style="padding:0.5em 1em;display:block;">
-              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked"    formControlName=sendData   >
+              <mat-radio-group #rdshOptions *ngIf="rdshDis.checked" formControlName=sendData>
                 <mat-radio-button [checked]='disseminateData === false' value="false">Notification Only</mat-radio-button>
 
-                <mat-radio-button [checked]='disseminateData === true'  value="true">Notification + Data</mat-radio-button>
+                <mat-radio-button [checked]='disseminateData === true' value="true">Notification + Data</mat-radio-button>
               </mat-radio-group>
             </span>
           </p>
 
           <p>
-            Last update: 
-          <span  *ngIf="lastUpdate" style="color:#62757f;" >{{lastUpdate | date: "medium" }}</span>
-          <span *ngIf="!lastUpdate" style="color:#62757f;" >-</span>
+            Last update:
+            <span *ngIf="lastUpdate" style="color:#62757f;">{{lastUpdate | date: "medium" }}</span>
+            <span *ngIf="!lastUpdate" style="color:#62757f;">-</span>
           </p>
 
         </mat-tab>
@@ -263,10 +268,10 @@
   </div>
 </div>
 
-<div   *ngIf="metadataForm" class="box" style="margin-top:1em;">
+<div *ngIf="metadataForm" class="box" style="margin-top:1em;">
   <div style="padding:2em;">
-      <button mat-button (click)="onSubmit()">Save</button>
-    <button mat-button class="cancel-button"  (click)="goBack()" >Cancel</button>
+    <button mat-button (click)="onSubmit()">Save</button>
+    <button mat-button class="cancel-button" (click)="goBack()">Cancel</button>
   </div>
 </div>
 

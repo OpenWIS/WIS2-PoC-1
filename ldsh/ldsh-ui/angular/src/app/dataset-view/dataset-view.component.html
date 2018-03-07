@@ -12,7 +12,7 @@
 <div class="box" *ngIf="dataSet">
 	<mat-toolbar #componentToolbar class="header-small">
 		<p>{{dataSet.name}}
-				<span class="ui-spacer"></span>
+			<span class="ui-spacer"></span>
 	</mat-toolbar>
 
 	<!-- <div class="header-title">Geo-location dataset</div> -->
@@ -33,6 +33,12 @@
 							<span>State/Region:</span> {{dataSet.state}}</div>
 						<div class="box-content-row">
 							<span>City:</span> {{dataSet.city}}</div>
+						<div class="box-content-row">
+							<span>Latitude:</span> {{dataSet.latitude}}</div>
+						<div class="box-content-row">
+							<span>Longtitue:</span> {{dataSet.longitude}}</div>
+						<div class="box-content-row">
+							<span>Elevation:</span> {{dataSet.elevation}}</div>
 					</div>
 				</div>
 			</div>
@@ -45,7 +51,7 @@
 						<div *ngIf="!dataSet.periodTo" class="box-content-row">
 							<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - Now </div>
 						<div *ngIf="dataSet.periodTo" class="box-content-row">
-								<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - {{dataSet.periodTo | date:'medium'}} </div>
+							<span>Period:</span> {{ dataSet.periodFrom | date:'medium'}} - {{dataSet.periodTo | date:'medium'}} </div>
 						<div class="box-content-row">
 							<span>License:</span>
 							<a>{{dataSet.license}}</a>
