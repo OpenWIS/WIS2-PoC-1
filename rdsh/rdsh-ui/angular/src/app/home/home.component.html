@@ -4,13 +4,15 @@
 
 <p>
   <i>
-    {{ header }}
+    <h4 style="text-align: center;">
+      {{ header }}
+    </h4>
   </i>
 </p>
 
 <div class="box">
   <mat-toolbar #componentToolbar class="header-small">
-    <p>Registered Local  Data Sharing Hubs</p>
+    <p>Registered Local Data Sharing Hubs</p>
     <span class="ui-spacer"></span>
   </mat-toolbar>
 
@@ -34,8 +36,7 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-icon-button class="transparent" matTooltip="Edit LDSH"
-                  [routerLink]="['/ldsh-edit', element.id]">
+          <button mat-icon-button class="transparent" matTooltip="Edit LDSH" [routerLink]="['/ldsh-edit', element.id]">
             <mat-icon class="ui-icon dark" aria-label="Edit">edit</mat-icon>
           </button>
         </mat-cell>
