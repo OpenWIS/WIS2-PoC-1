@@ -96,8 +96,20 @@ export class AwiscSearchComponent implements OnInit {
     }
   }
 
-  private refreshAutoCompleteList() {
+  private predicateBy(prop) {
+    return function (a, b) {
+      if (a[prop] > b[prop]) {
+        return 1;
+      } else if (a[prop] < b[prop]) {
+        return -1;
+      }
+      return 0;
+    }
+  }
 
+
+  private refreshAutoCompleteList() {
+    this.wmoCodes.sort(this.predicateBy("name"));
     this.filteredStates = this.stateCtrl.valueChanges
       .startWith(null)
       .map(
@@ -134,13 +146,13 @@ export class AwiscSearchComponent implements OnInit {
       wmoCodes.push(wmoCode.code);
     });
     sq.wmoCodes = wmoCodes;
-    
+
     this.searchService.advanced(sq, this.showSearchResults, null);
   }
 
   showSearchResults = (response) => {
-    this.searchResults = <SearchResults> JSON.parse(JSON.stringify(response.body));
-    this.searchResults = (this.searchResults.searchResults.length == 0?null:this.searchResults);
+    this.searchResults = <SearchResults>JSON.parse(JSON.stringify(response.body));
+    this.searchResults = (this.searchResults.searchResults.length == 0 ? null : this.searchResults);
   }
 
   navigateToHome() {
