@@ -18,6 +18,11 @@ config:property-set jdbc.factory.validationQuery 'select 1'
 config:property-set jdbc.pool.testWhileIdle true
 config:property-set jdbc.factory.validationQueryTimeout 15
 config:update
+
+### Configure CXF
+config:edit org.apache.cxf.osgi
+config:property-set org.apache.cxf.servlet.context /awisc/cxf
+config:update
  
 ### Configure Liquibase to use the AWISC datasource
 config:edit com.eurodyn.qlack2.util.liquibase
