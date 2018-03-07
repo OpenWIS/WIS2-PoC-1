@@ -5,7 +5,7 @@
 
   	<cm:property-placeholder persistent-id="openwis.awisc" update-strategy="reload"/>
 	
-    <jaxrs:server address="/awisc-api" id="awiscServer">
+    <jaxrs:server address="/api" id="awiscServer">
         <jaxrs:serviceBeans>
             <ref component-id="login"/>
             <ref component-id="settings"/>

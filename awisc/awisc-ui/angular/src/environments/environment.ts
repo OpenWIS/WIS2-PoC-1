@@ -8,7 +8,7 @@ export const environment = {
 
   CONSTANTS: {
     // The context root of the back-end API.
-    API_ROOT: '/cxf/awisc-api',
+    API_ROOT: '/awisc/cxf/api',
 
     // The name under which the JWT is kept.
     JWT_STORAGE_NAME: 'awiscJWT'
