@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod-build": "ng build -prod -bh http://openwis-opp6-awisc.eurodyn.com:8181/awisc/ -d http://openwis-opp6-awisc.eurodyn.com:8181/awisc/"
+    "prod-build": "ng build -prod -bh https://openwis2.eurodyn.com/awisc/ -d https://openwis2.eurodyn.com/awisc/"
   },
   "private": true,
   "dependencies": {

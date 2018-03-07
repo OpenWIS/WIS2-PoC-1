@@ -72,15 +72,15 @@
 					},
 					"periodFrom": {
 						"type": "date",
-						"format": "yyyy-MM-dd HH:mm:ss"
+						"format": "yyyy-MM-dd'T'HH:mm:ssZ"
 					},
 					"periodTo": {
 						"type": "date",
-						"format": "yyyy-MM-dd HH:mm:ss"
+						"format": "yyyy-MM-dd'T'HH:mm:ssZ"
 					},
 					"lastUpdate": {
 						"type": "date",
-						"format": "yyyy-MM-dd HH:mm:ss"
+						"format": "yyyy-MM-dd'T'HH:mm:ssZ"
 					},
 					"license": {
 						"type": "text",
