@@ -159,44 +159,16 @@
 
 					<!-- It will execute command "npm build" inside "/angular" directory 
 						to clean and create "/dist" directory -->
-					<!-- <execution>
+					<execution>
 						<id>npm build</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run ng build -prod -bh "http://localhost:8181/awisc/"
-								-d "http://localhost:8181/awisc/"</arguments>
+							<arguments>run prod-build</arguments>
 						</configuration>
-					</execution> -->
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<id>exec ng build</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<executable>ng</executable>
-					<!-- optional -->
-					<workingDirectory>angular</workingDirectory>
-					<arguments>
-						<argument>build</argument>
-						<argument>-prod</argument>
-						<argument>-bh</argument>
-						<argument>http://localhost:8181/awisc/</argument>
-						<argument>-d</argument>
-						<argument>http://localhost:8181/awisc/</argument>
-					</arguments>
-				</configuration>
 			</plugin>
 
 			<!-- Plugin to copy the content of /angular/dist/ directory to output 
