@@ -19,5 +19,13 @@ public interface AwiscIndexingService {
 	 * @return
 	 */
 	LdshIndexDTO getLdshIndexDTO(LdshDTO ldsh);
+	
+	/**
+	 * Deletes an LDSH entry from the elasticsearch index. Used when deleting the LDSH from AWISC
+	 * @param systemId
+	 * @return
+	 * @throws Exception
+	 */
+	void deleteLdsh(String systemId);
 
 }

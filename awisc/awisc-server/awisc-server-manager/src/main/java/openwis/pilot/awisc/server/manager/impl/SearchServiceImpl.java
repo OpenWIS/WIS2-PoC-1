@@ -2,7 +2,6 @@ package openwis.pilot.awisc.server.manager.impl;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -10,7 +9,6 @@ import javax.inject.Singleton;
 import javax.transaction.Transactional;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
-import org.apache.cxf.jaxrs.provider.json.JSONProvider;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 
 import openwis.pilot.awisc.server.common.dto.DatasetDTO;
@@ -48,21 +46,6 @@ public class SearchServiceImpl implements SearchService {
 	private static String QUERY_SIMPLE_SEARCH_LDSH_WMO_FRAGMENT_JSON_PATH = "/query.simple-search.ldsh.wmo-fragment.json";
 
 	/**
-	 * @return the JSON providers for a CXF client call
-	 */
-	private List<JSONProvider<?>> getProviders() {
-		List<JSONProvider<?>> providers = new ArrayList<JSONProvider<?>>();
-		JSONProvider<?> jsonProvider = new JSONProvider<>();
-		jsonProvider.setDropRootElement(true);
-		jsonProvider.setDropCollectionWrapperElement(true);
-		jsonProvider.setSerializeAsArray(true);
-		jsonProvider.setSupportUnwrapped(true);
-		providers.add(jsonProvider);
-
-		return providers;
-	}
-
-	/**
 	 * Executes a search against the WMO Codes and returns the results in a string
 	 * that will be part of the query on LDSHs/Datasets
 	 * 
@@ -97,22 +80,21 @@ public class SearchServiceImpl implements SearchService {
 
 		return wmoCodeFragmentQueryString;
 	}
-	
+
 	/**
-	 * Takes as input the wmo codes selected in the advanced search, and returns a string
-	 * that will be part of the query on LDSHs/Datasets
+	 * Takes as input the wmo codes selected in the advanced search, and returns a
+	 * string that will be part of the query on LDSHs/Datasets
+	 * 
 	 * @param wmoCodes
 	 * @return
 	 * @throws IOException
 	 */
-	private String getWmoCodeFragmentQueryString(List<String> wmoCodes)
-			throws IOException {
+	private String getWmoCodeFragmentQueryString(List<String> wmoCodes) throws IOException {
 		String wmoCodeFragmentQueryString = "";
 		for (String wmoCode : wmoCodes) {
 			String wmoCodeFragmentString = Util
 					.readResource(QUERY_SIMPLE_SEARCH_LDSH_WMO_FRAGMENT_JSON_PATH, StandardCharsets.UTF_8.name())
-					.replace(PLACEHOLDER_WMO_CODE, wmoCode)
-					.replace(PLACEHOLDER_BOOST, "100");
+					.replace(PLACEHOLDER_WMO_CODE, wmoCode).replace(PLACEHOLDER_BOOST, "100");
 			wmoCodeFragmentQueryString += wmoCodeFragmentString;
 		}
 
@@ -187,7 +169,8 @@ public class SearchServiceImpl implements SearchService {
 				.translateResponse(getDatasetsResponseString, LdshFullDTO.class);
 		List<ElasticsearchHit<LdshFullDTO>> ldshsList = ElasticsearchUtil.getHits(getDatasetsResponse);
 		for (ElasticsearchHit<LdshFullDTO> ldshHit : ldshsList) {
-			sorter.addMissingNestedHits(ldshHit.get_source().getSystemId(), ldshHit.get_source().getDatasets(), "prefix");
+			sorter.addMissingNestedHits(ldshHit.get_source().getSystemId(), ldshHit.get_source().getDatasets(),
+					"prefix");
 		}
 
 		return sorter.getOrderedHits();
@@ -203,7 +186,7 @@ public class SearchServiceImpl implements SearchService {
 	public SearchResultsDTO simpleSearch(String searchString) throws Exception {
 
 		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
-				AwiscElasticsearchService.class, getProviders(), true);
+				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
 
 		String wmoCodeFragmentQueryString = getWmoCodeFragmentQueryString(elasticearchService, searchString);
 		List<ElasticsearchHit<LdshDTO>> ldshHits = getLdshHits(elasticearchService, searchString,
@@ -224,18 +207,22 @@ public class SearchServiceImpl implements SearchService {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see openwis.pilot.awisc.server.manager.service.SearchService#advancedSearch(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * openwis.pilot.awisc.server.manager.service.SearchService#advancedSearch(java.
+	 * lang.String)
 	 */
 	@Override
 	public SearchResultsDTO advancedSearch(SearchDTO searchDTO) throws Exception {
 		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
-				AwiscElasticsearchService.class, getProviders(), true);
-		
+				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
+
 		String wmoCodeFragmentQueryString = getWmoCodeFragmentQueryString(searchDTO.getWmoCodes());
 		List<ElasticsearchHit<LdshDTO>> ldshHits = getLdshHits(elasticearchService, searchDTO.getSearchText(),
 				wmoCodeFragmentQueryString);
-		
+
 		List<ElasticseaerchResultEntry<LdshDTO, DatasetDTO>> orderedResults = getOrderedResults(elasticearchService,
 				ldshHits, searchDTO.getSearchText(), wmoCodeFragmentQueryString);
 

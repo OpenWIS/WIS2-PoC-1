@@ -2,7 +2,8 @@
 
 <p style="padding:2em 0;text-align:center;">
 
-  Welcome to the Authoritative WIS Catalogue. From here you can search for datasets provided by various Local Data Sharing Hubs (LDSHs).
+  Welcome to the Authoritative WIS Catalogue. From here you can search for datasets provided by various Local Data Sharing
+  Hubs (LDSHs).
 
 </p>
 
@@ -12,7 +13,7 @@
     <p>Simple Search</p>
     <span class="ui-spacer"></span>
     <button mat-icon-button class="transparent" (click)="navigateToMenu()" mat>
-        <i class="fa fa-search-plus mat-icon" matTooltip="Advanced Search"></i>
+      <i class="fa fa-search-plus mat-icon" matTooltip="Advanced Search"></i>
     </button>
   </mat-toolbar>
   <div style="padding:2em;">
@@ -27,8 +28,6 @@
       </div>
 
     </form>
-    <div *ngIf="searchResults">
-      <search-results [searchResults]='searchResults'></search-results>
-    </div>
+    <search-results [searchResults]='searchResults'></search-results>
   </div>
 </div>

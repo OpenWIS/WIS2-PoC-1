@@ -1,15 +1,21 @@
-<div class="search-results-title">Search results</div>
-<div class="search-result" *ngFor="let result of searchResults.searchResults">
-  <div class="search-result-link">
-    <a href="{{result.dataset.url}}">{{result.dataset.name}}</a>
+<div *ngIf="searchResults && searchResults.searchResults.length > 0">
+  <div class="search-results-title">Search results</div>
+  <div class="search-result" *ngFor="let result of searchResults.searchResults">
+    <div class="search-result-link">
+      <a href="{{result.dataset.url}}">{{result.dataset.name}}</a>
+    </div>
+    <div class="search-result-link-text">{{result.dataset.url}}</div>
+    <div class="search-result-info">
+      <div class="info-chunk">Location: {{result.dataset.city}}, {{result.dataset.region}}, {{result.dataset.country}}, ({{result.dataset.latittude}},
+        {{result.dataset.longitude}}, {{result.dataset.elevation}});</div>
+      <div class="info-chunk">LDSH: {{result.ldsh.name}} [ID: {{result.ldsh.systemId}}];</div>
+      <div class="info-chunk">Format: {{result.dataset.dataFormat}};</div>
+      <div class="info-chunk">Update frequency: {{result.dataset.updateFrequency}};</div>
+      <div class="info-chunk">Last update: {{result.dataset.lastUpdate}}</div>
+    </div>
+    <div class="search-result-description">{{result.dataset.description}}</div>
   </div>
-  <div class="search-result-link-text">{{result.dataset.url}}</div>
-  <div class="search-result-info">
-    <div class="info-chunk">Location: {{result.dataset.city}}, {{result.dataset.region}}, {{result.dataset.country}}, ({{result.dataset.latittude}}, {{result.dataset.longitude}}, {{result.dataset.elevation}});</div>
-    <div class="info-chunk">LDSH: {{result.ldsh.name}} [ID: {{result.ldsh.systemId}}];</div>
-    <div class="info-chunk">Format: {{result.dataset.dataFormat}};</div>
-    <div class="info-chunk">Update frequency: {{result.dataset.updateFrequency}};</div>
-    <div class="info-chunk">Last update: {{result.dataset.lastUpdate}}</div>
-  </div>
-  <div class="search-result-description">{{result.dataset.description}}</div>
+</div>
+<div *ngIf="searchResults && searchResults.searchResults.length == 0">
+    <div class="search-results-title">No results found for your search</div>
 </div>

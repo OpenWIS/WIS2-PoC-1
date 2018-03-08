@@ -7,6 +7,7 @@
     "SETTINGS_SAVE_ERROR": "There was a problem saving the settings.",
     "LDSH_DELETE_ERROR": "There was a problem deleting the LDSH.",
     "LDSH_GET_ERROR": "There was a problem retrieving the LDSH.",
-    "LDSH_SAVE_ERROR": "There was a problem saving the LDSH."
+    "LDSH_SAVE_ERROR": "There was a problem saving the LDSH.",
+    "LDSH_SAVE_ERROR_DUPLICATE_SYSTEM_ID": "Error: An LDSH with the same System ID already exists"
 }
 

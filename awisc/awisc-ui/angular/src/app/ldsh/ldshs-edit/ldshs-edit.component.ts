@@ -54,7 +54,11 @@ export class LdshsEditComponent implements OnInit {
 
   // Save LDSH handler.
   onSubmit({ value }: { value: LdshDTO }) {
-    this.ldshService.save(value, null, null);
+    this.ldshService.save(value, this.onLdshSaveSuccess, null);
   }
+
+  onLdshSaveSuccess = (response) => {
+    this.router.navigate(['/ldshs']);
+  };
 
 }

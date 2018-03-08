@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
+import openwis.pilot.awisc.server.common.exception.ServiceException;
 
 public interface LdshService extends Serializable{
 
@@ -31,7 +32,7 @@ public interface LdshService extends Serializable{
    * @param ldshDTO The DTO with the information of the Ldsh to save or update.
    * @return Returns the Ldsh that was saved or created.
    */
-  LdshDTO saveLdsh(LdshDTO ldshDTO);
+  LdshDTO saveLdsh(LdshDTO ldshDTO) throws ServiceException;
 
   /**
    * Checks whether an Ldsh token is registered into the system.

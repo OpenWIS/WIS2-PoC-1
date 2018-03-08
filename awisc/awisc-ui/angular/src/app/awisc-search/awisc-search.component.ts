@@ -152,7 +152,6 @@ export class AwiscSearchComponent implements OnInit {
 
   showSearchResults = (response) => {
     this.searchResults = <SearchResults>JSON.parse(JSON.stringify(response.body));
-    this.searchResults = (this.searchResults.searchResults.length == 0 ? null : this.searchResults);
   }
 
   navigateToHome() {

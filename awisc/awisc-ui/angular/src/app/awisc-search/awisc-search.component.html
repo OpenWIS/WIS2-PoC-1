@@ -58,8 +58,6 @@
       <button mat-button type="button" (click)="search()">Search</button>
 
     </form>
-    <div *ngIf="searchResults">
-      <search-results [searchResults]='searchResults'></search-results>
-    </div>
+    <search-results [searchResults]='searchResults'></search-results>
   </div>
 </div>

@@ -19,6 +19,7 @@ import org.ops4j.pax.cdi.api.OsgiService;
 
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
 import openwis.pilot.awisc.server.common.dto.ServiceMessage;
+import openwis.pilot.awisc.server.common.exception.ServiceException;
 import openwis.pilot.awisc.server.common.util.Constants;
 import openwis.pilot.awisc.server.manager.service.AwiscIndexingService;
 import openwis.pilot.awisc.server.manager.service.LdshService;
@@ -77,7 +78,7 @@ public class Ldsh {
 	@JWTNeeded
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ServiceMessage saveLdsh(LdshDTO ldshDTO) {
+	public ServiceMessage saveLdsh(LdshDTO ldshDTO) throws ServiceException{
 		ldshService.saveLdsh(ldshDTO);
 		return new ServiceMessage(Constants.MessageCode.LDSH_SAVE_SUCCESS);
 	}

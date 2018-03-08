@@ -30,14 +30,20 @@ import com.eurodyn.qlack2.fuse.search.api.SearchService;
 import com.eurodyn.qlack2.fuse.search.api.dto.IndexingDTO;
 import com.eurodyn.qlack2.fuse.search.api.request.CreateIndexRequest;
 
+import openwis.pilot.awisc.server.common.dto.DatasetDTO;
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
+import openwis.pilot.awisc.server.common.dto.SearchResultDTO;
+import openwis.pilot.awisc.server.common.dto.SearchResultsDTO;
 import openwis.pilot.awisc.server.common.dto.WmoCodeDTO;
 import openwis.pilot.awisc.server.manager.cxf.LdshAwiscIndexingService;
+import openwis.pilot.awisc.server.manager.es.AwiscElasticsearchService;
 import openwis.pilot.awisc.server.manager.jobs.LdshIndexerJob;
 import openwis.pilot.awisc.server.manager.service.AwiscIndexingService;
 import openwis.pilot.awisc.server.manager.service.LdshService;
 import openwis.pilot.awisc.server.manager.service.WmoCodeService;
 import openwis.pilot.awisc.server.manager.util.Util;
+import openwis.pilot.awisc.server.manager.util.es.ElasticseaerchResultEntry;
+import openwis.pilot.awisc.server.manager.util.es.ElasticsearchHit;
 import openwis.pilot.common.dto.awisc.LdshIndexDTO;
 
 @Singleton
@@ -196,8 +202,11 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 
 	}
 
-	/* (non-Javadoc)
-	 * @see openwis.pilot.awisc.server.manager.service.AwiscIndexingService#getLdshIndexDTO(openwis.pilot.awisc.server.common.dto.LdshDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see openwis.pilot.awisc.server.manager.service.AwiscIndexingService#
+	 * getLdshIndexDTO(openwis.pilot.awisc.server.common.dto.LdshDTO)
 	 */
 	@Override
 	public LdshIndexDTO getLdshIndexDTO(LdshDTO ldsh) {
@@ -215,6 +224,13 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 				LdshAwiscIndexingService.class, providers, true);
 
 		return ldshAwiscIndexingService.index();
+	}
+
+	@Override
+	public void deleteLdsh(String systemId){
+		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
+				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
+		elasticearchService.delete(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, systemId);
 	}
 
 }
