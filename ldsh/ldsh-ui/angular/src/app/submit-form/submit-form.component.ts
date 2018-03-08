@@ -286,13 +286,17 @@ export class SubmitFormComponent implements OnInit {
 
     this.dataService.getCall("getAllDataFormats").then(result => {
       this.dataformats = result;
+      this.dataformats.sort(this.predicateBy("name"));
       this.dataService.getCall("getAllWmoCodes").then(result => {
 
         this.wmoCodes = result;
         this.dataService.getCall("getAllCountries").then(result => {
           this.countries = result;
+          this.countries.sort(this.predicateBy("name"));
+
           this.dataService.getCall("getMeasurementUnits").then(result => {
             this.measurementUnits = result;
+            this.measurementUnits.sort(this.predicateBy("name"));
             this.fetchDataset(id);
           })
         })
@@ -374,7 +378,7 @@ export class SubmitFormComponent implements OnInit {
   }
   private getSubscrUrl(dataset: any) {
 
-    let subscrUrl: String = this.rdshUrl+"/"+this.sysId;
+    let subscrUrl: String = this.rdshUrl + "/" + this.sysId;
     //Optional field
     if (dataset.relativeUrl) {
       subscrUrl = subscrUrl + "/" + dataset.relativeUrl;
@@ -415,4 +419,18 @@ export class SubmitFormComponent implements OnInit {
         ? "Not a valid email"
         : "not valid Mail";
   }
+
+  private predicateBy(prop) {
+    return function (a, b) {
+      if (a[prop] > b[prop]) {
+        return 1;
+      } else if (a[prop] < b[prop]) {
+        return -1;
+      }
+      return 0;
+    }
+  }
+
+
 }
+

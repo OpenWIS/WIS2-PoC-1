@@ -72,8 +72,10 @@
 					</div>
 					<div class="box-content-row">
 						<span>Subscription URI:</span> {{dataSet.subscriptionUri}}</div>
+						<!-- *ngIf="!dataSet.periodTo" -->
+					<div *ngIf="dataSet.lastUpdate" class="box-content-row">
+						<span>Last Update:</span> {{dataSet.lastUpdate | date:'medium'}}</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
