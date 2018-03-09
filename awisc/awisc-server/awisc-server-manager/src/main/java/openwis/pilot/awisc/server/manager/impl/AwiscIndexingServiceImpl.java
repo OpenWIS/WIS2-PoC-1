@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.provider.json.JSONProvider;
+import org.apache.karaf.scheduler.JobContext;
 import org.apache.karaf.scheduler.ScheduleOptions;
 import org.apache.karaf.scheduler.Scheduler;
 import org.ops4j.pax.cdi.api.OsgiService;
@@ -167,8 +168,25 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 		Map<String, Serializable> jobConfig = new HashMap<String, Serializable>();
 		jobConfig.put("awiscIndexingService", this);
 		jobConfig.put("ldshService", ldshService);
-		scheduler.schedule(new LdshIndexerJob(), scheduler.NOW().config(jobConfig));
-		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */15 * * * ?").config(jobConfig));
+		
+		Map<String, Serializable> jobConfig2 = new HashMap<String, Serializable>();
+		jobConfig2.put("awiscIndexingService", this);
+		jobConfig2.put("ldshService", ldshService);
+		
+		LdshIndexerJob nowJob = new LdshIndexerJob();
+		nowJob.execute(new JobContext() {
+
+			@Override
+			public String getName() {
+				return "LdshIndexerJob";
+			}
+
+			@Override
+			public Map<String, Serializable> getConfiguration() {
+				return jobConfig;
+			}
+		});
+		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */1 * * * ?").config(jobConfig2));
 	}
 
 	/**
@@ -227,7 +245,7 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	}
 
 	@Override
-	public void deleteLdsh(String systemId){
+	public void deleteLdsh(String systemId) {
 		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
 				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
 		elasticearchService.delete(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, systemId);

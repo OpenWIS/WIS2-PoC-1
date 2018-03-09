@@ -51,9 +51,9 @@ export class AwiscMainComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (!AppComponent.menuOpen) {
-      document.getElementById('sitenav').click();
-    }
+    // if (!AppComponent.menuOpen) {
+    //   document.getElementById('sitenav').click();
+    // }
   }
 
 

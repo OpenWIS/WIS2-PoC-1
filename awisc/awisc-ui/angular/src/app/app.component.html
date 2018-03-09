@@ -1,6 +1,6 @@
 <mat-toolbar #toolbar class="header">
   <mat-toolbar-row class="header">
-    <i id="sitenav" class="fa fa-bars mat-icon menu-icon" (click)="sidenav.toggle()" *ngIf="hideShowControls()"></i>
+    <i id="sitenav" class="fa fa-bars mat-icon menu-icon" (click)="sidenav.toggle()" *ngIf="showMenu"></i>
 
     <a class="nav-link" style="text-decoration: none !important;" routerLink="home">
       <p #titleText></p>
@@ -12,15 +12,16 @@
       <i class="fa fa-sign-in mat-icon menu-icon"></i>
     </button>
     <button mat-icon-button class="transparent" (click)="logout()" matTooltip="Sign-out" *ngIf="isLoggedIn">
-      <i class="fa fa-sign-out mat-icon menu-icon"></i>
+      <i class="fa fa-sign-out mat-icon menu-icon" ></i>
     </button>
+    <!--  -->
 
   </mat-toolbar-row>
 </mat-toolbar>
 
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" opened="true" class="nav" (openedChange)="onOpenedChange()">
+  <mat-sidenav #sidenav mode="side" opened="false" class="nav" (openedChange)="onOpenedChange()">
     <ul>
 
       <li class="nav-item">

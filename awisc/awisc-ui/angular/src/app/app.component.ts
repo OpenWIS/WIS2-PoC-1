@@ -4,6 +4,7 @@ import { SettingsService } from "./_services/rest/settings.service";
 import { MatSidenav, MatIconRegistry } from "@angular/material";
 import { LoginService } from "../app/_services/rest/login.service";
 import { RestClient } from "../app/_services/rest/rest-client.service";
+import { AuthUtil } from "../app/_services/auth.util";
 import { environment } from "../environments/environment";
 
 @Component({
@@ -18,28 +19,42 @@ export class AppComponent implements OnInit {
   @ViewChild("email") private email: ElementRef;
 
   currentUrl: string;
+  sidenavOpen: boolean = false;
+  isLoggedIn: boolean = false;
   static selectedMenuItem: any;
-  static menuOpen: boolean = true;
-  static isLoggedIn: boolean = false;
 
-  showhideCondrols: boolean = false;
+  showMenu: boolean = false;
 
   constructor(
     private router: Router,
     private settingsService: SettingsService,
     public matIconRegistry: MatIconRegistry,
     private loginService: LoginService,
-    private restClient: RestClient
+    private restClient: RestClient,
+    private authUtil: AuthUtil
   ) {
     matIconRegistry.registerFontClassAlias("fa");
+
+    this.authUtil.isLoggedIn().subscribe(loggedIn => {
+      console.log("AppComponent isLoggedIn subscriber: " + loggedIn);
+      if (loggedIn) {
+        this.showMenu = true;
+        this.isLoggedIn = true;
+      }
+      else {
+        this.sidenav.close();
+        this.showMenu = false;
+        this.isLoggedIn = false;
+      }
+    });
   }
 
-  get isLoggedIn() {
-    return AppComponent.isLoggedIn;
+  getSidenavOpen(){
+    return this.sidenavOpen;
   }
 
   onOpenedChange() {
-    AppComponent.menuOpen = this.sidenav.opened;
+    this.sidenavOpen = this.sidenav.opened;
   }
 
   getSettingValue(data, settingKey) {
@@ -51,7 +66,7 @@ export class AppComponent implements OnInit {
   }
 
   listSettingsCallback = response => {
-    
+
     var data = response.body;
     this.titleText.nativeElement.innerHTML = this.getSettingValue(
       data,
@@ -75,23 +90,13 @@ export class AppComponent implements OnInit {
 
   onLogoutSuccess = response => {
     sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
-    AppComponent.isLoggedIn = false;
+    this.authUtil.setLoggedIn(false);
+    this.router.navigateByUrl("/");
   };
 
-  hideShowControls(): boolean {
-    let currentUrl = this.router.url;
-
-    if (this.router.url === "/home" || this.router.url === "/awiscSearch") {
-      this.showhideCondrols = false;
-      this.sidenav.close();
-    } else {
-      this.showhideCondrols = true;
-    }
-    return this.showhideCondrols;
-  }
-
+  
   clicked(object) {
-    AppComponent.selectedMenuItem = object;
+    //AppComponent.selectedMenuItem = object;
   }
 
   get selectedMenuItem() {
@@ -102,5 +107,5 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl("/login");
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 }

@@ -26,6 +26,7 @@ import { SearchService } from "./_services/rest/search.service";
 import { WmoCodesService } from "./_services/rest/wmo-codes.service";
 import { ErrorUtil } from "./_services/error.util";
 import { SuccessUtil } from "./_services/success.util";
+import { AuthUtil } from "./_services/auth.util";
 import { MatSnackBarModule } from "@angular/material";
 import { JwtModule } from "@auth0/angular-jwt";
 import { environment } from "../environments/environment";
@@ -76,7 +77,8 @@ export function getJwtToken(): string {
     WmoCodesService,
     LdshService,
     ErrorUtil,
-    SuccessUtil
+    SuccessUtil,
+    AuthUtil
   ],
   entryComponents: [OkCancelDialogComponent],
   bootstrap: [AppComponent]

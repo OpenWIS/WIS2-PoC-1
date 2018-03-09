@@ -36,9 +36,9 @@ export class LdshsAdminComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (!AppComponent.menuOpen) {
-      document.getElementById('sitenav').click();
-    }
+    // if (!AppComponent.menuOpen) {
+    //   document.getElementById('sitenav').click();
+    // }
   }
 
   // Delete an LDSH by Id.
@@ -52,10 +52,14 @@ export class LdshsAdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.ldshService.delete(ldshId, null, null);
+        this.ldshService.delete(ldshId, this.onLdshDeleteSuccess, null);
       }
     });
   }
+
+  onLdshDeleteSuccess = (response) => {
+    this.getLDSHs();
+  };
 
 
   //index LDSH

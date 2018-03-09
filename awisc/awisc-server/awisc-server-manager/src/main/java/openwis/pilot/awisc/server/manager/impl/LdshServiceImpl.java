@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 
@@ -72,7 +73,13 @@ public class LdshServiceImpl implements LdshService {
 	public void deleteLdsh(Long ldshId) {
 		LdshDTO ldsh = getLdsh(ldshId);
 		new JPAQueryFactory(em).delete(qLdsh).where(qLdsh.id.eq(ldshId)).execute();
-		awiscIndexingService.deleteLdsh(ldsh.getSystemId());
+		try {
+			awiscIndexingService.deleteLdsh(ldsh.getSystemId());
+		}
+		catch(NotFoundException e) {
+			//in case the ldsh was not found in the index
+		}
+		
 	}
 
 	@Override

@@ -45,9 +45,9 @@ export class SettingsComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (!AppComponent.menuOpen) {
-      document.getElementById("sitenav").click();
-    }
+    // if (!AppComponent.menuOpen) {
+    //   document.getElementById("sitenav").click();
+    // }
   }
 
   // We need to manually parse the value of the form here, since it can not be mapped to an object.
