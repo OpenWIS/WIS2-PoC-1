@@ -50,7 +50,7 @@ export class RDSHComponent implements OnInit {
 
   checkRdshStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.remoteCall("http://" + rs.url + environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
+    this.dataService.remoteCall("" + rs.url + environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
       this.registrationStatus = "Verified";
 
       this.popValidateOk(poptValidation);

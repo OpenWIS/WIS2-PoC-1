@@ -112,7 +112,7 @@ export class AWISCComponent implements OnInit {
 
   checkAwiscStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.awiscCall("http://" + rs.url, "ldsh/token/" + rs.token).then(replay => {
+    this.dataService.awiscCall(rs.url+"", "ldsh/token/" + rs.token).then(replay => {
 
       this.registrationStatus = "Verified";
       this.popValidationMsg(poptValidation);
