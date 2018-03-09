@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>openwis.pilot.ldsh</groupId>
 		<artifactId>ldsh</artifactId>
@@ -38,7 +39,28 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
+					<!-- It will execute command install @angular/cli -->
+					<execution>
+						<id>npm install angular/cli</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save @angular/cli</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
+					<!-- It will execute command install @angular-devkit/core -->
+					<execution>
+						<id>npm install angular-devkit/core</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save @angular-devkit/core</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
 					<!-- It will execute command install compiler-cli -->
 					<execution>
 						<id>npm install compiler-cli</id>
@@ -50,7 +72,6 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install cdk -->
 					<execution>
 						<id>npm install cdk</id>
@@ -62,7 +83,6 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install material -->
 					<execution>
 						<id>npm install material</id>
@@ -74,7 +94,6 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install animations -->
 					<execution>
 						<id>npm install animations</id>
@@ -86,7 +105,6 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install hammerjs -->
 					<execution>
 						<id>npm install hammerjs</id>
@@ -98,7 +116,6 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
 					<!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>
 						<id>npm install</id>
@@ -110,7 +127,6 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
-
 					<!-- It will execute command "npm build" inside "/angular" directory 
 						to clean and create "/dist" directory -->
 					<execution>
@@ -119,12 +135,12 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>run prod-build</arguments>
+							<!-- <arguments>run dev-build</arguments> -->
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 			<!-- Plugin to copy the content of /angular/dist/ directory to output 
 				directory (ie/ /target/transactionManager-1.0/) -->
 			<plugin>
@@ -157,7 +173,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Web-ContextPath>/</Web-ContextPath>
+						<Web-ContextPath>/ldsh-gaul</Web-ContextPath>
 						<_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
 					</instructions>
 				</configuration>

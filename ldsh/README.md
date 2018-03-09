@@ -4,8 +4,8 @@
 config:edit org.ops4j.datasource-ldsh
 config:property-set user root
 config:property-set password jijikos
-config:property-set url jdbc:mysql://localhost:3306/ldsh_db?autoReconnect=true&createDatabaseIfNotExist=true
-config:property-set databaseName  ldsh_db 
+config:property-set url jdbc:mysql://localhost:3306/openwis?autoReconnect=true&createDatabaseIfNotExist=true
+config:property-set databaseName  openwis 
 config:property-set dataSourceName openwisDS 
 config:property-set osgi.jdbc.driver.name mysql
 config:property-set osgi.jpa.properties.hibernate.dialect org.hibernate.dialect.MySQL5InnoDBDialect
@@ -16,6 +16,11 @@ config:property-set jdbc.factory.validationQuery 'select 1'
 config:property-set jdbc.pool.testWhileIdle true
 config:property-set jdbc.factory.validationQueryTimeout 15
 config:update
+
+### Configure CXF 
+config:edit org.apache.cxf.osgi 
+config:property-set org.apache.cxf.servlet.context /ldsh-gaul/cxf 
+config:update 
  
 ### Configure Liquibase to use the Ldsh datasource
 config:edit com.eurodyn.qlack2.util.liquibase
@@ -26,22 +31,24 @@ config:update
 config:edit openwis.ldsh
 config:property-set ftp_server ftp://localhost/?delay=5s&delete=true&passiveMode=true&password=openwis&username=openwis
 config:property-set trg_file  target/download
+config:property-set jwt_secret 7fa6c11b-b8d4-1adb-c60d-1f6efbeec457
 config:update
 
 
 ### Install LDSH Karaf features repository
 feature:repo-add mvn:openwis.pilot.ldsh/ldsh-karaf-features/LATEST/xml/features
  
- feature:install ldsh
+ #feature:install ldsh
 
 ### Install DB connectivity feature and automatic Liquibase update
-#feature:install ldsh-database
+feature:install ldsh-database
  
 ### Install dependencies
-#feature:install ldsh-deps
+feature:install ldsh-deps
  
 ### Install the server feature
-#feature:install ldsh-server
+feature:install ldsh-server
 
- 
+### Workaround for entity class cast exception
+# refresh hibernate-osgi
  
