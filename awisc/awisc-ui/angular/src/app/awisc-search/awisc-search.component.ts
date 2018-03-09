@@ -90,7 +90,6 @@ export class AwiscSearchComponent implements OnInit {
 
   private removeFromArray(array: any[], item: any) {
     let index = array.indexOf(item);
-    console.log("index: " + index);
     if (index >= 0) {
       array.splice(index, 1);
     }

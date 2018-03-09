@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
     matIconRegistry.registerFontClassAlias("fa");
 
     this.authUtil.isLoggedIn().subscribe(loggedIn => {
-      console.log("AppComponent isLoggedIn subscriber: " + loggedIn);
       if (loggedIn) {
         this.showMenu = true;
         this.isLoggedIn = true;
