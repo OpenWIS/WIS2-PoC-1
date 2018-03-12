@@ -26,6 +26,9 @@ import { ChannelService } from './services/channel.service';
 import { ChartsModule } from 'ng2-charts';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
+export function getJwtToken(): string {
+  return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+}
 
 @NgModule({
   declarations: [
@@ -49,16 +52,13 @@ import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/
     routing,
     HttpClientModule,
     ChartsModule,
-    // NgxChartsModule,
-    // FusionChartsModule.forRoot(FusionCharts, Charts, Widgets),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
-        }
+        tokenGetter: getJwtToken
       }
     })
-  ],
+   ],
+
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: APP_BASE_HREF, useValue: '!'},
     LdshService, SettingsService, AuthGuard, AuthService, ChannelService

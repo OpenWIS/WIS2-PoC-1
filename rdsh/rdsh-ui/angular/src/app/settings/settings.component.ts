@@ -14,6 +14,8 @@ import {Router} from "@angular/router";
 })
 export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
+  hide :boolean = true;
+
 
   @ViewChild("readingTpSel") private readingTpSel: ElementRef;
 

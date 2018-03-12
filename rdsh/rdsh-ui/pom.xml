@@ -123,7 +123,8 @@
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run build</arguments>
+              <arguments>run prod-build</arguments>
+							<!-- <arguments>run dev-build</arguments> -->
             </configuration>
           </execution>
         </executions>
@@ -162,7 +163,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Web-ContextPath>/</Web-ContextPath>
+            <Web-ContextPath>/rdsh</Web-ContextPath>
             <_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
           </instructions>
         </configuration>
