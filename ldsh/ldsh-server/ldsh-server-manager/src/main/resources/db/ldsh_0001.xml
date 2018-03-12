@@ -18,7 +18,7 @@
 
 			LOCK TABLES  ldsh_country WRITE;
 
-			INSERT INTO  ldsh_country VALUES (1,'GR','Greece'),(2,'GB','United Kingdom'),(3,'US','United States of America'),(4,'FR','France'),(5,'AU','Australia'),(6,'FI','Finland'),(7,'DE','Germany'),(8,'JP','Japan'),(9,'IN','India'),(10,'CU','Cuba'),(11,'ES','Spain');
+			INSERT INTO  ldsh_country VALUES (1,'GR','Greece'),(2,'GB','Britannia'),(3,'US','United States of America'),(4,'FR','Gaul'),(5,'AU','Australia'),(6,'FI','Finland'),(7,'DE','Germany'),(8,'JP','Japan'),(9,'IN','India'),(10,'CU','Cuba'),(11,'ES','Spain');
 			UNLOCK TABLES;
 
 			--
@@ -41,7 +41,7 @@
 			--
 
 			LOCK TABLES ldsh_data_format WRITE;
-			INSERT INTO ldsh_data_format VALUES (1,'csv','csv'),(2,'xml','xml'),(3,'text','Text'),(4,'excel','Excel');
+			INSERT INTO ldsh_data_format VALUES (1,'csv','csv'),(2,'xml','xml'),(3,'text','txt'),(4,'excel','xlsx');
 			UNLOCK TABLES;
 
 			--
@@ -88,11 +88,10 @@
 
 			LOCK TABLES ldsh_dataset WRITE;
 
+			INSERT INTO `ldsh_dataset` VALUES (20,'Avaricum',NULL,'This Dataset is maintained  by Aurelius Lucius.','http://openwis-opp6-1.eurodyn.com:8181/cxf/ldsh-api/download/fr/avaricum','30','avaricum','https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dtwaRfaPaABXpwS3HGqWjq2u6PYM3_1680x8400','','7.9838° N','https://creativecommons.org/licenses/by/4.0/','3.7275° E','Yearly','Avaricum','2015-05-03 00:00:00','2018-08-23 00:00:00','','fr','Avaricum','openwis-opp6-rdsh.eurodyn.com:8181/gaul-ldsh/fr/avaricum',4,4,'',NULL),(21,'Cenabum',NULL,'Weather of Cenabum','http://openwis-opp6-1.eurodyn.com:8181/cxf/ldsh-api/download/fr/cenabum','321','cenabum','http://www.ccbuchner.de/_images/bilder/Downloads/Lektueretrainer_9582/Vercingetorix/VII14/karte_cenabum.jpg','','5.238° N','https://creativecommons.org/licenses/by/4.0/','4.45° E','Hourly','Cenabum','2016-02-14 00:00:00',NULL,'\0','fr','Cenabum','openwis-opp6-rdsh.eurodyn.com:8181/gaul-ldsh/fr/cenabum',2,4,'\0',NULL),(25,'Autricum',NULL,'Autricum wind dataset','http://openwis-opp6-1.eurodyn.com:8181/cxf/ldsh-api/download/autricum/au','21','au','http://miltiade.pagesperso-orange.fr/Partage-511-1.jpg','','2','(c)','2','Weekly','Autricum','2018-03-05 00:00:00',NULL,'','autricum','Autricum','openwis-opp6-rdsh.eurodyn.com:8181/gaul-ldsh/autricum/au',3,4,'',NULL);		
 			
-			INSERT INTO ldsh_dataset VALUES 	(10,'Athens','GR','Rain volume in Athens',' http://localhost/AthQ/ath','72','ath','https://upload.wikimedia.org/wikipedia/commons/c/cf/Phyle_map-en.svg','jsonld	sample!!','37.9838° N','https://creativecommons.org/licenses/by/4.0/','23.7275° E','Day','Athens','2012-02-08 00:00:00','2018-02-02 00:00:00','\0','AthQ','attica',' http://localhost:AthQ:ath',1,1,FALSE,'2018-02-02 00:00:00') ,(11,'Iraklio','GR','Sun strength in Iraklion2',' http://localhost/iraklion','8','iraklion','https://upload.wikimedia.org/wikipedia/commons/3/3c/Nomos_Irakliou.png','','35.3387° N','','25.1442° E','Month','Iraklio sun','1992-01-05 00:00:00','2018-01-24 00:00:00','\0','','',' http://localhost:iraklion',NULL,NULL,FALSE, '2018-02-02 00:00:00')	,(12,'Thesaloniki','GR','Wind power in Thesaloniki',' http://localhost/Thesx','5','Thesx','https://upload.wikimedia.org/wikipedia/commons/a/aa/2011_Dimos_Thessalonikis.png','','40.7368 ° N','','22.9444° E','','Thesaloniki wind',NULL,NULL,'\0','','',' http://localhost:Thesx',3,3,FALSE,'2018-02-02 00:00:00')	,(14,'',NULL,'ar',NULL,'','','','','','','','','karam',NULL,NULL,'\0','','',NULL,NULL,11,FALSE, NULL), (15,'havana',NULL,'jvri',NULL,'1111','jv','d','dimi','44','sd','4444','Hour','jv',NULL,'2017-10-07 00:00:00','\0','','havana',NULL,2,10,FALSE, NULL)	,(19,'',NULL,'ds',' http://localhost/','','','','','','','','','test','2018-01-23 00:00:00','2018-01-23 00:00:00','\0','','',' http://localhost:',NULL,NULL,FALSE, NULL);
 			UNLOCK TABLES;
-			
-			
+
 			--
 			-- Table structure for table wmo_code
 			--
@@ -119,7 +118,6 @@
 			INSERT INTO ldsh_wmo_code VALUES ('grib2/codeflag/4.2/3-1-19',NULL,'Wind speed',NULL,1),('grib2/codeflag/4.2/0-0-13',NULL,'Wind chill factor',NULL,2),('bufr4/codeflag/0-08-001/4',NULL,'Maximum wind level',NULL,3),('bufr4/codeflag/0-08-086/4',NULL,'Maximum wind level',NULL,4),('bufr4/codeflag/0-20-004/16',NULL,'Rain',NULL,5),('bufr4/codeflag/0-20-004/6',NULL,'Rain',NULL,6),('bufr4/codeflag/0-20-005/6',NULL,'Rain',NULL,7),('306/4678/RA',NULL,'Precipitation of rain',NULL,8),('bufr4/codeflag/0-20-003/280',NULL,'Precipitation of rain',NULL,9),('grib2/codeflag/4.2/0-1-34',NULL,'Categorical freezing rain',NULL,10),	('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,11)	,('grib2/codeflag/4.2/0-0-21',NULL,'Apparent temperature',NULL,12),	('bufr4/b/12/024',NULL,'Dewpoint temperature',NULL,13),('bufr4/b/12/003',NULL,'Dewpoint temperature',NULL,14),('bufr4/b/12/152',NULL,'Highest daily mean temperature',NULL,15),	('grib2/codeflag/4.2/0-0-5',NULL,'Minimum temperature',NULL,16),	('bufr4/codeflag/0-08-050/8',NULL,'Minimum temperature',NULL,17),	('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from which blowing)',NULL,18),('bufr4/b/12/103',NULL,'Dewpoint temperature',NULL,19),('grib2/codeflag/4.2/0-6-24',NULL,'Sunshine',NULL,20),('grib2/codeflag/4.5/6',NULL,'Maximum wind level',NULL,21),	('grib2/codeflag/4.2/0-15-11',NULL,'Reflectivity of snow',NULL,22),('bufr4/codeflag/0-20-003/199',NULL,'Tornado',NULL,23),('grib2/codeflag/4.2/0-15-14',NULL,'Reflectivity of hail',NULL,24),	('grib2/codeflag/4.2/0-15-10',NULL,'Reflectivity of cloud ice',NULL,25),	('common/c-15/me/windDirection',NULL,'wind direction',NULL,26),	('grib2/codeflag/4.2/0-15-13',NULL,'Reflectivity of graupel',NULL,27),	('grib2/codeflag/4.2/0-2-33',NULL,'Wind fetch',NULL,28),('306/4678/SS','','Sandstorm','',29),('grib2/codeflag/4.2/0-0-6','','Dewpoint temperature','',30),('bufr4/codeflag/0-20-021/5','','Rain','',31),('grib2/codeflag/4.2/0-15-9',NULL,'Reflectivity of cloud droplets',NULL,33)	,('grib2/codeflag/4.2/10-0-4',NULL,'Direction of wind waves',NULL,34),('49-2/SigWxPhenomena/RDOACT_CLD','','Radioactive cloud','',35);
 			UNLOCK TABLES;
 			
-			
 			--
 			-- Table structure for table dataset_wmo_code
 			--
@@ -140,7 +138,7 @@
 			--
 
 			LOCK TABLES ldsh_dataset_wmo_code WRITE;
-			INSERT INTO ldsh_dataset_wmo_code VALUES (12,30),(11,31),(10,33),(10,34),(10,35);
+			INSERT INTO `ldsh_dataset_wmo_code` VALUES (21,1),(25,1),(25,3),(25,9),(20,10),(25,14),(20,15),(20,18),(20,20),(21,20),(20,28);
 			UNLOCK TABLES;
 
 			--
@@ -163,7 +161,9 @@
 			--
 
 			LOCK TABLES ldsh_remote_system WRITE;
-			INSERT INTO ldsh_remote_system VALUES (1,'rdsHub','\0','69a6d47f-9a71-7600-516a-274f94c7dee5',1,'localhost:8181'),(2,'dimisAwisc','\0','6b01585f-b52a-817a-766d-93047de34a99',0,'localhost:8181');
+			INSERT INTO `ldsh_remote_system` VALUES
+			(1,'RDSH System','\0','23d34692-33e9-551f-8702-73a5dcd2021e',1,'openwis-opp6-rdsh.eurodyn.com:8181'),
+			(2,'AWISC System','\0','88f12fa6-db8c-bb67-6911-276d3bcd2046',0,'openwis-opp6-awisc.eurodyn.com:8181');
 			UNLOCK TABLES;
 
 			--
@@ -185,7 +185,17 @@
 			--
 
 			LOCK TABLES ldsh_sys_properties WRITE;
-			INSERT INTO ldsh_sys_properties VALUES (1,'title','Athens Local Data Sharing Hub'),(2,'systemid','ath-ldsh'),(6,'email','email'),(7,'copyright','copy'),(8,'footerTxt','© 2017 - 2018 OpenWIS (Ath)'),(9,'homeTxt','Home page of Athens Local Data Sharing Hub'),(10,'ftpPassword','ftp pass'),(11,'ftpUrl','ftp url'),(12,'ftpUsername','ftp user name');
+			INSERT INTO ldsh_sys_properties VALUES
+			
+ 			(1,'title','Gaul Local Data Sharing Hub'),
+			(2,'systemid','gaul-ldsh'),
+			(6,'email','gaul@egaulmail.com'),
+			(7,'copyright','©'),
+			(8,'footerTxt','© 2017 - 2018 OpenWIS'),
+			(9,'homeTxt','Home page of Gaul Local Data Sharing Hub'),
+			(10,'ftpPassword',NULL),
+			(11,'ftpUrl',NULL),
+			(12,'ftpUsername',NULL);
 			UNLOCK TABLES;
 			
 			--
@@ -209,13 +219,12 @@
 			LOCK TABLES ldsh_frequency_unit WRITE;
 			INSERT INTO ldsh_frequency_unit 
 			VALUES 
-			(1,'year','http://codes.wmo.int/common/unit/a'),
-			(2,'Month','http://codes.wmo.int/common/unit/mon'),
-			(3,'Day','http://codes.wmo.int/common/unit/d'),
-			(4,'Hour','http://codes.wmo.int/common/unit/h'),
-			(5,'Minute (time)','http://codes.wmo.int/common/unit/min');
+			(1,'Yearly','http://codes.wmo.int/common/unit/a'),
+			(2,'Monthly','http://codes.wmo.int/common/unit/mon'),
+			(3,'Daily','http://codes.wmo.int/common/unit/d'),
+			(4,'Hourly','http://codes.wmo.int/common/unit/h'),
+			(6,'Weekly','http://codes.wmo.int/common/unit/_week');
 			UNLOCK TABLES;
-			
 			
 			
 			CREATE TABLE ldsh_user (
