@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { Title } from '@angular/platform-browser';
 import { DataSet } from '../dto/DataSet';
-
+import { WmoCode } from "../dto/WmoCode";
 
 
 @Component({
@@ -44,18 +44,27 @@ export class DatasetViewComponent implements OnInit {
         this.dataSet = result;
         this.titleService.setTitle(this.dataSet.name);
         this.updateMeasurments(this.dataSet);
-        if (!this.dataSet.imageUrl){
-          this.dataSet.imageUrl ="./assets/no_map.jpg"
+        if (!this.dataSet.imageUrl) {
+          this.dataSet.imageUrl = "./assets/no_map.jpg"
         }
       })
     }
   }
 
-  
+
   private updateMeasurments(dataSet: DataSet) {
+
     if (dataSet.wmoCodes) {
+
+      //cases with 1 element handle as array!
+      if (!Array.isArray(dataSet.wmoCodes)) {
+        var arr: WmoCode[] = [dataSet.wmoCodes];
+        dataSet.wmoCodes = arr;
+      }
+
       for (let mesurement of dataSet.wmoCodes) {
         this.measurements.push(mesurement.name);
+
       }
     }
   }
