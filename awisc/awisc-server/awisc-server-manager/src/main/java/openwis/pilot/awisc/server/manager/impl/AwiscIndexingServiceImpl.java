@@ -173,7 +173,7 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 		jobConfig2.put("awiscIndexingService", this);
 		jobConfig2.put("ldshService", ldshService);
 		
-		LdshIndexerJob nowJob = new LdshIndexerJob();
+	/*	LdshIndexerJob nowJob = new LdshIndexerJob();
 		nowJob.execute(new JobContext() {
 
 			@Override
@@ -185,8 +185,8 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 			public Map<String, Serializable> getConfiguration() {
 				return jobConfig;
 			}
-		});
-		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */1 * * * ?").config(jobConfig2));
+		});*/
+		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */15 * * * ?").config(jobConfig2));
 	}
 
 	/**
