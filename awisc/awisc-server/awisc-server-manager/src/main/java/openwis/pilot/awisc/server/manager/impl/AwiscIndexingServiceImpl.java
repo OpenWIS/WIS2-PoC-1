@@ -186,7 +186,7 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 				return jobConfig;
 			}
 		});
-		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */1 * * * ?").config(jobConfig2));
+		scheduler.schedule(new LdshIndexerJob(), scheduler.EXPR("0 */15 * * * ?").config(jobConfig2));
 	}
 
 	/**
