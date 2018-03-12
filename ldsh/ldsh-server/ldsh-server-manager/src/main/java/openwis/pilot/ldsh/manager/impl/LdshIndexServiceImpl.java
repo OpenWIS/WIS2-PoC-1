@@ -62,7 +62,7 @@ public class LdshIndexServiceImpl implements LdshIndexService {
 			diDto.setDescription(dataset.getDescription());
 			diDto.setPrefix(dataset.getFilenameprefix());
 			
-			diDto.setUrl(baseUrl + "/#!/view?id=" + dataset.getId());
+			diDto.setUrl(baseUrl + "/" + ldshSystemId +  "/#!/view?id=" + dataset.getId());
 			
 			diDto.setPeriodFrom(dataset.getPeriodFrom()!=null?sdf.format(dataset.getPeriodFrom()):null);
 			diDto.setPeriodFrom(dataset.getPeriodTo()!=null?sdf.format(dataset.getPeriodTo()):null);
