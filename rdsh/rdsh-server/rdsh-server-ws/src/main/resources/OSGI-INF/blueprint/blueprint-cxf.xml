@@ -9,7 +9,7 @@
       <property name="secret" value="${jwt_secret}"/>
     </bean>
 
-    <jaxrs:server address="/rdsh-api" id="rdshServer">
+    <jaxrs:server address="/api" id="rdshServer">
         <jaxrs:serviceBeans>
             <ref component-id="lDSHResource" />
             <ref component-id="settingsResource" />
