@@ -5,11 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href ./rdsh",
+    "build": "ng build ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod-build": "ng build -prod -bh https://openwis2.eurodyn.com/rdsh/ -d https://openwis2.eurodyn.com/rdsh/"
+    "prod-build": "ng build -bh https://openwis2.eurodyn.com/rdsh/ -d https://openwis2.eurodyn.com/rdsh/"
   },
   "private": true,
   "dependencies": {
