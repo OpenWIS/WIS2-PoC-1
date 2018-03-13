@@ -107,9 +107,10 @@ public class LdshServiceImpl implements LdshService {
 	@Override
 	public boolean validateLdshToken(String ldshToken) {
 		JPAQueryFactory f = new JPAQueryFactory(em);
-		boolean found = f.selectFrom(qLdsh).where(qLdsh.token.eq(ldshToken)).fetchOne() != null;
-		if(found) {
-			f.update(qLdsh).where(qLdsh.token.eq(ldshToken)).set(qLdsh.registrationDate, new Date());
+		Ldsh ldsh = f.selectFrom(qLdsh).where(qLdsh.token.eq(ldshToken)).fetchOne();
+		if(ldsh != null) {
+			ldsh.setRegistrationDate(new Date());
+			em.merge(ldsh);
 			return true;
 		}
 		return false;
