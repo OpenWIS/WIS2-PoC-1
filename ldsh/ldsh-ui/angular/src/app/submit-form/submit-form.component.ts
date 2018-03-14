@@ -34,7 +34,7 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
-  servicePrefix: string = "/cxf/api/download/";
+  servicePrefix: string = "/cxf/api/download";
   rdshUrl: String;
   sysId: String;
 

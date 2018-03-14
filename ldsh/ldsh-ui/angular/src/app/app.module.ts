@@ -19,8 +19,11 @@ import {JwtModule} from "@auth0/angular-jwt";
 import { AuthService } from './services/auth.service';
 import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
+import { environment } from '../environments/environment';
 
-
+export function getJwtToken(): string {
+  return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+}
 
 @NgModule({
   declarations: [
@@ -42,6 +45,11 @@ import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/
     ReactiveFormsModule,
     routing,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getJwtToken
+      }
+    })
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: APP_BASE_HREF, useValue: '!'},
