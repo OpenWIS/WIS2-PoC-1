@@ -18,11 +18,11 @@
   </mat-toolbar>
   <div style="padding:2em;">
 
-    <form [formGroup]="searchForm" class="field-full-width" (submit)="onSubmit()">
+    <form [formGroup]="searchForm" class="field-full-width" (submit)="search()">
 
       <div style="text-align:center;">
         <mat-form-field class="mat-form" style="width: 60%;margin-right:2em;">
-          <input matInput placeholder="Search datasets" formControlName="searchText">
+          <input matInput placeholder="Search datasets" formControlName="searchText" autocomplete="off">
         </mat-form-field>
         <button mat-button type="button" (click)="search()" style="display:inline-block;">Search</button>
       </div>

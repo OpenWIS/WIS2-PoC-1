@@ -22,11 +22,7 @@ export class AwiscMainComponent implements OnInit {
   searchForm: FormGroup;
 
   constructor(private router: Router, private settingsService: SettingsService, private searchService: SearchService) { }
-
-  onSubmit() {
-
-  }
-
+  
   getSettingValue(data, settingKey) {
     for (let setting of data) {
       if (setting.settingKey === settingKey) {

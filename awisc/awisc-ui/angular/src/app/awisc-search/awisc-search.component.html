@@ -22,7 +22,7 @@
 
       <!-- selection list of Available Reading Types-->
       <div style="display:inline-block;width :55%;">
-        <h5 matSubheader>Search with WMO Codes:</h5>
+        <h5 matSubheader>Available WMO Codes:</h5>
         <mat-form-field floatPlaceholder="never" style="width :80%;">
           <input matInput placeholder="WMO code" [matAutocomplete]="auto" [formControl]="stateCtrl">
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"  >
@@ -40,7 +40,7 @@
 
       <div style="display:inline-block;width :30%;vertical-align:top;">
         <!-- chip  -->
-        <h5 matSubheader>Selected Measurement Types:</h5>
+        <h5 matSubheader>Selected WMO Codes:</h5>
         <mat-chip-list #chipList>
           <mat-chip *ngFor="let wmos of selectedCodes" [selectable]="selectable" [removable]="removable" style="margin-bottom: 8px;">
             {{wmos.name}}
@@ -52,7 +52,7 @@
 
 
       <mat-form-field class="mat-form" style="width :80%">
-        <input matInput placeholder="Search datasets" formControlName="searchText">
+        <input matInput placeholder="Search datasets" formControlName="searchText" autocomplete="off" (keyup)="triggerSearch($event)">
       </mat-form-field>
 
       <button mat-button type="button" (click)="search()">Search</button>

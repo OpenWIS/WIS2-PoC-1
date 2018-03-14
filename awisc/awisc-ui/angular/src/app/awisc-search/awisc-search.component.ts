@@ -149,6 +149,12 @@ export class AwiscSearchComponent implements OnInit {
     this.searchService.advanced(sq, this.showSearchResults, null);
   }
 
+  triggerSearch(event) {
+    if (event.keyCode == 13) {
+      this.search();
+    }
+  }
+
   showSearchResults = (response) => {
     this.searchResults = <SearchResults>JSON.parse(JSON.stringify(response.body));
   }
