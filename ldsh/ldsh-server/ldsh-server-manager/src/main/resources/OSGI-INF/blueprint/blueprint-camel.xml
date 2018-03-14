@@ -32,7 +32,7 @@
 				<when>
 					<simple>$simple{in.headers.ValidLdshMessage}</simple>
 					<recipientList>
-						<simple>http4://${in.headers.destinationUrl}</simple>
+						<simple>https4://${in.headers.destinationUrl}</simple>
 					</recipientList>
 					<log message="Message sent to $simple{in.headers.destinationUrl}"
 						loggingLevel="INFO" />

@@ -19,6 +19,7 @@
 		<feature>ldsh-ui</feature>
 	</feature>
 	<feature name="ldsh-deps" version="${project.version}">
+		<feature>war</feature>
 		<feature>cxf-jaxrs</feature>
 		<feature>cxf-rs-security-cors</feature>
 		<feature>pax-cdi</feature>
@@ -61,7 +62,6 @@
 		</bundle>
 	</feature>
 	<feature name="ldsh-ui" version="${project.version}">
-		<feature>war</feature>
 		<bundle>mvn:openwis.pilot.ldsh/ldsh-ui/${project.version}</bundle>
 	</feature>
 </features>
