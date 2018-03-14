@@ -14,7 +14,7 @@ import "rxjs/add/operator/filter";
 })
 export class HomeComponent implements OnInit {
   // LDSH table.
-  displayedColumns = ['title', 'systemId', 'contactEmail', 'actions'];
+  displayedColumns = ['title', 'systemId', 'contactEmail'];
   dataSource = null;
 
   // Page-content variables.
