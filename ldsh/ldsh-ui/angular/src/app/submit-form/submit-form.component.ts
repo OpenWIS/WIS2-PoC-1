@@ -34,7 +34,7 @@ export class SubmitFormComponent implements OnInit {
   metadataForm: FormGroup;
   paramsObj: Object;
   pageUrl: String;
-  servicePrefix: string = "/cxf/ldsh-api/download";
+  servicePrefix: string = "/cxf/api/download/";
   rdshUrl: String;
   sysId: String;
 
@@ -367,7 +367,7 @@ export class SubmitFormComponent implements OnInit {
   }
 
   private getDownloadUrl(dataset: any) {
-    let downloadUrl: String = this.pageUrl + this.servicePrefix;
+    let downloadUrl: String = this.pageUrl + "/" + this.sysId+ this.servicePrefix;
     //Optional field
     if (dataset.relativeUrl) {
       downloadUrl = downloadUrl + "/" + dataset.relativeUrl;
