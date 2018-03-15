@@ -101,4 +101,22 @@ public class SettingsServiceImpl implements SettingsService {
 	public Optional<SettingDTO> getSetting(String settingKey) {
 		return getSettings().stream().filter(o -> o.getSettingKey().equals(settingKey)).findFirst();
 	}
+	
+	@Override
+	public String getSystemConfigurationValue(String systemPropertyKey) {
+		// Fetch settings from Config Admin.
+		try {
+			Configuration conf = configAdmin.getConfiguration(CONFIG_ADMIN_PID);
+			@SuppressWarnings("unchecked")
+			Dictionary<String, Object> props = conf.getProperties();
+			for (String key : CONFIG_ADMIN_SETTINGS) {
+				if (systemPropertyKey.equals(key)){
+					return (String) props.get(key);
+				}
+			}
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "Could not parse PID.", e);
+		}
+		return "";
+	}
 }

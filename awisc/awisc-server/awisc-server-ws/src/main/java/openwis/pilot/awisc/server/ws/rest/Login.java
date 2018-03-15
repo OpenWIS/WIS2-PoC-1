@@ -22,6 +22,7 @@ import openwis.pilot.awisc.server.common.util.Constants;
 import openwis.pilot.awisc.server.common.util.Constants.ErrorCode;
 import openwis.pilot.awisc.server.common.util.Constants.MessageCode;
 import openwis.pilot.awisc.server.manager.service.LoginService;
+import openwis.pilot.awisc.server.manager.service.SettingsService;
 import openwis.pilot.awisc.server.manager.util.JwtUtil;
 import openwis.pilot.awisc.server.ws.util.HasHttpHeaders;
 import openwis.pilot.awisc.server.ws.util.WebConstants;
@@ -40,15 +41,19 @@ public class Login implements HasHttpHeaders {
 	@OsgiService
 	private LoginService loginService;
 
+	@Inject
+	private SettingsService settingsService;
+
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response login(UserDTO user) throws ServiceException {
 		UserDTO fromDb = loginService.login(user);
+		String secret = settingsService.getSystemConfigurationValue(Constants.JWT_SECRET_SETTING_KEY);
 		return WebUtil.getResponseBuilder(new ServiceMessage(MessageCode.LOGIN_SUCCESS))
-				.header(WebConstants.Headers.AUTHORIZATION, JwtUtil.createJWT(fromDb.getId())).build();
-				
+				.header(WebConstants.Headers.AUTHORIZATION, JwtUtil.createJWT(fromDb.getUsername(), secret)).build();
+
 	}
 
 	@JWTNeeded

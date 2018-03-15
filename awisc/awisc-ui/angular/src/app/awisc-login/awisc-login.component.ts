@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppComponent } from "../app.component";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -27,6 +27,9 @@ export class AwiscLoginComponent implements OnInit {
   addOnBlur: any;
   displayFn: any;
   separatorKeysCodes: any;
+  
+  @ViewChild("username") private username: ElementRef;
+  
 
   onSubmit() {}
 
@@ -47,6 +50,7 @@ export class AwiscLoginComponent implements OnInit {
       username: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required])
     });
+    this.username.nativeElement.focus();
   }
 
   login() {
@@ -56,7 +60,7 @@ export class AwiscLoginComponent implements OnInit {
 
   onLoginSuccess = (response) => {
     var token = response.headers.get("Authorization");
-    sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token.substring("Bearer ".length));
+    sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token);
     this.router.navigateByUrl('/ldshs');
     this.authUtil.setLoggedIn(true);
   };

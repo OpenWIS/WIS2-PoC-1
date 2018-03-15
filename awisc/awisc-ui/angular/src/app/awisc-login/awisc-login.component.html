@@ -11,7 +11,7 @@
       <div style="display: table; margin: 2em auto;">
         <div>
           <mat-form-field class="mat-form">
-            <input matInput placeholder="Username" formControlName="username" [(ngModel)]="user.username" autocomplete="off">
+            <input #username matInput placeholder="Username" formControlName="username" [(ngModel)]="user.username" autocomplete="off">
           </mat-form-field>
           <div class="error" *ngIf="loginForm.get('username').touched && loginForm.get('username').hasError('required')">
             Username is required

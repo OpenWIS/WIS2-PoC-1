@@ -84,14 +84,17 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.loginService.logout(this.onLogoutSuccess, null);
-  }
-
-  onLogoutSuccess = response => {
+    //this.loginService.logout(this.onLogoutSuccess, null);
     sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
     this.authUtil.setLoggedIn(false);
-    this.router.navigateByUrl("/");
-  };
+    this.router.navigateByUrl("/home");
+  }
+
+  // onLogoutSuccess = response => {
+  //   sessionStorage.removeItem(environment.CONSTANTS.JWT_STORAGE_NAME);
+  //   this.authUtil.setLoggedIn(false);
+  //   this.router.navigateByUrl("/home");
+  // };
 
   
   clicked(object) {
