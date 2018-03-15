@@ -149,7 +149,6 @@ public class DatasetResource {
   
     
     @GET
-    @JWTNeeded
     @Path("/getDataset/id={id}")
     @CrossOriginResourceSharing(allowAllOrigins = true)
     @Produces(MediaType.APPLICATION_JSON)
