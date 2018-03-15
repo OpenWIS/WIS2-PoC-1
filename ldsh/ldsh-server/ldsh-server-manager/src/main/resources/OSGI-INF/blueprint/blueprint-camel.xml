@@ -11,6 +11,7 @@
 
 		<route id="gather">
 			<from uri="{{ftp_server}}" />
+			<to uri="bean:beanFileInputHandler" />
 			<to uri="file:{{trg_file}}" />
 			<to uri="bean:beanFileProcess" />
 			<to uri="direct:rest.prep" />
