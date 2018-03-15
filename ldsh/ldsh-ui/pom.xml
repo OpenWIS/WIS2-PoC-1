@@ -116,6 +116,19 @@
 							<!--<skip>${skip.npm.deps}</skip>-->
 						</configuration>
 					</execution>
+
+					<!-- It will execute command install @auth0/angular-jwt -->
+					<execution>
+						<id>npm install @auth0/angular-jwt</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install --save --save-exact @auth0/angular-jwt@1.0.0-beta.9</arguments>
+							<skip>${skip.npm.deps}</skip>
+						</configuration>
+					</execution>
+
 					<!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>
 						<id>npm install</id>
@@ -135,8 +148,8 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run prod-build</arguments>
-							<!-- <arguments>run dev-build</arguments> -->
+							<!-- <arguments>run prod-build</arguments> -->
+							<arguments>run dev-build</arguments>
 						</configuration>
 					</execution>
 				</executions>
