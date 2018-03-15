@@ -43,6 +43,7 @@ public class JWTNeededFilter implements ContainerRequestFilter {
     String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
     if(authorizationHeader == null) {
     	requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+    	return;
     }
 
     // Extract the token from the HTTP Authorization header
