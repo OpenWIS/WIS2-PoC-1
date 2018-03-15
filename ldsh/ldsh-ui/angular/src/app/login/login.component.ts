@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit {
       onNext => {
         // Save the JWT to be used in future requests.
         sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, onNext["jwt"]);
-        var token = onNext.headers.get("Authorization");
-        sessionStorage.setItem(environment.CONSTANTS.JWT_STORAGE_NAME, token.substring("Bearer ".length));
         // Navigate to the default admin page.
         this.router.navigate(['/datasets']);
       }, onError => {
