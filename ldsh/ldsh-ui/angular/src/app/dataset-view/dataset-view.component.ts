@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, Inject } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { MatInput, MatRadioGroup } from '@angular/material';
@@ -8,6 +8,7 @@ import { DataService } from '../data.service';
 import { Title } from '@angular/platform-browser';
 import { DataSet } from '../dto/DataSet';
 import { WmoCode } from "../dto/WmoCode";
+import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class DatasetViewComponent implements OnInit {
   measurements: String[] = [];
 
   constructor(private dataService: DataService, private activatedRoute: ActivatedRoute,
-    private router: Router, private titleService: Title) {
+    private router: Router, private titleService: Title, @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -45,7 +46,7 @@ export class DatasetViewComponent implements OnInit {
         this.titleService.setTitle(this.dataSet.name);
         this.updateMeasurments(this.dataSet);
         if (!this.dataSet.imageUrl) {
-          this.dataSet.imageUrl = "/assets/no_map.jpg"
+          this.dataSet.imageUrl = this.document.location.origin+"/assets/no_map.jpg"
         }
       })
     }
