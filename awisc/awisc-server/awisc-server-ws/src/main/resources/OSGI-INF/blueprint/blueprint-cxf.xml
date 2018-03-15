@@ -4,6 +4,10 @@
 	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
 
   	<cm:property-placeholder persistent-id="openwis.awisc" update-strategy="reload"/>
+  	
+  	<bean id="authFilter" class="openwis.pilot.common.security.JWTNeededFilter">
+      <property name="secret" value="${jwt_secret}"/>
+    </bean>
 	
     <jaxrs:server address="/api" id="awiscServer">
         <jaxrs:serviceBeans>
@@ -14,6 +18,7 @@
             <ref component-id="wmoCodes"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
+        	<ref component-id="authFilter"/>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
             <bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
             <bean

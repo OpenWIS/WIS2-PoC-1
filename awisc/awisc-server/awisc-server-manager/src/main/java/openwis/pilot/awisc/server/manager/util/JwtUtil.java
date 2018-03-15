@@ -1,14 +1,13 @@
 package openwis.pilot.awisc.server.manager.util;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.eurodyn.qlack2.util.jwt.JWTUtil;
+import com.eurodyn.qlack2.util.jwt.api.JWTGenerateRequest;
+
+import openwis.pilot.awisc.server.common.util.Constants;
 
 public class JwtUtil {
 
@@ -17,30 +16,30 @@ public class JwtUtil {
 	private static final Logger logger = Logger.getLogger(JwtUtil.class.getName());
 
 	// Sample method to construct a JWT
-	public static String createJWT(long userId) {
-		
-		String token = null;
-		try {
-			token = "Bearer " + Jwts.builder().setSubject(UUID.randomUUID().toString())
-					.signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8")).compact();
+	public static String createJWT(String username, String secret) {
 
-			tokenMap.put(token, userId);
-			return token;
-		} catch (UnsupportedEncodingException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
-		}
-		return null;
+		String token = null;
+
+		JWTGenerateRequest request = new JWTGenerateRequest();
+		request.setId(Constants.JWT_ISSUER);
+		request.setTtl(Constants.JWT_TTL);
+
+		request.setSecret(secret);
+
+		request.setSubject(username);
+		request.setIssuer(Constants.JWT_ISSUER);
+		token = JWTUtil.generateToken(request);
+
+		return token;
 	}
-	
+
 	public static boolean istokenValid(String token) {
 		return tokenMap.get(token) != null;
 	}
 
-
 	public static Long getUserId(String token) {
 		return tokenMap.get(token);
 	}
-	
 
 	public static boolean deleteToken(String token) {
 		return tokenMap.remove(token) != null;
