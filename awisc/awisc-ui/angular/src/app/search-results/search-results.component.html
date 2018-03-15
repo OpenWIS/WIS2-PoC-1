@@ -11,11 +11,14 @@
       <div class="info-chunk">LDSH: {{result.ldsh.name}} [ID: {{result.ldsh.systemId}}];</div>
       <div class="info-chunk">Format: {{result.dataset.dataFormat}};</div>
       <div class="info-chunk">Update frequency: {{result.dataset.updateFrequency}};</div>
-      <div class="info-chunk">Last update: {{result.dataset.lastUpdate}}</div>
+      <div class="info-chunk">Last update:
+        <span *ngIf="!result.dataset.lastUpdate">Never</span>
+        <span *ngIf="result.dataset.lastUpdate">{{ result.dataset.lastUpdate | date:'dd-MM-yyyy HH:mm:ss'}}</span>
+        </div>
+      </div>
+      <div class="search-result-description">{{result.dataset.description}}</div>
     </div>
-    <div class="search-result-description">{{result.dataset.description}}</div>
   </div>
-</div>
-<div *ngIf="searchResults && searchResults.searchResults.length == 0">
+  <div *ngIf="searchResults && searchResults.searchResults.length == 0">
     <div class="search-results-title">No results found for your search</div>
-</div>
+  </div>

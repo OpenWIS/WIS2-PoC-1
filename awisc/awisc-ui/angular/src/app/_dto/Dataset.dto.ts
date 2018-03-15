@@ -12,6 +12,6 @@ export class DatasetDTO {
   region: string;
   city: string;
   prefix: string;
-  lastUpdate: string;
+  lastUpdate: Date;
   license: string;
 }
