@@ -98,7 +98,7 @@
 			
 			
 			
-			insert into awisc_user(id, username, password) values(1, 'user1', 'pass1');
+			insert into awisc_user(id, username, password) values(1, 'awisc', 'openwis');
 			
 			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('title', 'Authoritative WIS Catalogue');
 			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('email', 'noreply@test.com');
