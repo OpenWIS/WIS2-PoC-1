@@ -45,7 +45,7 @@ export class DatasetViewComponent implements OnInit {
         this.titleService.setTitle(this.dataSet.name);
         this.updateMeasurments(this.dataSet);
         if (!this.dataSet.imageUrl) {
-          this.dataSet.imageUrl = "./assets/no_map.jpg"
+          this.dataSet.imageUrl = "/assets/no_map.jpg"
         }
       })
     }
