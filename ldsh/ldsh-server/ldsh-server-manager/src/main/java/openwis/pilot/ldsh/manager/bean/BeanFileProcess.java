@@ -47,7 +47,8 @@ public class BeanFileProcess<T> {
 					datasetMQTTPublishDTO = new DatasetMQTTPublishDTO();
 
 					if (dataset.isSendData()) {
-						datasetMQTTPublishDTO.setBinaryContentBase64(encodeToBase64(bodyText));
+						//encodeToBase64(bodyText)
+						datasetMQTTPublishDTO.setBinaryContentBase64(bodyText);
 					}
 				
 					String sysId = systemService.getAllSystemProperties().getSystemId();
