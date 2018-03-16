@@ -36,16 +36,12 @@ public class FileServiceImpl implements FileService {
 	public File getFile(String relativeUrl, String prefix) {
 		logger.log(Level.INFO, "Request for file with prefix:"+ prefix);
 
-		if (datasetService.verifyRelativeUrl(relativeUrl)) {
+//		if (datasetService.verifyRelativeUrl(relativeUrl)) {
 			String path = getDownloadFolder();
-			
+		
 			logger.log(Level.INFO, "Path found: "+ path);
-
 			return findFile(path, prefix);
-		} else {
-			logger.log(Level.WARNING, "File not found for prefix:"+ prefix +" at "+ relativeUrl);
-			return null;
-		}
+
 
 	}
 
@@ -64,16 +60,10 @@ public class FileServiceImpl implements FileService {
 	}
 
 	private String getDownloadFolder() {
-		logger.log(Level.INFO, "@DownloadFolder ");
-
 		try {
 			Configuration conf = configAdmin.getConfiguration(CONFIG_ADMIN_PID);
 			@SuppressWarnings("unchecked")
 			Dictionary<String, Object> props = conf.getProperties();
-logger.log(Level.INFO, " conf"+ CONFIG_ADMIN_PID);
-logger.log(Level.INFO, " conf prop is empty"+ conf.getProperties().isEmpty());
-logger.log(Level.INFO, " PATH "+ props.get(SOURCE_FILE_PATH).toString() );
-
 			return props.get(SOURCE_FILE_PATH).toString();
 
 		} catch (IOException e) {
