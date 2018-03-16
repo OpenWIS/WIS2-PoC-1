@@ -192,8 +192,6 @@ public class DatasetServiceImpl implements DatasetService {
 			return true;
 		}
 
-		logger.log(Level.WARNING, "Given url "+ url +"not found.");
-
 		return false;
 	}
 

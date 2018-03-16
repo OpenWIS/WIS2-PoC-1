@@ -43,7 +43,7 @@ public class FileResource {
     
     public Response getFile(@PathParam("relative") String relativeUrl, @PathParam("prefix") String prefix) {
         try {
-System.out.println("@getFile prefix "+prefix +" relative "+relativeUrl );
+
     	File file = fileService.getFile(relativeUrl, prefix );
     	logger.log(Level.INFO, "Downloading "+file.getName());
         return Response.ok(file , MediaType.APPLICATION_OCTET_STREAM)

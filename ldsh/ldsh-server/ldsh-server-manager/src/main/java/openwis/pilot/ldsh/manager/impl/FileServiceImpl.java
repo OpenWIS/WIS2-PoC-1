@@ -14,7 +14,6 @@ import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 
-import openwis.pilot.ldsh.manager.service.DatasetService;
 import openwis.pilot.ldsh.manager.service.FileService;
 
 @Singleton
@@ -25,8 +24,6 @@ public class FileServiceImpl implements FileService {
 	@Inject
 	private ConfigurationAdmin configAdmin;
 
-	@Inject
-	private DatasetService datasetService;
 
 	private static final String SOURCE_FILE_PATH = "trg_file";
 	private static final String CONFIG_ADMIN_PID = "openwis.ldsh";
@@ -34,14 +31,12 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public File getFile(String relativeUrl, String prefix) {
-		logger.log(Level.INFO, "Request for file with prefix:"+ prefix);
 
-//		if (datasetService.verifyRelativeUrl(relativeUrl)) {
-			String path = getDownloadFolder();
-		
-			logger.log(Level.INFO, "Path found: "+ path);
-			return findFile(path, prefix);
+		// if (datasetService.verifyRelativeUrl(relativeUrl)) {
+		String path = getDownloadFolder();
 
+		logger.log(Level.INFO, "Path found: " + path);
+		return findFile(path, prefix);
 
 	}
 
@@ -50,16 +45,15 @@ public class FileServiceImpl implements FileService {
 		final File folder = new File(path);
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.getName().startsWith(prefix)) {
-				logger.log(Level.INFO, "Found file :", fileEntry.getName());
 
 				return fileEntry;
 			}
 		}
-		logger.log(Level.WARNING, "File not found with prefix:"+ prefix +" at "+ SOURCE_FILE_PATH);
 		return null;
 	}
 
 	private String getDownloadFolder() {
+
 		try {
 			Configuration conf = configAdmin.getConfiguration(CONFIG_ADMIN_PID);
 			@SuppressWarnings("unchecked")
