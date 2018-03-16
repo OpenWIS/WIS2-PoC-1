@@ -34,12 +34,13 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public File getFile(String relativeUrl, String prefix) {
+		logger.log(Level.INFO, "Request for file with prefix:", prefix);
 
 		if (datasetService.verifyRelativeUrl(relativeUrl)) {
-
 			String path = getDownloadFolder();
 			return findFile(path, prefix);
 		} else {
+			logger.log(Level.WARNING, "File not found for prefix:"+ prefix +" at "+ relativeUrl);
 			return null;
 		}
 
@@ -50,10 +51,12 @@ public class FileServiceImpl implements FileService {
 		final File folder = new File(path);
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.getName().startsWith(prefix)) {
+				logger.log(Level.INFO, "Found file :", fileEntry.getName());
 
 				return fileEntry;
 			}
 		}
+		logger.log(Level.WARNING, "File not found with prefix:"+ prefix +" at "+ SOURCE_FILE_PATH);
 		return null;
 	}
 
