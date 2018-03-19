@@ -122,7 +122,7 @@ export class RDSHComponent implements OnInit {
           duration: 5000,
           verticalPosition: 'top'
         });
-        this.router.navigate(['/datasets']);
+        // this.router.navigate(['/datasets']);
       }, onError => {
         console.log(onError);
         this.snackBar.open('There was a problem saving the RDSH.', null, {
