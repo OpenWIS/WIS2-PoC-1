@@ -47,14 +47,14 @@
             <!-- From: //datepicker  -->
             <mat-form-field style="margin-right: 1em;">
               <!-- <input matInput [matDatepickerFrom]="picker" placeholder="From  date:"> -->
-              <input matInput [matDatepicker]="pickerFrom" placeholder="Period From :" formControlName="periodFrom">
+              <input matInput class="ng-trim-ignore" [matDatepicker]="pickerFrom" placeholder="Period From :" formControlName="periodFrom">
               <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
               <mat-datepicker #pickerFrom></mat-datepicker>
             </mat-form-field>
 
             <!-- To:: //datepicker -->
             <mat-form-field>
-              <input matInput [matDatepicker]="pickerTo" placeholder="Period To:" formControlName="periodTo">
+              <input matInput class="ng-trim-ignore" [matDatepicker]="pickerTo" placeholder="Period To:" formControlName="periodTo">
               <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
               <mat-datepicker #pickerTo></mat-datepicker>
             </mat-form-field>
@@ -84,7 +84,7 @@
             <div class="field-div3-width" >
               <h4 matSubheader>Available Measurement Types:</h4>
               <mat-form-field floatPlaceholder="never" style="width:17em;" >
-                <input matInput placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <input matInput class="ng-trim-ignore" placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.name" (onSelectionChange)="setSelectedCode($event, wmo.code)">
                     <span> {{ wmo.name }}</span>

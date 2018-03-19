@@ -33,6 +33,7 @@ import { environment } from "../environments/environment";
 import { AuthGuard } from "./guards/auth.guard";
 import { OkCancelDialogComponent } from "./_shared/ok-cancel-dialog.component";
 import { HashLocationStrategy, LocationStrategy, APP_BASE_HREF } from '@angular/common';
+import { TrimValueAccessorModule } from 'ng-trim-value-accessor';
 
 export function getJwtToken(): string {
   return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
@@ -51,6 +52,7 @@ export function getJwtToken(): string {
     OkCancelDialogComponent
   ],
   imports: [
+    TrimValueAccessorModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,

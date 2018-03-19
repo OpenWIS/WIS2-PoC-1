@@ -25,6 +25,7 @@ import { environment } from "../environments/environment";
 import { ChannelService } from './services/channel.service';
 import { ChartsModule } from 'ng2-charts';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
+import { TrimValueAccessorModule } from 'ng-trim-value-accessor';
 
 export function getJwtToken(): string {
   return sessionStorage.getItem(environment.CONSTANTS.JWT_STORAGE_NAME);
@@ -45,6 +46,7 @@ export function getJwtToken(): string {
     LoginComponent,
   ],
   imports: [
+    TrimValueAccessorModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,

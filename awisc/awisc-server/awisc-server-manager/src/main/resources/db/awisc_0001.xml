@@ -4,28 +4,7 @@
 
  	<changeSet author="OpenWIS" id="awisc_0001">
 		<sql>
-    
-			create table awisc_data_format (
-			    id bigint not null auto_increment,
-			     name varchar(255),
-			     primary key (id)
-			 ) engine=InnoDB;
-			
-			create table awisc_dataset (
-			   id bigint not null auto_increment,
-			    description varchar(255),
-			    elevation varchar(255),
-			    last_update datetime,
-			    latitude varchar(255),
-			    longitude varchar(255),
-			    name varchar(255),
-			    url varchar(255),
-			    data_format_id bigint,
-			    ldsh_id bigint,
-			    update_frequency_id bigint,
-			    primary key (id)
-			) engine=InnoDB;
-			
+    								
 			create table awisc_ldsh (
 			   id bigint not null auto_increment,
 			    contact_email varchar(255),
@@ -44,12 +23,6 @@
 			    primary key (setting_key)
 			) engine=InnoDB;
 			
-			create table awisc_update_frequency (
-			   id bigint not null auto_increment,
-			    name varchar(255),
-			    primary key (id)
-			) engine=InnoDB;
-			
 			create table awisc_user (
 			   id bigint not null auto_increment,
 			    password varchar(255),
@@ -65,43 +38,11 @@
 			    url varchar(255),
 			    primary key (id)
 			) engine=InnoDB;
-			
-			create table dataset_codes (
-			   dataset_id bigint not null,
-			    wmo_code_id bigint not null
-			) engine=InnoDB;
-			
-			alter table awisc_dataset 
-			   add constraint FK_awisc_dataset_data_format 
-			   foreign key (data_format_id) 
-			   references awisc_data_format (id);
-			
-			alter table awisc_dataset 
-			   add constraint FK_awisc_dataset_ldsh 
-			   foreign key (ldsh_id) 
-			   references awisc_ldsh (id);
-			
-			alter table awisc_dataset 
-			   add constraint FK_awisc_dataset_update_frequency 
-			   foreign key (update_frequency_id) 
-			   references awisc_update_frequency (id);
-			
-			alter table dataset_codes 
-			   add constraint FK_awisc_wmo_code_dataset_codes 
-			   foreign key (wmo_code_id) 
-			   references awisc_wmo_code (id);
-			
-			alter table dataset_codes 
-			   add constraint FK_awisc_dataset_dataset_codes 
-			   foreign key (dataset_id) 
-			   references awisc_dataset (id);
-			
-			
-			
+						
 			insert into awisc_user(id, username, password) values(1, 'awisc', 'openwis');
 			
 			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('title', 'Authoritative WIS Catalogue');
-			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('email', 'noreply@test.com');
+			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('email', 'admin@awisc.eu');
 			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('copyright', '(c) 2018');
 			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('header', 'Authoritative WIS Catalogue');
 			
