@@ -88,7 +88,7 @@
 
 			LOCK TABLES ldsh_dataset WRITE;
 
-			INSERT INTO `ldsh_dataset` VALUES (20,'Avaricum',NULL,'This Dataset is maintained  by Aurelius Lucius.','http://openwis-opp6-1.eurodyn.com:8181/cxf/ldsh-api/download/fr/avaricum','30','avaricum','https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dtwaRfaPaABXpwS3HGqWjq2u6PYM3_1680x8400','','7.9838° N','https://creativecommons.org/licenses/by/4.0/','3.7275° E','Yearly','Avaricum','2015-05-03 00:00:00','2018-08-23 00:00:00','','fr','Avaricum','openwis-opp6-rdsh.eurodyn.com:8181/gaul-ldsh/fr/avaricum',4,4,'',NULL),(21,'Cenabum',NULL,'Weather of Cenabum','http://openwis-opp6-1.eurodyn.com:8181/cxf/ldsh-api/download/fr/cenabum','321','cenabum','http://www.ccbuchner.de/_images/bilder/Downloads/Lektueretrainer_9582/Vercingetorix/VII14/karte_cenabum.jpg','','5.238° N','https://creativecommons.org/licenses/by/4.0/','4.45° E','Hourly','Cenabum','2016-02-14 00:00:00',NULL,'\0','fr','Cenabum','openwis-opp6-rdsh.eurodyn.com:8181/gaul-ldsh/fr/cenabum',2,4,'\0',NULL),(25,'Autricum',NULL,'Autricum wind dataset','http://openwis-opp6-1.eurodyn.com:8181/cxf/ldsh-api/download/autricum/au','21','au','http://miltiade.pagesperso-orange.fr/Partage-511-1.jpg','','2','(c)','2','Weekly','Autricum','2018-03-05 00:00:00',NULL,'','autricum','Autricum','openwis-opp6-rdsh.eurodyn.com:8181/gaul-ldsh/autricum/au',3,4,'',NULL);		
+			INSERT INTO `ldsh_dataset` VALUES (20,'Avaricum',NULL,'This Dataset is maintained  by Aurelius Lucius.','https://openwis2.eurodyn.com/ldsh-gaul/cxf/api/download/fr/avaricum','30','avaricum','https://steemit-production-imageproxy-thumbnail.s3.amazonaws.com/U5dtwaRfaPaABXpwS3HGqWjq2u6PYM3_1680x8400','','7.9838° N','https://creativecommons.org/licenses/by/4.0/','3.7275° E','Yearly','Avaricum','2015-05-03 00:00:00','2018-08-23 00:00:00','','fr','Avaricum','a url/ldsh-gaul/fr/avaricum',4,4,'',NULL),(21,'Cenabum',NULL,'Weather of Cenabum','https://openwis2.eurodyn.com/ldsh-gaul/cxf/api/download/fr/cenabum','321','cenabum','http://www.ccbuchner.de/_images/bilder/Downloads/Lektueretrainer_9582/Vercingetorix/VII14/karte_cenabum.jpg','','5.238° N','https://creativecommons.org/licenses/by/4.0/','4.45° E','Hourly','Cenabum','2016-02-14 00:00:00',NULL,'','fr','Cenabum','a url/ldsh-gaul/fr/cenabum',2,4,'\0',NULL),(25,'Autricum',NULL,'Autricum wind dataset','https://openwis2.eurodyn.com/ldsh-gaul/cxf/api/download/au/autricum','21','autricum','http://miltiade.pagesperso-orange.fr/Partage-511-1.jpg','','2° N','(c)','2° E','Weekly','Autricum','2018-03-05 00:00:00',NULL,'','au','Autricum','a url/ldsh-gaul/au/autricum',3,4,'',NULL);	
 			
 			UNLOCK TABLES;
 
@@ -161,9 +161,7 @@
 			--
 
 			LOCK TABLES ldsh_remote_system WRITE;
-			INSERT INTO `ldsh_remote_system` VALUES
-			(1,'RDSH System','\0','23d34692-33e9-551f-8702-73a5dcd2021e',1,'openwis-opp6-rdsh.eurodyn.com:8181'),
-			(2,'AWISC System','\0','88f12fa6-db8c-bb67-6911-276d3bcd2046',0,'openwis-opp6-awisc.eurodyn.com:8181');
+			INSERT INTO `ldsh_remote_system` VALUES (1,'-','\0','-',1,'-'),(2,'-','\0','-',0,'-');
 			UNLOCK TABLES;
 
 			--
