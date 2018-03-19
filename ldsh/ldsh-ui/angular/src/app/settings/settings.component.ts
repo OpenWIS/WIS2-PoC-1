@@ -90,6 +90,9 @@ export class SettingsComponent implements OnInit {
       messageObject['copyright'] = syspr.copyright;
       messageObject['footerTxt'] = syspr.footerTxt;
       messageObject['homeTxt'] = syspr.homeTxt;
+      messageObject['ftpUrl'] = syspr.ftpUrl;
+      messageObject['ftpUsername'] = syspr.ftpUsername;
+      messageObject['ftpPassword'] = syspr.ftpPassword;
 
 
       this.dataService.create("saveSettings", messageObject).subscribe(onNext => {
