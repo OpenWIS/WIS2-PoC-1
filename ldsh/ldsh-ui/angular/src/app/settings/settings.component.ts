@@ -51,6 +51,9 @@ export class SettingsComponent implements OnInit {
         copyright: new FormControl("", [Validators.required]),
         footerTxt: new FormControl("", [Validators.required]),
         homeTxt: new FormControl("", [Validators.required]),
+        ftpUrl: new FormControl(""),
+        ftpUsername: new FormControl(""),
+        ftpPassword: new FormControl(""),
 
       });
     } else {
@@ -63,6 +66,9 @@ export class SettingsComponent implements OnInit {
         copyright: new FormControl(rs.copyright, [Validators.required]),
         footerTxt: new FormControl(rs.footerTxt, [Validators.required]),
         homeTxt: new FormControl(rs.homeTxt, [Validators.required]),
+        ftpUrl: new FormControl(rs.ftpUrl),
+        ftpUsername: new FormControl(rs.ftpUsername),
+        ftpPassword: new FormControl(rs.ftpPassword),
 
       });
     }
