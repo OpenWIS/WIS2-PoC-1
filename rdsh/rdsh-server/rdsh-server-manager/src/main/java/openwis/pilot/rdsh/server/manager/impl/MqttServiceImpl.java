@@ -76,6 +76,7 @@ public class MqttServiceImpl implements MQTTService {
 				channelDTO = new ChannelDTO();
 				channelDTO.setChannelName(datasetMQTTPublishDTO.getDatasetName());
 				channelDTO.setChannelUri(datasetMQTTPublishDTO.getDownloadURL());
+				channelDTO.setChannelTopic(datasetMQTTPublishDTO.getTopic());
 				channelDTO.setMsessagesSent(1);
 
 				if (datasetMQTTPublishDTO.getBinaryContentBase64() != null) {

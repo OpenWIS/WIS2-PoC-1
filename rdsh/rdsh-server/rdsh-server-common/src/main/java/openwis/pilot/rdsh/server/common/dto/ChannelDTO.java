@@ -10,6 +10,7 @@ public class ChannelDTO {
 	private long msessagesSent;
 	private long bytesSent;
 	private long failedConnections;
+	private String channelTopic;
 	
 	public Long getId() {
 		return id;
@@ -52,6 +53,12 @@ public class ChannelDTO {
 	}
 	public void setFailedConnections(long failedConnections) {
 		this.failedConnections = failedConnections;
+	}
+	public String getChannelTopic() {
+		return channelTopic;
+	}
+	public void setChannelTopic(String channelTopic) {
+		this.channelTopic = channelTopic;
 	}
 	
 	

@@ -28,6 +28,10 @@ public class Channel implements Serializable {
 
 	@Column(name = "channel_uri")
 	private String channelUri;
+	
+	
+	@Column(name = "channel_topic")
+	private String channelTopic;
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "system_id")
@@ -92,6 +96,14 @@ public class Channel implements Serializable {
 
 	public long getFailedConnections() {
 		return failedConnections;
+	}
+	
+	public String getChannelTopic() {
+		return channelTopic;
+	}
+
+	public void setChannelTopic(String channelTopic) {
+		this.channelTopic = channelTopic;
 	}
 
 	public void setFailedConnections(long failedConnections) {
