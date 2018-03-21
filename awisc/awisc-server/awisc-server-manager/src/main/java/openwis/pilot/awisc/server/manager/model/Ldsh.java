@@ -43,10 +43,7 @@ public class Ldsh implements Serializable {
 	
 	@Column(name = "index_service_base_url")
 	private String indexServiceBaseUrl;
-
-	@OneToMany(mappedBy = "ldsh")
-	private List<Dataset> datasets;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -61,14 +58,6 @@ public class Ldsh implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Dataset> getDatasets() {
-		return datasets;
-	}
-
-	public void setDatasets(List<Dataset> datasets) {
-		this.datasets = datasets;
 	}
 
 	public String getToken() {
