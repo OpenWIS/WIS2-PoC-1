@@ -234,7 +234,7 @@
               <mat-radio-group #rdshOptions *ngIf="rdshDis.checked" formControlName=sendData>
                 <mat-radio-button [checked]='disseminateData === false' value="false">Notification Only</mat-radio-button>
 
-                <mat-radio-button [checked]='disseminateData === true' value="true">Notification + Data</mat-radio-button>
+                <mat-radio-button [checked]='disseminateData === true' value="true">Notification & Data</mat-radio-button>
               </mat-radio-group>
             </span>
           </p>
@@ -253,7 +253,7 @@
 
           <!-- Json -ld input -->
           <mat-form-field class="field-full-width" style="width:60%;">
-            <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
+            <textarea matInput placeholder="Json-LD input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
               class="field-full-width" rows="20"></textarea>
           </mat-form-field>
 
