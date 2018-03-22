@@ -84,7 +84,7 @@
             <div class="field-div3-width" >
               <h4 matSubheader>Available Measurement Types:</h4>
               <mat-form-field floatPlaceholder="never" style="width:17em;" >
-                <input matInput class="ng-trim-ignore" placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <input matInput class="ng-trim-ignore" placeholder="Measurement (WMO Code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.name" (onSelectionChange)="setSelectedCode($event, wmo.code)">
                     <span> {{ wmo.name }}</span>
