@@ -10,38 +10,30 @@
     <h4>Dataset Channel Information</h4>
 
     <dl style="padding:2em;">
+      <dt>LDSH:</dt>
+      <dd>{{channel.ldshDto.title}} / {{channel.ldshDto.systemId}} </dd>
       <dt>Dataset Name:</dt>
       <dd>{{channel.channelName}}</dd>
       <dt>Topic name:</dt>
       <dd>{{channel.channelTopic}}</dd>
-      <dt>Download Uri:</dt>
-      <dd>{{channel.channelUri}}</dd>
-      <dt>LDSH:</dt>
-      <dd>{{channel.ldshDto.title}} / {{channel.ldshDto.systemId}} </dd>
+      <dt>Download URL:</dt>
+      <!-- <dd>{{channel.channelUri}}</dd> -->
+      <a href={{element.channelUri}}>{{element.channelUri}}</a>
     </dl>
     <h4>Queue Statistic Graph</h4>
 
     <div class="row">
       <div class="col-xs-12" style="margin-top: 10px;height:40%; width:80%">
-        <canvas baseChart [datasets]="messagesChartData" 
-        [options]="msgsChartOptions"
-        [labels]="bytesChartLabels"
-        [colors]="lineChartColors"
-        [legend]="barChartLegend" 
-        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        <canvas baseChart [datasets]="messagesChartData" [options]="msgsChartOptions" [labels]="bytesChartLabels" [colors]="lineChartColors"
+          [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
         </canvas>
       </div>
     </div>
 
     <div class="row">
       <div class="col-xs-12" style="margin-top: 10px;height:40%; width:80%">
-        <canvas baseChart 
-        [datasets]="bytesChartData" 
-        [labels]="messagesChartLabels" 
-        [colors]="bytesChartColors" 
-		[options]="bytesChartOptions" 
-        [legend]="barChartLegend" 
-        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        <canvas baseChart [datasets]="bytesChartData" [labels]="messagesChartLabels" [colors]="bytesChartColors" [options]="bytesChartOptions"
+          [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
         </canvas>
       </div>
     </div>

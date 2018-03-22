@@ -25,8 +25,9 @@
       </ng-container>
       <!-- uri Column -->
       <ng-container matColumnDef="uri">
-        <mat-header-cell *matHeaderCellDef> Uri </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.channelUri}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Download URL </mat-header-cell>
+        <!-- <mat-cell *matCellDef="let element"> {{element.channelUri}} </mat-cell> -->
+        <a  *matCellDef="let element" href={{element.channelUri}}>{{element.channelUri}}</a>
       </ng-container>
 
       <!-- Action Column -->
