@@ -22,7 +22,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened="false" class="nav" (openedChange)="onOpenedChange()">
-    <ul>
+    <ul  style="padding:0">
 
       <li class="nav-item">
         <a class="nav-link" routerLink="ldshs" [ngClass]="{ 'active': selectedMenuItem == 'ldshs' }" (click)="clicked('ldshs')">
