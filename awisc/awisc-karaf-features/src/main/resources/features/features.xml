@@ -21,6 +21,7 @@
 		<feature>awisc-deps</feature>
 		<feature>awisc-database</feature>
 		<feature>awisc-server</feature>
+		<feature>awisc-ui</feature>
 	</feature>
 
 	<feature name="awisc-deps" version="${project.version}">
@@ -42,20 +43,22 @@
 		<bundle>mvn:commons-io/commons-io/2.6</bundle>
 		<bundle>mvn:org.mapstruct/mapstruct-jdk8/1.1.0.Final</bundle>
 		<bundle>wrap:mvn:com.google.code.gson/gson/2.8.2</bundle>
+		<bundle>wrap:mvn:org.yaml/snakeyaml/1.17</bundle>
+		<bundle>wrap:mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.8.5</bundle>
+		<feature>qlack2-util-repack-jpadb</feature>
 		<feature>qlack2-util-repack-querydsl</feature>
 	</feature>
 
 	<feature name="awisc-database" version="${project.version}">
 		<feature>qlack2-util-liquibase</feature>
-		<feature>qlack2-util-repack-jpadb</feature>
 		<feature>pax-jdbc-mysql</feature>
 		<bundle>wrap:mvn:mysql/mysql-connector-java/${mysql-connector-java.version}
+		</bundle>
+		<bundle>mvn:openwis.pilot.awisc/awisc-server-common/${project.version}
 		</bundle>
 	</feature>
 
 	<feature name="awisc-server" version="${project.version}">
-		<bundle>mvn:openwis.pilot.awisc/awisc-server-common/${project.version}
-		</bundle>
 		<bundle>mvn:openwis.pilot.awisc/awisc-server-manager/${project.version}
 		</bundle>
 		<bundle>mvn:openwis.pilot.awisc/awisc-server-ws/${project.version}

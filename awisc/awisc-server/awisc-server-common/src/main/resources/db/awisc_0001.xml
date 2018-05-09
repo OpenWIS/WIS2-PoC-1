@@ -1,0 +1,89 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+ 	<changeSet author="OpenWIS" id="awisc_0001">
+		<sql>
+    								
+			create table awisc_ldsh (
+			   id bigint not null auto_increment,
+			    contact_email varchar(255),
+			    copyright varchar(255),
+			    index_service_base_url varchar(255),
+			    name varchar(255),
+			    registration_date datetime,
+			    system_id varchar(255),
+			    token varchar(255),
+			    primary key (id)
+			) engine=InnoDB;
+			
+			create table awisc_setting (
+			   setting_key varchar(255) not null,
+			    setting_val varchar(255),
+			    primary key (setting_key)
+			) engine=InnoDB;
+			
+			create table awisc_user (
+			   id bigint not null auto_increment,
+			    password varchar(255),
+			    username varchar(255),
+			    primary key (id)
+			) engine=InnoDB;
+			
+			create table awisc_wmo_code (
+			   id bigint not null auto_increment,
+			    code varchar(255),
+			    description varchar(255),
+			    name varchar(255),
+			    url varchar(255),
+			    primary key (id)
+			) engine=InnoDB;
+						
+			insert into awisc_user(id, username, password) values(1, 'awisc', 'openwis');
+			
+			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('title', 'Authoritative WIS Catalogue');
+			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('email', 'admin@awisc.eu');
+			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('copyright', '(c) 2018');
+			INSERT INTO `awisc_setting` (`setting_key`, `setting_val`) VALUES ('header', 'Authoritative WIS Catalogue');
+			
+			INSERT INTO awisc_wmo_code (code, description, name, url, id)
+			VALUES 
+			('grib2/codeflag/4.2/3-1-19',NULL,'Wind speed',NULL,1),
+			('grib2/codeflag/4.2/0-0-13',NULL,'Wind chill factor',NULL,2),
+			('bufr4/codeflag/0-08-001/4',NULL,'Maximum wind level',NULL,3),
+			('bufr4/codeflag/0-08-086/4',NULL,'Maximum wind level',NULL,4),
+			('bufr4/codeflag/0-20-004/16',NULL,'Rain',NULL,5),
+			('bufr4/codeflag/0-20-004/6',NULL,'Rain',NULL,6),
+			('bufr4/codeflag/0-20-005/6',NULL,'Rain',NULL,7),
+			('306/4678/RA',NULL,'Precipitation of rain',NULL,8),
+			('bufr4/codeflag/0-20-003/280',NULL,'Precipitation of rain',NULL,9),
+			('grib2/codeflag/4.2/0-1-34',NULL,'Categorical freezing rain',NULL,10),
+			('grib2/codeflag/4.2/0-15-12',NULL,'Reflectivity of rain',NULL,11),
+			('grib2/codeflag/4.2/0-0-21',NULL,'Apparent temperature',NULL,12),
+			('bufr4/b/12/024',NULL,'Dewpoint temperature',NULL,13),
+			('bufr4/b/12/003',NULL,'Dewpoint temperature',NULL,14),
+			('bufr4/b/12/152',NULL,'Highest daily mean temperature',NULL,15),
+			('grib2/codeflag/4.2/0-0-5',NULL,'Minimum temperature',NULL,16),
+			('bufr4/codeflag/0-08-050/8',NULL,'Minimum temperature',NULL,17),
+			('grib2/codeflag/4.2/0-2-0',NULL,'Wind direction (from which blowing)',NULL,18),
+			('bufr4/b/12/103',NULL,'Dewpoint temperature',NULL,19),
+			('grib2/codeflag/4.2/0-6-24',NULL,'Sunshine',NULL,20),
+			('grib2/codeflag/4.5/6',NULL,'Maximum wind level',NULL,21),
+			('grib2/codeflag/4.2/0-15-11',NULL,'Reflectivity of snow',NULL,22),
+			('bufr4/codeflag/0-20-003/199',NULL,'Tornado',NULL,23),
+			('grib2/codeflag/4.2/0-15-14',NULL,'Reflectivity of hail',NULL,24),
+			('grib2/codeflag/4.2/0-15-10',NULL,'Reflectivity of cloud ice',NULL,25),
+			('common/c-15/me/windDirection',NULL,'wind direction',NULL,26),
+			('grib2/codeflag/4.2/0-15-13',NULL,'Reflectivity of graupel',NULL,27),
+			('grib2/codeflag/4.2/0-2-33',NULL,'Wind fetch',NULL,28),
+			('306/4678/SS','','Sandstorm','',29),
+			('grib2/codeflag/4.2/0-0-6','','Dewpoint temperature','',30),
+			('bufr4/codeflag/0-20-021/5','','Rain','',31),
+			('grib2/codeflag/4.2/0-15-9',NULL,'Reflectivity of cloud droplets',NULL,33),
+			('grib2/codeflag/4.2/10-0-4',NULL,'Direction of wind waves',NULL,34),
+			('49-2/SigWxPhenomena/RDOACT_CLD','','Radioactive cloud','',35);
+			
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>

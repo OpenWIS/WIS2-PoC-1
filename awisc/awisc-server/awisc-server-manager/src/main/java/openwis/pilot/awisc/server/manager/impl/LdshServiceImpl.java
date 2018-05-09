@@ -70,7 +70,7 @@ public class LdshServiceImpl implements LdshService {
 	}
 
 	@Override
-	public void deleteLdsh(Long ldshId) {
+	public void deleteLdsh(Long ldshId) throws Exception{
 		LdshDTO ldsh = getLdsh(ldshId);
 		new JPAQueryFactory(em).delete(qLdsh).where(qLdsh.id.eq(ldshId)).execute();
 		try {

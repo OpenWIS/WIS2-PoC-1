@@ -5,11 +5,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 
 import openwis.pilot.awisc.server.common.dto.DatasetDTO;
 import openwis.pilot.awisc.server.common.dto.LdshDTO;
@@ -34,6 +38,10 @@ import openwis.pilot.awisc.server.manager.util.es.ElasticsearchUtil;
 public class SearchServiceImpl implements SearchService {
 
 	private static final Logger logger = Logger.getLogger(SearchServiceImpl.class.getName());
+	
+	@OsgiService
+	@Inject
+	private ConfigurationAdmin configAdmin;
 
 	private static String PLACEHOLDER_QUERY_STRING = "@QUERY_STRING@";
 	private static String PLACEHOLDER_WMO_CODE_FRAGMENTS = "@WMO_CODE_FRAGMENTS@";
@@ -44,6 +52,17 @@ public class SearchServiceImpl implements SearchService {
 	private static String QUERY_SIMPLE_SEARCH_LDSH_DATASETS_JSON_PATH = "/query.simple-search.ldsh.datasets.json";
 	private static String QUERY_SIMPLE_SEARCH_LDSH_ALL_DATASETS_JSON_PATH = "/query.simple-search.ldsh.all-datasets.json";
 	private static String QUERY_SIMPLE_SEARCH_LDSH_WMO_FRAGMENT_JSON_PATH = "/query.simple-search.ldsh.wmo-fragment.json";
+	
+	static String QLACK_FUSE_SEARCH_CONFIG = "com.eurodyn.qlack2.fuse.search";
+	static String QLACK_FUSE_SEARCH_CONFIG_ES_HOSTS = "es.hosts";
+		
+	private String getElasticSearchHost() throws IOException {
+		Configuration conf = configAdmin.getConfiguration(QLACK_FUSE_SEARCH_CONFIG);
+		String s = ((String)conf.getProperties().get(QLACK_FUSE_SEARCH_CONFIG_ES_HOSTS)).split(",")[0];
+		String[] tokens = s.split("\\:");
+		String host = tokens[0] + "://" + tokens[1] + ":" + tokens[2];
+		return host;
+	}
 
 	/**
 	 * Executes a search against the WMO Codes and returns the results in a string
@@ -185,7 +204,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public SearchResultsDTO simpleSearch(String searchString) throws Exception {
 
-		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
+		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create(getElasticSearchHost(),
 				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
 
 		String wmoCodeFragmentQueryString = getWmoCodeFragmentQueryString(elasticearchService, searchString);
@@ -216,7 +235,7 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	public SearchResultsDTO advancedSearch(SearchDTO searchDTO) throws Exception {
-		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
+		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create(getElasticSearchHost(),
 				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
 
 		String wmoCodeFragmentQueryString = getWmoCodeFragmentQueryString(searchDTO.getWmoCodes());

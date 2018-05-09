@@ -50,8 +50,6 @@
 					<instructions>
 						<Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
 						<DynamicImport-Package>org.hibernate,org.hibernate.proxy,javassist.util.proxy</DynamicImport-Package>
-						<Q-Liquibase-ChangeLog>db/awisc.liquibase.changelog.xml</Q-Liquibase-ChangeLog>
-						<Q-Liquibase-Priority>110</Q-Liquibase-Priority>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -1,25 +1,27 @@
-<project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+  xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>openwis.pilot.awisc</groupId>
     <artifactId>awisc-server</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
-
   <artifactId>awisc-server-common</artifactId>
   <packaging>bundle</packaging>
-
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
         <version>${maven-bundle-plugin.version}</version>
+        <configuration>
+          <instructions>
+            <Q-Liquibase-ChangeLog>db/awisc.liquibase.changelog.xml</Q-Liquibase-ChangeLog>
+            <Q-Liquibase-Priority>85</Q-Liquibase-Priority>
+          </instructions>
+        </configuration>
       </plugin>
     </plugins>
   </build>

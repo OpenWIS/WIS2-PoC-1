@@ -23,6 +23,8 @@ import org.apache.karaf.scheduler.ScheduleOptions;
 import org.apache.karaf.scheduler.Scheduler;
 import org.ops4j.pax.cdi.api.OsgiService;
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.quartz.SchedulerException;
 
 import com.eurodyn.qlack2.fuse.search.api.AdminService;
@@ -66,6 +68,10 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	@Inject
 	@OsgiService
 	IndexingService indexingService;
+	
+	@OsgiService
+	@Inject
+	private ConfigurationAdmin configAdmin;
 
 	@Inject
 	@OsgiService
@@ -84,6 +90,9 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	static String WMO_CODE_INDEX_NAME = "wmo-code";
 	static String WMO_CODE_INDEX_TYPE = "wmo-code-dto";
 	static String WMO_CODE_INDEX_JSON_PATH = "/index.wmo-code.json";
+	
+	static String QLACK_FUSE_SEARCH_CONFIG = "com.eurodyn.qlack2.fuse.search";
+	static String QLACK_FUSE_SEARCH_CONFIG_ES_HOSTS = "es.hosts";
 
 	/**
 	 * Creates the ES indexes
@@ -198,10 +207,20 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	 */
 	@PostConstruct
 	public void prepare() throws Exception {
+		
+		Configuration conf = configAdmin.getConfiguration(QLACK_FUSE_SEARCH_CONFIG);
 		createIndexes();
 		indexWmoCodes();
 		scheduleLdshJob();
 
+	}
+	
+	private String getElasticSearchHost() throws IOException {
+		Configuration conf = configAdmin.getConfiguration(QLACK_FUSE_SEARCH_CONFIG);
+		String s = ((String)conf.getProperties().get(QLACK_FUSE_SEARCH_CONFIG_ES_HOSTS)).split(",")[0];
+		String[] tokens = s.split("\\:");
+		String host = tokens[0] + "://" + tokens[1] + ":" + tokens[2];
+		return host;
 	}
 
 	/*
@@ -245,8 +264,9 @@ public class AwiscIndexingServiceImpl implements AwiscIndexingService, Serializa
 	}
 
 	@Override
-	public void deleteLdsh(String systemId) {
-		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create("http://localhost:9200",
+	public void deleteLdsh(String systemId) throws Exception{
+		
+		AwiscElasticsearchService elasticearchService = JAXRSClientFactory.create(getElasticSearchHost(),
 				AwiscElasticsearchService.class, Util.getJsonProviders(), true);
 		elasticearchService.delete(LDSH_INDEX_NAME, LDSH_INDEX_TYPE, systemId);
 	}

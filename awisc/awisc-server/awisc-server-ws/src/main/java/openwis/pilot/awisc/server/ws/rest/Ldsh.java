@@ -88,11 +88,12 @@ public class Ldsh {
 	 * 
 	 * @param ldshId
 	 *            The Id of the Ldsh to delete.
+	 * @throws Exception 
 	 */
 	@DELETE
 	@JWTNeeded
 	@Path("/{id}")
-	public ServiceMessage deleteLdsh(@PathParam("id") Long ldshId) {
+	public ServiceMessage deleteLdsh(@PathParam("id") Long ldshId) throws Exception {
 		ldshService.deleteLdsh(ldshId);
 		return new ServiceMessage(Constants.MessageCode.LDSH_DELETE_SUCCESS);
 

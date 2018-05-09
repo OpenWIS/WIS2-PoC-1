@@ -1,0 +1,8 @@
+#################################################################
+# AWISC - Installation
+#################################################################
+
+ 
+## Install AWISC features (part 2)
+feature:install awisc-server
+feature:install awisc-ui

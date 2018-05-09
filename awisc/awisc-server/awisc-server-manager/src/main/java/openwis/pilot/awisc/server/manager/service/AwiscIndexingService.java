@@ -26,6 +26,6 @@ public interface AwiscIndexingService {
 	 * @return
 	 * @throws Exception
 	 */
-	void deleteLdsh(String systemId);
+	void deleteLdsh(String systemId) throws Exception;
 
 }

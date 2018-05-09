@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>openwis.pilot</groupId>
   <artifactId>openwis</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-
-  <modules>
-    <module>awisc</module>
-    <module>ldsh</module>
-    <module>rdsh</module>
-    <module>common</module>
-  </modules>
+  
+  <profiles>
+    <profile>
+      <id>all</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>common</module>
+        <module>awisc</module>
+        <module>ldsh</module>
+        <module>rdsh</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>awisc</id>
+      <modules>
+        <module>common</module>
+        <module>awisc</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>ldsh</id>
+      <modules>
+        <module>common</module>
+        <module>ldsh</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>rdsh</id>
+      <modules>
+        <module>common</module>
+        <module>rdsh</module>
+      </modules>
+    </profile>
+  </profiles>
 
   <properties>
     <apt-maven-plugin.version>1.1.3</apt-maven-plugin.version>
@@ -58,7 +84,6 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
-
         <!-- Global configuration for the OSGi bundle plugin -->
         <plugin>
           <groupId>org.apache.felix</groupId>
@@ -75,7 +100,6 @@
             </instructions>
           </configuration>
         </plugin>
-
         <!-- Global configuration for AspectJ plugin -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>

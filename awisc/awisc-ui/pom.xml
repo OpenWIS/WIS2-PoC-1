@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>openwis.pilot.awisc</groupId>
 	<artifactId>awisc-ui</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
@@ -9,6 +9,7 @@
 	<packaging>bundle</packaging>
 	<properties>
 		<skip.npm.deps>false</skip.npm.deps>
+		<ui.base.href>http://localhost:8183/awisc</ui.base.href>
 	</properties>
 	<build>
 		<plugins>
@@ -23,7 +24,6 @@
 					<installDirectory>temp</installDirectory>
 				</configuration>
 				<executions>
-
 					<!-- It will install nodejs and npm -->
 					<execution>
 						<id>install node and npm</id>
@@ -36,7 +36,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-					
 					<!-- It will execute command install @angular/cli -->
 					<execution>
 						<id>npm install angular/cli</id>
@@ -48,7 +47,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-					
 					<!-- It will execute command install @angular-devkit/core -->
 					<execution>
 						<id>npm install angular-devkit/core</id>
@@ -60,7 +58,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install compiler-cli -->
 					<execution>
 						<id>npm install compiler-cli</id>
@@ -72,7 +69,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install cdk -->
 					<execution>
 						<id>npm install cdk</id>
@@ -84,7 +80,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install material -->
 					<execution>
 						<id>npm install material</id>
@@ -96,7 +91,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install animations -->
 					<execution>
 						<id>npm install animations</id>
@@ -108,7 +102,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install hammerjs -->
 					<execution>
 						<id>npm install hammerjs</id>
@@ -120,7 +113,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command install @auth0/angular-jwt -->
 					<execution>
 						<id>npm install @auth0/angular-jwt</id>
@@ -132,7 +124,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute install font-awesome -->
 					<execution>
 						<id>npm install font-awesome</id>
@@ -144,7 +135,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-					
 					<!-- It will execute install ng-trim-value-accessor -->
 					<execution>
 						<id>npm install ng-trim-value-accessor</id>
@@ -156,7 +146,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command "npm install" inside "/angular" directory -->
 					<execution>
 						<id>npm install</id>
@@ -168,7 +157,6 @@
 							<skip>${skip.npm.deps}</skip>
 						</configuration>
 					</execution>
-
 					<!-- It will execute command "npm build" inside "/angular" directory 
 						to clean and create "/dist" directory -->
 					<execution>
@@ -177,12 +165,11 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run prod-build</arguments>
+							<arguments>--prefix ${project.build.directory}/${project.artifactId}-${project.version}/filtered run prod-build</arguments>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 			<!-- Plugin to copy the content of /angular/dist/ directory to output 
 				directory (ie/ /target/transactionManager-1.0/) -->
 			<plugin>
@@ -190,6 +177,26 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.4.2</version>
 				<executions>
+					<execution>
+						<id>filter-resources</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/filtered</outputDirectory>
+							<resources>
+								<resource>
+									<filtering>true</filtering>
+									<directory>${project.basedir}/angular</directory>
+									<includes>
+										<include>package.json</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
 					<execution>
 						<id>default-copy-resources</id>
 						<phase>process-resources</phase>

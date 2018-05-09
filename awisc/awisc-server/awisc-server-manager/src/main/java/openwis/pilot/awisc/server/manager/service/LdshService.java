@@ -25,7 +25,7 @@ public interface LdshService extends Serializable{
    * Deletes a previously registered Ldsh.
    * @param id The Id of the Ldsh to delete.
    */
-  void deleteLdsh(Long id);
+  void deleteLdsh(Long id) throws Exception;
 
   /**
    * Registers or updates an Ldsh into the system.

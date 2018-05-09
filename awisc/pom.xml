@@ -15,33 +15,13 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>awisc-server</module>
-    <module>awisc-ui</module>
     <module>awisc-karaf-features</module>
+    <module>awisc-server</module>
+    <module>awisc-ui</module>    
   </modules>
 
   <profiles>
-    <!--<profile>-->
-      <!--<id>dist</id>-->
-      <!--<modules>-->
-        <!--<module>../awisc-ui</module>-->
-        <!--<module>../awisc-karaf-features</module>-->
-        <!--<module>../awisc-dist</module>-->
-      <!--</modules>-->
-    <!--</profile>-->
-    <!--<profile>-->
-      <!--<id>dist-server</id>-->
-      <!--<modules>-->
-        <!--<module>../awisc-karaf-features</module>-->
-        <!--<module>../awisc-dist</module>-->
-      <!--</modules>-->
-    <!--</profile>-->
-    <!--<profile>-->
-      <!--<id>ui</id>-->
-      <!--<modules>-->
-        <!--<module>../awisc-ui</module>-->
-      <!--</modules>-->
-    <!--</profile>-->
+  
   </profiles>
 
 </project>
