@@ -34,8 +34,9 @@ export class AWISCComponent implements OnInit {
 
   loadAwisc(poptValidation: boolean) {
     this.dataService.getCall("getAwisc").then(result => {
-
-      this.checkAwiscStatus(result, poptValidation);
+      if (result.url.length>0 && result.token.length>0){
+       this.checkAwiscStatus(result, poptValidation);
+      }
       this.buldForm(result);
     })
   }

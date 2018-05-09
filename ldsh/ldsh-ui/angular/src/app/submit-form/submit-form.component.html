@@ -84,7 +84,7 @@
             <div class="field-div3-width" >
               <h4 matSubheader>Available Measurement Types:</h4>
               <mat-form-field floatPlaceholder="never" style="width:17em;" >
-                <input matInput class="ng-trim-ignore" placeholder="Mesurment (WMO code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <input matInput class="ng-trim-ignore" placeholder="Measurement (WMO Code)" [matAutocomplete]="auto" [formControl]="stateCtrl">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngFor="let wmo of filteredStates | async" [value]="wmo.name" (onSelectionChange)="setSelectedCode($event, wmo.code)">
                     <span> {{ wmo.name }}</span>
@@ -206,9 +206,9 @@
           <p>
             Download URL:
             <!-- keep span inline -->
-            <span style="color:#62757f; ">{{pageUrl}}{{servicePrefix}}</span><span style="color:#2196F3; ">/{{relativeUrl.value}}</span>/<span style="color:#1976D2; ">{{filenameprefix.value}}</span>
+            <span style="color:#62757f; ">{{pageUrl}}/{{sysId}}{{servicePrefix}}</span><span style="color:#2196F3; ">/{{relativeUrl.value}}</span>/<span style="color:#1976D2; ">{{filenameprefix.value}}</span>
             <br/>
-            <mat-hint>Insted of Prefix, Filename can be used as well. </mat-hint>
+            <mat-hint>Instead of Prefix, Filename can be used as well. </mat-hint>
           </p>
           <br>
           <p>
@@ -234,7 +234,7 @@
               <mat-radio-group #rdshOptions *ngIf="rdshDis.checked" formControlName=sendData>
                 <mat-radio-button [checked]='disseminateData === false' value="false">Notification Only</mat-radio-button>
 
-                <mat-radio-button [checked]='disseminateData === true' value="true">Notification + Data</mat-radio-button>
+                <mat-radio-button [checked]='disseminateData === true' value="true">Notification & Data</mat-radio-button>
               </mat-radio-group>
             </span>
           </p>
@@ -253,7 +253,7 @@
 
           <!-- Json -ld input -->
           <mat-form-field class="field-full-width" style="width:60%;">
-            <textarea matInput placeholder="Json -ld input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
+            <textarea matInput placeholder="Json-LD input" formControlName="jsonLd" matTextareaAutosize matAutosizeMinRows="16" matAutosizeMaxRows="24"
               class="field-full-width" rows="20"></textarea>
           </mat-form-field>
 

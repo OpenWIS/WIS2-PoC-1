@@ -36,6 +36,7 @@ INSERT INTO `rdsh_user` (`user_name`, `user_password`, `salt`) VALUES ('rdsh', '
   CREATE TABLE `rdsh_channel` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `channel_name` VARCHAR(255) NOT NULL,
+  `channel_topic` VARCHAR(255) NOT NULL,
   `channel_uri` VARCHAR(255) NOT NULL,
   `msessages_sent` VARCHAR(255) NOT NULL,
   `bytes_sent` bigint(20) NOT NULL,

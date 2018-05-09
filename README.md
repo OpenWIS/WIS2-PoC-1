@@ -1,4 +1,4 @@
-# OPP-6-WIS-Djibouti
+# OPP-6-WIS2-PoC-1
 For a background regarding OPP-6, please read the relevant [discussion on OPP-6](https://github.com/OpenWIS/openwis-documentation/issues/309).
 
 This repository contains documentation as well as different Proof of Concept implementations for OPP6.

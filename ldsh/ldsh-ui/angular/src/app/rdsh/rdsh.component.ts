@@ -40,9 +40,10 @@ export class RDSHComponent implements OnInit {
   loadRdsh(poptValidation: boolean) {
 
     this.dataService.getCall("getRdsh").then(result => {
-
+      
+      if (result.url.length>0 && result.token.length>0){
       this.checkRdshStatus(result, poptValidation);
-
+      }
       this.buldForm(result);
     })
   }
