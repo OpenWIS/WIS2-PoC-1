@@ -3,7 +3,7 @@ export const environment = {
 
   CONSTANTS: {
     // The context root of the back-end API.
-    API_ROOT: '/ldsh-gaul/cxf/api/',
+    API_ROOT: '/ldsh/cxf/api/',
 
     //LDSH_SERVER: 'http://localhost:8181',
 

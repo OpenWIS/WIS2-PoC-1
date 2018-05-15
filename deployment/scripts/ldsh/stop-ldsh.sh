@@ -1,13 +1,13 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Restarting AWISC
+echo - Stopping LDSH
 echo - ------------------------------------------------------------------------
 echo && echo
 
-cd restart && \
-    ./restart-awisc-mysql.sh && \
-    ./restart-awisc-elasticsearch.sh && \
-    ./restart-awisc-karaf.sh && \
+cd stop && \
+    ./stop-ldsh-mysql.sh && \
+    ./stop-ldsh-ftpd.sh && \
+    ./stop-ldsh-karaf.sh &&
 
-echo - AWISC started
+echo - LDSH stopped
 echo - ------------------------------------------------------------------------

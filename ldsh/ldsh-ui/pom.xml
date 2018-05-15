@@ -13,6 +13,7 @@
 	<packaging>bundle</packaging>
 	<properties>
 		<!--<skip.npm.deps>${skip.npm.deps}</skip.npm.deps>-->
+		<ui.base.href>http://localhost:8181/ldsh</ui.base.href>
 	</properties>
 	<build>
 		<plugins>
@@ -174,6 +175,26 @@
 				<version>2.4.2</version>
 				<executions>
 					<execution>
+						<id>filter-resources</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/filtered</outputDirectory>
+							<resources>
+								<resource>
+									<filtering>true</filtering>
+									<directory>${project.basedir}/angular</directory>
+									<includes>
+										<include>package.json</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
 						<id>default-copy-resources</id>
 						<phase>process-resources</phase>
 						<goals>
@@ -198,7 +219,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Web-ContextPath>/ldsh-gaul</Web-ContextPath>
+						<Web-ContextPath>/ldsh</Web-ContextPath>
 						<_wab>${project.build.directory}/${project.artifactId}-${project.version}</_wab>
 					</instructions>
 				</configuration>

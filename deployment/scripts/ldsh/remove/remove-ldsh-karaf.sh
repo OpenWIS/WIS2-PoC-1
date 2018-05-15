@@ -1,15 +1,11 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Deleting all AWISC artifacts
+echo - Removing the LDSH Karaf Container
 echo - ------------------------------------------------------------------------
 echo
 
-cd remove && \
-    /remove-awisc-mysql.sh && \
-    /remove-awisc-elasticsearch.sh && \
-    /remove-awisc-karaf.sh &&
+sudo docker rm openwis-ldsh-karaf -f
 
-echo
-echo - AWISC artifacts deleted
+echo - LDSH FTPD Karaf removed
 echo - ------------------------------------------------------------------------
 

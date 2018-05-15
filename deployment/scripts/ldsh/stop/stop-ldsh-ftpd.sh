@@ -1,15 +1,10 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Deleting all AWISC artifacts
+echo - Stopping the LDSH FTPD
 echo - ------------------------------------------------------------------------
 echo
 
-cd remove && \
-    /remove-awisc-mysql.sh && \
-    /remove-awisc-elasticsearch.sh && \
-    /remove-awisc-karaf.sh &&
+sudo docker stop openwis-ldsh-ftpd
 
-echo
-echo - AWISC artifacts deleted
+echo - LDSH FTPD stopped
 echo - ------------------------------------------------------------------------
-

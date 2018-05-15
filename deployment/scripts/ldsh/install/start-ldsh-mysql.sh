@@ -1,23 +1,23 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Starting the AWISC MySQL container
+echo - Starting the LDSH MySQL container
 echo - ------------------------------------------------------------------------
 echo && echo
 
-sudo docker start openwis-awisc-mysql
+sudo docker start openwis-ldsh-mysql
 
 echo
 echo - ------------------------------------------------------------------------
 echo - Configuring Docker Container...
 echo
 
-sudo docker cp ../injected/awisc-docker-injected-mysql.sh openwis-awisc-mysql:/ && \
-    sudo docker cp ../injected/awisc-docker-injected-mysql-configuration-script openwis-awisc-mysql:/ && \
-    sudo docker exec openwis-awisc-mysql /awisc-docker-injected-mysql.sh
+sudo docker cp ../injected/ldsh-docker-injected-mysql.sh openwis-ldsh-mysql:/ && \
+    sudo docker cp ../injected/ldsh-docker-injected-mysql-configuration-script openwis-ldsh-mysql:/ && \
+    sudo docker exec openwis-ldsh-mysql /ldsh-docker-injected-mysql.sh
 echo
 
-echo - AWISC MySQL started
+echo - LDSH MySQL started
 echo - ------------------------------------------------------------------------
 
 # Use the command below on the host machine, if you want to open a shell into the docker container
-# sudo docker exec -i -t openwis-awisc-mysql /bin/bash
+# sudo docker exec -i -t openwis-ldsh-mysql /bin/bash

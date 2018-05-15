@@ -1,15 +1,15 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Deleting all AWISC artifacts
+echo - Deleting all LDSH artifacts
 echo - ------------------------------------------------------------------------
 echo
 
 cd remove && \
-    /remove-awisc-mysql.sh && \
-    /remove-awisc-elasticsearch.sh && \
-    /remove-awisc-karaf.sh &&
+    ./remove-ldsh-mysql.sh && \
+    ./remove-ldsh-ftpd.sh && \
+    ./remove-ldsh-karaf.sh &&
 
 echo
-echo - AWISC artifacts deleted
+echo - LDSH artifacts deleted
 echo - ------------------------------------------------------------------------
 

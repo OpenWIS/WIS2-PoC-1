@@ -1,15 +1,13 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Deleting all AWISC artifacts
+echo - Restarting the LDSH FTPD
 echo - ------------------------------------------------------------------------
 echo
 
-cd remove && \
-    /remove-awisc-mysql.sh && \
-    /remove-awisc-elasticsearch.sh && \
-    /remove-awisc-karaf.sh &&
+sudo docker start openwis-ldsh-ftpd
 
-echo
-echo - AWISC artifacts deleted
+echo - LDSH FTPD started
 echo - ------------------------------------------------------------------------
 
+# Use the command below on the host machine, if you want to open a shell into the docker container
+# sudo docker exec -i -t openwis-ftpd-ldsh /bin/bash

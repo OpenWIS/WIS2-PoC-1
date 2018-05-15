@@ -1,10 +1,12 @@
-## Installation
+#################################################################
+# LDSH - Installation
+#################################################################
  
 ### Configure the managed datasource
 config:edit org.ops4j.datasource-ldsh
 config:property-set user root
-config:property-set password jijikos
-config:property-set url jdbc:mysql://localhost:3306/openwis?autoReconnect=true&createDatabaseIfNotExist=true
+config:property-set password 123456
+config:property-set url jdbc:mysql://openwis-ldsh-mysql:3306/openwis?autoReconnect=true&createDatabaseIfNotExist=true
 config:property-set databaseName  openwis 
 config:property-set dataSourceName openwisDS 
 config:property-set osgi.jdbc.driver.name mysql
@@ -29,7 +31,7 @@ config:update
  
 
 config:edit openwis.ldsh
-config:property-set ftp_server ftp://localhost/?delay=5s&delete=true&passiveMode=true&password=openwis&username=openwis
+config:property-set ftp_server ftp://openwis-ldsh-ftpd/?delay=5s&delete=true&passiveMode=false&password=openwis&username=openwis
 config:property-set trg_file  target/download
 config:property-set jwt_secret 7fa6c11b-b8d4-1adb-c60d-1f6efbeec457
 config:update
@@ -37,18 +39,6 @@ config:update
 
 ### Install LDSH Karaf features repository
 feature:repo-add mvn:openwis.pilot.ldsh/ldsh-karaf-features/LATEST/xml/features
- 
- #feature:install ldsh
 
-### Install DB connectivity feature and automatic Liquibase update
-feature:install ldsh-database
- 
-### Install dependencies
-feature:install ldsh-deps
- 
-### Install the server feature
-feature:install ldsh-server
-
-### Workaround for entity class cast exception
-# refresh hibernate-osgi
- 
+### Install LDSH
+feature:install ldsh

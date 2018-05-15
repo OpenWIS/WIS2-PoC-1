@@ -1,16 +1,19 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Creating AWISC MySQL Docker Container
+echo - Creating LDSH FTPD Docker Container
 echo - ------------------------------------------------------------------------
 echo && echo
 
 echo - ------------------------------------------------------------------------
 echo - Creating Docker Container...
-sudo rm -rf $(pwd)/../../../artifacts/awisc-mysql
-mkdir $(pwd)/../../../artifacts/awisc-mysql
-sudo docker create --name=openwis-awisc-mysql -p 3338:3306 -e MYSQL_ROOT_PASSWORD="123456" -v $(pwd)/../../../artifacts/awisc-mysql:/var/lib/mysql mysql/mysql-server:5.7 
+sudo docker run --name=openwis-ldsh-ftpd -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -d stilliard/pure-ftpd:latest
 echo
 
+echo - ------------------------------------------------------------------------
+echo - Stopping Docker Container...
+echo
+sudo docker stop openwis-ldsh-ftpd
 
-echo - AWISC MySQL Docker Container Created Successfully
+
+echo - LDSH FTPD Docker Container Created Successfully
 echo - ------------------------------------------------------------------------

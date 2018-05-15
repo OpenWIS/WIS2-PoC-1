@@ -1,17 +1,17 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Creating AWISC Karaf Docker Container
+echo - Creating LDSH Karaf Docker Container
 echo - ------------------------------------------------------------------------
 echo && echo
 
 echo - ------------------------------------------------------------------------
 echo - Assembling Docker Container...
 echo
-sudo docker create -v $(pwd)/../../../artifacts/awisc:/root/.m2/repository \
-    -v $(pwd)/../../../logs/awisc:/opt/karaf/data/log -p 8183:8181 \
-    --link openwis-awisc-mysql --link openwis-awisc-elasticsearch \
-    --name openwis-awisc-karaf openwis-karaf
+sudo docker create -v $(pwd)/../../../artifacts/ldsh:/root/.m2/repository \
+    -v $(pwd)/../../../logs/ldsh:/opt/karaf/data/log -p 8181:8181 \
+    --link openwis-ldsh-mysql --link openwis-ldsh-ftpd \
+    --name openwis-ldsh-karaf openwis-karaf
 
 
-echo - AWISC Karaf Docker Container Created Successfully
+echo - LDSH Karaf Docker Container Created Successfully
 echo - ------------------------------------------------------------------------

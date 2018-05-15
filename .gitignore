@@ -104,3 +104,11 @@ ldsh/ldsh-server/ldsh-server-ws/\.classpath
 ldsh/ldsh-server/ldsh-server-ws/\.project
 
 ldsh/ldsh-server/\.project
+
+rdsh/rdsh-ui/angular/node_modules/
+
+rdsh/rdsh-ui/angular/dist/
+
+ldsh/ldsh-ui/angular/node_modules/
+
+ldsh/ldsh-ui/angular/dist/
