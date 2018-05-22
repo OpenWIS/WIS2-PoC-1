@@ -1,0 +1,5 @@
+update mysql.user set host ='%' where user='root';
+GRANT ALL PRIVILEGES ON *.* TO root@'%';
+FLUSH PRIVILEGES;
+CREATE DATABASE openwis CHARACTER SET utf8 COLLATE utf8_general_ci;
+exit

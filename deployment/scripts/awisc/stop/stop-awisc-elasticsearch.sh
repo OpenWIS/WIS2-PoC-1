@@ -7,4 +7,3 @@ echo
 sudo docker stop openwis-awisc-elasticsearch
 
 echo - AWISC Elasticsearch stopped
-echo - ------------------------------------------------------------------------

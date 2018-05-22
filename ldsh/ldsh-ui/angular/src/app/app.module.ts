@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {JwtModule} from "@auth0/angular-jwt";
 import { AuthService } from './services/auth.service';
+import { ProxyService } from "./services/proxy.service";
 import {OkCancelDialogComponent} from './shared/ok-cancel-dialog.component';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 import { environment } from '../environments/environment';
@@ -55,7 +56,7 @@ export function getJwtToken(): string {
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: APP_BASE_HREF, useValue: '!'},
-    AuthGuard, AuthService],
+    AuthGuard, AuthService, ProxyService],
   entryComponents: [OkCancelDialogComponent],
    bootstrap: [AppComponent]
 })

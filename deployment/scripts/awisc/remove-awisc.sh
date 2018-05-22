@@ -5,11 +5,10 @@ echo - ------------------------------------------------------------------------
 echo
 
 cd remove && \
-    /remove-awisc-mysql.sh && \
-    /remove-awisc-elasticsearch.sh && \
-    /remove-awisc-karaf.sh &&
+    ./remove-awisc-mysql.sh && \
+    ./remove-awisc-elasticsearch.sh && \
+    ./remove-awisc-karaf.sh &&
 
 echo
 echo - AWISC artifacts deleted
-echo - ------------------------------------------------------------------------
 

@@ -161,8 +161,8 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<!-- <arguments>run prod-build</arguments> -->
-							<arguments>run dev-build</arguments>
+							<arguments>--prefix ${project.build.directory}/${project.artifactId}-${project.version}/filtered run prod-build</arguments>
+							<!-- <arguments>run dev-build</arguments> -->
 						</configuration>
 					</execution>
 				</executions>

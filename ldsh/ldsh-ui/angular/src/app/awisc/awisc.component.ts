@@ -6,6 +6,9 @@ import { DataService } from "../data.service";
 import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { RemoteSystem } from "../dto/RemoteSystem.dto";
+import { ProxyService } from "../services/proxy.service";
+import { environment } from "../../environments/environment";
+import { ForwardRequestDTO } from "../dto/ForwardRequest.dto";
 
 
 @Component({
@@ -23,7 +26,7 @@ export class AWISCComponent implements OnInit {
   registrationStatus: String = "Not registered"
 
 
-  constructor(private dataService: DataService, public snackBar: MatSnackBar, private router: Router) {
+  constructor(private dataService: DataService, public snackBar: MatSnackBar, private proxyService:ProxyService, private router: Router) {
     AppComponent.selectedMenuItem = 'awisc';
   }
 
@@ -113,18 +116,36 @@ export class AWISCComponent implements OnInit {
 
   checkAwiscStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.awiscCall(rs.url+"", "ldsh/token/" + rs.token).then(replay => {
+    let request: ForwardRequestDTO = new ForwardRequestDTO();
+    request.method = "GET";
+    request.uri = rs.url + environment.CONSTANTS.AWISC_ROOT + "ldsh/token/" + rs.token;
+    request.data = null;
 
+    this.proxyService.forward(request).subscribe(response => {
       this.registrationStatus = "Verified";
       this.popValidationMsg(poptValidation);
-    }, onError => {
-      console.log(onError);
-      this.registrationStatus = onError.name;
-      this.snackBar.open('There was a problem registering to the AWISC: ' + onError.message, null, {
+
+    }, error => {
+      console.log(error);
+      this.registrationStatus = error.name;
+      this.snackBar.open('There was a problem registering with the AWISC: ' + error.message, null, {
         duration: 5000,
         verticalPosition: 'top'
       });
     });
+
+    // this.dataService.awiscCall(rs.url+"", "ldsh/token/" + rs.token).then(replay => {
+
+    //   this.registrationStatus = "Verified";
+    //   this.popValidationMsg(poptValidation);
+    // }, onError => {
+    //   console.log(onError);
+    //   this.registrationStatus = onError.name;
+    //   this.snackBar.open('There was a problem registering to the AWISC: ' + onError.message, null, {
+    //     duration: 5000,
+    //     verticalPosition: 'top'
+    //   });
+    // });
 
   }
 

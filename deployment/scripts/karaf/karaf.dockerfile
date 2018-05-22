@@ -23,6 +23,6 @@ WORKDIR /opt/karaf
 
 VOLUME ["/root/.m2/repository", "/opt/karaf/data/log"]
 
-EXPOSE 1099 3306 8101 8181 44444
+EXPOSE 1099 3306 5005 8101 8181 44444
 
 CMD tail -f /dev/null

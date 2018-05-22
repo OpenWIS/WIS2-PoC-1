@@ -7,4 +7,3 @@ echo
 sudo docker stop openwis-ldsh-ftpd
 
 echo - LDSH FTPD stopped
-echo - ------------------------------------------------------------------------

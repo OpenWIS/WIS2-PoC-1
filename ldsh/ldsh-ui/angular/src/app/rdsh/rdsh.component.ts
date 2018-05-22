@@ -3,10 +3,12 @@ import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { ViewChild } from "@angular/core";
 import { AppComponent } from "../app.component";
 import { DataService } from "../data.service";
+import { ProxyService } from "../services/proxy.service";
 import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { RemoteSystem } from "../dto/RemoteSystem.dto";
 import { environment } from "../../environments/environment";
+import { ForwardRequestDTO } from "../dto/ForwardRequest.dto";
 
 
 @Component({
@@ -26,7 +28,7 @@ export class RDSHComponent implements OnInit {
   registrationStatus: String = "Not registered"
 
 
-  constructor(private dataService: DataService, public snackBar: MatSnackBar, private router: Router, ) {
+  constructor(private dataService: DataService, private proxyService:ProxyService, public snackBar: MatSnackBar, private router: Router) {
     AppComponent.selectedMenuItem = 'rdsh';
   }
 
@@ -51,19 +53,36 @@ export class RDSHComponent implements OnInit {
 
   checkRdshStatus(rs: RemoteSystem, poptValidation: boolean): any {
 
-    this.dataService.remoteCall("" + rs.url + environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
-      this.registrationStatus = "Verified";
+    let request: ForwardRequestDTO = new ForwardRequestDTO();
+    request.method = "GET";
+    request.uri = rs.url + environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token;
+    request.data = null;
 
+    this.proxyService.forward(request).subscribe(response => {
+      this.registrationStatus = "Verified";
       this.popValidateOk(poptValidation);
 
-    }, onError => {
-      console.log(onError);
-      this.registrationStatus = onError.name;
-      this.snackBar.open('There was a problem registering to the RDSH: ' + onError.message, null, {
+    }, error => {
+      console.log(error);
+      this.registrationStatus = error.name;
+      this.snackBar.open('There was a problem registering with the RDSH: ' + error.message, null, {
         duration: 5000,
         verticalPosition: 'top'
       });
     });
+    // this.dataService.remoteCall("" + rs.url + environment.CONSTANTS.RDSH_ROOT + "ldsh/token/" + rs.token).then(replay => {
+    //   this.registrationStatus = "Verified";
+
+    //   this.popValidateOk(poptValidation);
+
+    // }, onError => {
+    //   console.log(onError);
+    //   this.registrationStatus = onError.name;
+    //   this.snackBar.open('There was a problem registering to the RDSH: ' + onError.message, null, {
+    //     duration: 5000,
+    //     verticalPosition: 'top'
+    //   });
+    // });
   }
 
 

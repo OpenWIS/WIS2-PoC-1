@@ -20,7 +20,7 @@ export class DataService {
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
         this.options = new RequestOptions({ headers: this.headers });
     }
-
+    
     public awiscCall<T>(url: string, cmd: string): Promise<any> {
         return this.httpClient.get<T>(url + environment.CONSTANTS.AWISC_ROOT + cmd).toPromise();
     }

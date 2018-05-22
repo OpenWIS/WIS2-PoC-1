@@ -2,9 +2,8 @@
 echo - ------------------------------------------------------------------------
 echo - Starting the Authoritative WIS Catalogue application
 echo - ------------------------------------------------------------------------
-echo && echo
+echo
 
-echo - ------------------------------------------------------------------------
 echo - Starting AWISC Karaf...
 echo
 #sudo docker start openwis-awisc-karaf -a -i && \
@@ -15,12 +14,7 @@ sudo docker start openwis-awisc-karaf && \
   sudo docker exec openwis-awisc-karaf /opt/karaf/awisc-docker-injected-karaf.sh
 echo
 
-echo - ------------------------------------------------------------------------
 echo - Karaf Started
-
-
-echo - Tailing log
-echo - ------------------------------------------------------------------------
 
 # Use the command below on the host machine, if you want to open a shell into the docker container
 # sudo docker exec -i -t openwis-awisc-karaf /bin/bash

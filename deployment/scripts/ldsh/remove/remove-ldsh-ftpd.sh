@@ -7,5 +7,4 @@ echo
 sudo docker rm openwis-ldsh-ftpd -f
 
 echo - LDSH FTPD Container removed
-echo - ------------------------------------------------------------------------
 

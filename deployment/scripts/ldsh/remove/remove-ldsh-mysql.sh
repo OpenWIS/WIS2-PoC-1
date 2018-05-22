@@ -7,5 +7,4 @@ echo
 sudo docker rm openwis-ldsh-mysql -f -v
 
 echo - LDSH MySQL Container removed
-echo - ------------------------------------------------------------------------
 

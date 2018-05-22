@@ -63,7 +63,7 @@ public class BeanFileProcess<T> {
 					datasetMQTTPublishDTO.setDatasetName(dataset.getName());
 					datasetMQTTPublishDTO.setMessage("New data available from "+systemService.getAllSystemProperties().getTitle() +" @"+topic);
 
-					exchange.getOut().setHeader("destinationUrl", systemService.getRdsh().getUrl().replace("https://", "")+"/rdsh/cxf/api/publish");
+					exchange.getOut().setHeader("destinationUrl", systemService.getRdsh().getUrl().replace("http://", "").replace("https://", "")+"/rdsh/cxf/api/publish");
 					exchange.getOut().setHeader("ValidLdshMessage", true);
 					
 					datasetService.updateDatasetLastUpdate(dataset.getId());

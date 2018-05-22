@@ -7,5 +7,4 @@ echo
 sudo docker rm openwis-ldsh-karaf -f
 
 echo - LDSH FTPD Karaf removed
-echo - ------------------------------------------------------------------------
 

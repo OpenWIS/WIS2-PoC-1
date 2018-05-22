@@ -1,5 +1,4 @@
 #!/bin/bash
-echo - ------------------------------------------------------------------------
 echo - Finalizing FTPD configuration
 echo
 
@@ -9,7 +8,6 @@ apt-get install -y netcat
 
 
 echo
-echo - ------------------------------------------------------------------------
 echo - Waiting for FTPD to start...
 
 while ! nc -z localhost 21; do
@@ -18,11 +16,9 @@ while ! nc -z localhost 21; do
 done
 
 echo
-echo - ------------------------------------------------------------------------
 echo - FTPD starterd
 echo
 
 echo
 echo - Configuration completed
-echo - ------------------------------------------------------------------------
 exit

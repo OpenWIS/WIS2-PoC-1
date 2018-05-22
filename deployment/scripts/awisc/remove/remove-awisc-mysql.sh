@@ -7,5 +7,4 @@ echo
 sudo docker rm openwis-awisc-mysql -f -v
 
 echo - AWISC MySQL Container removed
-echo - ------------------------------------------------------------------------
 

@@ -2,9 +2,10 @@
 echo - ------------------------------------------------------------------------
 echo - Building and deploying LDSH
 echo - ------------------------------------------------------------------------
-echo && echo
+echo
 
-cd install && \
+../network/build-network.sh && \
+    cd install && \
     ./build-ldsh-app.sh $1 && \
     ./build-ldsh-mysql.sh && \
     ./build-ldsh-ftpd.sh && \
@@ -16,4 +17,3 @@ cd install && \
 
 
 echo - LDSH deployed
-echo - ------------------------------------------------------------------------

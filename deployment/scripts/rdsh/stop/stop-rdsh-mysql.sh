@@ -1,10 +1,10 @@
 #!/bin/bash
 echo - ------------------------------------------------------------------------
-echo - Stopping the LDSH FTPD
+echo - Stopping the RDSH MySQL container
 echo - ------------------------------------------------------------------------
 echo
 
-sudo docker stop openwis-ldsh-ftpd
+sudo docker stop openwis-rdsh-mysql
 
-echo - LDSH FTPD stopped
-echo - ------------------------------------------------------------------------
+echo - RDSH MySQL stopped
+

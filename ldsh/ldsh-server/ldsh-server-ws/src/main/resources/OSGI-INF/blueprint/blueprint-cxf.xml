@@ -17,6 +17,7 @@
 			<ref component-id="awiscIndexResource" />
 			<ref component-id="jWTResource" />
 			<ref component-id="fileResource" />
+			<ref component-id="proxyResource" />
 
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>

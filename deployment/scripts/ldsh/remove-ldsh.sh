@@ -11,5 +11,4 @@ cd remove && \
 
 echo
 echo - LDSH artifacts deleted
-echo - ------------------------------------------------------------------------
 

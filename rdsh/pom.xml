@@ -16,9 +16,9 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>rdsh-server</module>
-    <module>rdsh-ui</module> 
     <module>rdsh-karaf-features</module>
+    <module>rdsh-server</module>
+    <module>rdsh-ui</module>
   </modules>
 
 </project>

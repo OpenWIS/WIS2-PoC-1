@@ -2,9 +2,10 @@
 echo - ------------------------------------------------------------------------
 echo - Building and deploying AWISC
 echo - ------------------------------------------------------------------------
-echo && echo
+echo
 
-cd install && \
+../network/build-network.sh && \
+    cd install && \
     ./build-awisc-app.sh $1 && \
     ./build-awisc-mysql.sh && \
     ./build-awisc-elasticsearch.sh && \
@@ -16,4 +17,3 @@ cd install && \
 
 
 echo - AWISC deployed
-echo - ------------------------------------------------------------------------

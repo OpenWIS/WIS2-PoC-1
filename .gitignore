@@ -1,4 +1,8 @@
 
+.sonarlint
+
+.vscode
+
 awisc/\.recommenders/
 
 awisc/RemoteSystemsTempFiles/
@@ -112,3 +116,33 @@ rdsh/rdsh-ui/angular/dist/
 ldsh/ldsh-ui/angular/node_modules/
 
 ldsh/ldsh-ui/angular/dist/
+
+ldsh/ldsh-karaf-features/\.project
+
+ldsh/ldsh-ui/angular/package-lock\.json
+
+ldsh/\.project
+
+rdsh/rdsh-karaf-features/\.project
+
+rdsh/rdsh-server/rdsh-server-common/\.classpath
+
+rdsh/rdsh-server/rdsh-server-common/\.project
+
+rdsh/rdsh-server/rdsh-server-manager/\.classpath
+
+rdsh/rdsh-server/rdsh-server-manager/\.project
+
+rdsh/rdsh-server/rdsh-server-ws/\.classpath
+
+rdsh/rdsh-server/rdsh-server-ws/\.project
+
+rdsh/rdsh-server/\.project
+
+rdsh/rdsh-ui/angular/package-lock\.json
+
+rdsh/\.project
+
+RemoteSystemsTempFiles/
+
+\.project

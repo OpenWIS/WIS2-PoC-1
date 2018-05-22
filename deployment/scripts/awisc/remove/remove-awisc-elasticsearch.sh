@@ -7,5 +7,4 @@ echo
 sudo docker rm openwis-awisc-elasticsearch -f
 
 echo - AWISC Elasticsearch Container removed
-echo - ------------------------------------------------------------------------
 
