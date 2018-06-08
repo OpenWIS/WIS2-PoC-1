@@ -403,7 +403,7 @@ This means that opening a browser and typing any of the above URLs would fetch y
 
 ### Container To Container
 
-But Docker containers are on a different network, and different rules apply. For example, if you could open a browser within LDSH and you wanted to view the RDSH home page, you would have to type this URL: `http://openwis-rdsh-karaf:8181`.
+But Docker containers are on a different network, and different rules apply. For example, if you could open a browser within LDSH and you wanted to view the RDSH home page, you would have to type this URL: `http://openwis-rdsh-karaf:8181/rdsh`.
 
 This is because the Docker container names are mapped with each other as if they are network hosts, and the **internal** ports become available. If you noticed on the table earlier, RDSH is mapped **to the host** on port **8182**. But internally it exposes port **8181**, and that is the port used by the Docker network bridge.
 
