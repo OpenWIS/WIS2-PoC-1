@@ -23,7 +23,7 @@ Docker CE         | Latest version. Available [here](https://www.docker.com/comm
 
 > #### Docker Networking
 > 
-> Please have a look at [this](Docker-Internet-Connectivity-Problems) document if Docker appears unable to connect to the Internet.
+> Please have a look at [this](Docker-Internet-Connectivity-Problems.md) document if Docker appears unable to connect to the Internet.
 
 > #### Sudo Rights
 > 
