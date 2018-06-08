@@ -119,8 +119,6 @@ The file `deployment/scripts/karaf/karaf.dockerfile` provides instructions to Do
 
 #### Network
 
-In order to be able to create the application Docker containers, the Karaf build script must be executed first. It will create a "generic"  Docker image that will be used subsequently by the application scripts.
-
 ID     | File                                                   | Requires                 | Description
 -------|--------------------------------------------------------|--------------------------|------------------------
 N.1    | `deployment/scripts/network/build-network.sh`          | -                        | Creates the `openwis-docker-bridge` bridge network, onto which every container will be connected. This script is called explicitly by other scripts when Docker containers are created.
