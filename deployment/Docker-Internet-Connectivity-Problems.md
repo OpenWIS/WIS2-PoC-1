@@ -1,4 +1,4 @@
-## Information
+## Important Information
 It is possible that when running docker within a corporate network, connection to the internet from within the container cannot be established.
 In short, this is due to a DNS resolution error.
 
