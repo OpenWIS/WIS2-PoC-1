@@ -15,7 +15,7 @@ Docker CE         | Latest version. Available [here](https://www.docker.com/comm
 
 > #### Node.js & Angular
 > 
-> Node.js and Angular are also used by the project, by the build process will automatically install them locally for each application.
+> Node.js and Angular are also used by the project, but the build process will automatically install them locally for each application.
 
 > #### Internet Access
 > 
